@@ -1,0 +1,88 @@
+{
+  "version": "1",
+  "paperSize": "A4",
+  "image": "/images/placeholder/man-face.jpeg",
+  "personalInformation": {
+    "name": "Jakub",
+    "surname": "Ptak",
+    "jobTitle": "programmer",
+    "shortDescription": "<p><strong style=\"color: rgb(0, 0, 0);\">Lorem ipsum dolor sit amet, c</strong><span style=\"color: rgb(0, 0, 0);\">onsectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</span></p>"
+  },
+  "languages": {
+    "content": []
+  },
+  "perks": {
+    "content": []
+  },
+  "skills": {
+    "title": "Skills",
+    "content": [
+      {
+        "name": "Some skill",
+        "level": ""
+      },
+      {
+        "name": "Some skill",
+        "level": "1"
+      },
+      {
+        "name": "Some skill",
+        "level": "2"
+      },
+      {
+        "name": "Some skill",
+        "level": "3"
+      },
+      {
+        "name": "Some skill",
+        "level": "4"
+      },
+      {
+        "name": "Some skill",
+        "level": "5"
+      },
+      {
+        "name": "Some skill",
+        "level": "B2"
+      },
+      {
+        "name": "Some skill",
+        "level": "C1"
+      }
+    ]
+  },
+  "education": {
+    "title": "Education",
+    "content": [
+      {
+        "from": "09.1990",
+        "to": "11.2020",
+        "school": "AGH University of Science and Technology",
+        "degree": "Bechalor",
+        "description": "<p><span style=\"color: rgb(0, 0, 0);\">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</span></p>",
+        "city": "Cracow"
+      }
+    ]
+  },
+  "workExperience": {
+    "title": "Work Experience",
+    "content": [
+      {
+        "from": "02.2020",
+        "to": "Currently",
+        "title": "Web Developer",
+        "description": "<ul><li><span style=\"color: rgb(0, 0, 0);\">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </span></li><li><span style=\"color: rgb(0, 0, 0);\">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </span></li><li><span style=\"color: rgb(0, 0, 0);\">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. </span></li></ul>",
+        "city": "Cracow",
+        "company": "Software Mansion"
+      },
+      {
+        "from": "09.2019",
+        "to": "02.2020",
+        "title": "Junior Web Developer",
+        "description": "<ul><li><span style=\"color: rgb(0, 0, 0);\">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </span></li><li><span style=\"color: rgb(0, 0, 0);\">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </span></li><li><span style=\"color: rgb(0, 0, 0);\">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. </span></li></ul><p><br></p>",
+        "city": "Cracow",
+        "company": "OptArt"
+      }
+    ]
+  }
+}
