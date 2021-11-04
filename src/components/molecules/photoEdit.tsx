@@ -4,13 +4,12 @@ import { Button, Modal, Slider, Upload } from "antd";
 import styled from "styled-components";
 import { useDropzone } from "react-dropzone";
 import {
-  CloseOutlined,
   SmileOutlined,
   UploadOutlined,
   ZoomInOutlined,
   ZoomOutOutlined,
 } from "@ant-design/icons/lib";
-import { base64ToDataUrl, blobToBase64 } from "../../utils/blob";
+import { blobToBase64 } from "../../utils/blob";
 
 interface PhotoProps {
   image?: string;
@@ -131,25 +130,11 @@ const Icon = styled(SmileOutlined)`
   }
 `;
 
-export const PhotoEditor: React.FC<PhotoProps> = ({ image, setImage }) => {
-  const [url, setUrl] = useState("");
-  const urlsToRevoke = useRef<string[]>([]);
-  useEffect(() => {
-    if (image) {
-      console.log("CREATING data url");
-      // TODO: Error handling
-      base64ToDataUrl(image).then(url => {
-        setUrl(url);
-        urlsToRevoke.current.push(url);
-      });
-      return () => {
-        urlsToRevoke.current.forEach(url => URL.revokeObjectURL(url));
-        urlsToRevoke.current = [];
-      };
-    } else {
-      setUrl("");
-    }
-  }, [image]);
+export const PhotoEditor: React.FC<PhotoProps & { buttonId?: string }> = ({
+  buttonId,
+  image,
+  setImage,
+}) => {
   const [isEditing, setIsEditing] = useState(false);
   const openModal = useCallback(() => {
     setIsEditing(true);
@@ -163,15 +148,16 @@ export const PhotoEditor: React.FC<PhotoProps> = ({ image, setImage }) => {
 
   return (
     <PreviewWrapper className="picture h-32 w-32 flex relative">
-      {url ? (
+      {image ? (
         <>
           <img
             style={{ maxWidth: "300px" }}
             alt="Selected image"
-            src={url}
+            src={image}
             className="rounded-xl mw-full w-full h-full border-2 border-solid border-gray-100"
           />
           <button
+            id={buttonId}
             type="button"
             onClick={deleteImage}
             className="font-semibold rounded-xl bg-gray-100 py-2 px-4 my-2 mx-auto absolute bottom-0 inset-x-0  flex items-center justify-center">
@@ -180,6 +166,7 @@ export const PhotoEditor: React.FC<PhotoProps> = ({ image, setImage }) => {
         </>
       ) : (
         <button
+          id={buttonId}
           onClick={openModal}
           type="button"
           className="font-semibold flex flex-col items-center justify-center w-full h-full rounded-xl bg-gray-100">

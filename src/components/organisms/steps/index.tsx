@@ -1,65 +1,77 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import { hiddenOnPrint } from "../../atoms/hiddenOnPrint";
 import { Stepper } from "../../molecules/stepper";
-import React from "react";
+import React, { useCallback } from "react";
 import { PersonalInformation } from "./personalInfo";
 import { ResumeModel } from "../../../models/v1";
 import { StateSetter } from "../../../utils/mutators";
-import { Templates } from "./templates";
+import { Appearance } from "./appearance";
 import { WorkExperience } from "./workExperience";
 import { EducationForm } from "./education";
 import { useRouter } from "next/router";
 import { SkillsForm } from "./skills";
+import { InterestsForm } from "./interests";
+import { LegalClauseForm } from "./legalClause";
 
 const Wrapper = styled.div`
   ${hiddenOnPrint}
-  position: sticky;
-  top: 20px;
 `;
+
+const steps = [
+  {
+    path: "/creator/templates",
+    title: "Appearance",
+    element: Appearance,
+  },
+  {
+    path: "/creator/personal-info",
+    title: "Personal info",
+    element: PersonalInformation,
+  },
+  {
+    path: "/creator/experience",
+    title: "Experience",
+    element: WorkExperience,
+  },
+  {
+    path: "/creator/education",
+    title: "Education",
+    element: EducationForm,
+  },
+  {
+    path: "/creator/skills",
+    title: "Skills",
+    element: SkillsForm,
+  },
+  {
+    path: "/creator/interests",
+    title: "Interests",
+    element: InterestsForm,
+  },
+  {
+    path: "/creator/legal-clause",
+    title: "Legal clause",
+    element: LegalClauseForm,
+  },
+];
 
 export const SectionSet: React.FC<{
   state: ResumeModel;
   setState: StateSetter<ResumeModel>;
   className?: string;
 }> = props => {
-  const { query } = useRouter();
-  const initialStep = query.step;
+  const { query, push } = useRouter();
+  const selected = steps.find(p => p.path.replace("/creator/", "") === query.step?.[0]) ?? steps[0];
+  const goTo = useCallback(
+    (path: string) => {
+      push(path, undefined, { shallow: true });
+    },
+    [push],
+  );
   return (
     <div className={props.className}>
       <Wrapper>
-        <Stepper
-          {...props}
-          steps={[
-            {
-              title: "Templates",
-              element: Templates,
-            },
-            {
-              title: "Personal info",
-              element: PersonalInformation,
-            },
-            {
-              title: "Work experience",
-              element: WorkExperience,
-            },
-            {
-              title: "Education",
-              element: EducationForm,
-            },
-            {
-              title: "Skills",
-              element: SkillsForm,
-            },
-            {
-              title: "Education",
-              element: () => null,
-            },
-            {
-              title: "Education",
-              element: () => null,
-            },
-          ]}
-        />
+        <Stepper goTo={goTo} selected={selected.path} {...props} steps={steps} />
       </Wrapper>
     </div>
   );

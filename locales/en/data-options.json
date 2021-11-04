@@ -1,0 +1,19 @@
+{
+  "page-title": "Privacy options",
+  "question": "What do you want to edit?",
+  "responses": {
+    "continue-editing": {
+      "title": "Continue editing",
+      "description": "Last update: {{date}}."
+    },
+    "start-fresh": {
+      "title": "Start fresh",
+      "description": "Create a new resume."
+    },
+    "import-data": {
+      "title": "Import data",
+      "description": "Import data from resume previously.",
+      "file-drop-text": "Drop your file here."
+    }
+  }
+}

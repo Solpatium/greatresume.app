@@ -17,7 +17,9 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
-    "downlevelIteration": true
+    "downlevelIteration": true,
+    "noUncheckedIndexedAccess": true,
+    "incremental": true
   },
   "exclude": [
     "node_modules"
@@ -25,6 +27,7 @@
   "include": [
     "next-env.d.ts",
     "**/*.ts",
-    "**/*.tsx", "pages/_app.js"
+    "**/*.tsx",
+    "pages/_app"
   ]
 }

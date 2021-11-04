@@ -1,7 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { useDebounce, useThrottle } from "react-use";
 import { segmentify } from "../../utils/segmentify";
-import style from "./pagePreview.module.sass";
 
 export const PagePreview: React.FC = ({ children }) => {
   const sourceRef = useRef<any>();
@@ -25,7 +24,7 @@ export const PagePreview: React.FC = ({ children }) => {
       <div className="page-preview-source" ref={sourceRef}>
         {children}
       </div>
-      <div className="generated-preview" ref={resultRef} />
+      <div className="generated-preview " style={{ width: "max-content" }} ref={resultRef} />
     </>
   );
 };

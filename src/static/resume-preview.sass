@@ -9,10 +9,6 @@ $seperator-height: 2px
   box-shadow: 0 8px 30px $color, 0 4px 30px $color
 
 @media screen
-  .generated-preview
-    //background: white
-    padding: 40px
-
   .generated-preview > *
     margin: auto
     margin-bottom: 40px
@@ -22,3 +18,15 @@ $seperator-height: 2px
 .page-A4
   height: 297mm
   width: 210mm
+
+//.pdf-renderer
+//  canvas
+//    max-width: 215.9mm
+
+.pdf-renderer
+  .paper-a4
+    height: 297mm
+    width: 210mm
+  .paper-letter
+    height: 279.4mm
+    width: 215.9mm

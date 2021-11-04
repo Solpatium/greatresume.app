@@ -1,0 +1,17 @@
+{
+  "page-title": "Privacy options",
+  "question": "Should browser keep data after closing this page?",
+  "explanation": "You should select <0>no</0> if the device that you are using is not private, for instance if it is a computer in Internet cafe.",
+  "options": {
+    "yes": {
+      "title": "Yes",
+      "description": "Try to preserve my data for easier editing."
+    },
+    "no": {
+      "title": "No",
+      "description": "Delete my data after closing the page."
+    }
+  },
+  "notice":  "We <0>do not</0> store any of your data on remote servers, we only store it on your device.",
+  "reminder": "You can edit these settings by visiting this page again."
+}

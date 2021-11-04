@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import React from "react";
+import cn from "classnames";
 
 const Text = styled.span`
   display: block;
@@ -8,16 +10,13 @@ const Text = styled.span`
   letter-spacing: 0.6px;
 `;
 
-const Wrapper = styled.label`
-  display: block;
-`;
-
 export const Label: React.FC<{
   name?: string;
   className?: string;
-}> = ({ className, name, children }) => (
-  <Wrapper className={className}>
-    <Text>{name}</Text>
+  target?: string;
+}> = ({ target, className, name, children }) => (
+  <label htmlFor={target} className={cn("block", className)}>
+    <span className="block text-sm font-medium text-gray-700 mb-1">{name}</span>
     {children}
-  </Wrapper>
+  </label>
 );

@@ -40,10 +40,10 @@ const Entry: React.FC<{ state: WorkEntry; setState: StateSetter<WorkEntry> }> = 
 };
 
 export const WorkExperience: FormStep = ({ state, setState, ...props }) => {
-  const makeSetter = useNestObjectState(useNestObjectState(setState)("workExperience"));
+  const makeSetter = useNestObjectState(useNestObjectState(setState)("experience"));
   const entriesSetter = makeSetter("content");
   const makeEntrySetter = useNestArrayState(entriesSetter);
-  const formState = state.workExperience;
+  const formState = state.experience;
   return (
     <StepWrapper {...props}>
       <Input

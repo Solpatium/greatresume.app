@@ -1,0 +1,30 @@
+{
+  "We don't store any of your data on remote servers,\n                  we only store it on your device": "<0>We <1>do not</1> store any of your data on remote servers, we only store it on your device.</0>",
+  "We don't store any of your data on remote servers, we only store it on your device": "<0>We <1>do not</1> store any of your data on remote servers, we only store it on your device.</0>",
+  "Create a new resume": "",
+  "<0>We <1>do not</1> store any of your data on remote servers, we only store it on your device</0>": "<0>Nie przechowujemy <1>żadnych</1> Twoich danych na serwerach, przechowujemy je jedynie na Twoim urządzeniu.</0>",
+  "actions": {
+    "edit": "Edit",
+    "export": "Export",
+    "view-preview": "View"
+  },
+  "data-options": {
+    "title": "Data options",
+    "create-new": {
+      "title": "Start fresh",
+      "description": "Create a new resume."
+    }
+  },
+  "privacy-options": {
+    "title": "Privacy options",
+    "continue-editing": {
+      "title": "Privacy options",
+      "explanation": "Last update: {{date}}."
+    },
+    "start-fresh": {
+      "title": "Start fresh",
+      "explanation": "Create a new resume."
+    },
+    "notice": "<0>We <1>do not</1> store any of your data on remote servers, we only store it on your device.</0>"
+  }
+}

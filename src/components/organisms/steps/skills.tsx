@@ -11,54 +11,6 @@ import { FormStep } from "./types";
 import { StepWrapper } from "../../molecules/stepWrapper";
 import { withKey } from "../../../utils/lists";
 
-const SkillValue: React.FC<{
-  value?: string | number;
-  onChange: (value?: string | number) => void;
-}> = ({ value, onChange }) => {
-  const [customLevel, setCustomLevel] = useState(typeof value === "string" ? value : "");
-  const onTypeChange = useCallback(
-    e => {
-      const selectedOption = e.target.value;
-      let newValue = selectedOption === "custom" ? customLevel : parseInt(selectedOption, 10);
-      if (newValue === value) {
-        newValue = undefined;
-      }
-      onChange(newValue);
-    },
-    [customLevel, onChange, value],
-  );
-  const groupValue = typeof value === "number" ? "" + value : "custom";
-  const radioProps = {
-    onChange: onTypeChange,
-    value: value === undefined ? "no-level" : groupValue,
-    buttonStyle: "solid",
-  } as const;
-  return (
-    <div>
-      <Label name="Level">
-        <Radio.Group {...radioProps}>
-          <Radio.Button value="no-level">Hide</Radio.Button>
-        </Radio.Group>
-        <Radio.Group {...radioProps}>
-          <Radio.Button value="1">Beginner</Radio.Button>
-          <Radio.Button value="2">Intermediate</Radio.Button>
-          <Radio.Button value="3">Advanced</Radio.Button>
-          <Radio.Button value="4">Proficient</Radio.Button>
-        </Radio.Group>
-        <Radio.Group {...radioProps}>
-          <Radio.Button value="custom">Custom</Radio.Button>
-          <Input
-            placeholder="Custom"
-            onChange={setCustomLevel}
-            disabled={value !== "custom"}
-            value={customLevel}
-          />
-        </Radio.Group>
-      </Label>
-    </div>
-  );
-};
-
 const Entry: React.FC<{ state: Skill; setState: StateSetter<Skill> }> = ({ state, setState }) => {
   const makeSetter = useNestObjectState(setState);
   return (

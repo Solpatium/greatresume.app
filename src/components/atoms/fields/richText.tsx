@@ -40,7 +40,14 @@ export const RichTextEditor: React.FC<{
   onChange: StateSetter<string>;
   className?: string;
 }> = ({ className, label, onChange, value }) => (
-  <Label className={className} name={label}>
-    <StyledQuill onChange={onChange} value={value ?? ""} />
+  <Label className={`${className}`} name={label}>
+    <StyledQuill
+      className="rounded-md"
+      modules={{
+        toolbar: [["bold", "italic", "underline", "link"], [{ list: "bullet" }]],
+      }}
+      onChange={onChange}
+      value={value ?? ""}
+    />
   </Label>
 );

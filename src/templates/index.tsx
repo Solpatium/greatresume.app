@@ -27,7 +27,7 @@ export const templates: Record<
     Layout: React.FC;
     render: {
       education: Renderer<EducationEntry>;
-      workExperience: Renderer<WorkEntry>;
+      experience: Renderer<WorkEntry>;
     };
     tags: string[];
     name: string;
@@ -40,7 +40,7 @@ export const templates: Record<
       education: (e, i) => (
         <DatedEntry {...e} key={"" + i} title={e.degree} subtitle={join(", ", e.school, e.city)} />
       ),
-      workExperience: (e, i) => (
+      experience: (e, i) => (
         <DatedEntry {...e} key={"" + i} subtitle={join(", ", e.company, e.city)} />
       ),
       // {

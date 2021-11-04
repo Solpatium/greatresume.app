@@ -1,7 +1,7 @@
 import React from "react";
 import { HTMLText } from "../../components/atoms/htmlText";
 import { ResumeLayout } from "./layout";
-import { SkillEntry, SkillList } from "./parts/skills";
+import { SkillList } from "./parts/skills";
 
 const DivContent: React.FC<{ className?: string; html?: boolean }> = props => (
   <div className={props.children ? props.className : `${props.className} empty`}>
@@ -62,8 +62,8 @@ export const TwoColumnsLayout: ResumeLayout = React.forwardRef(
           )}
           <h1 className="section-title">{data.education.title}</h1>
           {[...education].map(render.education)}
-          <h1 className="section-title">{data.workExperience.title}</h1>
-          {data.workExperience.content.map(render.workExperience)}
+          <h1 className="section-title">{data.experience.title}</h1>
+          {data.experience.content.map(render.experience)}
         </div>
         {/*</div>*/}
       </div>

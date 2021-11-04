@@ -3,10 +3,7 @@ import React, { ReactElement, useCallback } from "react";
 import arrayMove from "array-move";
 import { StateSetter } from "../../utils/mutators";
 import { MenuOutlined } from "@ant-design/icons";
-import styled from "styled-components";
-import { cardBlur } from "../atoms/card";
-import { Button, Card, Collapse } from "antd";
-import { PlusOutlined } from "@ant-design/icons/lib";
+import { Button, Collapse } from "antd";
 import { Label } from "../atoms/fields/label";
 
 const DragHandle = SortableHandle(() => (

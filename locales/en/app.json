@@ -1,0 +1,24 @@
+{
+  "page-title": "Resume creator",
+  "view": "View",
+  "export": "Export",
+  "edit": "Edit",
+  "steps": {
+    "templates":"Templates",
+    "personal-info": "Personal info",
+    "experience": "Experience",
+    "education": "Education",
+    "skills": "Skills"
+  },
+  "defaults": {
+    "paperSize": "A4",
+    "titles": {
+      "languages": "Languages",
+      "interests": "Interests",
+      "skills": "Skills",
+      "education": "Education",
+      "experience": "Experience"
+    },
+    "legal-clause": ""
+  }
+}

@@ -7,7 +7,7 @@ import { StepWrapper } from "../../molecules/stepWrapper";
 import { FormStep } from "./types";
 import { Label } from "../../atoms/fields/label";
 
-export const PersonalInformation: FormStep = ({ state, setState, ...props }) => {
+export const PersonalInformation: FormStep = ({ imageDataUrl, state, setState, ...props }) => {
   const makeSetter = useNestObjectState(useNestObjectState(setState)("personalInformation"));
   const setImage = useNestObjectState(setState)("image");
   const formState = state.personalInformation;
@@ -31,9 +31,10 @@ export const PersonalInformation: FormStep = ({ state, setState, ...props }) => 
         onChange={makeSetter("jobTitle")}
         value={formState["jobTitle"]}
       />
-      <Label name="Image" className="row-start-1 md:row-end-3 md:col-span-2 md:col-start-5">
-        <PhotoEditor image={state.image} setImage={setImage} />
-      </Label>
+      <div className="row-start-1 md:row-end-3 md:col-span-2 md:col-start-5">
+        <Label target="edit-image" name="Image" className="flex" />
+        <PhotoEditor buttonId="edit-image" image={state.image} setImage={setImage} />
+      </div>
       <RichTextEditor
         className="col-span-full"
         label="Short description"

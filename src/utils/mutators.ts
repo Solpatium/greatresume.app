@@ -20,7 +20,6 @@ export const useNestObjectState = <Type extends Record<string, any>>(
       if (cache[key]) {
         return cache[key];
       }
-      console.log("KEY", key);
       const setter = (transformation: Type[Key] | Transformation<Type[Key]>) =>
         parentSetter(value => ({
           ...value,

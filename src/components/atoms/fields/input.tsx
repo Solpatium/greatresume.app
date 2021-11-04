@@ -1,10 +1,9 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { Label } from "./label";
-import styled from "styled-components";
-import { SimpleStateSetter, StateSetter } from "../../../utils/mutators";
-import { useCallback } from "react";
+import { SimpleStateSetter } from "../../../utils/mutators";
+import { OutlinedInput as _Input } from "@material-ui/core";
 import { Input as AntdInput } from "antd";
-
+import styled from "styled-components";
 export const Component = styled(AntdInput)`
   font-weight: 500;
   padding: 15px 20px;
@@ -35,14 +34,29 @@ export const Input: React.FC<{
   const changeHandler = useCallback(e => onChange(e.target.value), [onChange]);
   return (
     <Label className={className} name={label}>
-      <Component
-        className="rounded-sm"
+      <input
+        type="text"
+        name="email"
+        id="email"
+        disabled={disabled}
         value={value}
         onChange={changeHandler}
-        size="large "
-        disabled={disabled}
+        className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+        placeholder={placeholder}
       />
-      {info && <div className="text-sm font-medium text-gray-500 mt-2">{info}</div>}
+
+      {/*<_Input*/}
+      {/*  placeholder={placeholder}*/}
+      {/*  disabled={disabled}*/}
+      {/*  value={value}*/}
+      {/*  onChange={changeHandler}*/}
+      {/*  fullWidth*/}
+      {/*/>*/}
+      {info && (
+        <p className="mt-2 text-sm text-gray-500" id="email-description">
+          {info}
+        </p>
+      )}
     </Label>
   );
 };

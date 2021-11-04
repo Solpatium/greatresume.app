@@ -1,6 +1,7 @@
 import Head from "next/head";
 import Homee from "../src/components/home";
 import { Theme } from "../src/utils/theme";
+
 export default function Home() {
   return (
     <>

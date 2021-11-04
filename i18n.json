@@ -1,0 +1,11 @@
+{
+  "locales": ["en", "pl"],
+  "defaultLocale": "en",
+  "pages": {
+    "*": ["common"],
+    "/": ["home"],
+    "/start": ["data-options"],
+    "/storage-settings": ["privacy-options"],
+    "rgx:/creator/.*$": ["app"]
+  }
+}

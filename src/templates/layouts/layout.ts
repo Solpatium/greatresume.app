@@ -8,6 +8,6 @@ export type ResumeLayout = React.FC<{
   className?: string;
   render: {
     education: Renderer<EducationEntry>;
-    workExperience: Renderer<WorkEntry>;
+    experience: Renderer<WorkEntry>;
   };
 }>;
