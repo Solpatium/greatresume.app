@@ -46,16 +46,16 @@ const Wrapper = () => {
       <Document>
         <Page size={paperSize} style={styles.page}>
           <View style={styles.section}>
-            <Text style={styles.red}>page {paperSize}</Text>
-            <Text style={styles.blue}>page {paperSize}</Text>
-            <Text style={styles.brown}>page {paperSize}</Text>
-            <Text style={styles.blue}>page {paperSize}</Text>
-            <Text style={styles.red}>page {paperSize}</Text>
-            <Text style={styles.blue}>page {paperSize}</Text>
-            <Text style={styles.brown}>page {paperSize}</Text>
-            <Text style={styles.blue}>page {paperSize}</Text>
-            <Text style={styles.red}>page {paperSize}</Text>
-            <Text style={styles.blue}>page {paperSize}</Text>
+            <Text style={styles.red}>1 page {paperSize}</Text>
+            <Text style={styles.blue}>2 page {paperSize}</Text>
+            <Text style={styles.brown}>3 page {paperSize}</Text>
+            <Text style={styles.blue}>4 page {paperSize}</Text>
+            <Text style={styles.red}>5 page {paperSize}</Text>
+            <Text style={styles.blue}>6 page {paperSize}</Text>
+            <Text style={styles.brown}>7 page {paperSize}</Text>
+            <Text style={styles.blue}>8 page {paperSize}</Text>
+            <Text style={styles.red}>9page {paperSize}</Text>
+            <Text style={styles.blue}>10 page {paperSize}</Text>
             <Text style={styles.brown}>page {paperSize}</Text>
             <Text style={styles.blue}>page {paperSize}</Text>
           </View>
@@ -90,7 +90,9 @@ const Wrapper = () => {
       }}>
       iframe
       {url}
-      <ZoomArea>{url && <PdfViewer paperSize={paperSize} url={url} />}</ZoomArea>
+      <div style={{ height: "800px" }} className="overflow-scroll">
+        <ZoomArea>{url && <PdfViewer paperSize={paperSize} url={url} />}</ZoomArea>
+      </div>
       {/*<iframe*/}
       {/*  style={{ width: "50%", height: "100vh" }}*/}
       {/*  src={url + "#toolbar=1&navpanes=1&scrollbar=1"}*/}
