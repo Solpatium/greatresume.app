@@ -5,7 +5,7 @@ import cn from "classnames";
 
 export const DropZone: React.FC<DropzoneOptions> = options => {
   const { getRootProps, getInputProps, isDragActive } = useDropzone(options);
-  const border = !isDragActive ? "border-fuchsia-500" : "border-gray-300";
+  const border = isDragActive ? "border-fuchsia-500" : "border-gray-300";
   return (
     <div
       {...getRootProps()}

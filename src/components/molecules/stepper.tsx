@@ -80,14 +80,14 @@ export const Stepper: React.FC<{
                 "m-[2px]",
                 {
                   "ml-0": index === 0,
-                  "text-blue-600": activeIndex === index,
+                  "text-gray-900": activeIndex === index,
                   "text-gray-600 hover:text-gray-900 ": activeIndex !== index,
                 },
                 "focus-visible:outline-blue",
               )}>
               <span
                 className={classes("pb-1", {
-                  "border-b-solid border-b-2 border-blue-600": activeIndex === index,
+                  "border-b-solid border-b-2 border-gray-900": activeIndex === index,
                 })}>
                 {s.title}
               </span>
