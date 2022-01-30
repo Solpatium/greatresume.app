@@ -1,55 +1,23 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import AvatarEditor from "react-avatar-editor";
-import { Button, Modal, Slider, Upload } from "antd";
+import { EmojiHappyIcon, ZoomInIcon, ZoomOutIcon } from "@heroicons/react/outline";
 import styled from "styled-components";
-import { useDropzone } from "react-dropzone";
-import {
-  SmileOutlined,
-  UploadOutlined,
-  ZoomInOutlined,
-  ZoomOutOutlined,
-} from "@ant-design/icons/lib";
 import { blobToBase64 } from "../../utils/blob";
+import { Modal } from "../layout/modal";
+import { Button } from "../atoms/button";
+import { Form } from "../layout/form";
+import { DropZone } from "../atoms/dropZone";
+import { useToggle } from "react-use";
 
 interface PhotoProps {
   image?: string;
   setImage: (value: string) => void;
 }
 
-const EditorWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-`;
-
-const UploadIcon = styled(UploadOutlined)`
-  margin-top: 20px;
-  font-size: 4rem;
-  color: lightgray;
-`;
-
-const UploadZone = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 300px;
-  border: dashed 2px gray;
-  border-radius: 10px;
-  cursor: pointer;
-`;
-
-const SliderWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  margin-top: 20px;
-`;
-
-const StyledSlider = styled(Slider)`
-  flex: 1;
-  margin: 15px;
-`;
-
-const EditModal: React.FC<PhotoProps & { close: () => void }> = ({ close, image, setImage }) => {
+const EditModal: React.FC<Pick<PhotoProps, "setImage"> & { close: () => void }> = ({
+  close,
+  setImage,
+}) => {
   const [file, setFile] = useState<File>();
   const onImageSave = useCallback(() => {
     if (editorRef.current) {
@@ -58,7 +26,7 @@ const EditModal: React.FC<PhotoProps & { close: () => void }> = ({ close, image,
           blobToBase64(blob)
             .then(base64 => {
               setImage(base64);
-              res();
+              res(base64);
             })
             .catch(rej)
             .finally(close),
@@ -73,24 +41,13 @@ const EditModal: React.FC<PhotoProps & { close: () => void }> = ({ close, image,
     setFile(file);
     // Do something with the files
   }, []);
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({
-    onDrop,
-    accept: "image/*",
-    multiple: false,
-  });
+
   return (
-    <Modal title="Add your picture" visible onOk={onImageSave} onCancel={close}>
-      {isDragActive && "DRAGGING"}
-      {!file && (
-        <UploadZone {...getRootProps()}>
-          <input {...getInputProps()} />
-          Click or drag your file here
-          <UploadIcon />
-        </UploadZone>
-      )}
+    <Modal title="Add your picture" onClose={close}>
+      {!file && <DropZone onDrop={onDrop} accept="image/*" multiple={false} />}
       {file && (
         <>
-          <EditorWrapper>
+          <div className="flex justify-center">
             <AvatarEditor
               ref={editorRef}
               image={file}
@@ -101,12 +58,28 @@ const EditModal: React.FC<PhotoProps & { close: () => void }> = ({ close, image,
               scale={zoom}
               rotate={0}
             />
-          </EditorWrapper>
-          <SliderWrapper>
-            <ZoomOutOutlined />
-            <StyledSlider onChange={setZoom} min={1} max={10} step={0.1} />
-            <ZoomInOutlined />
-          </SliderWrapper>
+          </div>
+          <Form onSubmit={onImageSave}>
+            <div className="flex mt-2">
+              <ZoomOutIcon className="h-5 w-5" />
+              <input
+                onChange={e => setZoom(1 + (parseInt(e.target.value) - 1) / 10)}
+                type="range"
+                min="1"
+                max="100"
+                step="1"
+                defaultValue="1"
+                className="flex-1 mx-2"
+              />
+              <ZoomInIcon className="h-5 w-5" />
+            </div>
+            <div className="mt-5 sm:mt-6 sm:grid sm:grid-cols-2 sm:gap-3 sm:grid-flow-row-dense">
+              <Button secondary onClick={close}>
+                Cancel
+              </Button>
+              <Button type="submit">Save</Button>
+            </div>
+          </Form>
         </>
       )}
     </Modal>
@@ -120,28 +93,12 @@ const PreviewWrapper = styled.div`
   border-radius: 10px;
 `;
 
-const Icon = styled(SmileOutlined)`
-  display: block;
-  margin-top: 10px;
-  svg {
-    width: 50px;
-    height: 50px;
-    color: #8b8b8b;
-  }
-`;
-
 export const PhotoEditor: React.FC<PhotoProps & { buttonId?: string }> = ({
   buttonId,
   image,
   setImage,
 }) => {
-  const [isEditing, setIsEditing] = useState(false);
-  const openModal = useCallback(() => {
-    setIsEditing(true);
-  }, [setIsEditing]);
-  const closeModal = useCallback(() => {
-    setIsEditing(false);
-  }, [setIsEditing]);
+  const [isEditing, toggleEditing] = useToggle(false);
   const deleteImage = useCallback(() => {
     setImage(undefined);
   }, [setImage]);
@@ -167,14 +124,14 @@ export const PhotoEditor: React.FC<PhotoProps & { buttonId?: string }> = ({
       ) : (
         <button
           id={buttonId}
-          onClick={openModal}
+          onClick={toggleEditing}
           type="button"
-          className="font-semibold flex flex-col items-center justify-center w-full h-full rounded-xl bg-gray-100">
+          className="font-semibold flex flex-col items-center justify-center w-full h-full rounded-xl bg-gray-100 ">
           Add image
-          <Icon />
+          <EmojiHappyIcon className="w-10 h-10 text-gray-700" />
         </button>
       )}
-      {isEditing && <EditModal setImage={setImage} close={closeModal} image={image} />}
+      {isEditing && <EditModal setImage={setImage} close={toggleEditing} />}
     </PreviewWrapper>
   );
 };

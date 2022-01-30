@@ -1,6 +1,5 @@
-import React, { useEffect, useRef, useState } from "react";
-import { Document, Page, StyleSheet, Text, usePDF, View } from "@react-pdf/renderer";
-import { isClient } from "react-use/lib/util";
+import React, { useEffect, useState } from "react";
+import { Document, Image, Page, StyleSheet, Text, usePDF, View } from "@react-pdf/renderer";
 import { useCounter } from "react-use";
 import { ZoomArea } from "../src/components/layout/zoomArea";
 import { PdfViewer } from "../src/components/organisms/pdfViewer";
@@ -46,6 +45,7 @@ const Wrapper = () => {
       <Document>
         <Page size={paperSize} style={styles.page}>
           <View style={styles.section}>
+            <Image src="https://picsum.photos/536/354" cache={false} />
             <Text style={styles.red}>1 page {paperSize}</Text>
             <Text style={styles.blue}>2 page {paperSize}</Text>
             <Text style={styles.brown}>3 page {paperSize}</Text>
@@ -91,12 +91,8 @@ const Wrapper = () => {
       iframe
       {url}
       <div style={{ height: "800px" }} className="overflow-scroll">
-        <ZoomArea>{url && <PdfViewer paperSize={paperSize} url={url} />}</ZoomArea>
+        <ZoomArea>{url && <PdfViewer url={url} />}</ZoomArea>
       </div>
-      {/*<iframe*/}
-      {/*  style={{ width: "50%", height: "100vh" }}*/}
-      {/*  src={url + "#toolbar=1&navpanes=1&scrollbar=1"}*/}
-      {/*/>*/}
       {url}
     </div>
   );

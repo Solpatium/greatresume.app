@@ -1,18 +1,18 @@
-import React, { useCallback, useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 import Head from "next/head";
 import { Theme } from "../../src/utils/theme";
 import { TwoPanes } from "../../src/components/layout/twoPanes";
 import styled from "styled-components";
 import { SectionSet } from "../../src/components/organisms/steps";
 import { useIsMounted } from "../../src/utils/ssr";
-import { PagePreview } from "../../src/components/layout/pagePreview";
-import Preview from "../../src/templates";
+import { useRenderResume } from "../../src/resumes";
 import cn from "classnames";
 import { ZoomArea } from "../../src/components/layout/zoomArea";
 import { useDataUrl } from "../../src/utils/blob";
 import { Icon } from "../../src/components/atoms/icon";
 import { useResumeData } from "../../src/utils/storage";
 import useTranslation from "next-translate/useTranslation";
+import { PdfViewer } from "../../src/components/organisms/pdfViewer";
 
 const Wrapper = styled.div`
   @media print {
@@ -35,36 +35,7 @@ const Creator: React.FC = () => {
   const image = useDataUrl(data.image);
   const dataWithDataUrlImage = useMemo(() => ({ ...data, image }), [image, data]);
 
-  const [, setIsLoading] = useState(false);
-  const onExport = useCallback(
-    async (e: React.UIEvent) => {
-      setIsLoading(true);
-      console.log("EXPORT", data);
-      e.preventDefault();
-      return fetch("/api/generate", {
-        method: "POST",
-        body: JSON.stringify(data),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
-        .then(response => response.blob())
-        .then(blob => {
-          const url = window.URL.createObjectURL(blob);
-          const a = document.createElement("a");
-          a.href = url;
-          a.download = "export.pdf";
-          document.body.appendChild(a);
-          a.click();
-          a.remove();
-          URL.revokeObjectURL(url);
-        })
-        .finally(() => {
-          setIsLoading(false);
-        });
-    },
-    [data],
-  );
+  const { url, download } = useRenderResume(dataWithDataUrlImage);
 
   if (!mounted) {
     return null;
@@ -96,21 +67,17 @@ const Creator: React.FC = () => {
             <button
               type="button"
               className="hidden lg:block absolute bottom-4 left-0 m-auto right-0 z-50 text-black font-bold rounded-3xl p-4 w-28 bg-white mb-2 shadow-xl focus:outline-none	"
-              onClick={onExport}>
+              onClick={download}>
               <Icon>💾</Icon> {t`export`}
             </button>
-            <ZoomArea>
-              <PagePreview>
-                <Preview data={dataWithDataUrlImage} />
-              </PagePreview>
-            </ZoomArea>
+            <ZoomArea>{url ? <PdfViewer url={url} /> : null}</ZoomArea>
           </div>
           <div className="lg:hidden fixed bottom-3 right-3 flex flex-col">
             {isPreviewing && (
               <button
                 type="button"
                 className="text-black font-bold rounded-3xl p-4 w-28 bg-white mb-2 shadow-xl focus:outline-none	"
-                onClick={onExport}>
+                onClick={download}>
                 <Icon>💾</Icon> {t`export`}
               </button>
             )}
@@ -131,4 +98,14 @@ const Creator: React.FC = () => {
   );
 };
 
-export default Creator;
+export const Loader: React.FC = () => {
+  const mounted = useIsMounted();
+
+  if (!mounted) {
+    return null;
+  }
+
+  return <Creator />;
+};
+
+export default Loader;

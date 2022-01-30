@@ -1,12 +1,10 @@
 import React, { useCallback, useState } from "react";
 import { Card } from "../../atoms/card";
 import { Input } from "../../atoms/fields/input";
-import { Button, Radio } from "antd";
 import { ResumeModel, Skill } from "../../../models/v1";
 import { StateSetter, useNestArrayState, useNestObjectState } from "../../../utils/mutators";
 
 import { SortableList } from "../../layout/sortableList";
-import { Label } from "../../atoms/fields/label";
 import { FormStep } from "./types";
 import { StepWrapper } from "../../molecules/stepWrapper";
 import { withKey } from "../../../utils/lists";

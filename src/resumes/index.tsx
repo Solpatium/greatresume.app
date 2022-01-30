@@ -1,8 +1,13 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { EducationEntry, ResumeModel, WorkEntry } from "../models/v1";
-import { TwoColumnsLayout } from "./layouts/twoColumns";
 import { HTMLText } from "../components/atoms/htmlText";
 import { Renderer } from "./layouts/layout";
+import { Image, Document, Page, StyleSheet, Text, usePDF, View } from "@react-pdf/renderer";
+import { useDebounce } from "react-use";
+import { downloadFile } from "../utils/downloadFile";
+import { TwoColumns } from "./layouts/twoColumns";
+import { Aleksandra } from "./templates/aleksandra";
+import { registerResumeFonts } from "./fonts";
 
 const join = (sep = ",", ...args: string[]): string => {
   return args.filter(v => v).join(sep);
@@ -35,7 +40,7 @@ export const templates: Record<
   }
 > = {
   aleksandra: {
-    Layout: TwoColumnsLayout,
+    Layout: TwoColumns,
     render: {
       education: (e, i) => (
         <DatedEntry {...e} key={"" + i} title={e.degree} subtitle={join(", ", e.school, e.city)} />
@@ -63,19 +68,69 @@ export const templates: Record<
   },
 };
 
-const Preview: React.FC<{
-  data: ResumeModel;
-}> = React.forwardRef(({ data }, ref) => {
-  const templateName = data.template in templates ? data.template : "aleksandra";
-  const template = templates[templateName];
-  return (
-    <template.Layout
-      data={data}
-      className={`page-${data.paperSize} template-${templateName}`}
-      ref={ref}
-      render={template.render}
-    />
-  );
+const styles = StyleSheet.create({
+  page: {
+    backgroundColor: "white",
+    border: "solid",
+    borderColor: "red",
+    borderWidth: "10px",
+  },
+  header: {
+    width: "100%",
+  },
+  section: {
+    margin: 10,
+    padding: 10,
+    flexGrow: 1,
+  },
+  red: {
+    color: "red",
+    fontSize: "50px",
+  },
+  blue: {
+    color: "blue",
+    fontSize: "50px",
+  },
+  yellow: {
+    color: "yellow",
+    fontSize: "50px",
+  },
+  brown: {
+    color: "brown",
+    fontSize: "50px",
+  },
+  image: {
+    width: "100px",
+    height: "100px",
+  },
 });
 
-export default Preview;
+registerResumeFonts();
+
+export const useRenderResume = (data: ResumeModel): { url?: string; download: () => void } => {
+  const [{ url }, refreshPdf] = usePDF({
+    document: (
+      <Document>
+        <Aleksandra data={data} />
+      </Document>
+    ),
+  });
+
+  useDebounce(
+    () => {
+      refreshPdf();
+    },
+    1000,
+    [data],
+  );
+
+  return useMemo(
+    () => ({
+      url,
+      download: () => {
+        downloadFile(url, "resume.pdf");
+      },
+    }),
+    [url],
+  );
+};

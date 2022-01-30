@@ -1,7 +1,7 @@
 import React, { useMemo, useState } from "react";
 import { FormStep } from "./types";
 import { StepWrapper } from "../../molecules/stepWrapper";
-import { templates } from "../../../templates";
+import { templates } from "../../../resumes";
 import Image from "next/image";
 import classes from "classnames";
 import { Label } from "../../atoms/fields/label";
@@ -47,9 +47,10 @@ const TemplateList: React.FC<{
     );
   }, [activeTags, filtersEnabled]);
 
-  const availableTags = useMemo(() => new Set(filteredTemplates.flatMap(t => t.tags)), [
-    filteredTemplates,
-  ]);
+  const availableTags = useMemo(
+    () => new Set(filteredTemplates.flatMap(t => t.tags)),
+    [filteredTemplates],
+  );
   console.log(filteredTemplates, availableTags, activeTags);
 
   return (

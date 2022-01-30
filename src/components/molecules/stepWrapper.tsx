@@ -1,7 +1,5 @@
 import React, { useCallback } from "react";
 import { Card } from "../atoms/card";
-import { Button } from "antd";
-import { LeftOutlined, RightOutlined } from "@ant-design/icons/lib";
 import { Icon } from "../atoms/icon";
 import cn from "classnames";
 
