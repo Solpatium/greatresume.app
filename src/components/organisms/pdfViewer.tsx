@@ -14,7 +14,7 @@ export const PdfViewer: React.FC<PdfViewer> = ({ url }) => {
     }
     const lib = await import("pdfjs-dist");
     lib.GlobalWorkerOptions.workerSrc =
-      "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.worker.min.js";
+      "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.14.305/pdf.worker.min.js";
 
     (await import("pdfjs-dist")).getDocument(url).promise.then(async d => {
       const wrapper = wrapperRef.current;

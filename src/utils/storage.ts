@@ -9,10 +9,9 @@ import { is } from "superstruct";
 export type SessionType = "local" | "session";
 
 // TODO: remove external hooks
-const useStorageSelected = (): [undefined | SessionType, (type: SessionType) => void] => {
-  const [localStorageSelected, setLocalStorageSelected] = useLocalStorage<boolean>(
-    "local-storage-selected",
-  );
+export const useStorageSelected = (): [undefined | SessionType, (type: SessionType) => void] => {
+  const [localStorageSelected, setLocalStorageSelected] =
+    useLocalStorage<boolean>("local-storage-selected");
   const [sessionStorageSelected, setSessionStorageSelected] = useSessionStorage<boolean>(
     "session-storage-selected",
   );
