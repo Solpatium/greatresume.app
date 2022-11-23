@@ -1,5 +1,3 @@
-import styled from "styled-components";
-import { hiddenOnPrint } from "../../atoms/hiddenOnPrint";
 import { Stepper } from "../../molecules/stepper";
 import React, { useCallback } from "react";
 import { PersonalInformation } from "./personalInfo";
@@ -12,10 +10,6 @@ import { useRouter } from "next/router";
 import { SkillsForm } from "./skills";
 import { InterestsForm } from "./interests";
 import { LegalClauseForm } from "./legalClause";
-
-const Wrapper = styled.div`
-  ${hiddenOnPrint}
-`;
 
 const steps = [
   {
@@ -70,9 +64,7 @@ export const SectionSet: React.FC<{
   );
   return (
     <div className={props.className}>
-      <Wrapper>
-        <Stepper goTo={goTo} selected={selected.path} {...props} steps={steps} />
-      </Wrapper>
+      <Stepper goTo={goTo} selected={selected.path} {...props} steps={steps} />
     </div>
   );
 };

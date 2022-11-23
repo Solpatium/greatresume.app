@@ -4,7 +4,6 @@ import { WorkEntry } from "../../../models/v1";
 import { StateSetter, useNestArrayState, useNestObjectState } from "../../../utils/mutators";
 import { SortableList } from "../../layout/sortableList";
 import { RichTextEditor } from "../../atoms/fields/richText";
-import { Label } from "../../atoms/fields/label";
 import { FormStep } from "./types";
 import { StepWrapper } from "../../molecules/stepWrapper";
 import { withKey } from "../../../utils/lists";
@@ -28,6 +27,12 @@ const Entry: React.FC<{ state: WorkEntry; setState: StateSetter<WorkEntry> }> = 
         label="Title"
         onChange={makeSetter("title")}
         value={state["title"]}
+      />
+      <Input
+        className="col-span-full"
+        label="Company"
+        onChange={makeSetter("company")}
+        value={state["company"]}
       />
       <RichTextEditor
         className="col-span-full"

@@ -1,13 +1,14 @@
 import React, { ReactElement } from "react";
 import { View } from "@react-pdf/renderer";
+import { Style } from "@react-pdf/types";
 
 export const TwoColumns: React.FC<{
-  left: ReactElement;
-  right: ReactElement;
+  left: ReactElement | ReactElement[];
+  right: ReactElement | ReactElement[];
   leftWidth?: string;
   rightWidth?: string;
-  leftStyle?: Record<string, string>;
-  rightStyle?: Record<string, string>;
+  leftStyle?: Style;
+  rightStyle?: Style;
   gap?: string;
 }> = ({ left, right, leftWidth, rightWidth, gap, leftStyle, rightStyle }) => {
   return (

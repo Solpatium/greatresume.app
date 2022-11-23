@@ -1,11 +1,9 @@
-import { Image, Link, Page, StyleSheet, Text, View, Font } from "@react-pdf/renderer";
-import { TwoColumns } from "../layouts/twoColumns";
 import React, { ReactElement } from "react";
 import { ResumeTemplate } from "../types";
 import { AleksandraBase, AlexandraBaseStyle } from "../unstyled/aleksandraBase";
 
-const textColor = "#2B364D";
-const leftBackgroundColor = "#BBD6DD";
+const textColor = "#3a4157";
+const accentColor = "#545454";
 //
 // Font.register({
 //   family: "Oswald",
@@ -14,16 +12,15 @@ const leftBackgroundColor = "#BBD6DD";
 const style: AlexandraBaseStyle = {
   page: {
     color: textColor,
-    fontSize: "14px",
+    fontSize: "16px",
   },
   leftPane: {
-    padding: "20px",
-    width: "25%",
-    backgroundColor: leftBackgroundColor,
+    padding: "16px",
+    width: "22%",
   },
   rightPane: {
-    padding: "20px",
-    width: "75%",
+    padding: "16px",
+    width: "78%",
   },
 
   date: {
@@ -62,9 +59,13 @@ const style: AlexandraBaseStyle = {
   },
   mainSection: {
     title: {
-      fontSize: "16px",
+      fontSize: "20px",
       fontWeight: 500,
       marginBottom: "10px",
+      paddingBottom: "4px",
+      borderBottomStyle: "solid",
+      borderColor: accentColor,
+      borderBottomWidth: "2px",
     },
     section: {
       marginBottom: "20px",
@@ -80,6 +81,7 @@ const style: AlexandraBaseStyle = {
       width: "80%",
       maxHeight: "200px",
       marginBottom: "20px",
+      borderRadius: "100%",
     },
     fullName: {
       textAlign: "center",
@@ -106,6 +108,6 @@ const style: AlexandraBaseStyle = {
   },
 };
 
-export const Aleksandra: ResumeTemplate = ({ data }) => (
+export const Library: ResumeTemplate = ({ data }) => (
   <AleksandraBase data={data} leftWidth="30%" style={style} />
 );

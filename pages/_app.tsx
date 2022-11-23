@@ -1,8 +1,6 @@
 import "tailwindcss/tailwind.css";
 import "../src/static/global.sass";
 import { Theme } from "../src/utils/theme";
-import "react-quill/dist/quill.snow.css";
-import "../styles.css";
 import React from "react";
 
 export default function MyApp({ Component, pageProps }) {

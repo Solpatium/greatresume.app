@@ -43,10 +43,12 @@ export const Stepper: React.FC<{
   steps: Step[];
 }> = ({ state, setState, selected, goTo, steps }) => {
   const [activeElement, setActiveElement] = useState<HTMLAnchorElement | null>(null);
+
   useEffect(() => {
     window.scroll(0, 0);
     activeElement?.scrollIntoView?.({ behavior: "smooth", inline: "center" });
   }, [activeElement]);
+
   const activeIndex = steps.findIndex(s => s.path === selected) ?? 0;
   const [goToPrev, goToNext] = useMemo(() => {
     const prev = steps[activeIndex - 1]?.path;
@@ -67,31 +69,31 @@ export const Stepper: React.FC<{
     <div>
       <HorizontalScrollWrapper>
         {steps.map((s, index) => (
-          <Link key={s.path} href={s.path} passHref shallow>
-            <a
-              ref={index === activeIndex ? setActiveElement : undefined}
-              className={classes(
-                "cursor-pointer",
-                "inline-block",
-                "text-base",
-                "font-fancy",
-                "text-xl",
-                "py-4 px-3",
-                "m-[2px]",
-                {
-                  "ml-0": index === 0,
-                  "text-gray-900": activeIndex === index,
-                  "text-gray-600 hover:text-gray-900 ": activeIndex !== index,
-                },
-                "focus-visible:outline-blue",
-              )}>
-              <span
-                className={classes("pb-1", {
-                  "border-b-solid border-b-2 border-gray-900": activeIndex === index,
-                })}>
-                {s.title}
-              </span>
-            </a>
+          <Link
+            key={s.path}
+            href={s.path}
+            ref={index === activeIndex ? setActiveElement : undefined}
+            className={classes(
+              "cursor-pointer",
+              "inline-block",
+              "text-base",
+              "font-fancy",
+              "text-xl",
+              "py-4 px-3",
+              "m-[2px]",
+              {
+                "ml-0": index === 0,
+                "text-gray-900": activeIndex === index,
+                "text-gray-600 hover:text-gray-900 ": activeIndex !== index,
+              },
+              "focus-visible:outline-blue",
+            )}>
+            <span
+              className={classes("pb-1", {
+                "border-b-solid border-b-2 border-gray-900": activeIndex === index,
+              })}>
+              {s.title}
+            </span>
           </Link>
         ))}
       </HorizontalScrollWrapper>
