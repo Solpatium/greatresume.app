@@ -43,6 +43,7 @@ export interface AlexandraBaseStyle {
   leftPane: Style;
   rightPane: Style;
   personalInfo: PersonalInfoStyle;
+  legalClause: Style;
 }
 
 export interface AlexandraBaseProps {
@@ -92,11 +93,16 @@ export const AleksandraBase: React.FC<AlexandraBaseProps> = ({ data, leftWidth, 
   );
 
   return (
-    <Page style={style.page} size={data.paperSize} wrap>
+    <Page style={style.page} size={data.paperSize}>
       <TwoColumns
         left={<Introduction data={data} />}
         right={
-          <View>
+          <View
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              height: "100%",
+            }}>
             <RepeatedEntriesSection
               title={<SectionTitle title={data.experience.title} />}
               component={Experience}
@@ -112,6 +118,7 @@ export const AleksandraBase: React.FC<AlexandraBaseProps> = ({ data, leftWidth, 
               component={Experience}
               data={data.experience.content}
             />
+            <T style={[style.legalClause, { marginTop: "auto" }]}>{data.legalClause}</T>
           </View>
         }
         leftWidth={leftWidth}

@@ -35,7 +35,7 @@ const Creator: React.FC = () => {
   const image = useDataUrl(data.image);
   const dataWithDataUrlImage = useMemo(() => ({ ...data, image }), [image, data]);
 
-  const { url, download } = useRenderResume(dataWithDataUrlImage);
+  const { url, download, loading } = useRenderResume(dataWithDataUrlImage);
 
   if (!mounted) {
     return null;
@@ -70,7 +70,7 @@ const Creator: React.FC = () => {
               onClick={download}>
               <Icon>💾</Icon> {t`export`}
             </button>
-            <ZoomArea>{url ? <PdfViewer url={url} /> : null}</ZoomArea>
+            <ZoomArea>{url ? <PdfViewer url={url} newPdfGenerating={loading} /> : null}</ZoomArea>
           </div>
           <div className="lg:hidden fixed bottom-3 right-3 flex flex-col">
             {isPreviewing && (

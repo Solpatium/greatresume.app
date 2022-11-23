@@ -1,22 +1,20 @@
 import { Image, Link, Page, StyleSheet, Text, View, Font } from "@react-pdf/renderer";
 import { TwoColumns } from "../layouts/twoColumns";
 import React, { ReactElement } from "react";
-import { ResumeTemplate } from "../types";
+import { TemplateDetails, ResumeTemplate } from "../types";
 import { AleksandraBase, AlexandraBaseStyle } from "../unstyled/aleksandraBase";
 
 const textColor = "#2B364D";
 const leftBackgroundColor = "#BBD6DD";
-//
-// Font.register({
-//   family: "Oswald",
-//   src: "https://fonts.gstatic.com/s/rochester/v6/bnj8tmQBiOkdji_G_yvypg.ttf",
-// });
+
 const style: AlexandraBaseStyle = {
   page: {
     color: textColor,
     fontSize: "14px",
+    fontFamily: "Karla",
   },
   leftPane: {
+    fontFamily: "Karla",
     padding: "20px",
     width: "25%",
     backgroundColor: leftBackgroundColor,
@@ -104,8 +102,35 @@ const style: AlexandraBaseStyle = {
       marginBottom: "15px",
     },
   },
+  legalClause: {
+    fontSize: 8,
+    fontStyle: "italic",
+  },
 };
 
-export const Aleksandra: ResumeTemplate = ({ data }) => (
+const Template: ResumeTemplate = ({ data }) => (
   <AleksandraBase data={data} leftWidth="30%" style={style} />
 );
+
+export const aleksandraTemplate: TemplateDetails = {
+  component: Template,
+  fonts: {
+    Karla: [
+      "ExtraLight",
+      "ExtraLightItalic",
+      "Light",
+      "LightItalic",
+      "Regular",
+      "Italic",
+      "Medium",
+      "MediumItalic",
+      "SemiBold",
+      "SemiBoldItalic",
+      "Bold",
+      "BoldItalic",
+      "ExtraBold",
+      "ExtraBoldItalic",
+    ],
+  },
+  title: "Aleksandra",
+};

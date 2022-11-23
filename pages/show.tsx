@@ -4,9 +4,6 @@ import { useDataUrl } from "../src/utils/blob";
 import { useResumeData } from "../src/utils/storage";
 import { Aleksandra } from "../src/resumes/templates/aleksandra";
 import { Document, PDFViewer } from "@react-pdf/renderer";
-import { registerResumeFonts } from "../src/resumes/fonts";
-
-registerResumeFonts();
 
 const Creator: React.FC = () => {
   const mounted = useIsMounted();

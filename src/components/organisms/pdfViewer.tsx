@@ -3,9 +3,10 @@ import { useAsync } from "react-use";
 
 export interface PdfViewer {
   url: string;
+  newPdfGenerating: boolean;
 }
 
-export const PdfViewer: React.FC<PdfViewer> = ({ url }) => {
+export const PdfViewer: React.FC<PdfViewer> = ({ url, newPdfGenerating }) => {
   const wrapperRef = useRef<HTMLDivElement>();
   const canvases = useRef<HTMLCanvasElement[]>([]);
   const state = useAsync(async () => {
@@ -65,9 +66,11 @@ export const PdfViewer: React.FC<PdfViewer> = ({ url }) => {
   }, [url]);
 
   return (
-    <>
-      <h1>{state.loading && "Loading..."}</h1>
+    <div className="relative">
+      {(state.loading || newPdfGenerating) && (
+        <div className="absolute inset-x-0 margin-auto text-center top-1/2 text-xl">Loading...</div>
+      )}
       <div className="pdf-renderer" ref={wrapperRef} />
-    </>
+    </div>
   );
 };

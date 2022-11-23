@@ -1,7 +1,5 @@
 import { Font } from "@react-pdf/renderer";
 
-const fonts = ["Karla"];
-
 const allVariants = {
   ExtraLight: { fontWeight: 200, fontStyle: "normal" },
   ExtraLightItalic: { fontWeight: 200, fontStyle: "italic" },
@@ -17,14 +15,28 @@ const allVariants = {
   BoldItalic: { fontWeight: 700, fontStyle: "italic" },
   ExtraBold: { fontWeight: 800, fontStyle: "normal" },
   ExtraBoldItalic: { fontWeight: 800, fontStyle: "italic" },
-};
+} as const;
 
-export const registerResumeFonts = (): void => {
-  for (const font of fonts) {
+export type FontVariant = keyof typeof allVariants;
+
+const fonts = ["Karla", "NotoSerif"] as const;
+export type FontFamily = typeof fonts[number];
+
+export type FontRequirements = Partial<Record<FontFamily, FontVariant[]>>;
+
+export const registerRequiredFonts = (requirements: FontRequirements): void => {
+  for (const [font, variants] of Object.entries(requirements)) {
+    console.log("REGISTER", {
+      family: font,
+      fonts: variants.map(name => ({
+        ...allVariants[name],
+        src: `wololo.com/fonts/${font}/${font}-${name}.ttf`,
+      })),
+    });
     Font.register({
       family: font,
-      fonts: Object.entries(allVariants).map(([name, variant]) => ({
-        ...variant,
+      fonts: variants.map(name => ({
+        ...allVariants[name],
         src: `/fonts/${font}/${font}-${name}.ttf`,
       })),
     });
