@@ -1,10 +1,9 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import styled from "styled-components";
 import { ResumeModel } from "../../models/v1";
 import { StateSetter } from "../../utils/mutators";
 import classes from "classnames";
-import { useDrag } from "react-use-gesture";
-import Link from "next/link";
+import { useDrag } from "@use-gesture/react";
 
 const HorizontalScrollWrapper = styled.div`
   width: 100%;
@@ -22,57 +21,78 @@ const HorizontalScrollWrapper = styled.div`
   }
 `;
 
-type Step = {
-  path: string;
+export type Step = {
   title: string;
   element: React.FC<{
     state: ResumeModel;
     setState: StateSetter<ResumeModel>;
-    goToNext: () => void;
+    goToNext?: () => void;
     goToPrev?: () => void;
   }>;
 };
 
-const V_THRESHOLD = 0.4;
+const V_THRESHOLD = 0.3;
 
 export const Stepper: React.FC<{
   state: ResumeModel;
   setState: StateSetter<ResumeModel>;
-  selected?: string;
-  goTo: (path: string) => void;
   steps: Step[];
-}> = ({ state, setState, selected, goTo, steps }) => {
-  const [activeElement, setActiveElement] = useState<HTMLAnchorElement | null>(null);
+}> = ({ state, setState, steps }) => {
+  const [activeIndex, setIndex] = useState(0);
+  const lastIndex = steps.length;
+  const prevIndex: number | null = activeIndex > 0 ? activeIndex - 1 : null;
+  const nextIndex: number | null = activeIndex < lastIndex ? activeIndex + 1 : null;
+  // TODO: prevIndex must be either a function or null
+  const [goToPrev, goToNext] = useMemo(
+    () => [
+      prevIndex != null ? () => setIndex(prevIndex) : null,
+      nextIndex != null ? () => setIndex(nextIndex) : null,
+    ],
+    [prevIndex, nextIndex],
+  );
+
+  const [activeElement, setActiveElement] = useState<HTMLElement | null>(null);
 
   useEffect(() => {
     window.scroll(0, 0);
     activeElement?.scrollIntoView?.({ behavior: "smooth", inline: "center" });
   }, [activeElement]);
 
-  const activeIndex = steps.findIndex(s => s.path === selected) ?? 0;
-  const [goToPrev, goToNext] = useMemo(() => {
-    const prev = steps[activeIndex - 1]?.path;
-    const next = steps[activeIndex + 1]?.path;
-    return [prev && (() => goTo(prev)), next && (() => goTo(next))];
-  }, [activeIndex, goTo, steps]);
-  const bind = useDrag(({ event, last, vxvy: [vx, vy], ...rest }) => {
-    if (last || (Math.abs(vx) < Math.abs(vy) && event.target?.tagName.toLowerCase() === "div")) {
-      if (vx < -V_THRESHOLD) {
-        goToNext?.();
-      } else if (vx > V_THRESHOLD) {
-        goToPrev?.();
+  const containerRef = useRef<HTMLDivElement>();
+  const bind = useDrag(
+    ({ event, last, movement: [x] }) => {
+      if (!last) {
+        return;
       }
-    }
-  });
+
+      const target = event.target as HTMLElement;
+      const isClickable = ["input", "textarea", "button"].includes(target.tagName.toLowerCase());
+      const isInModal = target.closest("#headlessui-portal-root");
+      if (!isClickable && !isInModal) {
+        if (x > 0) {
+          goToPrev?.();
+        } else {
+          goToNext?.();
+        }
+      }
+    },
+    {
+      axis: "x",
+      threshold: 50,
+    },
+  );
   const Element = steps[activeIndex]?.element;
+
+  // TODO accessibility
   return (
-    <div>
+    <div ref={containerRef}>
       <HorizontalScrollWrapper>
         {steps.map((s, index) => (
-          <Link
-            key={s.path}
-            href={s.path}
+          <button
+            key={index}
+            type="button"
             ref={index === activeIndex ? setActiveElement : undefined}
+            onClick={() => setIndex(index)}
             className={classes(
               "cursor-pointer",
               "inline-block",
@@ -94,7 +114,7 @@ export const Stepper: React.FC<{
               })}>
               {s.title}
             </span>
-          </Link>
+          </button>
         ))}
       </HorizontalScrollWrapper>
       {Element && (

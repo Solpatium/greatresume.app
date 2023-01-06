@@ -1,1 +1,0 @@
-/*eslint-disable*/export const messages={"Edit":"Edit","Export":"Export","Resume creator":"Resume creator","View":"View","{xd, plural, one {test #} other {test 2 #}}":[["xd","plural",{one:["test ","#"],other:["test 2 ","#"]}]],"{xd2, select, dsa {wololo} dasda {xd}}":[["xd2","select",{dsa:"wololo",dasda:"xd"}]]};

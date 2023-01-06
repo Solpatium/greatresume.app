@@ -7,10 +7,10 @@ import { Button } from "../atoms/button";
 import { Disclosure } from "@headlessui/react";
 import {
   ChevronDownIcon,
-  MenuAlt4Icon as MenuIcon,
+  Bars2Icon as MenuIcon,
   PlusIcon,
   TrashIcon,
-} from "@heroicons/react/outline";
+} from "@heroicons/react/20/solid";
 import cn from "classnames";
 
 const DragHandle = SortableHandle(() => (
@@ -27,14 +27,15 @@ const SortableWrapper = SortableContainer(props => <div {...props} />);
 export interface SortableListProps<Type> {
   state: Type[];
   setState: StateSetter<Type[]>;
-  renderPreview: (state: Type, index: number) => ReactElement | string;
+  renderPreview: (state: Type, index: number) => React.ReactNode;
   render: (state: Type, index: number) => ReactElement;
   className?: string;
   onAddNew?: () => void;
   label?: string;
+  openByDefault?: boolean;
 }
 
-export const SortableList = <Type extends { key: string | number }>({
+export const SortableList = <Type,>({
   state,
   setState,
   render,
@@ -42,6 +43,7 @@ export const SortableList = <Type extends { key: string | number }>({
   className,
   onAddNew,
   label,
+  openByDefault,
 }: SortableListProps<Type>): ReactElement => {
   const onSortEnd = useCallback(
     ({ oldIndex, newIndex }) => {
@@ -67,9 +69,12 @@ export const SortableList = <Type extends { key: string | number }>({
     <SortableWrapper className={className} useDragHandle onSortEnd={onSortEnd}>
       {label && <Label name={label} />}
       {state.map((v, i) => (
-        <SortableItem key={v.key} index={i}>
+        <SortableItem key={i} index={i}>
           <DragHandle />
-          <Disclosure defaultOpen as="div" className="sortable-list flex-1 items-center p-2">
+          <Disclosure
+            defaultOpen={openByDefault}
+            as="div"
+            className="sortable-list flex-1 items-center p-2">
             {({ open }) => (
               <>
                 <dt>

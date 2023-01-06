@@ -64,33 +64,33 @@ export const AleksandraBase: React.FC<AlexandraBaseProps> = ({ data, leftWidth, 
     </View>
   );
 
-  const SectionTitle: React.FC<{ title: string }> = ({ title }) => (
-    <T wrap={true} style={style.mainSection.title}>
-      {title}
-    </T>
-  );
+  // const SectionTitle: React.FC<{ title: string }> = ({ title }) => (
+  //   <T wrap={true} style={style.mainSection.title}>
+  //     {title}
+  //   </T>
+  // );
+  //
+  // const EntryTitle: React.FC<{ entry: DatedEntry; title: string }> = ({ entry, title }) => (
+  //   <View style={style.entry.titleWrapper}>
+  //     <Text style={style.entry.title}>{title}</Text>
+  //     <Date from={entry.from} to={entry.to} style={style.date} />
+  //   </View>
+  // );
 
-  const EntryTitle: React.FC<{ entry: DatedEntry; title: string }> = ({ entry, title }) => (
-    <View style={style.entry.titleWrapper}>
-      <Text style={style.entry.title}>{title}</Text>
-      <Date from={entry.from} to={entry.to} style={style.date} />
-    </View>
-  );
-
-  const Experience: Entry<WorkEntry> = ({ data }) => (
-    <View style={style.entry.wrapper}>
-      <EntryTitle entry={data} title={data.title} />
-      <T style={style.entry.subtitle}>{data.company}</T>
-      <T style={style.entry.description}>{data.description}</T>
-    </View>
-  );
-
-  const Education: Entry<EducationEntry> = ({ data }) => (
-    <View style={style.entry.wrapper}>
-      <EntryTitle entry={data} title={data.degree} />
-      <T style={style.entry.description}>{data.description}</T>
-    </View>
-  );
+  // const Experience: Entry<WorkEntry> = ({ data }) => (
+  //   <View style={style.entry.wrapper}>
+  //     <EntryTitle entry={data} title={data.title} />
+  //     <T style={style.entry.subtitle}>{data.company}</T>
+  //     <T style={style.entry.description}>{data.description}</T>
+  //   </View>
+  // );
+  //
+  // const Education: Entry<EducationEntry> = ({ data }) => (
+  //   <View style={style.entry.wrapper}>
+  //     <EntryTitle entry={data} title={data.degree} />
+  //     <T style={style.entry.description}>{data.description}</T>
+  //   </View>
+  // );
 
   return (
     <Page style={style.page} size={data.paperSize}>
@@ -103,21 +103,21 @@ export const AleksandraBase: React.FC<AlexandraBaseProps> = ({ data, leftWidth, 
               flexDirection: "column",
               height: "100%",
             }}>
-            <RepeatedEntriesSection
-              title={<SectionTitle title={data.experience.title} />}
-              component={Experience}
-              data={data.experience.content}
-            />
-            <RepeatedEntriesSection
-              title={<SectionTitle title={data.education.title} />}
-              component={Education}
-              data={data.education.content}
-            />
-            <RepeatedEntriesSection
-              title={<SectionTitle title={data.experience.title} />}
-              component={Experience}
-              data={data.experience.content}
-            />
+            {/*<RepeatedEntriesSection*/}
+            {/*  title={<SectionTitle title={data.experience.title} />}*/}
+            {/*  component={Experience}*/}
+            {/*  data={data.experience.content}*/}
+            {/*/>*/}
+            {/*<RepeatedEntriesSection*/}
+            {/*  title={<SectionTitle title={data.education.title} />}*/}
+            {/*  component={Education}*/}
+            {/*  data={data.education.content}*/}
+            {/*/>*/}
+            {/*<RepeatedEntriesSection*/}
+            {/*  title={<SectionTitle title={data.experience.title} />}*/}
+            {/*  component={Experience}*/}
+            {/*  data={data.experience.content}*/}
+            {/*/>*/}
             <T style={[style.legalClause, { marginTop: "auto" }]}>{data.legalClause}</T>
           </View>
         }

@@ -1,6 +1,6 @@
 import { DropzoneOptions, useDropzone } from "react-dropzone";
 import React from "react";
-import { UploadIcon } from "@heroicons/react/outline";
+import { ArrowUpTrayIcon } from "@heroicons/react/20/solid";
 import cn from "classnames";
 
 export const DropZone: React.FC<DropzoneOptions> = options => {
@@ -15,7 +15,7 @@ export const DropZone: React.FC<DropzoneOptions> = options => {
       )}>
       <input {...getInputProps()} />
       <div className="text-gray-500">Click or drag your file here</div>
-      <UploadIcon className="h-10 w-10 text-gray-500" />
+      <ArrowUpTrayIcon className="h-10 w-10 text-gray-500" />
     </div>
   );
 };

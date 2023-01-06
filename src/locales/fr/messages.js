@@ -1,1 +1,0 @@
-/*eslint-disable*/module.exports={messages:{"{xd, plural, one {test #} other {test 2 #}}":[["xd","plural",{one:["test ","#"],other:["test 2 ","#"]}]],"{xd2, select, dsa {wololo} dasda {xd}}":[["xd2","select",{dsa:"wololo",dasda:"xd"}]]}};

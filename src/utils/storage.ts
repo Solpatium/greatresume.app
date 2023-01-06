@@ -85,28 +85,31 @@ export const useResumeStorage = (): {
 export const useResumeData = (): [ResumeModel, Dispatch<SetStateAction<ResumeModel>>] => {
   const { t } = useTranslation("app");
   const { getResume, saveResume } = useResumeStorage();
+
   const [data, setData] = useState<ResumeModel>(() => {
-    console.log(getResume());
-    return (
-      getResume() ??
-      makeEmptyResume({
-        paperSize: t("defaults.paperSize"),
-        titles: {
-          languages: t("defaults.titles.languages"),
-          interests: t("defaults.titles.interests"),
-          skills: t("defaults.titles.skills"),
-          education: t("defaults.titles.education"),
-          experience: t("defaults.titles.experience"),
-        },
+    const existingResume = getResume();
+
+    console.log(existingResume);
+
+    if (existingResume) {
+      return existingResume;
+    }
+
+    return makeEmptyResume({
+      paperSize: t("defaults.paperSize"),
+      texts: {
+        experienceTitle: t("defaults.titles.experience"),
+        educationTitle: t("defaults.titles.education"),
         legalClause: t("defaults.legal-clause"),
-      })
-    );
+      },
+    });
   });
+
   useThrottleFn(
     data => {
       saveResume(data);
     },
-    5000,
+    2000,
     [data],
   );
 

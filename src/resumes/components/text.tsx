@@ -6,7 +6,7 @@ interface TProps extends TextProps {
   children?: string | string[];
 }
 
-// We don't want to render a empty text component
+// We don't want to render an empty text component
 export const T: React.FC<TProps> = ({ children, ...props }) => {
   const content = Array.isArray(children) ? children.join("").trim() : children.trim();
 

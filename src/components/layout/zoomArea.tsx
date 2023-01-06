@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
-import { useGesture } from "react-use-gesture";
 import { useMeasure } from "react-use";
 import { animated, useSpring } from "react-spring";
+import { useGesture } from "@use-gesture/react";
 
 export const getTranslation = (
   scale: number,
@@ -21,7 +21,7 @@ interface ZoomAreaRefState {
   origin: Point;
 }
 
-export const ZoomArea: React.FC = ({ children }) => {
+export const ZoomArea: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const wrapperRef = useRef<HTMLDivElement>();
   const [sizingRef, measure] = useMeasure<HTMLDivElement>();
   const { width, height } = measure;
@@ -67,7 +67,7 @@ export const ZoomArea: React.FC = ({ children }) => {
         if (!state.intentional) {
           return;
         }
-        const [velocity] = state.velocities;
+        const [velocity] = state.velocity;
         const currentScale = refState.current.scale;
         // touchpad events have a much bigger velocity
         const scale = state.event instanceof WheelEvent ? 0.05 : 0.3;
@@ -78,7 +78,7 @@ export const ZoomArea: React.FC = ({ children }) => {
         controller({ scale: newScale });
       },
     },
-    { domTarget: wrapperRef, eventOptions: { passive: false } },
+    { target: wrapperRef, eventOptions: { passive: false } },
   );
 
   // jumps because transition origin is suddenly different

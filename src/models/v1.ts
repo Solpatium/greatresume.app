@@ -1,112 +1,89 @@
+import { array, enums, Infer, is, optional, string, type, union } from "superstruct";
+import { personalInformationStruct } from "./sections/personalInfo";
 import {
-  number,
-  string,
-  array,
-  Infer,
-  enums,
-  type,
-  Struct,
-  optional,
-  union,
-  is,
-} from "superstruct";
-import { ObjectSchema, ObjectType } from "superstruct/lib/utils";
+  ExperienceKind,
+  experienceSectionStruct,
+  ExperienceType,
+  experienceTypeName,
+  makeEmptyExperience,
+} from "./sections/experienceSection";
+import {
+  KeyValueKind,
+  keyValueSectionStruct,
+  KeyValueType,
+  keyValueTypeName,
+  makeKeyValue,
+} from "./sections/keyValueSection";
+import {
+  makeSimpleList,
+  SimpleListKind,
+  simpleListSectionStruct,
+  SimpleListType,
+  simpleListTypeName,
+} from "./sections/simpleListSection";
+import {
+  makeTextSection,
+  textSectionStruct,
+  TextSectionType,
+  textSectionTypeName,
+} from "./sections/textSection";
 
 const paperSizeStruct = enums(["A4", "LETTER"]);
 export type PaperSize = Infer<typeof paperSizeStruct>;
 
-const sectionStruct = <T>(contentSchema: Struct<T>) =>
-  type({
-    title: optional(string()),
-    content: contentSchema,
-  });
+export type SectionKind = TextSectionType | ExperienceKind | KeyValueKind | SimpleListKind;
+export type SectionType = TextSectionType | ExperienceType | KeyValueType | SimpleListType;
 
-const datedEntryStruct = type({
-  from: string(),
-  to: string(),
-  description: string(),
-  city: string(),
-});
-export type DatedEntry = Infer<typeof datedEntryStruct>;
+const sectionStruct = union([
+  experienceSectionStruct,
+  keyValueSectionStruct,
+  simpleListSectionStruct,
+  textSectionStruct,
+]);
 
-const personalInformationStruct = type({
-  name: string(),
-  surname: string(),
-  jobTitle: string(),
-  shortDescription: string(),
-  addressFirstLine: string(),
-  addressSecondLine: string(),
-  city: string(),
-  zipCode: string(),
-  phone: string(),
-  email: string(),
-});
-export type PersonalInformation = Infer<typeof personalInformationStruct>;
-
-const languageStruct = type({
-  name: string(),
-  level: string(),
-});
-export type Language = Infer<typeof languageStruct>;
-
-const skillSchema = type({
-  name: string(),
-  level: string(),
-});
-export type Skill = Infer<typeof skillSchema>;
-
-const educationEntryStruct = type({
-  ...datedEntryStruct.schema,
-  school: string(),
-  degree: string(),
-});
-export type EducationEntry = Infer<typeof educationEntryStruct>;
-
-export type Keyed<T> = { key: string | number } & T;
-
-const repeaterSection = <T extends ObjectSchema>(schema: Struct<ObjectType<T>, T>) =>
-  sectionStruct(
-    array(
-      type({
-        key: union([string(), number()]),
-        ...schema.schema,
-      }),
-    ),
-  );
-
-const workEntryStruct = type({
-  ...datedEntryStruct.schema,
+const sectionEntry = type({
   title: string(),
-  company: string(),
+  section: sectionStruct,
 });
-export type WorkEntry = Infer<typeof workEntryStruct>;
-
-const interestStruct = type({ name: string() });
-export type Interest = Infer<typeof interestStruct>;
+export type Section = Infer<typeof sectionEntry>;
 
 export const resumeStruct = type({
   version: string(),
-  template: optional(string()),
+  template: string(),
   image: optional(string()),
   paperSize: paperSizeStruct,
   personalInformation: personalInformationStruct,
-  languages: repeaterSection(languageStruct),
-  interests: repeaterSection(interestStruct),
-  skills: repeaterSection(skillSchema),
-  education: repeaterSection(educationEntryStruct),
-  experience: repeaterSection(workEntryStruct),
+  sections: array(sectionEntry),
   legalClause: string(),
 });
 export type ResumeModel = Infer<typeof resumeStruct>;
 
+const mapping = {
+  education: makeEmptyExperience,
+  experience: makeEmptyExperience,
+  employment: makeEmptyExperience,
+  projects: makeEmptyExperience,
+  interests: makeSimpleList,
+  languages: makeKeyValue,
+  skills: makeKeyValue,
+  text: makeTextSection,
+};
+export const createEmptySection = (title: string, kind: SectionKind): Section => ({
+  title,
+  // @ts-ignore
+  section: mapping[kind](kind),
+});
+
 export const makeEmptyResume = ({
   paperSize,
-  titles,
-  legalClause,
+  texts,
 }: {
   paperSize: string;
-  titles: Record<"languages" | "interests" | "skills" | "education" | "experience", string>;
-  legalClause: string;
+  texts: {
+    experienceTitle: string;
+    educationTitle: string;
+    legalClause: string;
+  };
 }): ResumeModel => ({
   version: "1",
   paperSize: is(paperSize, paperSizeStruct) ? paperSize : "A4",
@@ -118,28 +95,17 @@ export const makeEmptyResume = ({
     jobTitle: "",
     shortDescription: "",
     email: "",
-    addressFirstLine: "",
-    addressSecondLine: "",
-    city: "",
-    zipCode: "",
     phone: "",
+    location: {
+      country: "",
+      city: "",
+      address: "",
+      postalCode: "",
+    },
   },
-  languages: { title: titles.languages, content: [] },
-  interests: { title: titles.interests, content: [] },
-  skills: { title: titles.skills, content: [] },
-  education: { title: titles.education, content: [] },
-  experience: { title: titles.experience, content: [] },
-  legalClause,
-});
-
-export const dummyResume = makeEmptyResume({
-  paperSize: "A4",
-  titles: {
-    languages: "Languages",
-    interests: "Interests",
-    skills: "Skills",
-    education: "Education",
-    experience: "Experience",
-  },
-  legalClause: "",
+  sections: [
+    createEmptySection(texts.experienceTitle, "employment"),
+    createEmptySection(texts.educationTitle, "education"),
+  ],
+  legalClause: texts.legalClause,
 });

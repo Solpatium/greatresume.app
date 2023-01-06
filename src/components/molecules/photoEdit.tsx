@@ -1,6 +1,10 @@
 import React, { useCallback, useRef, useState } from "react";
 import AvatarEditor from "react-avatar-editor";
-import { EmojiHappyIcon, ZoomInIcon, ZoomOutIcon } from "@heroicons/react/outline";
+import {
+  FaceSmileIcon,
+  MagnifyingGlassPlusIcon,
+  MagnifyingGlassMinusIcon,
+} from "@heroicons/react/20/solid";
 import styled from "styled-components";
 import { blobToBase64 } from "../../utils/blob";
 import { Modal } from "../layout/modal";
@@ -61,7 +65,7 @@ const EditModal: React.FC<Pick<PhotoProps, "setImage"> & { close: () => void }> 
           </div>
           <Form onSubmit={onImageSave}>
             <div className="flex mt-2">
-              <ZoomOutIcon className="h-5 w-5" />
+              <MagnifyingGlassMinusIcon className="h-5 w-5" />
               <input
                 onChange={e => setZoom(1 + (parseInt(e.target.value) - 1) / 10)}
                 type="range"
@@ -71,7 +75,7 @@ const EditModal: React.FC<Pick<PhotoProps, "setImage"> & { close: () => void }> 
                 defaultValue="1"
                 className="flex-1 mx-2"
               />
-              <ZoomInIcon className="h-5 w-5" />
+              <MagnifyingGlassPlusIcon className="h-5 w-5" />
             </div>
             <div className="mt-5 sm:mt-6 sm:grid sm:grid-cols-2 sm:gap-3 sm:grid-flow-row-dense">
               <Button secondary onClick={close}>
@@ -128,7 +132,7 @@ export const PhotoEditor: React.FC<PhotoProps & { buttonId?: string }> = ({
           type="button"
           className="font-semibold flex flex-col items-center justify-center w-full h-full rounded-xl bg-gray-100 ">
           Add image
-          <EmojiHappyIcon className="w-10 h-10 text-gray-700" />
+          <FaceSmileIcon className="w-10 h-10 text-gray-700" />
         </button>
       )}
       {isEditing && <EditModal setImage={setImage} close={toggleEditing} />}

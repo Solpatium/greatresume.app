@@ -1,37 +1,19 @@
-import { Stepper } from "../../molecules/stepper";
-import React, { useCallback } from "react";
+import { Step, Stepper } from "../../molecules/stepper";
+import React, { useMemo, useState } from "react";
 import { PersonalInformation } from "./personalInfo";
-import { ResumeModel } from "../../../models/v1";
-import { StateSetter } from "../../../utils/mutators";
+import { ResumeModel, SectionType } from "../../../models/v1";
+import { StateSetter, useNestArrayState, useNestObjectState } from "../../../utils/mutators";
 import { Appearance } from "./appearance";
-import { WorkExperience } from "./workExperience";
-import { EducationForm } from "./education";
-import { useRouter } from "next/router";
-import { SkillsForm } from "./skills";
+
+import { SkillsForm } from "./datedEntries";
 import { InterestsForm } from "./interests";
 import { LegalClauseForm } from "./legalClause";
+import { StepsForm } from "./sections";
+import useTranslation from "next-translate/useTranslation";
+import { FormStep } from "./types";
+import { Experience } from "./experience";
 
 const steps = [
-  {
-    path: "/creator/templates",
-    title: "Appearance",
-    element: Appearance,
-  },
-  {
-    path: "/creator/personal-info",
-    title: "Personal info",
-    element: PersonalInformation,
-  },
-  {
-    path: "/creator/experience",
-    title: "Experience",
-    element: WorkExperience,
-  },
-  {
-    path: "/creator/education",
-    title: "Education",
-    element: EducationForm,
-  },
   {
     path: "/creator/skills",
     title: "Skills",
@@ -49,22 +31,47 @@ const steps = [
   },
 ];
 
-export const SectionSet: React.FC<{
+const typeToStep: Record<SectionType, FormStep> = {};
+
+export const Editor: React.FC<{
   state: ResumeModel;
   setState: StateSetter<ResumeModel>;
   className?: string;
-}> = props => {
-  const { query, push } = useRouter();
-  const selected = steps.find(p => p.path.replace("/creator/", "") === query.step?.[0]) ?? steps[0];
-  const goTo = useCallback(
-    (path: string) => {
-      push(path, undefined, { shallow: true });
-    },
-    [push],
-  );
+}> = ({ state, setState, className }) => {
+  const { t } = useTranslation("app");
+  const makeSectionStateSetter = useNestArrayState(useNestObjectState(useState)("sections"));
+  const steps: Step[] = useMemo(() => {
+    return [
+      {
+        title: "Appearance",
+        element: Appearance,
+      },
+      {
+        title: t`newSection.title`,
+        element: StepsForm,
+      },
+      {
+        title: "Personal info",
+        element: PersonalInformation,
+      },
+      ...state.sections.map((section, i) => {
+        if (section.section.type === "experience") {
+          return {
+            title: section.title,
+            element: <Experience state={section.section} setState={makeSectionStateSetter(i)} />,
+          };
+        }
+        return {
+          title: section.title,
+          element: PersonalInformation,
+        } as Step;
+      }),
+    ];
+  }, [state.sections, t]);
+
   return (
-    <div className={props.className}>
-      <Stepper goTo={goTo} selected={selected.path} {...props} steps={steps} />
+    <div className={className}>
+      <Stepper state={state} setState={setState} steps={steps} />
     </div>
   );
 };

@@ -4,7 +4,7 @@
   "export": "Export",
   "edit": "Edit",
   "steps": {
-    "templates":"Templates",
+    "templates": "Templates",
     "personal-info": "Personal info",
     "experience": "Experience",
     "education": "Education",
@@ -13,12 +13,59 @@
   "defaults": {
     "paperSize": "A4",
     "titles": {
+      "employment": "Employment",
+      "education": "Education",
+      "projects": "Projects",
+      "experience": "Experience",
+      "skills": "Skills",
       "languages": "Languages",
       "interests": "Interests",
-      "skills": "Skills",
-      "education": "Education",
-      "experience": "Experience"
+      "text": "Text"
     },
     "legal-clause": ""
+  },
+  "newSection": {
+    "title": "Sections",
+    "description": "Customize sections on your resume. You can rearrange, add new, rename or delete them.",
+    "modalTitle": "Choose section to add",
+    "groups": {
+      "datedEntries": "Dated entries",
+      "others": "Others"
+    },
+    "sections": {
+      "employment": {
+        "label": "Employment",
+        "description": "Your employment history."
+      },
+      "education": {
+        "label": "Education",
+        "description": "Your education history."
+      },
+      "projects": {
+        "label": "Projects",
+        "description": "Projects you've been involved in."
+      },
+      "experience": {
+        "label": "Experience",
+        "description": "Other experience."
+      },
+      "skills": {
+        "label": "Skills",
+        "description": "Your skills."
+      },
+      "languages": {
+        "label": "Languages",
+        "description": "Languages you know."
+      },
+      "interests": {
+        "label": "Interests",
+        "description": "Things you like."
+      },
+      "text": {
+        "label": "Text",
+        "description": "Plain text with a title."
+      }
+    },
+    "addSection": "Add selected section"
   }
 }

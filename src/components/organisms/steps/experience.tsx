@@ -1,17 +1,12 @@
 import React from "react";
 import { Input } from "../../atoms/fields/input";
-import { WorkEntry } from "../../../models/v1";
 import { StateSetter, useNestArrayState, useNestObjectState } from "../../../utils/mutators";
 import { SortableList } from "../../layout/sortableList";
 import { RichTextEditor } from "../../atoms/fields/richText";
-import { FormStep } from "./types";
 import { StepWrapper } from "../../molecules/stepWrapper";
-import { withKey } from "../../../utils/lists";
+import { Entry, ExperienceSection } from "../../../models/sections/experienceSection";
 
-const Entry: React.FC<{ state: WorkEntry; setState: StateSetter<WorkEntry> }> = ({
-  state,
-  setState,
-}) => {
+const Entry: React.FC<{ state: Entry; setState: StateSetter<Entry> }> = ({ state, setState }) => {
   const makeSetter = useNestObjectState(setState);
   return (
     <>
@@ -31,8 +26,14 @@ const Entry: React.FC<{ state: WorkEntry; setState: StateSetter<WorkEntry> }> = 
       <Input
         className="col-span-full"
         label="Company"
-        onChange={makeSetter("company")}
+        onChange={makeSetter("subtitle")}
         value={state["company"]}
+      />
+      <Input
+        className="col-span-full"
+        label="Url"
+        onChange={makeSetter("url")}
+        value={state["url"]}
       />
       <RichTextEditor
         className="col-span-full"
@@ -44,22 +45,20 @@ const Entry: React.FC<{ state: WorkEntry; setState: StateSetter<WorkEntry> }> = 
   );
 };
 
-export const WorkExperience: FormStep = ({ state, setState, ...props }) => {
-  const makeSetter = useNestObjectState(useNestObjectState(setState)("experience"));
-  const entriesSetter = makeSetter("content");
+export const Experience: React.FC<{
+  goToNext?: () => void;
+  goToPrev?: () => void;
+  imageDataUrl?: string;
+  state: ExperienceSection;
+  setState: StateSetter<ExperienceSection>;
+}> = ({ state, setState, ...props }) => {
+  const entriesSetter = useNestObjectState(setState)("content");
   const makeEntrySetter = useNestArrayState(entriesSetter);
-  const formState = state.experience;
   return (
     <StepWrapper {...props}>
-      <Input
-        label="Title"
-        value={formState.title ?? "Work Experience"}
-        onChange={makeSetter("title")}
-        className="md:col-span-2"
-      />
       <SortableList
         label="Entries"
-        state={formState.content}
+        state={state.content}
         setState={entriesSetter}
         renderPreview={e => (
           <>
@@ -72,7 +71,7 @@ export const WorkExperience: FormStep = ({ state, setState, ...props }) => {
         onAddNew={() =>
           entriesSetter(entries => [
             ...entries,
-            withKey({ from: "", to: "", title: "", description: "", city: "", company: "" }),
+            // withKey({ from: "", to: "", title: "", description: "", city: "", company: "" }),
           ])
         }
       />

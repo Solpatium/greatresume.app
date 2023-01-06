@@ -6,6 +6,7 @@ export interface FlatSelectOption<T> {
   value: T;
   label: string;
   description?: string;
+  icon?: (props: React.ComponentProps<"svg">) => JSX.Element;
 }
 
 export interface FlatSelectProps<T> {
@@ -38,14 +39,18 @@ export const FlatSelect = <T,>({
             }>
             {({ checked }) => (
               <>
-                <div className="flex items-center">
-                  <div className="text-sm">
-                    <RadioGroup.Label as="p" className="font-medium text-gray-900">
-                      {option.label}
-                    </RadioGroup.Label>
-                    <RadioGroup.Description as="div" className="text-gray-500">
-                      <p className="sm:inline">{option.description}</p>
-                    </RadioGroup.Description>
+                <div className="flex flex-row items-center">
+                  {option.icon &&
+                    React.createElement(option.icon, { className: "h-8 w-8 mr-2 -ml-2" })}
+                  <div className="flex items-center">
+                    <div className="text-sm">
+                      <RadioGroup.Label as="p" className="font-medium text-gray-900">
+                        {option.label}
+                      </RadioGroup.Label>
+                      <RadioGroup.Description as="div" className="text-gray-500">
+                        <p className="sm:inline">{option.description}</p>
+                      </RadioGroup.Description>
+                    </div>
                   </div>
                 </div>
                 <div
