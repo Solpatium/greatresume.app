@@ -6,7 +6,7 @@ import { SortableList } from "../../layout/sortableList";
 import { RichTextEditor } from "../../atoms/fields/richText";
 import { FormStep } from "./types";
 import { StepWrapper } from "../../molecules/stepWrapper";
-import { withKey } from "../../../utils/lists";
+import { withId } from "../../../utils/lists";
 
 const Entry: React.FC<{ state: EducationEntry; setState: StateSetter<EducationEntry> }> = ({
   state,
@@ -73,7 +73,7 @@ export const EducationForm: FormStep = ({ state, setState, ...props }) => {
         onAddNew={() =>
           entriesSetter(entries => [
             ...entries,
-            withKey({ from: "", to: "", school: "", degree: "", description: "", city: "" }),
+            withId({ from: "", to: "", school: "", degree: "", description: "", city: "" }),
           ])
         }
       />

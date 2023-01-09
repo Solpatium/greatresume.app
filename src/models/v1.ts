@@ -4,14 +4,12 @@ import {
   ExperienceKind,
   experienceSectionStruct,
   ExperienceType,
-  experienceTypeName,
   makeEmptyExperience,
 } from "./sections/experienceSection";
 import {
   KeyValueKind,
   keyValueSectionStruct,
   KeyValueType,
-  keyValueTypeName,
   makeKeyValue,
 } from "./sections/keyValueSection";
 import {
@@ -19,14 +17,9 @@ import {
   SimpleListKind,
   simpleListSectionStruct,
   SimpleListType,
-  simpleListTypeName,
 } from "./sections/simpleListSection";
-import {
-  makeTextSection,
-  textSectionStruct,
-  TextSectionType,
-  textSectionTypeName,
-} from "./sections/textSection";
+import { makeTextSection, textSectionStruct, TextSectionType } from "./sections/textSection";
+import { withId } from "../utils/lists";
 
 const paperSizeStruct = enums(["A4", "LETTER"]);
 export type PaperSize = Infer<typeof paperSizeStruct>;
@@ -43,6 +36,7 @@ const sectionStruct = union([
 
 const sectionEntry = type({
   title: string(),
+  id: string(),
   section: sectionStruct,
 });
 export type Section = Infer<typeof sectionEntry>;
@@ -68,11 +62,13 @@ const mapping = {
   skills: makeKeyValue,
   text: makeTextSection,
 };
-export const createEmptySection = (title: string, kind: SectionKind): Section => ({
-  title,
-  // @ts-ignore
-  section: mapping[kind](kind),
-});
+
+export const createEmptySection = (title: string, kind: SectionKind): Section =>
+  withId({
+    title,
+    // @ts-ignore
+    section: mapping[kind](kind),
+  });
 
 export const makeEmptyResume = ({
   paperSize,
@@ -87,7 +83,7 @@ export const makeEmptyResume = ({
 }): ResumeModel => ({
   version: "1",
   paperSize: is(paperSize, paperSizeStruct) ? paperSize : "A4",
-  template: undefined,
+  template: "aleksandra",
   image: undefined,
   personalInformation: {
     name: "",

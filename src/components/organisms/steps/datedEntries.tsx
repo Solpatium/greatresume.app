@@ -7,7 +7,7 @@ import { StateSetter, useNestArrayState, useNestObjectState } from "../../../uti
 import { SortableList } from "../../layout/sortableList";
 import { FormStep } from "./types";
 import { StepWrapper } from "../../molecules/stepWrapper";
-import { withKey } from "../../../utils/lists";
+import { withId } from "../../../utils/lists";
 
 const Entry: React.FC<{ state: Skill; setState: StateSetter<Skill> }> = ({ state, setState }) => {
   const makeSetter = useNestObjectState(setState);
@@ -55,7 +55,7 @@ export const SkillsForm: FormStep = ({ state, setState, ...props }) => {
           </>
         )}
         onAddNew={() =>
-          entriesSetter(entries => [...entries, withKey({ name: "Skill", level: "5" })])
+          entriesSetter(entries => [...entries, withId({ name: "Skill", level: "5" })])
         }
       />
     </StepWrapper>

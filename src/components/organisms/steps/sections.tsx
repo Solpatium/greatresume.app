@@ -1,47 +1,45 @@
 import React, { useState } from "react";
 import { Input } from "../../atoms/fields/input";
 import { Section } from "../../../models/v1";
-import { StateSetter, useNestArrayState, useNestObjectState } from "../../../utils/mutators";
 
-import { SortableList } from "../../layout/sortableList";
-import { FormStep } from "./types";
-import { StepWrapper } from "../../molecules/stepWrapper";
+import { ExpandableList } from "../../layout/expandableList";
 import { Modal } from "../../layout/modal";
 
 import { kindIcons, SectionPicker } from "../../molecules/sectionPicker";
 import useTranslation from "next-translate/useTranslation";
+import { useAppState } from "../../../state/store";
+import { useSnapshot } from "valtio";
+import { StepDescription } from "../../atoms/stepDescription";
 
-const Entry: React.FC<{ state: Section; setState: StateSetter<Section> }> = ({
-  state,
-  setState,
-}) => {
-  const makeSetter = useNestObjectState(setState);
+const Entry: React.FC<{ state: Section }> = ({ state }) => {
+  const { title } = useSnapshot(state);
   return (
-    <>
-      <Input
-        className="col-span-1"
-        label="Title"
-        onChange={makeSetter("title")}
-        value={state["title"]}
-      />
-    </>
+    <Input
+      className="col-span-1"
+      label="Title"
+      onChange={value => (state.title = value)}
+      value={title}
+    />
   );
 };
 
 const Preview: React.FC<{ state: Section }> = ({ state }) => {
-  const Icon = kindIcons[state.section.kind];
+  const { title, section } = useSnapshot(state);
+  const { kind } = section;
+  const Icon = kindIcons[kind];
+
   return (
     <div className="flex flex-row items-center gap-2">
       <Icon className="w-6 h-6" />
-      <p>{state.title}</p>
+      <p>{title}</p>
     </div>
   );
 };
 
-export const StepsForm: FormStep = ({ state, setState, ...props }) => {
+export const StepsForm: React.FC = () => {
   const { t } = useTranslation("app");
-  const entriesSetter = useNestObjectState(setState)("sections");
-  const makeEntrySetter = useNestArrayState(entriesSetter);
+  const { sections } = useAppState().resume;
+
   const [modalOpened, setModalOpened] = useState(false);
   return (
     <>
@@ -49,23 +47,20 @@ export const StepsForm: FormStep = ({ state, setState, ...props }) => {
         <Modal title={t`newSection.modalTitle`} onClose={() => setModalOpened(false)}>
           <SectionPicker
             onSelect={newSection => {
-              entriesSetter(entries => [...entries, newSection]);
+              sections.push(newSection);
               setModalOpened(false);
             }}
           />
         </Modal>
       )}
-      <StepWrapper {...props}>
-        <p className="col-span-full text-md font-medium text-gray-900">{t`newSection.description`}</p>
-        <SortableList
-          className="col-span-full"
-          state={state.sections}
-          setState={entriesSetter}
-          render={(e, i) => <Entry state={e} setState={makeEntrySetter(i)} />}
-          renderPreview={content => <Preview state={content} />}
-          onAddNew={() => setModalOpened(true)}
-        />
-      </StepWrapper>
+      <StepDescription>{t`newSection.description`}</StepDescription>
+      <ExpandableList
+        className="col-span-full"
+        stateProxy={sections}
+        render={e => <Entry state={e} />}
+        renderPreview={content => <Preview state={content} />}
+        onAddNew={() => setModalOpened(true)}
+      />
     </>
   );
 };

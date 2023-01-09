@@ -11,10 +11,12 @@ import { Icon } from "../../src/components/atoms/icon";
 import { useResumeData } from "../../src/utils/storage";
 import useTranslation from "next-translate/useTranslation";
 import { PdfViewer } from "../../src/components/organisms/pdfViewer";
+import { AppStateProvider } from "../../src/state/store";
 
 const Creator: React.FC = () => {
   const { t } = useTranslation("app");
   const [isPreviewing, setIsPreviewing] = useState(false);
+
   const [data, setData] = useResumeData();
   const image = useDataUrl(data.image);
   const dataWithDataUrlImage = useMemo(() => ({ ...data, image }), [image, data]);
@@ -22,7 +24,7 @@ const Creator: React.FC = () => {
   const { url, download, loading } = useRenderResume(dataWithDataUrlImage);
 
   return (
-    <>
+    <AppStateProvider>
       <Head>
         <title>{t`page-title`}</title>
         <meta
@@ -74,7 +76,7 @@ const Creator: React.FC = () => {
           </div>
         </div>
       </Theme>
-    </>
+    </AppStateProvider>
   );
 };
 

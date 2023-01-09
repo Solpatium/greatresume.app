@@ -1,80 +1,106 @@
 import React from "react";
 import { Input } from "../../atoms/fields/input";
-import { StateSetter, useNestArrayState, useNestObjectState } from "../../../utils/mutators";
-import { SortableList } from "../../layout/sortableList";
+import { ExpandableList } from "../../layout/expandableList";
 import { RichTextEditor } from "../../atoms/fields/richText";
-import { StepWrapper } from "../../molecules/stepWrapper";
-import { Entry, ExperienceSection } from "../../../models/sections/experienceSection";
+import {
+  Entry,
+  ExperienceKind,
+  ExperienceSection,
+  makeEmptyEntry,
+} from "../../../models/sections/experienceSection";
+import { useSnapshot } from "valtio";
+import { StepDescription } from "../../atoms/stepDescription";
+import useTranslation from "next-translate/useTranslation";
 
-const Entry: React.FC<{ state: Entry; setState: StateSetter<Entry> }> = ({ state, setState }) => {
-  const makeSetter = useNestObjectState(setState);
+const Entry: React.FC<{ kind: ExperienceKind; stateProxy: Entry }> = ({ kind, stateProxy }) => {
+  const state = useSnapshot(stateProxy);
+  const { t } = useTranslation("app");
+
   return (
     <>
       <Input
         className="md:col-span-1"
-        label="From"
-        onChange={makeSetter("from")}
+        label={t`startDate`}
+        onChange={v => (stateProxy.from = v)}
         value={state["from"]}
       />
-      <Input className="md:col-span-1" label="To" onChange={makeSetter("to")} value={state["to"]} />
+      <Input
+        className="md:col-span-1"
+        label={t`endDate`}
+        onChange={v => (stateProxy.to = v)}
+        value={state["to"]}
+      />
       <Input
         className="col-span-full"
-        label="Title"
-        onChange={makeSetter("title")}
+        label={t(`steps.${kind}.entryTitle`)}
+        onChange={v => (stateProxy.title = v)}
         value={state["title"]}
       />
       <Input
         className="col-span-full"
-        label="Company"
-        onChange={makeSetter("subtitle")}
-        value={state["company"]}
+        label={t(`steps.${kind}.entrySubtitle`)}
+        onChange={v => (stateProxy.subtitle = v)}
+        value={state["subtitle"]}
       />
       <Input
         className="col-span-full"
-        label="Url"
-        onChange={makeSetter("url")}
+        label={t`url`}
+        onChange={v => (stateProxy.url = v)}
         value={state["url"]}
       />
       <RichTextEditor
         className="col-span-full"
-        label="Description"
-        onChange={makeSetter("description")}
+        label={t`description`}
+        onChange={v => (stateProxy.description = v)}
         value={state["description"]}
       />
     </>
   );
 };
 
+const joinNonEmpty = (joinWith: string, ...args: string[]): string =>
+  args.filter(v => v.trim()).join(joinWith);
+
+const Preview: React.FC<{ stateProxy: Entry }> = ({ stateProxy }) => {
+  const state = useSnapshot(stateProxy);
+  const parts = [];
+
+  if (state.from && state.to) {
+    parts.push(
+      <span className="italic text-base inline-block mr-2">
+        {joinNonEmpty(" - ", state.from, state.to)}
+      </span>,
+    );
+  }
+
+  if (state.title || state.subtitle) {
+    parts.push(
+      <span className="inline-block font-semibold text-base">
+        {joinNonEmpty(" : ", state.title, state.subtitle)}
+      </span>,
+    );
+  }
+
+  return <div>{parts}</div>;
+};
+
 export const Experience: React.FC<{
-  goToNext?: () => void;
-  goToPrev?: () => void;
-  imageDataUrl?: string;
-  state: ExperienceSection;
-  setState: StateSetter<ExperienceSection>;
-}> = ({ state, setState, ...props }) => {
-  const entriesSetter = useNestObjectState(setState)("content");
-  const makeEntrySetter = useNestArrayState(entriesSetter);
+  stateProxy: ExperienceSection;
+}> = ({ stateProxy }) => {
+  const { t } = useTranslation("app");
   return (
-    <StepWrapper {...props}>
-      <SortableList
-        label="Entries"
-        state={state.content}
-        setState={entriesSetter}
-        renderPreview={e => (
-          <>
-            {`${e.from} - ${e.to}`}
-            {e.title && `: ${e.title}`}
-          </>
-        )}
-        render={(e, i) => <Entry key={i} state={e} setState={makeEntrySetter(i)} />}
+    <>
+      <StepDescription>{t(`steps.${stateProxy.kind}.description`)}</StepDescription>
+      <ExpandableList
+        // label="Entries"
+        stateProxy={stateProxy.content}
+        renderPreview={stateProxy => <Preview stateProxy={stateProxy} />}
+        render={e => <Entry stateProxy={e} kind={stateProxy.kind} />}
         className="col-span-full"
-        onAddNew={() =>
-          entriesSetter(entries => [
-            ...entries,
-            // withKey({ from: "", to: "", title: "", description: "", city: "", company: "" }),
-          ])
-        }
+        onAddNew={() => {
+          stateProxy.content.push(makeEmptyEntry());
+        }}
       />
-    </StepWrapper>
+    </>
   );
 };

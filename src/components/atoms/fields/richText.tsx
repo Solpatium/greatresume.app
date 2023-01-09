@@ -5,7 +5,7 @@ import { StateSetter } from "../../../utils/mutators";
 export const RichTextEditor: React.FC<{
   label: string;
   value?: string;
-  onChange: StateSetter<string>;
+  onChange: (v: string) => void;
   className?: string;
 }> = ({ className, label, onChange, value }) => (
   <Label className={`${className}`} name={label}>

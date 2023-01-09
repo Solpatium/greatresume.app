@@ -1,15 +1,14 @@
-import React, { useMemo, useState } from "react";
+import React from "react";
 import { FormStep } from "./types";
-import { StepWrapper } from "../../molecules/stepWrapper";
 import { templates } from "../../../resumes";
 import Image from "next/image";
 import classes from "classnames";
 import { Label } from "../../atoms/fields/label";
-import { useNestObjectState } from "../../../utils/mutators";
-// import { RadioGroup } from "../../atoms/radioGroup";
 import { FlatSelect, FlatSelectOption } from "../../atoms/flatSelect";
 import { PaperSize } from "../../../models/v1";
 import placeholderCvImage from "../../../../public/images/cv.jpg";
+import { useAppState } from "../../../state/store";
+import { useSnapshot } from "valtio";
 
 const TemplateList: React.FC<{
   template: string;
@@ -50,25 +49,25 @@ const pageOptions: FlatSelectOption<PaperSize>[] = [
   { value: "LETTER", label: "Letter", description: "Popular in US." },
 ];
 
-export const Appearance: FormStep = ({ state, setState, ...props }) => {
-  const template = state.template || "aleksandra";
-  const setTemplate = useNestObjectState(setState)("template");
-  const setPaperSize = useNestObjectState(setState)("paperSize");
+export const Appearance: FormStep = () => {
+  // const { template, paperSize } = useReadState().resume;
+  const resume = useAppState().resume;
+  const { template, paperSize } = useSnapshot(resume);
   return (
-    <StepWrapper {...props}>
+    <>
       <div className="col-span-full">
         <div className="mb-4">
+          {/*TODO: Accessibility*/}
           <Label name="Page size" />
           <FlatSelect
             wrapperClassName="grid lg:grid-cols-2 grid-cols-1 gap-2"
             options={pageOptions}
-            value={state.paperSize}
-            onChange={setPaperSize}
+            value={paperSize}
+            onChange={v => (resume.paperSize = v)}
           />
         </div>
       </div>
-      <TemplateList template={template} setTemplate={setTemplate} />
-    </StepWrapper>
+      <TemplateList template={template} setTemplate={v => (resume.template = v)} />
+    </>
   );
-  return null;
 };

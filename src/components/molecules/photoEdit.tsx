@@ -63,27 +63,27 @@ const EditModal: React.FC<Pick<PhotoProps, "setImage"> & { close: () => void }> 
               rotate={0}
             />
           </div>
-          <Form onSubmit={onImageSave}>
-            <div className="flex mt-2">
-              <MagnifyingGlassMinusIcon className="h-5 w-5" />
-              <input
-                onChange={e => setZoom(1 + (parseInt(e.target.value) - 1) / 10)}
-                type="range"
-                min="1"
-                max="100"
-                step="1"
-                defaultValue="1"
-                className="flex-1 mx-2"
-              />
-              <MagnifyingGlassPlusIcon className="h-5 w-5" />
-            </div>
-            <div className="mt-5 sm:mt-6 sm:grid sm:grid-cols-2 sm:gap-3 sm:grid-flow-row-dense">
-              <Button secondary onClick={close}>
-                Cancel
-              </Button>
-              <Button type="submit">Save</Button>
-            </div>
-          </Form>
+          <div className="flex mt-2">
+            <MagnifyingGlassMinusIcon className="h-5 w-5" />
+            <input
+              onChange={e => setZoom(1 + (parseInt(e.target.value) - 1) / 10)}
+              type="range"
+              min="1"
+              max="100"
+              step="1"
+              defaultValue="1"
+              className="flex-1 mx-2"
+            />
+            <MagnifyingGlassPlusIcon className="h-5 w-5" />
+          </div>
+          <div className="mt-5 sm:mt-6 sm:grid sm:grid-cols-2 sm:gap-3 sm:grid-flow-row-dense">
+            <Button secondary onClick={close}>
+              Cancel
+            </Button>
+            <Button type="button" onClick={onImageSave}>
+              Save
+            </Button>
+          </div>
         </>
       )}
     </Modal>

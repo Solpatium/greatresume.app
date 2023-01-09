@@ -4,6 +4,7 @@ import { ResumeModel } from "../../models/v1";
 import { StateSetter } from "../../utils/mutators";
 import classes from "classnames";
 import { useDrag } from "@use-gesture/react";
+import { StepWrapper } from "./stepWrapper";
 
 const HorizontalScrollWrapper = styled.div`
   width: 100%;
@@ -23,21 +24,14 @@ const HorizontalScrollWrapper = styled.div`
 
 export type Step = {
   title: string;
-  element: React.FC<{
-    state: ResumeModel;
-    setState: StateSetter<ResumeModel>;
-    goToNext?: () => void;
-    goToPrev?: () => void;
-  }>;
+  element: React.ReactElement;
 };
 
 const V_THRESHOLD = 0.3;
 
 export const Stepper: React.FC<{
-  state: ResumeModel;
-  setState: StateSetter<ResumeModel>;
   steps: Step[];
-}> = ({ state, setState, steps }) => {
+}> = ({ steps }) => {
   const [activeIndex, setIndex] = useState(0);
   const lastIndex = steps.length;
   const prevIndex: number | null = activeIndex > 0 ? activeIndex - 1 : null;
@@ -68,11 +62,12 @@ export const Stepper: React.FC<{
       const target = event.target as HTMLElement;
       const isClickable = ["input", "textarea", "button"].includes(target.tagName.toLowerCase());
       const isInModal = target.closest("#headlessui-portal-root");
+      console.log(target);
       if (!isClickable && !isInModal) {
         if (x > 0) {
-          goToPrev?.();
+          // goToPrev?.();
         } else {
-          goToNext?.();
+          // goToNext?.();
         }
       }
     },
@@ -81,7 +76,7 @@ export const Stepper: React.FC<{
       threshold: 50,
     },
   );
-  const Element = steps[activeIndex]?.element;
+  const element = steps[activeIndex]?.element;
 
   // TODO accessibility
   return (
@@ -117,9 +112,12 @@ export const Stepper: React.FC<{
           </button>
         ))}
       </HorizontalScrollWrapper>
-      {Element && (
+      {element && (
+        // <div {...bind()}>
         <div {...bind()}>
-          <Element state={state} setState={setState} goToNext={goToNext} goToPrev={goToPrev} />
+          <StepWrapper goToNext={goToNext} goToPrev={goToPrev}>
+            {element}
+          </StepWrapper>
         </div>
       )}
     </div>

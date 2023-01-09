@@ -7,6 +7,7 @@ export const StepWrapper: React.FC<{
   goToNext?: () => void;
   goToPrev?: () => void;
   className?: string;
+  children: React.ReactElement;
 }> = ({ className, goToPrev, goToNext, children }) => {
   const onSubmit = useCallback(
     (e: React.FormEvent<HTMLFormElement>) => {

@@ -12,6 +12,8 @@ import { StepsForm } from "./sections";
 import useTranslation from "next-translate/useTranslation";
 import { FormStep } from "./types";
 import { Experience } from "./experience";
+import { useSnapshot } from "valtio";
+import { useAppState } from "../../../state/store";
 
 const steps = [
   {
@@ -31,47 +33,45 @@ const steps = [
   },
 ];
 
-const typeToStep: Record<SectionType, FormStep> = {};
-
 export const Editor: React.FC<{
-  state: ResumeModel;
-  setState: StateSetter<ResumeModel>;
   className?: string;
-}> = ({ state, setState, className }) => {
+}> = ({ className }) => {
   const { t } = useTranslation("app");
-  const makeSectionStateSetter = useNestArrayState(useNestObjectState(useState)("sections"));
-  const steps: Step[] = useMemo(() => {
-    return [
-      {
-        title: "Appearance",
-        element: Appearance,
-      },
-      {
-        title: t`newSection.title`,
-        element: StepsForm,
-      },
-      {
-        title: "Personal info",
-        element: PersonalInformation,
-      },
-      ...state.sections.map((section, i) => {
-        if (section.section.type === "experience") {
-          return {
-            title: section.title,
-            element: <Experience state={section.section} setState={makeSectionStateSetter(i)} />,
-          };
-        }
+  const state = useAppState();
+
+  // Subscribe to sections to render them properly below
+  useSnapshot(state.resume.sections);
+
+  const steps: Step[] = [
+    {
+      title: "Appearance",
+      element: <Appearance />,
+    },
+    {
+      title: t`newSection.title`,
+      element: <StepsForm />,
+    },
+    {
+      title: "Personal info",
+      element: <PersonalInformation />,
+    },
+    ...state.resume.sections.map((section, i) => {
+      if (section.section.type === "experience") {
         return {
           title: section.title,
-          element: PersonalInformation,
-        } as Step;
-      }),
-    ];
-  }, [state.sections, t]);
+          element: <Experience stateProxy={section.section} />,
+        };
+      }
+      return {
+        title: "dupa",
+        element: "",
+      } as Step;
+    }),
+  ];
 
   return (
     <div className={className}>
-      <Stepper state={state} setState={setState} steps={steps} />
+      <Stepper steps={steps} />
     </div>
   );
 };

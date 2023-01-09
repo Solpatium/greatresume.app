@@ -6,7 +6,7 @@ import { StateSetter, useNestArrayState, useNestObjectState } from "../../../uti
 import { SortableList } from "../../layout/sortableList";
 import { FormStep } from "./types";
 import { StepWrapper } from "../../molecules/stepWrapper";
-import { withKey } from "../../../utils/lists";
+import { withId } from "../../../utils/lists";
 
 const Entry: React.FC<{ state: Interest; setState: StateSetter<Interest> }> = ({
   state,
@@ -43,7 +43,7 @@ export const InterestsForm: FormStep = ({ state, setState, ...props }) => {
         setState={entriesSetter}
         render={(e, i) => <Entry key={i} state={e} setState={makeEntrySetter(i)} />}
         renderPreview={content => content.name}
-        onAddNew={() => entriesSetter(entries => [...entries, withKey({ name: "" })])}
+        onAddNew={() => entriesSetter(entries => [...entries, withId({ name: "" })])}
       />
     </StepWrapper>
   );

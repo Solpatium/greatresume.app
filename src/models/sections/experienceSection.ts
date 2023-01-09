@@ -1,4 +1,5 @@
 import { array, Infer, string, type, literal, enums } from "superstruct";
+import { withId } from "../../utils/lists";
 
 export const experienceTypeName = "experience";
 export type ExperienceType = typeof experienceTypeName;
@@ -18,6 +19,7 @@ const entryStruct = type({
   ...periodMixinStruct.schema,
   description: string(),
   url: string(),
+  id: string(),
 });
 export type Entry = Infer<typeof entryStruct>;
 
@@ -28,21 +30,24 @@ export const experienceSectionStruct = type({
   type: literal(experienceTypeName),
   kind: kindStruct,
   content: experienceListSchema,
+  id: string(),
 });
 
 export type ExperienceSection = Infer<typeof experienceSectionStruct>;
 
-export const makeEmptyExperience = (kind: ExperienceKind): ExperienceSection => ({
-  type: experienceTypeName,
-  kind,
-  content: [
-    {
-      title: "",
-      subtitle: "",
-      from: "",
-      to: "",
-      description: "",
-      url: "",
-    },
-  ],
-});
+export const makeEmptyEntry = (): Entry =>
+  withId({
+    title: "",
+    subtitle: "",
+    from: "",
+    to: "",
+    description: "",
+    url: "",
+  });
+
+export const makeEmptyExperience = (kind: ExperienceKind): ExperienceSection =>
+  withId({
+    type: experienceTypeName,
+    kind,
+    content: [],
+  });

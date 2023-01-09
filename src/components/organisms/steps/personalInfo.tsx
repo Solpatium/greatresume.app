@@ -4,15 +4,15 @@ import { StateSetter, useNestObjectState } from "../../../utils/mutators";
 import { RichTextEditor } from "../../atoms/fields/richText";
 import { PhotoEditor } from "../../molecules/photoEdit";
 import { StepWrapper } from "../../molecules/stepWrapper";
-import { FormStep } from "./types";
 import { Label } from "../../atoms/fields/label";
 import { Switch } from "@headlessui/react";
 import classNames from "classnames";
-import { Location } from "../../../models/v1";
 import { Button } from "../../atoms/button";
 
 import { Transition, Disclosure } from "@headlessui/react";
 import { ChevronUpIcon } from "@heroicons/react/20/solid";
+import { useAppState } from "../../../state/store";
+import { useSnapshot } from "valtio";
 
 function Disclosured() {
   return (
@@ -139,55 +139,62 @@ const LocationForm: React.FC<{ state: Location; setState: StateSetter<Location> 
   );
 };
 
-export const PersonalInformation: FormStep = ({ imageDataUrl, state, setState, ...props }) => {
-  const makeSetter = useNestObjectState(useNestObjectState(setState)("personalInformation"));
-  const setImage = useNestObjectState(setState)("image");
-  const formState = state.personalInformation;
+export const PersonalInformation: React.FC = () => {
+  const resumeProxy = useAppState().resume;
+  const stateProxy = resumeProxy.personalInformation;
+  const state = useSnapshot(stateProxy);
+  const { image } = useSnapshot(resumeProxy);
+
   return (
-    <StepWrapper {...props}>
+    <>
       <Input
         label="Name"
         className="md:col-span-2"
-        onChange={makeSetter("name")}
-        value={formState["name"]}
+        onChange={v => (stateProxy.name = v)}
+        value={state["name"]}
       />
       <Input
         label="Last Name"
         className="md:col-span-2"
-        onChange={makeSetter("surname")}
-        value={formState["surname"]}
+        onChange={v => (stateProxy.surname = v)}
+        value={state["surname"]}
       />
       <Input
         label="Job Title"
         className="md:col-span-4"
-        onChange={makeSetter("jobTitle")}
-        value={formState["jobTitle"]}
+        onChange={v => (stateProxy.jobTitle = v)}
+        value={state["jobTitle"]}
       />
       <div className="row-start-1 md:row-end-3 md:col-span-2 md:col-start-5">
-        <Label target="edit-image" name="Image" className="flex" />
-        <PhotoEditor buttonId="edit-image" image={state.image} setImage={setImage} />
+        <Label target="edit-image" name="Image" className="flex">
+          <PhotoEditor
+            buttonId="edit-image"
+            image={image}
+            setImage={v => (resumeProxy.image = v)}
+          />
+        </Label>
       </div>
       <Input
         label="Phone number"
         className="md:col-span-3"
-        onChange={makeSetter("phone")}
-        value={formState["phone"]}
+        onChange={v => (stateProxy.phone = v)}
+        value={state["phone"]}
       />
       <Input
         label="Email"
         className="md:col-span-3"
-        onChange={makeSetter("email")}
-        value={formState["email"]}
+        onChange={v => (stateProxy.email = v)}
+        value={state["email"]}
       />
       <div className="col-span-full">
-        <LocationForm setState={makeSetter("location")} state={formState["location"]} />
+        {/*<LocationForm setState={v => (stateProxy.location = v)} state={state["location"]} />*/}
       </div>
       <RichTextEditor
         className="col-span-full"
         label="Short description"
-        onChange={makeSetter("shortDescription")}
-        value={formState["shortDescription"]}
+        onChange={v => (stateProxy.shortDescription = v)}
+        value={state["shortDescription"]}
       />
-    </StepWrapper>
+    </>
   );
 };

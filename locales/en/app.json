@@ -3,12 +3,44 @@
   "view": "View",
   "export": "Export",
   "edit": "Edit",
+  "url": "Url",
+  "description": "Description",
+  "startDate": "Start date",
+  "endDate": "End date",
+  "delete": "Delete",
   "steps": {
-    "templates": "Templates",
-    "personal-info": "Personal info",
-    "experience": "Experience",
-    "education": "Education",
-    "skills": "Skills"
+    "employment":  {
+      "description": "Provide your employment history.",
+      "entryTitle":"Job title",
+      "entrySubtitle": "Company"
+    },
+    "education": {
+      "description":  "Provide your education history.",
+      "entryTitle":"Degree",
+      "entrySubtitle": "School"
+    },
+    "projects":  {
+      "description": "Provide some interesting projects you've been involved in.",
+      "entryTitle": "Position",
+      "entrySubtitle": "Project name"
+    },
+    "experience": {
+      "description": "Add entries of your experience.",
+      "entryTitle": "Title",
+      "entrySubtitle": "Subtitle"
+    },
+    "skills":  {
+      "description":  ""
+    },
+    "languages": {
+      "description":  ""
+    },
+    "interests":  {
+      "description":  ""
+    },
+    "text": {
+      "description":  ""
+    }
   },
   "defaults": {
     "paperSize": "A4",

@@ -106,6 +106,7 @@ export const SectionPicker: React.FC<{ onSelect: (value: Section) => void }> = (
         secondary
         disabled={!sectionKind}
         onClick={() =>
+          sectionKind &&
           onSelect(createEmptySection(t(`defaults.titles.${sectionKind}`), sectionKind))
         }>
         {t`newSection.addSection`}

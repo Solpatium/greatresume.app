@@ -1,116 +1,125 @@
-import { SortableContainer, SortableElement, SortableHandle } from "react-sortable-hoc";
 import React, { ReactElement, useCallback } from "react";
-import arrayMove from "array-move";
-import { StateSetter } from "../../utils/mutators";
 import { Label } from "../atoms/fields/label";
 import { Button } from "../atoms/button";
-import { Disclosure } from "@headlessui/react";
+import { Bars2Icon as MenuIcon, PlusIcon } from "@heroicons/react/20/solid";
+import { useSnapshot } from "valtio";
 import {
-  ChevronDownIcon,
-  Bars2Icon as MenuIcon,
-  PlusIcon,
-  TrashIcon,
-} from "@heroicons/react/20/solid";
-import cn from "classnames";
-
-const DragHandle = SortableHandle(() => (
-  <div className="cursor-move px-2 py-4 flex justify-center items-center">
-    <MenuIcon className="h-6 w-6 text-gray-800" />
-  </div>
-));
-
-const SortableItem = SortableElement(props => (
-  <div {...props} className="flex rounded-md my-2 border border-gray-200 " />
-));
-const SortableWrapper = SortableContainer(props => <div {...props} />);
+  sortableKeyboardCoordinates,
+  useSortable,
+  verticalListSortingStrategy,
+  SortableContext,
+} from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
+import {
+  closestCenter,
+  DndContext,
+  DragEndEvent,
+  KeyboardSensor,
+  PointerSensor,
+  useSensor,
+  useSensors,
+} from "@dnd-kit/core";
+import { HasId } from "../../utils/lists";
 
 export interface SortableListProps<Type> {
-  state: Type[];
-  setState: StateSetter<Type[]>;
-  renderPreview: (state: Type, index: number) => React.ReactNode;
+  stateProxy: Type[];
   render: (state: Type, index: number) => ReactElement;
   className?: string;
   onAddNew?: () => void;
   label?: string;
-  openByDefault?: boolean;
 }
 
-export const SortableList = <Type,>({
-  state,
-  setState,
+interface SortableItemProps<Type> {
+  index: number;
+  stateProxy: Type;
+  render: (state: Type, index: number) => ReactElement;
+}
+
+const SortableItem = <Type extends HasId>(props: SortableItemProps<Type>) => {
+  const { attributes, listeners, setNodeRef, transform, transition } = useSortable({
+    id: props.stateProxy.id,
+  });
+
+  const style = {
+    // We don't want to scale items
+    transform: CSS.Transform.toString({ ...transform, scaleX: 1, scaleY: 1 }),
+    transition,
+  };
+
+  return (
+    <div
+      className="flex rounded-md my-2 border border-gray-200 bg-white"
+      ref={setNodeRef}
+      style={style}
+      // TODO CHECK
+      aria-live="polite">
+      <button
+        type="button"
+        {...attributes}
+        {...listeners}
+        className="cursor-move px-2 py-4 flex justify-center items-center">
+        <MenuIcon className="h-6 w-6 text-gray-800" />
+      </button>
+      {props.render(props.stateProxy, props.index)}
+    </div>
+  );
+};
+
+export const SortableList = <Type extends HasId>({
+  stateProxy,
   render,
-  renderPreview,
   className,
   onAddNew,
   label,
-  openByDefault,
 }: SortableListProps<Type>): ReactElement => {
-  const onSortEnd = useCallback(
-    ({ oldIndex, newIndex }) => {
-      if (oldIndex !== newIndex) {
-        setState(entries => arrayMove(entries, oldIndex, newIndex));
+  const onDragEnd = useCallback(
+    ({ active, over }: DragEndEvent) => {
+      if (!over || active.id === over.id) {
+        return;
       }
+      const oldIndex = stateProxy.findIndex(obj => obj.id === active.id);
+      const newIndex = stateProxy.findIndex(obj => obj.id === over.id);
+      const [el] = stateProxy.splice(oldIndex, 1);
+      stateProxy.splice(newIndex, 0, el as Type);
     },
-    [setState],
+    [stateProxy],
   );
 
-  const onDelete = useCallback(
-    (index: number) => {
-      setState(entries => {
-        const copy = [...entries];
-        copy.splice(index, 1);
-        return copy;
-      });
-    },
-    [setState],
+  const elements = useSnapshot(stateProxy);
+
+  const sensors = useSensors(
+    useSensor(PointerSensor),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    }),
   );
 
   return (
-    <SortableWrapper className={className} useDragHandle onSortEnd={onSortEnd}>
+    <div className={className}>
       {label && <Label name={label} />}
-      {state.map((v, i) => (
-        <SortableItem key={i} index={i}>
-          <DragHandle />
-          <Disclosure
-            defaultOpen={openByDefault}
-            as="div"
-            className="sortable-list flex-1 items-center p-2">
-            {({ open }) => (
-              <>
-                <dt>
-                  <Disclosure.Button className="text-left w-full flex justify-between items-center text-gray-900">
-                    <span className="h-10 flex items-center font-medium">
-                      {renderPreview(v, i)}
-                    </span>
-                    <span className="ml-6 h-7 flex items-center">
-                      <ChevronDownIcon
-                        className={cn(open ? "-rotate-180" : "rotate-0", "h-6 w-6 transform")}
-                        aria-hidden="true"
-                      />
-                    </span>
-                  </Disclosure.Button>
-                </dt>
-
-                <Disclosure.Panel as="dd" className="mt-2 mr-1">
-                  <fieldset className="grid md:grid-cols-2 gap-4">{render(v, i)}</fieldset>
-                  <div className="flex justify-end mt-6 mb-2">
-                    <Button icon={TrashIcon} onClick={() => onDelete(i)} danger>
-                      Delete entry
-                    </Button>
-                  </div>
-                </Disclosure.Panel>
-              </>
-            )}
-          </Disclosure>
-        </SortableItem>
-      ))}
+      <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={onDragEnd}>
+        {/*Ids have to be mapped, otherwise it doesn't work properly*/}
+        <SortableContext items={stateProxy.map(e => e.id)} strategy={verticalListSortingStrategy}>
+          {elements.map((v, i) => (
+            <SortableItem key={v.id} index={i} stateProxy={stateProxy[i] as Type} render={render} />
+          ))}
+        </SortableContext>
+      </DndContext>
       {onAddNew && (
-        <div className="grid grid-cols-1">
-          <Button secondary icon={PlusIcon} onClick={onAddNew}>
-            Add new
-          </Button>
+        <div className="grid grid-cols-3">
+          <div className="relative grid h-16 grid-cols-1">
+            <Button secondary icon={PlusIcon} onClick={onAddNew}>
+              {elements.length === 0 ? (
+                <div
+                  className="animate-ping bg-green-500 rounded-full w-4 h-4 -top-1 -right-1 absolute "
+                  aria-hidden
+                />
+              ) : null}
+              Add new
+            </Button>
+          </div>
         </div>
       )}
-    </SortableWrapper>
+    </div>
   );
 };
