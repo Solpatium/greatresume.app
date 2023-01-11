@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Input } from "../../atoms/fields/input";
 import { Section } from "../../../models/v1";
 
-import { ExpandableList } from "../../layout/expandableList";
 import { Modal } from "../../layout/modal";
 
 import { kindIcons, SectionPicker } from "../../molecules/sectionPicker";
@@ -10,29 +9,25 @@ import useTranslation from "next-translate/useTranslation";
 import { useAppState } from "../../../state/store";
 import { useSnapshot } from "valtio";
 import { StepDescription } from "../../atoms/stepDescription";
+import { FastEditableList } from "../../layout/flatEditableList";
 
 const Entry: React.FC<{ state: Section }> = ({ state }) => {
-  const { title } = useSnapshot(state);
-  return (
-    <Input
-      className="col-span-1"
-      label="Title"
-      onChange={value => (state.title = value)}
-      value={title}
-    />
-  );
-};
-
-const Preview: React.FC<{ state: Section }> = ({ state }) => {
+  const { t } = useTranslation("app");
   const { title, section } = useSnapshot(state);
   const { kind } = section;
   const Icon = kindIcons[kind];
-
   return (
-    <div className="flex flex-row items-center gap-2">
-      <Icon className="w-6 h-6" />
-      <p>{title}</p>
-    </div>
+    <>
+      <div className="flex items-center ml-2 mr-4">
+        <Icon className="w-8 h-8" />
+      </div>
+      <Input
+        className="my-3 w-full max-w-[250px]"
+        label={t`newSection.sectionTitle`}
+        onChange={value => (state.title = value)}
+        value={title}
+      />
+    </>
   );
 };
 
@@ -54,12 +49,11 @@ export const StepsForm: React.FC = () => {
         </Modal>
       )}
       <StepDescription>{t`newSection.description`}</StepDescription>
-      <ExpandableList
-        className="col-span-full"
+      <FastEditableList
         stateProxy={sections}
         render={e => <Entry state={e} />}
-        renderPreview={content => <Preview state={content} />}
         onAddNew={() => setModalOpened(true)}
+        deletionConfirmation={t`newSection.deletionConfirmation`}
       />
     </>
   );

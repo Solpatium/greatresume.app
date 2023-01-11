@@ -42,13 +42,14 @@ const SortableItem = <Type extends HasId>(props: SortableItemProps<Type>) => {
 
   const style = {
     // We don't want to scale items
+    // @ts-ignore
     transform: CSS.Transform.toString({ ...transform, scaleX: 1, scaleY: 1 }),
     transition,
   };
 
   return (
     <div
-      className="flex rounded-md my-2 border border-gray-200 bg-white"
+      className="flex rounded-md my-2 border border-gray-200 bg-white align-center"
       ref={setNodeRef}
       style={style}
       // TODO CHECK

@@ -1,4 +1,4 @@
-import { useLocalStorage, useSessionStorage, useThrottleFn } from "react-use";
+import { useLocalStorage, useThrottleFn } from "react-use";
 import { Dispatch, SetStateAction, useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { makeEmptyResume, ResumeModel, resumeStruct } from "../models/v1";
@@ -10,27 +10,11 @@ export type SessionType = "local" | "session";
 
 // TODO: remove external hooks
 export const useStorageSelected = (): [undefined | SessionType, (type: SessionType) => void] => {
-  const [localStorageSelected, setLocalStorageSelected] =
-    useLocalStorage<boolean>("local-storage-selected");
-  const [sessionStorageSelected, setSessionStorageSelected] = useSessionStorage<boolean>(
-    "session-storage-selected",
-  );
-  const setStorage = useCallback(
-    (type: SessionType) => {
-      if (type === "local") {
-        setLocalStorageSelected(true);
-        setSessionStorageSelected(false);
-      } else {
-        setSessionStorageSelected(true);
-        setLocalStorageSelected(false);
-      }
-    },
-    [setLocalStorageSelected, setSessionStorageSelected],
-  );
-
+  const [storageSelected, setSelected] =
+    useLocalStorage<SessionType>("local-storage-selected");
   return [
-    (localStorageSelected && "local") || (sessionStorageSelected && "session") || undefined,
-    setStorage,
+    storageSelected && ["local", "session"].includes(storageSelected) ? storageSelected : undefined,
+    setSelected,
   ];
 };
 

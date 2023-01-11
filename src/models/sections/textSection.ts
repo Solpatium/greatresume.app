@@ -9,6 +9,8 @@ export const textSectionStruct = type({
   content: string(),
 });
 
+export type TextSection = Infer<typeof textSectionStruct>;
+
 export const makeTextSection = (type: TextSectionType): Infer<typeof textSectionStruct> => ({
   type,
   kind: type,

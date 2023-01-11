@@ -11,6 +11,7 @@ const kindStruct = enums(["skills", "languages"]);
 export type KeyValueKind = Infer<typeof kindStruct>;
 
 const entryStruct = type({
+  id: string(),
   name: string(),
   value: string(),
 });
@@ -25,13 +26,10 @@ export const keyValueSectionStruct = type({
   content: keyValueListSchema,
 });
 
+export type KeyValueSection = Infer<typeof keyValueSectionStruct>;
+
 export const makeKeyValue = (kind: KeyValueKind): Infer<typeof keyValueSectionStruct> => ({
   type: keyValueTypeName,
   kind,
-  content: [
-    {
-      name: "",
-      value: "",
-    },
-  ],
+  content: [],
 });

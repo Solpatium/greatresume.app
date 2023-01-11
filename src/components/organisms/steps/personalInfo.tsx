@@ -146,7 +146,7 @@ export const PersonalInformation: React.FC = () => {
   const { image } = useSnapshot(resumeProxy);
 
   return (
-    <>
+    <div className="grid md:grid-cols-6 gap-4">
       <Input
         label="Name"
         className="md:col-span-2"
@@ -195,6 +195,6 @@ export const PersonalInformation: React.FC = () => {
         onChange={v => (stateProxy.shortDescription = v)}
         value={state["shortDescription"]}
       />
-    </>
+    </div>
   );
 };

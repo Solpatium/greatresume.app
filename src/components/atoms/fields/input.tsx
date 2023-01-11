@@ -11,7 +11,7 @@ export const Input: React.FC<{
   className?: string;
   info?: string;
 }> = ({ className, label, value, onChange, placeholder, disabled, info }) => {
-  const changeHandler = useCallback(e => onChange(e.target.value), [onChange]);
+  const changeHandler = useCallback(e => onChange?.(e.target.value), [onChange]);
   return (
     <Label className={className} name={label}>
       <input

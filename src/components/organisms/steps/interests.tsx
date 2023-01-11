@@ -1,50 +1,35 @@
 import React from "react";
 import { Input } from "../../atoms/fields/input";
-import { Interest } from "../../../models/v1";
-import { StateSetter, useNestArrayState, useNestObjectState } from "../../../utils/mutators";
-
-import { SortableList } from "../../layout/sortableList";
-import { FormStep } from "./types";
-import { StepWrapper } from "../../molecules/stepWrapper";
 import { withId } from "../../../utils/lists";
+import { FastEditableList } from "../../layout/flatEditableList";
+import { SimpleListEntry } from "../../../models/sections/simpleListSection";
+import { useSnapshot } from "valtio";
+import useTranslation from "next-translate/useTranslation";
+import { StepDescription } from "../../atoms/stepDescription";
 
-const Entry: React.FC<{ state: Interest; setState: StateSetter<Interest> }> = ({
-  state,
-  setState,
-}) => {
-  const makeSetter = useNestObjectState(setState);
+const Entry: React.FC<{ stateProxy: SimpleListEntry }> = ({ stateProxy }) => {
+  const { t } = useTranslation("app");
+  const state = useSnapshot(stateProxy);
   return (
     <Input
-      className="col-span-1"
-      label="Name"
-      onChange={makeSetter("name")}
-      value={state["name"]}
+      className="my-3 w-full max-w-[250px]"
+      label={t`steps.interests.interest`}
+      onChange={(value) => (stateProxy.content = value)}
+      value={state.content}
     />
   );
 };
 
-export const InterestsForm: FormStep = ({ state, setState, ...props }) => {
-  const makeSetter = useNestObjectState(useNestObjectState(setState)("interests"));
-  const entriesSetter = makeSetter("content");
-  const makeEntrySetter = useNestArrayState(entriesSetter);
-  const formState = state.interests;
+export const InterestsForm: React.FC<{ stateProxy: SimpleListEntry[] }> = ({ stateProxy }) => {
+  const { t } = useTranslation("app");
   return (
-    <StepWrapper {...props}>
-      <Input
-        label="Title"
-        className="md:col-span-2"
-        value={formState.title ?? "Skills"}
-        onChange={makeSetter("title")}
+    <>
+      <StepDescription>{t`steps.interests.description`}</StepDescription>
+      <FastEditableList
+        stateProxy={stateProxy}
+        render={(e) => <Entry stateProxy={e} />}
+        onAddNew={() => stateProxy.push(withId({ content: "" }))}
       />
-      <SortableList
-        label="Entries"
-        className="col-span-full"
-        state={formState.content}
-        setState={entriesSetter}
-        render={(e, i) => <Entry key={i} state={e} setState={makeEntrySetter(i)} />}
-        renderPreview={content => content.name}
-        onAddNew={() => entriesSetter(entries => [...entries, withId({ name: "" })])}
-      />
-    </StepWrapper>
+    </>
   );
 };

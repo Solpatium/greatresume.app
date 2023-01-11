@@ -62,10 +62,11 @@ const joinNonEmpty = (joinWith: string, ...args: string[]): string =>
   args.filter(v => v.trim()).join(joinWith);
 
 const Preview: React.FC<{ stateProxy: Entry }> = ({ stateProxy }) => {
+  const {t} = useTranslation("app");
   const state = useSnapshot(stateProxy);
   const parts = [];
 
-  if (state.from && state.to) {
+  if (state.from || state.to) {
     parts.push(
       <span className="italic text-base inline-block mr-2">
         {joinNonEmpty(" - ", state.from, state.to)}
@@ -79,6 +80,10 @@ const Preview: React.FC<{ stateProxy: Entry }> = ({ stateProxy }) => {
         {joinNonEmpty(" : ", state.title, state.subtitle)}
       </span>,
     );
+  }
+
+  if (!parts.length) {
+    parts.push(<span className="italic text-base">{t`empty`}</span>)
   }
 
   return <div>{parts}</div>;

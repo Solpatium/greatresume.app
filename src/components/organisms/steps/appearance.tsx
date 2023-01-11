@@ -1,5 +1,4 @@
 import React from "react";
-import { FormStep } from "./types";
 import { templates } from "../../../resumes";
 import Image from "next/image";
 import classes from "classnames";
@@ -9,12 +8,14 @@ import { PaperSize } from "../../../models/v1";
 import placeholderCvImage from "../../../../public/images/cv.jpg";
 import { useAppState } from "../../../state/store";
 import { useSnapshot } from "valtio";
+import { StepDescription } from "../../atoms/stepDescription";
+import useTranslation from "next-translate/useTranslation";
 
 const TemplateList: React.FC<{
   template: string;
   setTemplate: (template: string) => void;
 }> = ({ template, setTemplate }) => (
-  <div className="col-span-full">
+  <div>
     {/*TOOD: Accessibility*/}
     <Label name="Templates" />
     <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
@@ -49,23 +50,22 @@ const pageOptions: FlatSelectOption<PaperSize>[] = [
   { value: "LETTER", label: "Letter", description: "Popular in US." },
 ];
 
-export const Appearance: FormStep = () => {
-  // const { template, paperSize } = useReadState().resume;
+export const Appearance: React.FC<{ isFinal?: boolean }> = ({ isFinal }) => {
+  const { t } = useTranslation("app");
   const resume = useAppState().resume;
   const { template, paperSize } = useSnapshot(resume);
   return (
     <>
-      <div className="col-span-full">
-        <div className="mb-4">
-          {/*TODO: Accessibility*/}
-          <Label name="Page size" />
-          <FlatSelect
-            wrapperClassName="grid lg:grid-cols-2 grid-cols-1 gap-2"
-            options={pageOptions}
-            value={paperSize}
-            onChange={v => (resume.paperSize = v)}
-          />
-        </div>
+      <StepDescription>{isFinal ? t`steps.appearance.finalDescription` : t`steps.appearance.description`}</StepDescription>
+      <div className="mb-4">
+        {/*TODO: Accessibility*/}
+        <Label name="Page size" />
+        <FlatSelect
+          wrapperClassName="grid lg:grid-cols-2 grid-cols-1 gap-2"
+          options={pageOptions}
+          value={paperSize}
+          onChange={v => (resume.paperSize = v)}
+        />
       </div>
       <TemplateList template={template} setTemplate={v => (resume.template = v)} />
     </>

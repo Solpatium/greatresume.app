@@ -1,37 +1,32 @@
 import { Step, Stepper } from "../../molecules/stepper";
-import React, { useMemo, useState } from "react";
+import React from "react";
 import { PersonalInformation } from "./personalInfo";
-import { ResumeModel, SectionType } from "../../../models/v1";
-import { StateSetter, useNestArrayState, useNestObjectState } from "../../../utils/mutators";
 import { Appearance } from "./appearance";
 
-import { SkillsForm } from "./datedEntries";
 import { InterestsForm } from "./interests";
-import { LegalClauseForm } from "./legalClause";
 import { StepsForm } from "./sections";
 import useTranslation from "next-translate/useTranslation";
-import { FormStep } from "./types";
 import { Experience } from "./experience";
 import { useSnapshot } from "valtio";
 import { useAppState } from "../../../state/store";
+import { KeyValueForm } from "./keyValue";
+import { TextForm } from "./text";
+import { Section } from "../../../models/v1";
+import { LegalClauseForm } from "./legalClause";
 
-const steps = [
-  {
-    path: "/creator/skills",
-    title: "Skills",
-    element: SkillsForm,
-  },
-  {
-    path: "/creator/interests",
-    title: "Interests",
-    element: InterestsForm,
-  },
-  {
-    path: "/creator/legal-clause",
-    title: "Legal clause",
-    element: LegalClauseForm,
-  },
-];
+const renderSection = (sectionWrapped: Section): React.ReactElement => {
+  const { section } = sectionWrapped;
+  if (section.type === "experience") {
+    return <Experience stateProxy={section} />;
+  }
+  if (section.type == "simple list") {
+    return <InterestsForm stateProxy={section.content} />
+  }
+  if (section.type == "key value") {
+    return <KeyValueForm stateProxy={section} />;
+  }
+  return <TextForm stateProxy={section} />;
+}
 
 export const Editor: React.FC<{
   className?: string;
@@ -44,7 +39,7 @@ export const Editor: React.FC<{
 
   const steps: Step[] = [
     {
-      title: "Appearance",
+      title: t`steps.appearance.title`,
       element: <Appearance />,
     },
     {
@@ -55,18 +50,18 @@ export const Editor: React.FC<{
       title: "Personal info",
       element: <PersonalInformation />,
     },
-    ...state.resume.sections.map((section, i) => {
-      if (section.section.type === "experience") {
-        return {
-          title: section.title,
-          element: <Experience stateProxy={section.section} />,
-        };
-      }
-      return {
-        title: "dupa",
-        element: "",
-      } as Step;
-    }),
+    ...state.resume.sections.map((section) => ({
+      title: section.title,
+      element: renderSection(section),
+    })),
+    {
+      title: t`steps.legalClause.title`,
+      element: <LegalClauseForm stateProxy={state.resume} />
+    },
+    {
+      title: t`steps.appearance.title`,
+      element: <Appearance isFinal/>,
+    },
   ];
 
   return (

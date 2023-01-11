@@ -1,15 +1,22 @@
+import useTranslation from "next-translate/useTranslation";
 import React from "react";
+import { useSnapshot } from "valtio";
+import { ResumeModel } from "../../../models/v1";
 import { useNestObjectState } from "../../../utils/mutators";
 import { RichTextEditor } from "../../atoms/fields/richText";
+import { StepDescription } from "../../atoms/stepDescription";
 import { StepWrapper } from "../../molecules/stepWrapper";
-import { FormStep } from "./types";
 
-export const LegalClauseForm: FormStep = ({ imageDataUrl, state, setState, ...props }) => {
-  const value = state.legalClause;
-  const setValue = useNestObjectState(setState)("legalClause");
+export const LegalClauseForm: React.FC<{ stateProxy: ResumeModel }> = ({ stateProxy }) => {
+  const { t } = useTranslation("app")
+  const value = useSnapshot(stateProxy).legalClause;
   return (
-    <StepWrapper {...props}>
-      <RichTextEditor className="col-span-full" label="Content" onChange={setValue} value={value} />
-    </StepWrapper>
+    <>
+      <StepDescription>{t`steps.legalClause.description`}</StepDescription>
+      <RichTextEditor
+        onChange={v => stateProxy.legalClause = v}
+        value={value}
+      />
+    </>
   );
 };

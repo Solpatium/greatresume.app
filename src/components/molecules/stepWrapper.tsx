@@ -21,7 +21,7 @@ export const StepWrapper: React.FC<{
       <Card
         className={`${className} md:shadow-xl bg-white md:border-solid md:border md:border-gray-200`}>
         <form onSubmit={onSubmit}>
-          <div className="grid md:grid-cols-6 gap-4">{children}</div>
+          {children}
           <div className="hidden lg:flex col-span-full flex-row-reverse	justify-between mt-4">
             {goToNext ? (
               <button

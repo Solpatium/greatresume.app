@@ -5,7 +5,7 @@ export const blobToBase64 = (blob: Blob): Promise<string> => {
   return new Promise((res, rej) => {
     reader.readAsDataURL(blob);
     reader.onloadend = () => {
-      res(reader.result.toString());
+      res(reader.result!.toString());
     };
     reader.onerror = () => {
       rej(new Error("FileReader error"));
@@ -37,7 +37,7 @@ export const useDataUrl = (base64: string): string | undefined => {
         urlsToRevoke.current = [];
       };
     } else {
-      setUrl(undefined);
+      setUrl("");
     }
   }, [base64]);
   return url;
