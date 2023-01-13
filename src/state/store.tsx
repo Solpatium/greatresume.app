@@ -1,11 +1,12 @@
-import React, { useContext, createContext, useState } from "react";
+import React, { useContext, createContext, useState, useMemo } from "react";
 import { makeEmptyResume } from "../models/v1";
 import useTranslation from "next-translate/useTranslation";
 import { proxy } from "valtio";
-import { ApplicationState } from "./types";
+import { ApplicationCache, ApplicationState } from "./types";
 import { useAppStateStorage, useThrottledAppPersistance } from "./storage";
+import { useCreateCache } from "./cache";
 
-const StoreContext = createContext(null as unknown as ApplicationState);
+const StoreContext = createContext(null as unknown as { state: ApplicationState, cache: ApplicationCache });
 
 export const AppStateProvider: React.FC<{
   children?: React.ReactNode;
@@ -14,7 +15,7 @@ export const AppStateProvider: React.FC<{
   const storage = useAppStateStorage();
 
   const [state] = useState(() => {
-    const saved =  storage.get();
+    const saved = storage.get();
     if (saved) {
       return proxy(saved);
     }
@@ -30,11 +31,19 @@ export const AppStateProvider: React.FC<{
     return proxy({ resume });
   });
 
+  const cache = useCreateCache(state);
+
   useThrottledAppPersistance(state);
 
-  return <StoreContext.Provider value={state}>{children}</StoreContext.Provider>;
+  // Stable object reference
+  const value = useMemo(() => ({ state, cache }), [state, cache]);
+  return <StoreContext.Provider value={value}>{children}</StoreContext.Provider>;
 };
 
 export const useAppState = (): ApplicationState => {
-  return useContext(StoreContext);
+  return useContext(StoreContext).state;
+};
+
+export const useAppCache = (): ApplicationCache => {
+  return useContext(StoreContext).cache;
 };

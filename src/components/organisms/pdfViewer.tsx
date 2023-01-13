@@ -7,8 +7,7 @@ export interface PdfViewer {
 }
 
 export const PdfViewer: React.FC<PdfViewer> = ({ url, newPdfGenerating }) => {
-  const wrapperRef = useRef<HTMLDivElement>();
-  const canvases = useRef<HTMLCanvasElement[]>([]);
+  const wrapperRef = useRef<HTMLDivElement | null>(null);
   const state = useAsync(async () => {
     if (!url) {
       return;
@@ -17,33 +16,26 @@ export const PdfViewer: React.FC<PdfViewer> = ({ url, newPdfGenerating }) => {
     lib.GlobalWorkerOptions.workerSrc =
       "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.14.305/pdf.worker.min.js";
 
-    (await import("pdfjs-dist")).getDocument(url).promise.then(async d => {
+    lib.getDocument(url).promise.then(async d => {
       const wrapper = wrapperRef.current;
       if (!wrapper) {
         return;
       }
-      const redundantCanvases = Math.max(canvases.current.length - d.numPages, 0);
-      for (let i = 0; i < redundantCanvases; i++) {
-        wrapper.removeChild(wrapper.lastChild);
-        canvases.current.pop();
-      }
-
-      const missingCanvases = Math.max(d.numPages - canvases.current.length, 0);
-      const newCanvases = [...new Array(missingCanvases)].map(() =>
+      const newCanvases = [...new Array(d.numPages)].map(() =>
         document.createElement("canvas"),
       );
-      canvases.current.push(...newCanvases);
-      wrapper.append(...newCanvases);
 
-      for (const [i, canvas] of canvases.current.entries()) {
+      for (const [i, canvas] of newCanvases.entries()) {
         const page = await d.getPage(i + 1);
 
         const viewport = page.getViewport({ scale: window.devicePixelRatio * 2 });
-        // console.log(page.getViewport({ scale: 1 }));
-        // console.log(page.view, "LAYOUT");
         canvas.height = viewport.height;
         canvas.width = viewport.width;
         const ratio = viewport.width / viewport.height;
+        
+        if (i > 0) {
+          canvas.style.marginTop = "20px";
+        }
 
         // letter 0.7727272727272727
         // A4 0.7070757680859299
@@ -56,12 +48,13 @@ export const PdfViewer: React.FC<PdfViewer> = ({ url, newPdfGenerating }) => {
         }
         // Render PDF page into canvas context
         const renderContext = {
-          canvasContext: canvas.getContext("2d"),
+          canvasContext: canvas.getContext("2d")!,
           viewport: viewport,
         };
-        const renderTask = page.render(renderContext);
-        await renderTask.promise;
+        await page.render(renderContext).promise;
       }
+
+      wrapper.replaceChildren(...newCanvases);
     });
   }, [url]);
 

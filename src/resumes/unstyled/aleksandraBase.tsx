@@ -3,16 +3,11 @@ import { TwoColumns } from "../layouts/twoColumns";
 import React, { ReactElement } from "react";
 import { ResumeTemplate } from "../types";
 import {
-  DatedEntry,
-  EducationEntry,
-  PersonalInformation,
   ResumeModel,
-  WorkEntry,
 } from "../../models/v1";
 import { Style } from "@react-pdf/types";
 import { T } from "../components/text";
-import { Entry, RepeatedEntriesSection } from "../components/sections";
-import { Date, DateStyle } from "../components/date";
+import { DateStyle } from "../components/date";
 
 interface PersonalInfoStyle {
   image: Style;
@@ -48,14 +43,16 @@ export interface AlexandraBaseStyle {
 
 export interface AlexandraBaseProps {
   data: ResumeModel;
+  image?: string;
   leftWidth: string;
   style: AlexandraBaseStyle;
 }
 
 export const AleksandraBase: React.FC<AlexandraBaseProps> = ({ data, leftWidth, style }) => {
+  const image = data.appearance.image;
   const Introduction: ResumeTemplate = ({ data }) => (
     <View style={style.personalInfo.container}>
-      {data.image && <Image style={style.personalInfo.image} src={data.image} />}
+      {image && <Image style={style.personalInfo.image} src={image} />}
       <T style={style.personalInfo.fullName}>
         {data.personalInformation.name} {data.personalInformation.surname}
       </T>
@@ -93,7 +90,7 @@ export const AleksandraBase: React.FC<AlexandraBaseProps> = ({ data, leftWidth, 
   // );
 
   return (
-    <Page style={style.page} size={data.paperSize}>
+    <Page style={style.page} size={data.appearance.paperSize}>
       <TwoColumns
         left={<Introduction data={data} />}
         right={

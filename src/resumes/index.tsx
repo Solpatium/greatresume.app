@@ -1,52 +1,87 @@
-import React, { useEffect, useMemo } from "react";
-import { EducationEntry, ResumeModel, WorkEntry } from "../models/v1";
-import { Image, Document, Page, StyleSheet, Text, usePDF, View } from "@react-pdf/renderer";
-import { useDebounce } from "react-use";
+import React, { useEffect, useMemo, useRef, useState } from "react";
+import { Document, usePDF } from "@react-pdf/renderer";
 import { downloadFile } from "../utils/downloadFile";
-import { TwoColumns } from "./layouts/twoColumns";
-import { Aleksandra, aleksandraTemplate } from "./templates/aleksandra";
-import { TemplateDetails, ResumeTemplate } from "./types";
-import { Library, libraryTemplate } from "./templates/library";
+import { aleksandraTemplate } from "./templates/aleksandra";
+import { TemplateDetails } from "./types";
+import { libraryTemplate } from "./templates/library";
 import { registerRequiredFonts } from "./fonts";
+import { useAppState } from "../state/store";
+import { subscribe, useSnapshot } from "valtio";
+import { arraysEqual } from "../utils/array";
+import { ResumeModel } from "../models/v1";
 
 export const templates: Record<string, TemplateDetails> = {
   aleksandra: aleksandraTemplate,
   library: libraryTemplate,
 };
 
-registerRequiredFonts(aleksandraTemplate.fonts);
-export const useRenderResume = (
-  data: ResumeModel,
-): { url?: string; download: () => void; loading: boolean } => {
-  const templateDetails = templates[data.template] ?? aleksandraTemplate;
-  const fonts = templateDetails.fonts;
-  useEffect(() => registerRequiredFonts(fonts), [fonts]);
 
-  const Template = templateDetails.component;
+const Resume: React.FC<{ data: ResumeModel }> = ({ data }) => {
+  const { component: Template } = templates[data.appearance.template] ?? aleksandraTemplate;;
+  return (
+    <Document>
+      <Template data={data} />
+    </Document>
+  )
+}
+
+export const useRenderResume = (): {
+  url: string | null;
+  download: (() => void) | null;
+  loading: boolean
+} => {
+  const stateProxy = useAppState().resume;
+
+  // Register all fonts, they are only fetched when needed
+  useEffect(() => {
+    Object.values(templates).forEach(d => registerRequiredFonts(d.fonts));
+  }, []);
+
   const [{ url, loading }, refreshPdf] = usePDF({
-    document: (
-      <Document>
-        <Template data={data} />
-      </Document>
-    ),
+    document: (<Resume data={stateProxy} />),
   });
 
-  useDebounce(
-    () => {
-      refreshPdf();
-    },
-    1000,
-    [data],
-  );
+  const [renderQueued, setQueued] = useState(false);
+  const handle = useRef<null | ReturnType<typeof setTimeout>>();
+  const previousAppearance = useRef<any[]>([]);
+  useEffect(() => {
+    return subscribe(stateProxy, () => {
+      // Don't wait at all when appearance is changed
+      const newAppearance = Object.values(stateProxy.appearance);
+      if (!arraysEqual(previousAppearance.current, newAppearance)) {
+        if (handle.current) {
+          clearTimeout(handle.current);
+          handle.current = null;
+        }
+        previousAppearance.current = newAppearance;
+        setQueued(false);
+        refreshPdf();
+        return;
+      }
+
+      if (handle.current) {
+        clearTimeout(handle.current);
+        handle.current = null;
+      } else {
+        console.log("QUEUEUD")
+        setQueued(true);
+      }
+      handle.current = setTimeout(() => {
+        refreshPdf();
+        setQueued(false);
+        handle.current = null;
+      }, 1000);
+    });
+  }, [stateProxy, refreshPdf])
 
   return useMemo(
     () => ({
       url,
-      download: () => {
+      download: (url === null ? null : (() => {
         downloadFile(url, "resume.pdf");
-      },
-      loading,
+      })),
+      loading: loading || renderQueued,
     }),
-    [url, loading],
+    [url, loading, renderQueued],
   );
 };

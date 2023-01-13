@@ -52,8 +52,8 @@ const pageOptions: FlatSelectOption<PaperSize>[] = [
 
 export const Appearance: React.FC<{ isFinal?: boolean }> = ({ isFinal }) => {
   const { t } = useTranslation("app");
-  const resume = useAppState().resume;
-  const { template, paperSize } = useSnapshot(resume);
+  const settings = useAppState().resume.appearance;
+  const { template, paperSize } = useSnapshot(settings);
   return (
     <>
       <StepDescription>{isFinal ? t`steps.appearance.finalDescription` : t`steps.appearance.description`}</StepDescription>
@@ -64,10 +64,10 @@ export const Appearance: React.FC<{ isFinal?: boolean }> = ({ isFinal }) => {
           wrapperClassName="grid lg:grid-cols-2 grid-cols-1 gap-2"
           options={pageOptions}
           value={paperSize}
-          onChange={v => (resume.paperSize = v)}
+          onChange={v => (settings.paperSize = v)}
         />
       </div>
-      <TemplateList template={template} setTemplate={v => (resume.template = v)} />
+      <TemplateList template={template} setTemplate={v => (settings.template = v)} />
     </>
   );
 };

@@ -6,25 +6,47 @@ import { useIsMounted } from "../../src/utils/ssr";
 import { useRenderResume } from "../../src/resumes";
 import cn from "classnames";
 import { ZoomArea } from "../../src/components/layout/zoomArea";
-import { useDataUrl } from "../../src/utils/blob";
 import { Icon } from "../../src/components/atoms/icon";
 import { useResumeData } from "../../src/utils/storage";
 import useTranslation from "next-translate/useTranslation";
 import { PdfViewer } from "../../src/components/organisms/pdfViewer";
 import { AppStateProvider } from "../../src/state/store";
 
+// Create styles
+import { Document, Page, Text, View, StyleSheet, PDFViewer } from '@react-pdf/renderer';
+const styles = StyleSheet.create({
+  page: {
+    flexDirection: 'row',
+    backgroundColor: '#E4E4E4'
+  },
+  section: {
+    margin: 10,
+    padding: 10,
+    flexGrow: 1
+  }
+});
+
+// Create Document Component
+const MyDocument = () => (
+  <Document>
+    <Page size="A4" style={styles.page}>
+      <View style={styles.section}>
+        <Text>Section #1</Text>
+      </View>
+      <View style={styles.section}>
+        <Text>Section #2</Text>
+      </View>
+    </Page>
+  </Document>
+);
+
 const Creator: React.FC = () => {
   const { t } = useTranslation("app");
   const [isPreviewing, setIsPreviewing] = useState(false);
-
-  const [data, setData] = useResumeData();
-  const image = useDataUrl(data.image);
-  const dataWithDataUrlImage = useMemo(() => ({ ...data, image }), [image, data]);
-
-  const { url, download, loading } = useRenderResume(dataWithDataUrlImage);
+  const { url, download, loading } = useRenderResume();
 
   return (
-    <AppStateProvider>
+    <>
       <Head>
         <title>{t`page-title`}</title>
         <meta
@@ -33,12 +55,13 @@ const Creator: React.FC = () => {
         />
       </Head>
       <Theme>
+        {/* <PDFViewer showToolbar style={{width: "100%", height: "100vh"}}>
+          <MyDocument />
+        </PDFViewer> */}
         <div className="lg:pb-0 grid grid-cols-1 lg:grid-cols-2">
           <div className="lg:h-screen overflow-y-scroll lg:p-4 rtl">
             <Editor
               className={cn("ltr", isPreviewing ? "hidden" : "block pb-20 lg:p-0")}
-              state={dataWithDataUrlImage}
-              setState={setData}
             />
           </div>
           <div
@@ -76,7 +99,7 @@ const Creator: React.FC = () => {
           </div>
         </div>
       </Theme>
-    </AppStateProvider>
+    </>
   );
 };
 
@@ -87,7 +110,7 @@ export const Loader: React.FC = () => {
     return null;
   }
 
-  return <Creator />;
+  return <AppStateProvider><Creator /></AppStateProvider>;
 };
 
 export default Loader;

@@ -66,7 +66,7 @@ export const useThrottledAppPersistance = (stateProxy: ApplicationState): void =
         clearTimeout(timeoutHandle)
         timeoutHandle = undefined;
       }
-      
+
       timeoutHandle = setTimeout(() => {
         lastRun = Date.now();
         storage.set(stateProxy);

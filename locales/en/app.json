@@ -4,11 +4,20 @@
   "export": "Export",
   "edit": "Edit",
   "url": "Url",
+  "empty": "Empty",
   "description": "Description",
   "startDate": "Start date",
   "endDate": "End date",
   "delete": "Delete",
   "steps": {
+    "appearance": {
+      "title": "Appearance",
+      "description": "Select paper size and a template that you want to use. We will also allow you to change it at the end, after filling all the crucial info.",
+      "finalDescription": "Make sure the template you picked before is the one that you actually want to use. Every template looks different with custom data."
+    },
+    "personalInfo": {
+      "title": "Personal info"
+    },
     "employment":  {
       "description": "Provide your employment history.",
       "entryTitle":"Job title",
@@ -30,16 +39,25 @@
       "entrySubtitle": "Subtitle"
     },
     "skills":  {
-      "description":  ""
+      "description":  "Add your skills",
+      "name": "Skill",
+      "value": "Level or confirmation"
     },
     "languages": {
-      "description":  ""
+      "description":  "Add your languages",
+      "name": "Language",
+      "value": "Level or confirmation"
     },
     "interests":  {
-      "description":  ""
+      "description":  "Add entries of your interests.",
+      "interest": "Interest"
     },
     "text": {
-      "description":  ""
+      "description":  "Provide your text below"
+    },
+    "legalClause": {
+      "title": "Legal clause",
+      "description":  "In some countries you must explicility allow company to process your data during the recruitment process. Skip this if you don't need that."
     }
   },
   "defaults": {
@@ -58,8 +76,10 @@
   },
   "newSection": {
     "title": "Sections",
+    "sectionTitle": "Section title",
     "description": "Customize sections on your resume. You can rearrange, add new, rename or delete them.",
     "modalTitle": "Choose section to add",
+    "deletionConfirmation": "Are you sure you want to delete this section?",
     "groups": {
       "datedEntries": "Dated entries",
       "others": "Others"

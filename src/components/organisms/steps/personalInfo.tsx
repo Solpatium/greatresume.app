@@ -11,7 +11,7 @@ import { Button } from "../../atoms/button";
 
 import { Transition, Disclosure } from "@headlessui/react";
 import { ChevronUpIcon } from "@heroicons/react/20/solid";
-import { useAppState } from "../../../state/store";
+import { useAppCache, useAppState } from "../../../state/store";
 import { useSnapshot } from "valtio";
 
 function Disclosured() {
@@ -143,7 +143,8 @@ export const PersonalInformation: React.FC = () => {
   const resumeProxy = useAppState().resume;
   const stateProxy = resumeProxy.personalInformation;
   const state = useSnapshot(stateProxy);
-  const { image } = useSnapshot(resumeProxy);
+  const {image} = useSnapshot(resumeProxy.appearance);
+  // const { dataUrlImage } = useSnapshot(useAppCache());
 
   return (
     <div className="grid md:grid-cols-6 gap-4">
@@ -170,7 +171,7 @@ export const PersonalInformation: React.FC = () => {
           <PhotoEditor
             buttonId="edit-image"
             image={image}
-            setImage={v => (resumeProxy.image = v)}
+            setImage={v => (resumeProxy.appearance.image = v)}
           />
         </Label>
       </div>

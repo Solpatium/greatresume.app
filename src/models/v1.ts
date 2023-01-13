@@ -41,11 +41,17 @@ const sectionEntry = type({
 });
 export type Section = Infer<typeof sectionEntry>;
 
-export const resumeStruct = type({
-  version: string(),
+const appearanceSettings = type({
   template: string(),
   image: optional(string()),
   paperSize: paperSizeStruct,
+})
+
+export type AppearanceSettings = Infer<typeof appearanceSettings>;
+
+export const resumeStruct = type({
+  version: string(),
+  appearance: appearanceSettings,
   personalInformation: personalInformationStruct,
   sections: array(sectionEntry),
   legalClause: string(),
@@ -82,9 +88,11 @@ export const makeEmptyResume = ({
   };
 }): ResumeModel => ({
   version: "1",
-  paperSize: is(paperSize, paperSizeStruct) ? paperSize : "A4",
-  template: "aleksandra",
-  image: undefined,
+  appearance: {
+    paperSize: is(paperSize, paperSizeStruct) ? paperSize : "A4",
+    template: "aleksandra",
+    image: undefined,
+  },
   personalInformation: {
     name: "",
     surname: "",

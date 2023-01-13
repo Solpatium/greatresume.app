@@ -5,17 +5,15 @@ import {
   MagnifyingGlassPlusIcon,
   MagnifyingGlassMinusIcon,
 } from "@heroicons/react/20/solid";
-import styled from "styled-components";
 import { blobToBase64 } from "../../utils/blob";
 import { Modal } from "../layout/modal";
 import { Button } from "../atoms/button";
-import { Form } from "../layout/form";
 import { DropZone } from "../atoms/dropZone";
 import { useToggle } from "react-use";
 
 interface PhotoProps {
   image?: string;
-  setImage: (value: string) => void;
+  setImage: (value: string | undefined) => void;
 }
 
 const EditModal: React.FC<Pick<PhotoProps, "setImage"> & { close: () => void }> = ({
@@ -26,7 +24,7 @@ const EditModal: React.FC<Pick<PhotoProps, "setImage"> & { close: () => void }> 
   const onImageSave = useCallback(() => {
     if (editorRef.current) {
       return new Promise((res, rej) => {
-        editorRef.current.getImage().toBlob(blob =>
+        editorRef.current.getImageScaledToCanvas().toBlob(blob =>
           blobToBase64(blob)
             .then(base64 => {
               setImage(base64);
@@ -34,6 +32,8 @@ const EditModal: React.FC<Pick<PhotoProps, "setImage"> & { close: () => void }> 
             })
             .catch(rej)
             .finally(close),
+            "image/jpeg",
+            0.8,
         );
       });
     }
@@ -55,8 +55,8 @@ const EditModal: React.FC<Pick<PhotoProps, "setImage"> & { close: () => void }> 
             <AvatarEditor
               ref={editorRef}
               image={file}
-              width={250}
-              height={250}
+              width={300}
+              height={300}
               border={50}
               color={[255, 255, 255, 0.6]} // RGBA
               scale={zoom}
@@ -90,13 +90,6 @@ const EditModal: React.FC<Pick<PhotoProps, "setImage"> & { close: () => void }> 
   );
 };
 
-const PreviewWrapper = styled.div`
-  position: relative;
-  width: 120px;
-  height: 120px;
-  border-radius: 10px;
-`;
-
 export const PhotoEditor: React.FC<PhotoProps & { buttonId?: string }> = ({
   buttonId,
   image,
@@ -106,9 +99,8 @@ export const PhotoEditor: React.FC<PhotoProps & { buttonId?: string }> = ({
   const deleteImage = useCallback(() => {
     setImage(undefined);
   }, [setImage]);
-
   return (
-    <PreviewWrapper className="picture h-32 w-32 flex relative">
+    <div className="picture h-32 w-32 flex relative">
       {image ? (
         <>
           <img
@@ -136,6 +128,6 @@ export const PhotoEditor: React.FC<PhotoProps & { buttonId?: string }> = ({
         </button>
       )}
       {isEditing && <EditModal setImage={setImage} close={toggleEditing} />}
-    </PreviewWrapper>
+    </div>
   );
 };

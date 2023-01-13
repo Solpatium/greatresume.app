@@ -58,7 +58,7 @@ const SortableItem = <Type extends HasId>(props: SortableItemProps<Type>) => {
         type="button"
         {...attributes}
         {...listeners}
-        className="cursor-move px-2 py-4 flex justify-center items-center">
+        className="cursor-grab px-2 py-4 flex justify-center items-center">
         <MenuIcon className="h-6 w-6 text-gray-800" />
       </button>
       {props.render(props.stateProxy, props.index)}
