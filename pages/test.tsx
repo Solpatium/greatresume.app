@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Document, Image, Page, StyleSheet, Text, usePDF, View } from "@react-pdf/renderer";
 import { useCounter } from "react-use";
 import { ZoomArea } from "../src/components/layout/zoomArea";
-import { PdfViewer } from "../src/components/organisms/pdfViewer";
+import { PdfViewerProps } from "../src/components/organisms/pdfViewer";
 import Head from "next/head";
 
 // Create styles

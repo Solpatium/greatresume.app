@@ -7,38 +7,9 @@ import { useRenderResume } from "../../src/resumes";
 import cn from "classnames";
 import { ZoomArea } from "../../src/components/layout/zoomArea";
 import { Icon } from "../../src/components/atoms/icon";
-import { useResumeData } from "../../src/utils/storage";
 import useTranslation from "next-translate/useTranslation";
 import { PdfViewer } from "../../src/components/organisms/pdfViewer";
 import { AppStateProvider } from "../../src/state/store";
-
-// Create styles
-import { Document, Page, Text, View, StyleSheet, PDFViewer } from '@react-pdf/renderer';
-const styles = StyleSheet.create({
-  page: {
-    flexDirection: 'row',
-    backgroundColor: '#E4E4E4'
-  },
-  section: {
-    margin: 10,
-    padding: 10,
-    flexGrow: 1
-  }
-});
-
-// Create Document Component
-const MyDocument = () => (
-  <Document>
-    <Page size="A4" style={styles.page}>
-      <View style={styles.section}>
-        <Text>Section #1</Text>
-      </View>
-      <View style={styles.section}>
-        <Text>Section #2</Text>
-      </View>
-    </Page>
-  </Document>
-);
 
 const Creator: React.FC = () => {
   const { t } = useTranslation("app");

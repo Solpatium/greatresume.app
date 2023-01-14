@@ -35,7 +35,7 @@ const style: AlexandraBaseStyle = {
       paddingTop: "2px",
     },
   },
-  entry: {
+  experienceEntry: {
     wrapper: {
       marginBottom: "20px",
     },
@@ -56,6 +56,24 @@ const style: AlexandraBaseStyle = {
     },
     description: {
       fontSize: "11px",
+    },
+  },
+  keyValueEntry: {
+    wrapper: {},
+    name: {fontSize: 11},
+    value: {fontSize: 11},
+  },
+  simpleListEntry: {fontSize: 11},
+  textSection: {content: {fontSize: 11}},
+  sidebarSection: {
+    title: {
+      fontSize: 12,
+      fontWeight: 900,
+      marginBottom: 4,
+    },
+    section: {
+      marginBottom: "20px",
+      width: "100%",
     },
   },
   mainSection: {
@@ -109,7 +127,7 @@ const style: AlexandraBaseStyle = {
 };
 
 const Template: ResumeTemplate = ({ data }) => (
-  <AleksandraBase data={data} leftWidth="30%" style={style} />
+  <AleksandraBase data={data} columnsGap="20px" style={style} />
 );
 
 export const aleksandraTemplate: TemplateDetails = {

@@ -11,7 +11,4 @@ module.exports = nextTranslate({
   redirects: () => [
     {source: "/creator", destination: "/creator/templates", permanent: true}
   ],
-  future: {
-    webpack5: true
-  }
 });

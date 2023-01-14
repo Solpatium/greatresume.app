@@ -15,18 +15,12 @@ $seperator-height: 2px
     @include blur-shadow(rgba(103, 151, 255, 0.11))
     border: solid 1px lightgray
 
-.page-A4
-  height: 297mm
-  width: 210mm
-
-//.pdf-renderer
-//  canvas
-//    max-width: 215.9mm
-
 .pdf-renderer
   .paper-a4
-    height: 297mm
+    max-width: 100%
     width: 210mm
+    height: auto
   .paper-letter
-    height: 279.4mm
+    max-width: 100%
     width: 215.9mm
+    height: auto

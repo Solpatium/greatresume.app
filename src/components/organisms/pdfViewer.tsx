@@ -1,12 +1,12 @@
 import React, { useRef } from "react";
 import { useAsync } from "react-use";
 
-export interface PdfViewer {
+export interface PdfViewerProps {
   url: string;
   newPdfGenerating: boolean;
 }
 
-export const PdfViewer: React.FC<PdfViewer> = ({ url, newPdfGenerating }) => {
+export const PdfViewer: React.FC<PdfViewerProps> = ({ url, newPdfGenerating }) => {
   const wrapperRef = useRef<HTMLDivElement | null>(null);
   const state = useAsync(async () => {
     if (!url) {

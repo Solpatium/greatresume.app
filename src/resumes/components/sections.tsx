@@ -3,11 +3,11 @@ import { Style } from "@react-pdf/types";
 import { View } from "@react-pdf/renderer";
 
 export const TitledSection: React.FC<{
-  style?: Style[];
+  style?: Style;
   title: ReactElement;
-  children: ReactElement[];
+  children: ReactElement | ReactElement[];
 }> = ({ style, title, children }) => {
-  const [firstChild, ...otherChildren] = children;
+  const [firstChild, ...otherChildren] = children instanceof Array ? children : [children];
 
   if (!firstChild) {
     return null;
@@ -31,12 +31,13 @@ export interface RepeatedEntriesSectionProps<DataType> {
   title: ReactElement;
   component: Entry<DataType>;
   data: DataType[];
+  style?: Style;
 }
 
 export const RepeatedEntriesSection = <DataType,>(
   props: RepeatedEntriesSectionProps<DataType>,
 ): ReactElement => (
-  <TitledSection title={props.title}>
+  <TitledSection style={props.style} title={props.title}>
     {props.data.map((entry, i) => (
       <props.component key={i} data={entry} />
     ))}

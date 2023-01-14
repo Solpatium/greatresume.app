@@ -12,13 +12,12 @@ const style: AlexandraBaseStyle = {
     color: textColor,
     fontSize: "16px",
     fontFamily: "NotoSerif",
+    padding: "16px",
   },
   leftPane: {
-    padding: "16px",
     width: "25%",
   },
   rightPane: {
-    padding: "16px",
     width: "75%",
   },
 
@@ -33,7 +32,7 @@ const style: AlexandraBaseStyle = {
       paddingTop: "2px",
     },
   },
-  entry: {
+  experienceEntry: {
     wrapper: {
       marginBottom: "20px",
     },
@@ -59,6 +58,13 @@ const style: AlexandraBaseStyle = {
       fontSize: "11px",
     },
   },
+  keyValueEntry: {
+    wrapper: {},
+    name: {fontSize: 11},
+    value: {fontSize: 11},
+  },
+  simpleListEntry: {fontSize: 11},
+  textSection: {content: {fontSize: 11}},
   mainSection: {
     title: {
       fontSize: 16,
@@ -74,10 +80,22 @@ const style: AlexandraBaseStyle = {
       width: "100%",
     },
   },
+  sidebarSection: {
+    title: {
+      fontSize: 12,
+      fontWeight: 900,
+      marginBottom: 4,
+    },
+    section: {
+      marginBottom: "20px",
+      width: "100%",
+    },
+  },
   personalInfo: {
     container: {
       display: "flex",
       alignItems: "center",
+      marginBottom: "20px",
     },
     image: {
       width: "80%",
@@ -110,7 +128,7 @@ const style: AlexandraBaseStyle = {
 };
 
 const Template: ResumeTemplate = ({ data }) => (
-  <AleksandraBase data={data} leftWidth="30%" style={style} />
+  <AleksandraBase data={data} style={style} columnsGap="20px" />
 );
 
 export const libraryTemplate: TemplateDetails = {

@@ -34,6 +34,7 @@
     "react-avatar-editor": "^11.1.0",
     "react-dom": "^18.2.0",
     "react-dropzone": "^11.2.4",
+    "react-quick-pinch-zoom": "^4.6.0",
     "react-spring": "^9.3.0",
     "react-use": "^15.3.4",
     "starknet": "^3.9.0",

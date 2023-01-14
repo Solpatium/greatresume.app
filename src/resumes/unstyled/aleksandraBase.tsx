@@ -3,11 +3,14 @@ import { TwoColumns } from "../layouts/twoColumns";
 import React, { ReactElement } from "react";
 import { ResumeTemplate } from "../types";
 import {
-  ResumeModel,
+  ResumeModel, Section,
 } from "../../models/v1";
 import { Style } from "@react-pdf/types";
 import { T } from "../components/text";
-import { DateStyle } from "../components/date";
+import { Date, DateStyle } from "../components/date";
+import { ExperienceList, ExperienceSection } from "../../models/sections/experienceSection";
+import { RepeatedEntriesSection, TitledSection } from "../components/sections";
+import { KeyValueList } from "../../models/sections/keyValueSection";
 
 interface PersonalInfoStyle {
   image: Style;
@@ -17,24 +20,38 @@ interface PersonalInfoStyle {
   description: Style;
 }
 
-interface EntryStyle {
+interface ExperienceEntryStyle {
   wrapper: Style;
   titleWrapper: Style;
   title: Style;
+  // IMPORTANT! This can be a link and should therefore include color
   subtitle: Style;
   description: Style;
 }
 
-interface MainSectionStyle {
+
+interface KeyValueEntryStyle {
+  wrapper: Style;
+  name: Style;
+  value: Style;
+}
+
+interface SectionStyle {
   title: Style;
   section: Style;
 }
 
 export interface AlexandraBaseStyle {
   page: Style;
-  entry: EntryStyle;
+  experienceEntry: ExperienceEntryStyle;
+  keyValueEntry: KeyValueEntryStyle;
+  simpleListEntry: Style;
+  textSection: {
+    content: Style;
+  }
   date: DateStyle;
-  mainSection: MainSectionStyle;
+  mainSection: SectionStyle;
+  sidebarSection: SectionStyle;
   leftPane: Style;
   rightPane: Style;
   personalInfo: PersonalInfoStyle;
@@ -43,12 +60,11 @@ export interface AlexandraBaseStyle {
 
 export interface AlexandraBaseProps {
   data: ResumeModel;
-  image?: string;
-  leftWidth: string;
+  columnsGap: string;
   style: AlexandraBaseStyle;
 }
 
-export const AleksandraBase: React.FC<AlexandraBaseProps> = ({ data, leftWidth, style }) => {
+export const AleksandraBase: React.FC<AlexandraBaseProps> = ({ data, style, columnsGap }) => {
   const image = data.appearance.image;
   const Introduction: ResumeTemplate = ({ data }) => (
     <View style={style.personalInfo.container}>
@@ -61,64 +77,91 @@ export const AleksandraBase: React.FC<AlexandraBaseProps> = ({ data, leftWidth, 
     </View>
   );
 
-  // const SectionTitle: React.FC<{ title: string }> = ({ title }) => (
-  //   <T wrap={true} style={style.mainSection.title}>
-  //     {title}
-  //   </T>
-  // );
-  //
-  // const EntryTitle: React.FC<{ entry: DatedEntry; title: string }> = ({ entry, title }) => (
-  //   <View style={style.entry.titleWrapper}>
-  //     <Text style={style.entry.title}>{title}</Text>
-  //     <Date from={entry.from} to={entry.to} style={style.date} />
-  //   </View>
-  // );
 
-  // const Experience: Entry<WorkEntry> = ({ data }) => (
-  //   <View style={style.entry.wrapper}>
-  //     <EntryTitle entry={data} title={data.title} />
-  //     <T style={style.entry.subtitle}>{data.company}</T>
-  //     <T style={style.entry.description}>{data.description}</T>
-  //   </View>
-  // );
-  //
-  // const Education: Entry<EducationEntry> = ({ data }) => (
-  //   <View style={style.entry.wrapper}>
-  //     <EntryTitle entry={data} title={data.degree} />
-  //     <T style={style.entry.description}>{data.description}</T>
-  //   </View>
-  // );
+  const Experience: React.FC<{ data: ExperienceList[0] }> = ({ data }) => (
+    <View style={style.experienceEntry.wrapper}>
+      <View style={style.experienceEntry.titleWrapper}>
+        <T style={style.experienceEntry.title}>{data.title}</T>
+        <Date from={data.from} to={data.to} style={style.date} />
+      </View>
+      <T style={style.experienceEntry.subtitle} url={data.url}>{data.subtitle}</T>
+      <T style={style.experienceEntry.description}>{data.description}</T>
+    </View>
+  );
+
+  const KeyValueEntry: React.FC<{ data: KeyValueList[0] }> = ({ data }) => {
+    return <View style={{ 
+      display: "flex", 
+      flexDirection: "row", 
+      flexWrap: "wrap", 
+      justifyContent: "space-between", 
+      ...style.keyValueEntry.wrapper
+      }}>
+      <Text style={style.keyValueEntry.name}>{data.name}</Text><Text style={style.keyValueEntry.value}>{data.value}</Text>
+    </View>
+  }
+
+  const MainSection: React.FC<{ data: Section }> = ({ data }) => {
+    const title = <T wrap={true} style={style.mainSection.title}>
+      {data.title}
+    </T>
+    if (data.section.type === "experience") {
+      return <RepeatedEntriesSection
+        style={style.sidebarSection.section}
+        title={title}
+        component={Experience}
+        data={data.section.content}
+      />
+    }
+    if (data.section.type === "text") {
+      return <TitledSection style={style.sidebarSection.section} title={title}>
+        <Text style={style.textSection.content}>{data.section.content}</Text>
+      </TitledSection>
+    }
+    return null;
+  }
+
+  const SidebarSection: React.FC<{ data: Section }> = ({ data }) => {
+    const title = <T wrap={true} style={style.sidebarSection.title}>
+      {data.title}
+    </T>;
+    if (data.section.type === "key value") {
+      return <RepeatedEntriesSection
+        style={style.sidebarSection.section}
+        title={title}
+        component={KeyValueEntry}
+        data={data.section.content}
+      />
+    }
+    if (data.section.type === "simple list") {
+      return <TitledSection title={title} style={style.sidebarSection.section}>
+        <View>
+          {data.section.content.map(({ content }) => <Text style={style.simpleListEntry}>{content}</Text>)}
+        </View>
+      </TitledSection>
+    }
+    return null;
+  }
 
   return (
     <Page style={style.page} size={data.appearance.paperSize}>
       <TwoColumns
-        left={<Introduction data={data} />}
+        gap={columnsGap}
+        left={<View>
+          <Introduction data={data} />
+          {data.sections.map(s => (<SidebarSection data={s} />))}
+        </View>}
         right={
           <View
             style={{
               display: "flex",
               flexDirection: "column",
-              height: "100%",
+              minHeight: "100%",
             }}>
-            {/*<RepeatedEntriesSection*/}
-            {/*  title={<SectionTitle title={data.experience.title} />}*/}
-            {/*  component={Experience}*/}
-            {/*  data={data.experience.content}*/}
-            {/*/>*/}
-            {/*<RepeatedEntriesSection*/}
-            {/*  title={<SectionTitle title={data.education.title} />}*/}
-            {/*  component={Education}*/}
-            {/*  data={data.education.content}*/}
-            {/*/>*/}
-            {/*<RepeatedEntriesSection*/}
-            {/*  title={<SectionTitle title={data.experience.title} />}*/}
-            {/*  component={Experience}*/}
-            {/*  data={data.experience.content}*/}
-            {/*/>*/}
+            {data.sections.map(s => (<MainSection data={s} />))}
             <T style={[style.legalClause, { marginTop: "auto" }]}>{data.legalClause}</T>
           </View>
         }
-        leftWidth={leftWidth}
         leftStyle={style.leftPane}
         rightStyle={style.rightPane}
       />
