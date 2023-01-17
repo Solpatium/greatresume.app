@@ -1,27 +1,35 @@
 import { Label } from "./label";
 import React from "react";
+import dynamic from "next/dynamic";
+
+const MdEditor = dynamic(() => import('react-markdown-editor-lite'), {
+    ssr: false,
+});
 
 export const RichTextEditor: React.FC<{
-  label?: string;
-  value?: string;
-  onChange: (v: string) => void;
-  className?: string;
-}> = ({ className, label, onChange, value }) => {
-  const textarea = <textarea
-    rows={4}
-    name="comment"
-    id="comment"
-    className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-    value={value}
-    onChange={e => onChange(e.target.value)}
-  />
-  if (!label) {
-    return <div className={className}>{textarea}</div>;
-  }
+    label?: string;
+    value?: string;
+    onChange: (v: string) => void;
+    className?: string;
+}> = ({ className, label, onChange, value: value }) => {
+    const editor = <MdEditor
+        plugins={["font-bold", "font-italic", "link", "list-unordered", "logger"]}
+        view={{ menu: true, md: true, html: false }}
+        canView={{ menu: true, md: true, html: false, both: false, fullScreen: false, hideMenu: false }} 
+        className={className} 
+        defaultValue={value} 
+        onChange={({ text }) => onChange(text)} 
+        // @ts-ignore
+        renderHTML={() => null} 
+    />;
 
-  return (
-    <Label className={`mb-1 ${className}`} name={label}>
-      {textarea}
-    </Label>
-  );
+    if (!label) {
+        return <div className={className}>{editor}</div>;
+    }
+
+    return (
+        <Label className={`mb-1 ${className}`} name={label}>
+            {editor}
+        </Label>
+    );
 };

@@ -82,6 +82,7 @@ export const makeEmptyResume = ({
 }: {
   paperSize: string;
   texts: {
+    contactTitle: string;
     experienceTitle: string;
     educationTitle: string;
     legalClause: string;
@@ -97,15 +98,9 @@ export const makeEmptyResume = ({
     name: "",
     surname: "",
     jobTitle: "",
-    shortDescription: "",
     email: "",
     phone: "",
-    location: {
-      country: "",
-      city: "",
-      address: "",
-      postalCode: "",
-    },
+    links: [],
   },
   sections: [
     createEmptySection(texts.experienceTitle, "employment"),

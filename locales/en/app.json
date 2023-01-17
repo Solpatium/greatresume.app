@@ -9,6 +9,15 @@
   "startDate": "Start date",
   "endDate": "End date",
   "delete": "Delete",
+  "email": "Email",
+  "phone": "Phone",
+  "name": "Name",
+  "surname": "Surname",
+  "jobTitle": "Job title",
+  "photo": "Photo",
+  "links": "Links",
+  "linkName": "Link name",
+  "contact": "Contact",
   "steps": {
     "appearance": {
       "title": "Appearance",

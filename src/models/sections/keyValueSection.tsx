@@ -10,7 +10,7 @@ export type KeyValueType = typeof keyValueTypeName;
 const kindStruct = enums(["skills", "languages"]);
 export type KeyValueKind = Infer<typeof kindStruct>;
 
-const entryStruct = type({
+export const entryStruct = type({
   id: string(),
   name: string(),
   value: string(),

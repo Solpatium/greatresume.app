@@ -1,3 +1,5 @@
+// @refresh reset
+
 import React, { useMemo, useState } from "react";
 import Head from "next/head";
 import { Theme } from "../../src/utils/theme";
@@ -10,6 +12,7 @@ import { Icon } from "../../src/components/atoms/icon";
 import useTranslation from "next-translate/useTranslation";
 import { PdfViewer } from "../../src/components/organisms/pdfViewer";
 import { AppStateProvider } from "../../src/state/store";
+import 'react-markdown-editor-lite/lib/index.css';
 
 const Creator: React.FC = () => {
   const { t } = useTranslation("app");

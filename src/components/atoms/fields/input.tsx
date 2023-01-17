@@ -17,7 +17,7 @@ export const Input: React.FC<{
       <input
         type="text"
         disabled={disabled}
-        value={value}
+        defaultValue={value}
         onChange={changeHandler}
         className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
         placeholder={placeholder}

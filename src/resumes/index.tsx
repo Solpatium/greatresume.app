@@ -6,9 +6,10 @@ import { TemplateDetails } from "./types";
 import { libraryTemplate } from "./templates/library";
 import { registerRequiredFonts } from "./fonts";
 import { useAppState } from "../state/store";
-import { subscribe, useSnapshot } from "valtio";
+import { subscribe } from "valtio";
 import { arraysEqual } from "../utils/array";
 import { ResumeModel } from "../models/v1";
+import useTranslation from "next-translate/useTranslation";
 
 export const templates: Record<string, TemplateDetails> = {
   aleksandra: aleksandraTemplate,
@@ -16,11 +17,17 @@ export const templates: Record<string, TemplateDetails> = {
 };
 
 
-const Resume: React.FC<{ data: ResumeModel }> = ({ data }) => {
-  const { component: Template } = templates[data.appearance.template] ?? aleksandraTemplate;;
+const Resume: React.FC<{ data: ResumeModel, translate: (key: string) => string }> = ({ data, translate }) => {
+  // Used for fast refresh
+  const templates: Record<string, TemplateDetails> = {
+    aleksandra: aleksandraTemplate,
+    library: libraryTemplate,
+  };
+  const { component: Template } = templates[data.appearance.template] ?? aleksandraTemplate;
+  
   return (
     <Document>
-      <Template data={data} />
+      <Template data={data} translate={translate} />
     </Document>
   )
 }
@@ -30,6 +37,7 @@ export const useRenderResume = (): {
   download: (() => void) | null;
   loading: boolean
 } => {
+  const {t} = useTranslation("app");
   const stateProxy = useAppState().resume;
 
   // Register all fonts, they are only fetched when needed
@@ -38,7 +46,7 @@ export const useRenderResume = (): {
   }, []);
 
   const [{ url, loading }, refreshPdf] = usePDF({
-    document: (<Resume data={stateProxy} />),
+    document: (<Resume data={stateProxy} translate={t} />),
   });
 
   const [renderQueued, setQueued] = useState(false);
@@ -73,6 +81,10 @@ export const useRenderResume = (): {
       }, 1000);
     });
   }, [stateProxy, refreshPdf])
+
+  useEffect(() => {
+    refreshPdf();
+  }, [libraryTemplate]);
 
   return useMemo(
     () => ({

@@ -107,18 +107,10 @@ export const SortableList = <Type extends HasId>({
         </SortableContext>
       </DndContext>
       {onAddNew && (
-        <div className="grid grid-cols-3">
-          <div className="relative grid h-16 grid-cols-1">
-            <Button secondary icon={PlusIcon} onClick={onAddNew}>
-              {elements.length === 0 ? (
-                <div
-                  className="animate-ping bg-green-500 rounded-full w-4 h-4 -top-1 -right-1 absolute "
-                  aria-hidden
-                />
-              ) : null}
-              Add new
-            </Button>
-          </div>
+        <div className="flex flex-col items-stretch max-w-[200px]">
+          <Button secondary icon={PlusIcon} onClick={onAddNew}>
+            Add new
+          </Button>
         </div>
       )}
     </div>

@@ -7,11 +7,12 @@ import React from "react";
 interface TProps extends TextProps {
   children: string | string[];
   url?: string;
-  style?: Style;
+  style?: Style | Style[];
 }
 
 // We don't want to render an empty text component
-export const T: React.FC<TProps> = ({ children, url, ...props }) => {
+export const T: React.FC<TProps> = ({ children, url, style, ...props }) => {
+  style = style ?? {};
   const content = Array.isArray(children) ? children.join("").trim() : children.trim();
 
   if (!content) {
@@ -21,8 +22,10 @@ export const T: React.FC<TProps> = ({ children, url, ...props }) => {
   const trimmedUrl = url?.trim();
 
   if (trimmedUrl) {
-    return <Link src={trimmedUrl} {...props} style={[{textDecoration: "none"}, props.style ?? {}]}><Text>{content}</Text></Link>;
+    const toAdd: Style = {textDecoration: "none"};
+    const newStyle = style instanceof Array ? [toAdd, ...style] : {...toAdd, ...style};
+    return <Link src={trimmedUrl} {...props} style={newStyle}><Text>{content}</Text></Link>;
   }
 
-  return <Text {...props}>{content}</Text>;
+  return <Text style={style} {...props}>{content}</Text>;
 };

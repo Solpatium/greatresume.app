@@ -43,12 +43,12 @@ export const Editor: React.FC<{
       element: <Appearance />,
     },
     {
-      title: t`newSection.title`,
-      element: <StepsForm />,
-    },
-    {
       title: "Personal info",
       element: <PersonalInformation />,
+    },
+    {
+      title: t`newSection.title`,
+      element: <StepsForm />,
     },
     ...state.resume.sections.map((section) => ({
       title: section.title,

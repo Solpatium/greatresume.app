@@ -13,6 +13,16 @@ const style: AlexandraBaseStyle = {
     fontSize: "14px",
     fontFamily: "Karla",
   },
+  markdown: {
+    list: {},
+    listElement: {
+      marginTop: 5,
+    },
+    strong: {},
+    link: {},
+    em: {},
+    paragraph: {},
+  },
   leftPane: {
     fontFamily: "Karla",
     padding: "20px",

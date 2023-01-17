@@ -1,7 +1,6 @@
 @use "utils"
 @use "templates/all"
 @use "resume-preview"
-@use "components/sortableList"
 
 @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;500;600;700&family=Open+Sans:wght@400;600;700&display=swap')
 
@@ -21,5 +20,24 @@ h1, h2, h3, h4, h5, h6
     -webkit-font-smoothing: antialiased
     -moz-osx-font-smoothing: grayscale
 
-@page
-  margin: 0
+body .rc-md-editor
+    .editor-container
+        .sec-md .input
+            outline: 2px solid transparent
+            overflow-y: auto
+            height: 100px
+            font-size: 0.875rem
+            line-height: 1.25rem
+            resize: vertical
+
+        >.section
+            border: 0
+
+    .rc-md-navigation 
+        .navigation-nav.left
+            width: 100%
+            .button-type-undo
+                margin-left: auto
+
+        .navigation-nav .button-wrap
+            width: 100%

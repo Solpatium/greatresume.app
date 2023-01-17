@@ -30,7 +30,7 @@ export const SectionPicker: React.FC<{ onSelect: (value: Section) => void }> = (
   const { t } = useTranslation("app");
   const [sectionKind, setSectionKind] = useState<SectionKind>();
 
-  const experienceOptions: FlatSelectOption<SectionKind>[] = [
+  const mainOptions: FlatSelectOption<SectionKind>[] = [
     {
       value: "employment",
       label: t`newSection.sections.employment.label`,
@@ -50,14 +50,20 @@ export const SectionPicker: React.FC<{ onSelect: (value: Section) => void }> = (
       icon: WrenchScrewdriverIcon,
     },
     {
+      value: "text",
+      label: t`newSection.sections.text.label`,
+      description: t`newSection.sections.text.description`,
+      icon: DocumentTextIcon,
+    },
+  ];
+  
+  const otherOptions: FlatSelectOption<SectionKind>[] = [
+    {
       value: "experience",
       label: t`newSection.sections.experience.label`,
       description: t`newSection.sections.experience.description`,
       icon: CalendarIcon,
     },
-  ];
-
-  const otherOptions: FlatSelectOption<SectionKind>[] = [
     {
       value: "skills",
       label: t`newSection.sections.skills.label`,
@@ -89,7 +95,7 @@ export const SectionPicker: React.FC<{ onSelect: (value: Section) => void }> = (
       <Label name={t`newSection.groups.datedEntries`}>
         <FlatSelect
           wrapperClassName="grid sm:grid-cols-2 grid-cols-1 gap-2"
-          options={experienceOptions}
+          options={mainOptions}
           value={sectionKind}
           onChange={setSectionKind}
         />

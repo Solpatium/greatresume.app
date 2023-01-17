@@ -5,9 +5,9 @@ import { View } from "@react-pdf/renderer";
 export const TitledSection: React.FC<{
   style?: Style;
   title: ReactElement;
-  children: ReactElement | ReactElement[];
+  children: ReactElement | (ReactElement | null)[];
 }> = ({ style, title, children }) => {
-  const [firstChild, ...otherChildren] = children instanceof Array ? children : [children];
+  const [firstChild, ...otherChildren] = children instanceof Array ? children.filter(v => v) : [children];
 
   if (!firstChild) {
     return null;

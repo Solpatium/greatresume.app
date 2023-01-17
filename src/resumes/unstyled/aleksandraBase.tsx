@@ -11,6 +11,8 @@ import { Date, DateStyle } from "../components/date";
 import { ExperienceList, ExperienceSection } from "../../models/sections/experienceSection";
 import { RepeatedEntriesSection, TitledSection } from "../components/sections";
 import { KeyValueList } from "../../models/sections/keyValueSection";
+import { Markdown, MarkdownStyle } from "../components/markdown";
+import { PersonalInformation } from "../../models/sections/personalInfo";
 
 interface PersonalInfoStyle {
   image: Style;
@@ -43,8 +45,10 @@ interface SectionStyle {
 
 export interface AlexandraBaseStyle {
   page: Style;
+  markdown: MarkdownStyle,
   experienceEntry: ExperienceEntryStyle;
   keyValueEntry: KeyValueEntryStyle;
+  contactEntry: KeyValueEntryStyle;
   simpleListEntry: Style;
   textSection: {
     content: Style;
@@ -62,9 +66,10 @@ export interface AlexandraBaseProps {
   data: ResumeModel;
   columnsGap: string;
   style: AlexandraBaseStyle;
+  translate: (key: string) => string;
 }
 
-export const AleksandraBase: React.FC<AlexandraBaseProps> = ({ data, style, columnsGap }) => {
+export const AleksandraBase: React.FC<AlexandraBaseProps> = ({ data, style, columnsGap, translate }) => {
   const image = data.appearance.image;
   const Introduction: ResumeTemplate = ({ data }) => (
     <View style={style.personalInfo.container}>
@@ -73,7 +78,6 @@ export const AleksandraBase: React.FC<AlexandraBaseProps> = ({ data, style, colu
         {data.personalInformation.name} {data.personalInformation.surname}
       </T>
       <T style={style.personalInfo.jobTitle}>{data.personalInformation.jobTitle}</T>
-      <T style={style.personalInfo.description}>{data.personalInformation.shortDescription}</T>
     </View>
   );
 
@@ -85,18 +89,41 @@ export const AleksandraBase: React.FC<AlexandraBaseProps> = ({ data, style, colu
         <Date from={data.from} to={data.to} style={style.date} />
       </View>
       <T style={style.experienceEntry.subtitle} url={data.url}>{data.subtitle}</T>
-      <T style={style.experienceEntry.description}>{data.description}</T>
+      <View style={style.experienceEntry.description}><Markdown style={style.markdown}>{data.description}</Markdown></View>
     </View>
   );
 
+  const sidebarTitle = (title: string) => (<T wrap style={style.mainSection.title}>{title}</T>)
+
+  const Contact: React.FC<{ data: PersonalInformation }> = ({ data }) => {
+    const email = data.email.trim();
+    const phone = data.phone.trim();
+    const { links } = data;
+
+    if (!email && !phone && !links.length) {
+      return null;
+    }
+
+    const entry = (name: string, value: string, url: string): React.ReactElement => (<View style={style.contactEntry.wrapper}>
+      <T style={style.contactEntry.name}>{name}</T>
+      <T style={style.contactEntry.value} url={url}>{value}</T>
+    </View>)
+
+    return <TitledSection title={sidebarTitle(translate("contact"))} style={style.sidebarSection.section}>
+      {phone ? entry(translate("phone"), phone, `tel:${phone}`) : null}
+      {email ? entry(translate("email"), data.email, `mailto:${email}`) : null}
+      <>{links.map(l => entry(l.name, l.value, l.value))}</>
+    </TitledSection>
+  }
+
   const KeyValueEntry: React.FC<{ data: KeyValueList[0] }> = ({ data }) => {
-    return <View style={{ 
-      display: "flex", 
-      flexDirection: "row", 
-      flexWrap: "wrap", 
-      justifyContent: "space-between", 
+    return <View style={{
+      display: "flex",
+      flexDirection: "row",
+      flexWrap: "wrap",
+      justifyContent: "space-between",
       ...style.keyValueEntry.wrapper
-      }}>
+    }}>
       <Text style={style.keyValueEntry.name}>{data.name}</Text><Text style={style.keyValueEntry.value}>{data.value}</Text>
     </View>
   }
@@ -107,24 +134,24 @@ export const AleksandraBase: React.FC<AlexandraBaseProps> = ({ data, style, colu
     </T>
     if (data.section.type === "experience") {
       return <RepeatedEntriesSection
-        style={style.sidebarSection.section}
+        style={style.mainSection.section}
         title={title}
         component={Experience}
         data={data.section.content}
       />
     }
     if (data.section.type === "text") {
-      return <TitledSection style={style.sidebarSection.section} title={title}>
-        <Text style={style.textSection.content}>{data.section.content}</Text>
+      return <TitledSection style={style.mainSection.section} title={title}>
+        <View style={style.textSection.content}>
+          <Markdown style={style.markdown}>{data.section.content}</Markdown>
+        </View>
       </TitledSection>
     }
     return null;
   }
 
   const SidebarSection: React.FC<{ data: Section }> = ({ data }) => {
-    const title = <T wrap={true} style={style.sidebarSection.title}>
-      {data.title}
-    </T>;
+    const title = sidebarTitle(data.title);
     if (data.section.type === "key value") {
       return <RepeatedEntriesSection
         style={style.sidebarSection.section}
@@ -149,6 +176,7 @@ export const AleksandraBase: React.FC<AlexandraBaseProps> = ({ data, style, colu
         gap={columnsGap}
         left={<View>
           <Introduction data={data} />
+          <Contact data={data.personalInformation}/>
           {data.sections.map(s => (<SidebarSection data={s} />))}
         </View>}
         right={
