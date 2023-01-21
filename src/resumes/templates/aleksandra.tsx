@@ -1,11 +1,10 @@
-import { Image, Link, Page, StyleSheet, Text, View, Font } from "@react-pdf/renderer";
-import { TwoColumns } from "../layouts/twoColumns";
-import React, { ReactElement } from "react";
+import React from "react";
 import { TemplateDetails, ResumeTemplate } from "../types";
 import { AleksandraBase, AlexandraBaseStyle } from "../unstyled/aleksandraBase";
 
 const textColor = "#2B364D";
 const leftBackgroundColor = "#BBD6DD";
+const linkColor = "#0a82a1";
 
 const style: AlexandraBaseStyle = {
   page: {
@@ -22,16 +21,16 @@ const style: AlexandraBaseStyle = {
     link: {},
     em: {},
     paragraph: {},
+    space: {},
   },
   leftPane: {
-    fontFamily: "Karla",
     padding: "20px",
-    width: "25%",
+    width: "30%",
     backgroundColor: leftBackgroundColor,
   },
   rightPane: {
     padding: "20px",
-    width: "75%",
+    width: "70%",
   },
 
   date: {
@@ -70,27 +69,34 @@ const style: AlexandraBaseStyle = {
   },
   keyValueEntry: {
     wrapper: {},
-    name: {fontSize: 11},
-    value: {fontSize: 11},
+    name: {},
+    value: {},
+  },
+  contactEntry: {
+    wrapper: {fontSize: 12, marginBottom: 4},
+    name: {},
+    value: {color: linkColor},
   },
   simpleListEntry: {fontSize: 11},
   textSection: {content: {fontSize: 11}},
   sidebarSection: {
     title: {
-      fontSize: 12,
-      fontWeight: 900,
-      marginBottom: 4,
+      fontSize: 14,
+      fontWeight: 400,
+      marginBottom: 5,
     },
     section: {
-      marginBottom: "20px",
+      marginBottom: 20,
       width: "100%",
+      fontSize: 12, 
+      fontWeight: 300,
     },
   },
   mainSection: {
     title: {
-      fontSize: "16px",
+      fontSize: 16,
       fontWeight: 500,
-      marginBottom: "10px",
+      marginBottom: 10,
     },
     section: {
       marginBottom: "20px",
@@ -101,6 +107,7 @@ const style: AlexandraBaseStyle = {
     container: {
       display: "flex",
       alignItems: "center",
+      marginBottom: 20,
     },
     image: {
       width: "80%",
@@ -112,22 +119,14 @@ const style: AlexandraBaseStyle = {
       width: "100%",
       paddingBottom: "5px",
       marginBottom: "5px",
-      borderBottom: "solid",
-      borderBottomWidth: "2px",
       borderColor: textColor,
-      fontSize: "20px",
+      fontSize: 20,
       fontFamily: "Karla",
-      fontWeight: 700,
+      fontWeight: 500,
     },
     jobTitle: {
-      fontSize: "16px",
-      fontWeight: 600,
-    },
-    description: {
-      fontSize: "12px",
-      fontWeight: 400,
-      marginTop: "15px",
-      marginBottom: "15px",
+      fontSize: 14,
+      fontWeight: 300,
     },
   },
   legalClause: {
@@ -136,8 +135,8 @@ const style: AlexandraBaseStyle = {
   },
 };
 
-const Template: ResumeTemplate = ({ data }) => (
-  <AleksandraBase data={data} columnsGap="20px" style={style} />
+const Template: ResumeTemplate = ({ data, translate }) => (
+  <AleksandraBase data={data} translate={translate} columnsGap="20px" style={style} />
 );
 
 export const aleksandraTemplate: TemplateDetails = {

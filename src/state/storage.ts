@@ -31,6 +31,7 @@ const useStorage = (key: string, sessionType: SessionType): {
     },
     set: (data) => {
       storage.setItem(key, JSON.stringify(data));
+      localStorage.setItem(lastUpdateKey, new Date().toISOString());
     }
   }), [storage]);
 };

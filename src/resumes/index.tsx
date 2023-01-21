@@ -10,6 +10,7 @@ import { subscribe } from "valtio";
 import { arraysEqual } from "../utils/array";
 import { ResumeModel } from "../models/v1";
 import useTranslation from "next-translate/useTranslation";
+import { addEmbededData, getEmbededData } from "../utils/dataEmbeding";
 
 export const templates: Record<string, TemplateDetails> = {
   aleksandra: aleksandraTemplate,
@@ -45,7 +46,7 @@ export const useRenderResume = (): {
     Object.values(templates).forEach(d => registerRequiredFonts(d.fonts));
   }, []);
 
-  const [{ url, loading }, refreshPdf] = usePDF({
+  const [{ url, blob, loading }, refreshPdf] = usePDF({
     document: (<Resume data={stateProxy} translate={t} />),
   });
 
@@ -89,11 +90,14 @@ export const useRenderResume = (): {
   return useMemo(
     () => ({
       url,
-      download: (url === null ? null : (() => {
-        downloadFile(url, "resume.pdf");
+      download: (blob === null ? null : (() => {
+        const {name, surname} = stateProxy.personalInformation;
+        addEmbededData(blob, stateProxy, t("embededPdfFileDescription"))
+        .then(file => downloadFile(file, `${name} ${surname} - ${t`resume`}.pdf`))
+        .catch(console.error)
       })),
       loading: loading || renderQueued,
     }),
-    [url, loading, renderQueued],
+    [url, blob, loading, renderQueued],
   );
 };

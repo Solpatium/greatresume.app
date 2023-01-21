@@ -1,4 +1,6 @@
-export const downloadFile = (url: string, name: string): void => {
+export const downloadFile = (file: Blob, name: string): void => {
+  const url = URL.createObjectURL(file);
+
   const tempLink = document.createElement("a");
   tempLink.style.display = "none";
   tempLink.href = url;
@@ -8,6 +10,7 @@ export const downloadFile = (url: string, name: string): void => {
   tempLink.click();
 
   setTimeout(() => {
+    URL.revokeObjectURL(url);
     document.body.removeChild(tempLink);
   }, 200);
 };

@@ -19,7 +19,6 @@ interface PersonalInfoStyle {
   container: Style;
   fullName: Style;
   jobTitle: Style;
-  description: Style;
 }
 
 interface ExperienceEntryStyle {
@@ -71,7 +70,7 @@ export interface AlexandraBaseProps {
 
 export const AleksandraBase: React.FC<AlexandraBaseProps> = ({ data, style, columnsGap, translate }) => {
   const image = data.appearance.image;
-  const Introduction: ResumeTemplate = ({ data }) => (
+  const Introduction: React.FC<{data: ResumeModel}> = ({ data }) => (
     <View style={style.personalInfo.container}>
       {image && <Image style={style.personalInfo.image} src={image} />}
       <T style={style.personalInfo.fullName}>
@@ -93,7 +92,7 @@ export const AleksandraBase: React.FC<AlexandraBaseProps> = ({ data, style, colu
     </View>
   );
 
-  const sidebarTitle = (title: string) => (<T wrap style={style.mainSection.title}>{title}</T>)
+  const sidebarTitle = (title: string) => (<T wrap style={style.sidebarSection.title}>{title}</T>)
 
   const Contact: React.FC<{ data: PersonalInformation }> = ({ data }) => {
     const email = data.email.trim();

@@ -158,14 +158,6 @@ const style: AlexandraBaseStyle = {
       marginTop: "15px",
       marginBottom: "15px",
     },
-    contactWrapper: {
-      marginTop: 20,
-      // marginBottom: 20,
-    },
-    contactItem: {
-      fontSize: 11,
-      color: linkColor,
-    }
   },
   legalClause: {
     fontSize: 8,

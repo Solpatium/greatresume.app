@@ -18,6 +18,8 @@
   "links": "Links",
   "linkName": "Link name",
   "contact": "Contact",
+  "embededPdfFileDescription": "Structured data for editing resume at xyz.com.", 
+  "resume": "Resume",
   "steps": {
     "appearance": {
       "title": "Appearance",

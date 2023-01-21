@@ -1,6 +1,6 @@
 // @refresh reset
 
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import Head from "next/head";
 import { Theme } from "../../src/utils/theme";
 import { Editor } from "../../src/components/organisms/steps";

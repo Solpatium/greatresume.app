@@ -1,6 +1,6 @@
 import React from "react";
 import cn from "classnames";
-import { SFC } from "../../utils/typs";
+import { SFC } from "../../utils/types";
 
 export const SelectableBox: SFC<{
   onClick?: () => void;

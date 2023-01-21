@@ -2,18 +2,21 @@
   "page-title": "Privacy options",
   "question": "What do you want to edit?",
   "responses": {
-    "continue-editing": {
+    "continueEditing": {
       "title": "Continue editing",
       "description": "Last update: {{date}}."
     },
-    "start-fresh": {
+    "startFresh": {
       "title": "Start fresh",
       "description": "Create a new resume."
     },
-    "import-data": {
+    "importData": {
       "title": "Import data",
-      "description": "Import data from resume previously.",
-      "file-drop-text": "Drop your file here."
+      "description": "Use resume created previously through our app.",
+      "fileDropText": "Drop your file here.",
+      "invalidFile": "Please provide a valid pdf file created on our website.",
+      "extractionError": "Can't find embeded data. Please make sure you import file exported from our application",
+      "validationError": "There seems to be something wrong with the data im this file."
     }
   }
 }
