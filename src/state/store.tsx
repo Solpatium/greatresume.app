@@ -1,10 +1,9 @@
 import React, { useContext, createContext, useState, useMemo } from "react";
-import { makeEmptyResume } from "../models/v1";
+import { ApplicationState, makeEmptyResume } from "../models/v1";
 import useTranslation from "next-translate/useTranslation";
 import { proxy } from "valtio";
-import { ApplicationCache, ApplicationState } from "./types";
+import { ApplicationCache } from "./types";
 import { useAppStateStorage, useThrottledAppPersistance } from "./storage";
-import { useCreateCache } from "./cache";
 
 const StoreContext = createContext(null as unknown as { state: ApplicationState, cache: ApplicationCache });
 
@@ -31,7 +30,8 @@ export const AppStateProvider: React.FC<{
     return proxy({ resume });
   });
 
-  const cache = useCreateCache(state);
+  // TODO
+  const cache = {};
 
   useThrottledAppPersistance(state);
 

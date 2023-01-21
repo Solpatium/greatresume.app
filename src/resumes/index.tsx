@@ -39,7 +39,8 @@ export const useRenderResume = (): {
   loading: boolean
 } => {
   const {t} = useTranslation("app");
-  const stateProxy = useAppState().resume;
+  const appStateProxy = useAppState();
+  const stateProxy = appStateProxy.resume;
 
   // Register all fonts, they are only fetched when needed
   useEffect(() => {
@@ -92,7 +93,7 @@ export const useRenderResume = (): {
       url,
       download: (blob === null ? null : (() => {
         const {name, surname} = stateProxy.personalInformation;
-        addEmbededData(blob, stateProxy, t("embededPdfFileDescription"))
+        addEmbededData(blob, appStateProxy, t("embededPdfFileDescription"))
         .then(file => downloadFile(file, `${name} ${surname} - ${t`resume`}.pdf`))
         .catch(console.error)
       })),

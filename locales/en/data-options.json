@@ -1,5 +1,5 @@
 {
-  "page-title": "Privacy options",
+  "pageTitle": "Data options",
   "question": "What do you want to edit?",
   "responses": {
     "continueEditing": {
@@ -13,10 +13,10 @@
     "importData": {
       "title": "Import data",
       "description": "Use resume created previously through our app.",
-      "fileDropText": "Drop your file here.",
+      "fileDropText": "Drop your file here. Make sure you import file exported from our application.",
       "invalidFile": "Please provide a valid pdf file created on our website.",
       "extractionError": "Can't find embeded data. Please make sure you import file exported from our application",
-      "validationError": "There seems to be something wrong with the data im this file."
+      "validationError": "There seems to be something wrong with the data in this file."
     }
   }
 }

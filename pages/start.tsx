@@ -9,10 +9,11 @@ import { SelectableBox } from "../src/components/atoms/selectableBox";
 import useTranslation from "next-translate/useTranslation";
 import { useAppStateStorage, useGetLastUpdate } from "../src/state/storage";
 import { DataExtractionError, getEmbededData } from "../src/utils/dataEmbeding";
+import { StructError } from "superstruct";
 
 const ImportResume: React.FC<{ dragging?: boolean }> = ({ dragging }) => {
   const { t } = useTranslation("data-options");
-  const { push } = useRouter();
+  const { push, prefetch } = useRouter();
   const storage = useAppStateStorage();
 
   const { getRootProps, getInputProps } = useDropzone({
@@ -21,16 +22,20 @@ const ImportResume: React.FC<{ dragging?: boolean }> = ({ dragging }) => {
         alert(t`responses.importData.invalidFile`);
         return;
       }
+
+      prefetch("/creator");
+
       file.arrayBuffer()
       .then(getEmbededData)
-      // TODO type
       .then(data => {
-        storage.set({resume: data}) as any;
+        storage.set(data);
         push("/creator");
       })
       .catch(e => {
         if (e instanceof DataExtractionError) {
           alert(t`responses.importData.extractionError`);
+        } else if (e instanceof StructError){
+          alert(t`responses.importData.validationError`);
         } else {
           console.error(e);
         }
@@ -44,7 +49,7 @@ const ImportResume: React.FC<{ dragging?: boolean }> = ({ dragging }) => {
     <button type="button" {...getRootProps()} className="cursor-pointer">
       <SelectableBox
         wrapper="div"
-        answer={`📤 ${t("responses.importData.fileDropText")}`}
+        answer={`📤 ${t("responses.importData.title")}`}
         explanation={dragging ? t`responses.importData.fileDropText` : t`responses.importData.description`}
       />
       <input {...getInputProps()} />
@@ -85,7 +90,7 @@ const StorageSettings: React.FC = () => {
   return (
     <>
       <Head>
-        <title>{t`page-title`}</title>
+        <title>{t`pageTitle`}</title>
       </Head>
       <Theme>
         <div

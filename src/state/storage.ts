@@ -1,9 +1,11 @@
 import { SessionType, useStorageSelected } from "../utils/storage";
-import { useEffect, useMemo } from "react";
+import { useCallback, useEffect, useMemo } from "react";
 import { ApplicationState } from "./types";
 import { useRouter } from "next/router";
 import { useThrottleFn } from "react-use";
 import { subscribe } from "valtio";
+import { applicationStateStruct, resumeStruct } from "../models/v1";
+import { assert, is } from "superstruct";
 
 const lastUpdateKey = "last-update";
 export const useGetLastUpdate = (): string => {
@@ -36,10 +38,9 @@ const useStorage = (key: string, sessionType: SessionType): {
   }), [storage]);
 };
 
-// TODO: validation
 export const useAppStateStorage = (): {
   get: () => ApplicationState | undefined;
-  set: (data: ApplicationState) => void;
+  set: (data: Record<any, any>) => void;
 } => {
   const [storageSelected] = useStorageSelected();
   const {replace} = useRouter();
@@ -50,7 +51,29 @@ export const useAppStateStorage = (): {
     }
   }, [storageSelected]);
 
-  return useStorage("app state", storageSelected ?? "session") as any;
+  const storage = useStorage("app state", storageSelected ?? "session") as any;
+
+  const set = useCallback((data: Record<any, any>) => {
+    assert(data, applicationStateStruct);
+    storage.set(data);
+  }, [storage.set]);
+
+  const get = useCallback((): ApplicationState | undefined => {
+    const data = storage.get();
+    
+    if (!data) {
+      return undefined;
+    }
+
+    if (is(data, applicationStateStruct)) {
+      return data;
+    }
+
+    console.warn("There was data saved, but it was not complient with the schema.", data);
+    return undefined
+  }, [storage.get])
+
+  return useMemo(() => ({get, set}), [get, set]);
 };
 
 const savePeriod = 2000;
