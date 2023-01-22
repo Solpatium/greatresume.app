@@ -1,15 +1,11 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import classes from "classnames";
-import { useDrag } from "@use-gesture/react";
 import { StepWrapper } from "./stepWrapper";
 
 export type Step = {
   title: string;
   element: React.ReactElement;
 };
-
-const V_THRESHOLD = 0.3;
-
 export const Stepper: React.FC<{
   steps: Step[];
 }> = ({ steps }) => {
@@ -33,35 +29,11 @@ export const Stepper: React.FC<{
     activeElement?.scrollIntoView?.({ behavior: "smooth", inline: "center" });
   }, [activeElement]);
 
-  const containerRef = useRef<HTMLDivElement>();
-  const bind = useDrag(
-    ({ event, last, movement: [x] }) => {
-      if (!last) {
-        return;
-      }
-
-      const target = event.target as HTMLElement;
-      const isClickable = ["input", "textarea", "button"].includes(target.tagName.toLowerCase());
-      const isInModal = target.closest("#headlessui-portal-root");
-      console.log(target);
-      if (!isClickable && !isInModal) {
-        if (x > 0) {
-          // goToPrev?.();
-        } else {
-          // goToNext?.();
-        }
-      }
-    },
-    {
-      axis: "x",
-      threshold: 50,
-    },
-  );
   const element = steps[activeIndex]?.element;
 
   // TODO accessibility
   return (
-    <div ref={containerRef}>
+    <>
       <div className="w-full overflow-auto text-left whitespace-nowrap no-scroll">
         {steps.map((s, index) => (
           <button
@@ -93,13 +65,10 @@ export const Stepper: React.FC<{
         ))}
       </div>
       {element && (
-        // <div {...bind()}>
-        <div {...bind()}>
-          <StepWrapper goToNext={goToNext} goToPrev={goToPrev}>
-            {element}
-          </StepWrapper>
-        </div>
+        <StepWrapper goToNext={goToNext} goToPrev={goToPrev}>
+          {element}
+        </StepWrapper>
       )}
-    </div>
+    </>
   );
 };
