@@ -10,7 +10,6 @@ import { subscribe } from "valtio";
 import { arraysEqual } from "../utils/array";
 import { ResumeModel } from "../models/v1";
 import useTranslation from "next-translate/useTranslation";
-import { addEmbededData, getEmbededData } from "../utils/dataEmbeding";
 
 export const templates: Record<string, TemplateDetails> = {
   aleksandra: aleksandraTemplate,
@@ -73,7 +72,6 @@ export const useRenderResume = (): {
         clearTimeout(handle.current);
         handle.current = null;
       } else {
-        console.log("QUEUEUD")
         setQueued(true);
       }
       handle.current = setTimeout(() => {
@@ -93,7 +91,10 @@ export const useRenderResume = (): {
       resume: blob,
       download: (blob === null ? null : (() => {
         const {name, surname} = stateProxy.personalInformation;
-        addEmbededData(blob, appStateProxy, t("embededPdfFileDescription"))
+        import("../utils/dataEmbeding")
+        .then(module => module.addEmbededData(
+          blob, appStateProxy, t("embededPdfFileDescription")
+        ))
         .then(file => downloadFile(file, `${name} ${surname} - ${t`resume`}.pdf`))
         .catch(console.error)
       })),

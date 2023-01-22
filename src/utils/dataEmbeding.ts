@@ -1,5 +1,8 @@
 import { decodePDFRawStream, PDFArray, PDFDict, PDFDocument, PDFHexString, PDFName, PDFRawStream, PDFStream, PDFString } from "pdf-lib"
 
+// This module imports pdf-lib. It is a heavy library, therefore this module should be imported
+// dynamically.
+
 const fileName = "resume_data.json";
 
 export const addEmbededData = async (sourcePdf: Blob, data: Record<any, any>, description: string): Promise<Blob> => {

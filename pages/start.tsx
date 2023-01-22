@@ -6,7 +6,6 @@ import { useDropzone } from "react-dropzone";
 import { SelectableBox } from "../src/components/atoms/selectableBox";
 import useTranslation from "next-translate/useTranslation";
 import { useAppStateStorage, useGetLastUpdate } from "../src/state/storage";
-import { DataExtractionError, getEmbededData } from "../src/utils/dataEmbeding";
 import { StructError } from "superstruct";
 
 const ImportResume: React.FC<{ dragging?: boolean }> = ({ dragging }) => {
@@ -23,21 +22,22 @@ const ImportResume: React.FC<{ dragging?: boolean }> = ({ dragging }) => {
 
       prefetch("/creator");
 
-      file.arrayBuffer()
-        .then(getEmbededData)
-        .then(data => {
+      import("../src/utils/dataEmbeding").then(async (module) => {
+        try {
+          const buffer = await file.arrayBuffer();
+          const data = await module.getEmbededData(buffer)
           storage.set(data);
           push("/creator");
-        })
-        .catch(e => {
-          if (e instanceof DataExtractionError) {
+        } catch (e) {
+          if (e instanceof module.DataExtractionError) {
             alert(t`responses.importData.extractionError`);
           } else if (e instanceof StructError) {
             alert(t`responses.importData.validationError`);
           } else {
             console.error(e);
           }
-        });
+        }
+      }).catch(console.error);
     },
     accept: ".pdf",
     multiple: false,

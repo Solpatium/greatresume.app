@@ -1,14 +1,11 @@
 const nextTranslate = require('next-translate')
 
-// const withTM = require("next-transpile-modules")([
-//   "pdfjs-dist"
-// ]);
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+  enabled: process.env.ANALYZE === 'true',
+})
 
-module.exports = nextTranslate({
+module.exports = withBundleAnalyzer(nextTranslate({
   typescript: {
     ignoreBuildErrors: true,
   },
-  redirects: () => [
-    {source: "/creator", destination: "/creator/templates", permanent: true}
-  ],
-});
+}));

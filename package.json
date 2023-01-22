@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint {pages,sections,components,utils,integrations}/**",
-    "lint:fix": "eslint {pages,sections,components,utils,integrations}/** --fix"
+    "lint:fix": "eslint {pages,sections,components,utils,integrations}/** --fix",
+    "analyze": "ANALYZE=true yarn build --no-lint"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.0.7",
@@ -42,6 +43,7 @@
     "yarn": "^1.22.10"
   },
   "devDependencies": {
+    "@next/bundle-analyzer": "^13.1.4",
     "@types/classnames": "^2.2.11",
     "@types/jspdf": "^2.0.0",
     "@types/marked": "^4.0.8",
