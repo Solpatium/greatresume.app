@@ -4,8 +4,8 @@ module.exports = {
     darkMode: 'media',
     theme: {
         fontFamily: {
-            fancy: ['Josefin Sans'],
-            regular: ['Open Sans'],
+            fancy: ["var(--font-fancy)"],
+            regular: ['var(--font-regular)'],
         },
         extend: {
             outline: {
