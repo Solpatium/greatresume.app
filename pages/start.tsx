@@ -1,7 +1,5 @@
 import React, { useMemo } from "react";
 import Head from "next/head";
-import { Theme } from "../src/utils/theme";
-import { useResumeStorage } from "../src/utils/storage";
 import { useRouter } from "next/router";
 import { useIsMounted } from "../src/utils/ssr";
 import { useDropzone } from "react-dropzone";
@@ -18,7 +16,7 @@ const ImportResume: React.FC<{ dragging?: boolean }> = ({ dragging }) => {
 
   const { getRootProps, getInputProps } = useDropzone({
     onDrop: ([file]) => {
-      if(!file) {
+      if (!file) {
         alert(t`responses.importData.invalidFile`);
         return;
       }
@@ -26,20 +24,20 @@ const ImportResume: React.FC<{ dragging?: boolean }> = ({ dragging }) => {
       prefetch("/creator");
 
       file.arrayBuffer()
-      .then(getEmbededData)
-      .then(data => {
-        storage.set(data);
-        push("/creator");
-      })
-      .catch(e => {
-        if (e instanceof DataExtractionError) {
-          alert(t`responses.importData.extractionError`);
-        } else if (e instanceof StructError){
-          alert(t`responses.importData.validationError`);
-        } else {
-          console.error(e);
-        }
-      });
+        .then(getEmbededData)
+        .then(data => {
+          storage.set(data);
+          push("/creator");
+        })
+        .catch(e => {
+          if (e instanceof DataExtractionError) {
+            alert(t`responses.importData.extractionError`);
+          } else if (e instanceof StructError) {
+            alert(t`responses.importData.validationError`);
+          } else {
+            console.error(e);
+          }
+        });
     },
     accept: ".pdf",
     multiple: false,
@@ -92,30 +90,28 @@ const StorageSettings: React.FC = () => {
       <Head>
         <title>{t`pageTitle`}</title>
       </Head>
-      <Theme>
-        <div
-          className="flex align-center justify-center min-h-screen"
-          {...getRootProps()}
-          role={undefined} // We don't want role from getRootProps
-          tabIndex={undefined}>
-          <form className="grid grid-cols-1 md:grid-cols-2 gap-4 m-auto max-w-md text-center">
-            <h3 className="font-regular text-medium col-span-full uppercase font-semibold text-gray-600">
-              <span className="text-lg">🗄️ </span> {t("page-title")}
-            </h3>
-            <h1 className="font-fancy text-4xl col-span-full mb-0">{t`question`}</h1>
-            {mounted && <UseSaved/>}
-            <SelectableBox
-              onClick={() => {
-                push("/creator");
-              }}
-              answer={`✨ ${t`responses.startFresh.title`}`}
-              explanation={t`responses.startFresh.description`}
-            />
-            {/* TODO should be visible right away */}
-            {mounted && <ImportResume dragging={isDragActive} />}
-          </form>
-        </div>
-      </Theme>
+      <div
+        className="flex align-center justify-center min-h-screen"
+        {...getRootProps()}
+        role={undefined} // We don't want role from getRootProps
+        tabIndex={undefined}>
+        <form className="grid grid-cols-1 md:grid-cols-2 gap-4 m-auto max-w-md text-center">
+          <h3 className="font-regular text-medium col-span-full uppercase font-semibold text-gray-600">
+            <span className="text-lg">🗄️ </span> {t("pageTitle")}
+          </h3>
+          <h1 className="font-fancy text-4xl col-span-full mb-0">{t`question`}</h1>
+          {mounted && <UseSaved />}
+          <SelectableBox
+            onClick={() => {
+              push("/creator");
+            }}
+            answer={`✨ ${t`responses.startFresh.title`}`}
+            explanation={t`responses.startFresh.description`}
+          />
+          {/* TODO should be visible right away */}
+          {mounted && <ImportResume dragging={isDragActive} />}
+        </form>
+      </div>
     </>
   );
 };

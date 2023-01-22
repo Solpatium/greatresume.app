@@ -41,8 +41,6 @@
     "react-quick-pinch-zoom": "^4.6.0",
     "react-spring": "^9.3.0",
     "react-use": "^15.3.4",
-    "starknet": "^3.9.0",
-    "styled-components": "^5.1.1",
     "superstruct": "^0.15.1",
     "tailwindcss": "^3.2.4",
     "valtio": "^1.8.2",

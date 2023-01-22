@@ -1,26 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import styled from "styled-components";
-import { ResumeModel } from "../../models/v1";
-import { StateSetter } from "../../utils/mutators";
 import classes from "classnames";
 import { useDrag } from "@use-gesture/react";
 import { StepWrapper } from "./stepWrapper";
-
-const HorizontalScrollWrapper = styled.div`
-  width: 100%;
-  overflow: auto;
-  text-align: left;
-  white-space: nowrap;
-  scrollbar-width: none;
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
-
-  @media print {
-    display: none;
-  }
-`;
 
 export type Step = {
   title: string;
@@ -81,7 +62,7 @@ export const Stepper: React.FC<{
   // TODO accessibility
   return (
     <div ref={containerRef}>
-      <HorizontalScrollWrapper>
+      <div className="w-full overflow-auto text-left whitespace-nowrap no-scroll">
         {steps.map((s, index) => (
           <button
             key={index}
@@ -91,7 +72,6 @@ export const Stepper: React.FC<{
             className={classes(
               "cursor-pointer",
               "inline-block",
-              "text-base",
               "font-fancy",
               "text-xl",
               "py-4 px-3",
@@ -111,7 +91,7 @@ export const Stepper: React.FC<{
             </span>
           </button>
         ))}
-      </HorizontalScrollWrapper>
+      </div>
       {element && (
         // <div {...bind()}>
         <div {...bind()}>

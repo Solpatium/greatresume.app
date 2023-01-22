@@ -1,7 +1,6 @@
 {
   "page-title": "Privacy options",
   "question": "Should browser keep data after closing this page?",
-  "explanation": "You should select <0>no</0> if the device that you are using is not private, for instance if it is a computer in Internet cafe.",
   "options": {
     "yes": {
       "title": "Yes",
