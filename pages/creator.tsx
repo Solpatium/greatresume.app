@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import Head from "next/head";
-import { Editor } from "../../src/components/organisms/steps";
-import { useIsMounted } from "../../src/utils/ssr";
-import { useRenderResume } from "../../src/resumes";
+import { Editor } from "../src/components/organisms/steps";
+import { useIsMounted } from "../src/utils/ssr";
+import { useRenderResume } from "../src/resumes";
 import cn from "classnames";
-import { ZoomArea } from "../../src/components/layout/zoomArea";
-import { Icon } from "../../src/components/atoms/icon";
+import { ZoomArea } from "../src/components/layout/zoomArea";
+import { Icon } from "../src/components/atoms/icon";
 import useTranslation from "next-translate/useTranslation";
-import { PdfViewer } from "../../src/components/organisms/pdfViewer";
-import { AppStateProvider } from "../../src/state/store";
+import { PdfViewer } from "../src/components/organisms/pdfViewer";
+import { AppStateProvider } from "../src/state/store";
 import 'react-markdown-editor-lite/lib/index.css';
 
 const Creator: React.FC = () => {

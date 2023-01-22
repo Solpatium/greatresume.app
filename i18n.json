@@ -6,6 +6,6 @@
     "/": ["home"],
     "/start": ["data-options"],
     "/storage-settings": ["privacy-options"],
-    "rgx:/creator/.*$": ["app"]
+    "/creator": ["app"]
   }
 }
