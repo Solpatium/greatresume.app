@@ -34,7 +34,7 @@ const Resume: React.FC<{ data: ResumeModel, translate: (key: string) => string }
 }
 
 export const useRenderResume = (): {
-  url: string | null;
+  resume: Blob | null;
   download: (() => void) | null;
   loading: boolean
 } => {
@@ -47,7 +47,7 @@ export const useRenderResume = (): {
     Object.values(templates).forEach(d => registerRequiredFonts(d.fonts));
   }, []);
 
-  const [{ url, blob, loading }, refreshPdf] = usePDF({
+  const [{ blob, loading }, refreshPdf] = usePDF({
     document: (<Resume data={stateProxy} translate={t} />),
   });
 
@@ -90,7 +90,7 @@ export const useRenderResume = (): {
 
   return useMemo(
     () => ({
-      url,
+      resume: blob,
       download: (blob === null ? null : (() => {
         const {name, surname} = stateProxy.personalInformation;
         addEmbededData(blob, appStateProxy, t("embededPdfFileDescription"))
@@ -99,6 +99,6 @@ export const useRenderResume = (): {
       })),
       loading: loading || renderQueued,
     }),
-    [url, blob, loading, renderQueued],
+    [blob, loading, renderQueued],
   );
 };

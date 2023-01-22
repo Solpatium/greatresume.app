@@ -2,20 +2,21 @@ import React, { useRef } from "react";
 import { useAsync } from "react-use";
 
 export interface PdfViewerProps {
-  url: string;
+  resume: Blob;
   newPdfGenerating: boolean;
 }
 
-export const PdfViewer: React.FC<PdfViewerProps> = ({ url, newPdfGenerating }) => {
+export const PdfViewer: React.FC<PdfViewerProps> = ({ resume, newPdfGenerating }) => {
   const wrapperRef = useRef<HTMLDivElement | null>(null);
   const state = useAsync(async () => {
-    if (!url) {
+    if (!resume) {
       return;
     }
     const lib = await import("pdfjs-dist");
     lib.GlobalWorkerOptions.workerSrc =
       "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.14.305/pdf.worker.min.js";
 
+    const url = URL.createObjectURL(resume);
     lib.getDocument(url).promise.then(async d => {
       const wrapper = wrapperRef.current;
       if (!wrapper) {
@@ -55,8 +56,9 @@ export const PdfViewer: React.FC<PdfViewerProps> = ({ url, newPdfGenerating }) =
       }
 
       wrapper.replaceChildren(...newCanvases);
+      URL.revokeObjectURL(url);
     });
-  }, [url]);
+  }, [resume]);
 
   return (
     <div className="relative">

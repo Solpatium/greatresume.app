@@ -14,7 +14,7 @@ import 'react-markdown-editor-lite/lib/index.css';
 const Creator: React.FC = () => {
   const { t } = useTranslation("app");
   const [isPreviewing, setIsPreviewing] = useState(false);
-  const { url, download, loading } = useRenderResume();
+  const { resume, download, loading } = useRenderResume();
 
   return (
     <>
@@ -36,16 +36,16 @@ const Creator: React.FC = () => {
             isPreviewing ? "block" : "hidden",
             "relative max-w-full lg:block lg:h-screen lg:flex overflow-hidden",
           )}>
-          <button
+          {download && <button
             type="button"
             className="hidden lg:block absolute bottom-4 left-0 m-auto right-0 z-50 text-black font-bold rounded-3xl p-4 w-28 bg-white mb-2 shadow-xl focus:outline-none	"
             onClick={download}>
             <Icon>💾</Icon> {t`export`}
-          </button>
-          <ZoomArea>{url ? <PdfViewer url={url} newPdfGenerating={loading} /> : null}</ZoomArea>
+          </button>}
+          <ZoomArea>{resume ? <PdfViewer resume={resume} newPdfGenerating={loading} /> : null}</ZoomArea>
         </div>
         <div className="lg:hidden fixed bottom-3 right-3 flex flex-col">
-          {isPreviewing && (
+          {isPreviewing && download && (
             <button
               type="button"
               className="text-black font-bold rounded-3xl p-4 w-28 bg-white mb-2 shadow-xl focus:outline-none	"
