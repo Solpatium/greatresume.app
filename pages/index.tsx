@@ -7,7 +7,7 @@ export default function Home() {
       <Head>
         <title>Resume creator</title>
       </Head>
-      <Homee></Homee>
+      <div>In progress :)</div>
     </>
   );
 }
