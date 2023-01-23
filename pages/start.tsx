@@ -7,8 +7,9 @@ import { SelectableBox } from "../src/components/atoms/selectableBox";
 import useTranslation from "next-translate/useTranslation";
 import { useAppStateStorage, useGetLastUpdate } from "../src/state/storage";
 import { StructError } from "superstruct";
+import { makeClientOnly } from "../src/components/atoms/clientOnly";
 
-const ImportResume: React.FC<{ dragging?: boolean }> = ({ dragging }) => {
+const ImportResume: React.FC<{ dragging?: boolean, hasResume: boolean }> = ({ dragging, hasResume }) => {
   const { t } = useTranslation("data-options");
   const { push, prefetch } = useRouter();
   const storage = useAppStateStorage();
@@ -21,6 +22,10 @@ const ImportResume: React.FC<{ dragging?: boolean }> = ({ dragging }) => {
       }
 
       prefetch("/creator");
+
+      if(hasResume && !confirm(t`overwriteQuestion`)) {
+        return;
+      }
 
       import("../src/utils/dataEmbeding").then(async (module) => {
         try {
@@ -56,20 +61,14 @@ const ImportResume: React.FC<{ dragging?: boolean }> = ({ dragging }) => {
 };
 
 const UseSaved = () => {
-  const storage = useAppStateStorage();
-  const resume = useMemo(() => storage.get, [storage.get]);
   const lastUpdate = useGetLastUpdate();
   const { t } = useTranslation("data-options");
 
   const { push } = useRouter();
 
-  if (!resume) {
-    return null;
-  }
-
   return (<SelectableBox
     className="col-span-full"
-    onClick={() => {
+    onClick={() => {  
       push("/creator");
     }}
     answer={`📄 ${t`responses.continueEditing.title`}`}
@@ -79,9 +78,32 @@ const UseSaved = () => {
   />)
 }
 
-const StorageSettings: React.FC = () => {
+const StartFresh: React.FC<{hasResume: boolean}> = ({hasResume}) => {
   const { t } = useTranslation("data-options");
-  const mounted = useIsMounted();
+  const storage = useAppStateStorage();
+
+  const { push, prefetch } = useRouter();
+
+  return (<SelectableBox
+    onClick={() => {  
+      prefetch("/creator")
+      
+      if (hasResume && !confirm(t`overwriteQuestion`)) {
+        return;
+      }
+
+      storage.remove();
+      push("/creator");
+    }}
+    answer={`✨ ${t`responses.startFresh.title`}`}
+    explanation={t`responses.startFresh.description`}
+  />)
+}
+
+const StorageSettings: React.FC = () => {
+  const storage = useAppStateStorage();
+  const hasResume = useMemo(() => !!storage.get(), [storage.get]);
+  const { t } = useTranslation("data-options");
   const { push } = useRouter();
   const { getRootProps, isDragActive } = useDropzone();
 
@@ -100,20 +122,14 @@ const StorageSettings: React.FC = () => {
             <span className="text-lg">🗄️ </span> {t("pageTitle")}
           </h3>
           <h1 className="font-fancy text-4xl col-span-full mb-0">{t`question`}</h1>
-          {mounted && <UseSaved />}
-          <SelectableBox
-            onClick={() => {
-              push("/creator");
-            }}
-            answer={`✨ ${t`responses.startFresh.title`}`}
-            explanation={t`responses.startFresh.description`}
-          />
+          {hasResume && <UseSaved/>}
+          <StartFresh hasResume={hasResume} />
           {/* TODO should be visible right away */}
-          {mounted && <ImportResume dragging={isDragActive} />}
+          <ImportResume hasResume={hasResume} dragging={isDragActive} />
         </form>
       </div>
     </>
   );
 };
 
-export default StorageSettings;
+export default makeClientOnly(StorageSettings);

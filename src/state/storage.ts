@@ -21,6 +21,7 @@ export const useGetLastUpdate = (): string => {
 const useStorage = (key: string, sessionType: SessionType): {
   get: () => Record<string, unknown> | undefined;
   set: (data: Record<string, unknown>) => void;
+  remove: () => void;
 } => {
   const storage = sessionType === 'local' ? localStorage : sessionStorage;
   return useMemo(() => ({
@@ -34,13 +35,15 @@ const useStorage = (key: string, sessionType: SessionType): {
     set: (data) => {
       storage.setItem(key, JSON.stringify(data));
       localStorage.setItem(lastUpdateKey, new Date().toISOString());
-    }
+    },
+    remove: () => storage.removeItem(key),
   }), [storage]);
 };
 
 export const useAppStateStorage = (): {
   get: () => ApplicationState | undefined;
   set: (data: Record<any, any>) => void;
+  remove: () => void;
 } => {
   const [storageSelected] = useStorageSelected();
   const {replace} = useRouter();
@@ -69,11 +72,13 @@ export const useAppStateStorage = (): {
       return data;
     }
 
-    console.warn("There was data saved, but it was not complient with the schema.", data);
+    console.warn("Data found, but it was not complient with the schema.", data);
     return undefined
   }, [storage.get])
 
-  return useMemo(() => ({get, set}), [get, set]);
+  const {remove} = storage;
+
+  return useMemo(() => ({get, set, remove}), [get, set, remove]);
 };
 
 const savePeriod = 2000;
