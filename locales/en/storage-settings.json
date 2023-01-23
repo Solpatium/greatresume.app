@@ -1,5 +1,5 @@
 {
-  "page-title": "Privacy options",
+  "pageTitle": "Storage settings",
   "question": "Should browser keep data after closing this page?",
   "options": {
     "yes": {

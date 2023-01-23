@@ -4,8 +4,8 @@
   "pages": {
     "*": ["common"],
     "/": ["home"],
-    "/start": ["data-options"],
-    "/storage-settings": ["privacy-options"],
+    "/start": ["start"],
+    "/storage-settings": ["storage-settings"],
     "/creator": ["app"]
   }
 }

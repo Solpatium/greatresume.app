@@ -40,6 +40,33 @@ const useStorage = (key: string, sessionType: SessionType): {
   }), [storage]);
 };
 
+const appStateKey = "app state";
+
+export const useStorageMigration = () => {
+  // If user selects a different storage mechanism we need to migrate exiting state to a new storage
+  const sessionStorage = useStorage(appStateKey, "session");
+  const localStorage = useStorage(appStateKey, "local");
+
+  const [previousStorage] = useStorageSelected();
+
+  return useCallback((newStorageType: SessionType) => {
+    if (previousStorage === newStorageType) {
+      return;
+    }
+    const [source, target] = newStorageType === "local" ? [sessionStorage, localStorage] : [localStorage, sessionStorage];    
+    const data = source.get();
+
+
+    if (!data) {
+      return;
+    }
+
+    // Set data before deleting old
+    target.set(data);
+    source.remove();
+  }, []);
+}
+
 export const useAppStateStorage = (): {
   get: () => ApplicationState | undefined;
   set: (data: Record<any, any>) => void;
@@ -54,7 +81,7 @@ export const useAppStateStorage = (): {
     }
   }, [storageSelected]);
 
-  const storage = useStorage("app state", storageSelected ?? "session") as any;
+  const storage = useStorage(appStateKey, storageSelected ?? "session");
 
   const set = useCallback((data: Record<any, any>) => {
     assert(data, applicationStateStruct);

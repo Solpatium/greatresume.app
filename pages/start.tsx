@@ -1,16 +1,15 @@
 import React, { useMemo } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { useIsMounted } from "../src/utils/ssr";
 import { useDropzone } from "react-dropzone";
 import { SelectableBox } from "../src/components/atoms/selectableBox";
 import useTranslation from "next-translate/useTranslation";
 import { useAppStateStorage, useGetLastUpdate } from "../src/state/storage";
 import { StructError } from "superstruct";
-import { makeClientOnly } from "../src/components/atoms/clientOnly";
+import { ClientOnly, makeClientOnly } from "../src/components/atoms/clientOnly";
 
 const ImportResume: React.FC<{ dragging?: boolean, hasResume: boolean }> = ({ dragging, hasResume }) => {
-  const { t } = useTranslation("data-options");
+  const { t } = useTranslation("start");
   const { push, prefetch } = useRouter();
   const storage = useAppStateStorage();
 
@@ -23,7 +22,7 @@ const ImportResume: React.FC<{ dragging?: boolean, hasResume: boolean }> = ({ dr
 
       prefetch("/creator");
 
-      if(hasResume && !confirm(t`overwriteQuestion`)) {
+      if (hasResume && !confirm(t`overwriteQuestion`)) {
         return;
       }
 
@@ -62,13 +61,13 @@ const ImportResume: React.FC<{ dragging?: boolean, hasResume: boolean }> = ({ dr
 
 const UseSaved = () => {
   const lastUpdate = useGetLastUpdate();
-  const { t } = useTranslation("data-options");
+  const { t } = useTranslation("start");
 
   const { push } = useRouter();
 
   return (<SelectableBox
     className="col-span-full"
-    onClick={() => {  
+    onClick={() => {
       push("/creator");
     }}
     answer={`📄 ${t`responses.continueEditing.title`}`}
@@ -78,16 +77,16 @@ const UseSaved = () => {
   />)
 }
 
-const StartFresh: React.FC<{hasResume: boolean}> = ({hasResume}) => {
-  const { t } = useTranslation("data-options");
+const StartFresh: React.FC<{ hasResume: boolean }> = ({ hasResume }) => {
+  const { t } = useTranslation("start");
   const storage = useAppStateStorage();
 
   const { push, prefetch } = useRouter();
 
   return (<SelectableBox
-    onClick={() => {  
+    onClick={() => {
       prefetch("/creator")
-      
+
       if (hasResume && !confirm(t`overwriteQuestion`)) {
         return;
       }
@@ -103,33 +102,39 @@ const StartFresh: React.FC<{hasResume: boolean}> = ({hasResume}) => {
 const StorageSettings: React.FC = () => {
   const storage = useAppStateStorage();
   const hasResume = useMemo(() => !!storage.get(), [storage.get]);
-  const { t } = useTranslation("data-options");
-  const { push } = useRouter();
+  const { t } = useTranslation("start");
   const { getRootProps, isDragActive } = useDropzone();
 
   return (
-    <>
-      <Head>
-        <title>{t`pageTitle`}</title>
-      </Head>
       <div
         className="flex align-center justify-center min-h-screen"
         {...getRootProps()}
         role={undefined} // We don't want role from getRootProps
         tabIndex={undefined}>
         <form className="grid grid-cols-1 md:grid-cols-2 gap-4 m-auto max-w-md text-center">
-          <h3 className="font-regular text-medium col-span-full uppercase font-semibold text-gray-600">
+          <h1 className="font-regular text-medium col-span-full uppercase font-semibold text-gray-600">
             <span className="text-lg">🗄️ </span> {t("pageTitle")}
-          </h3>
-          <h1 className="font-fancy text-4xl col-span-full mb-0">{t`question`}</h1>
-          {hasResume && <UseSaved/>}
+          </h1>
+          <h2 className="font-fancy text-4xl col-span-full mb-0">{t`question`}</h2>
+          {hasResume && <UseSaved />}
           <StartFresh hasResume={hasResume} />
           {/* TODO should be visible right away */}
           <ImportResume hasResume={hasResume} dragging={isDragActive} />
         </form>
       </div>
-    </>
   );
 };
 
-export default makeClientOnly(StorageSettings);
+const Page = () => {
+  const { t } = useTranslation("start")
+  return <>
+    <Head>
+      <title>{t`pageTitle`}</title>
+    </Head>
+    <ClientOnly>
+      <StorageSettings />
+    </ClientOnly>
+  </>
+}
+
+export default Page;
