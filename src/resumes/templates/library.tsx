@@ -1,9 +1,6 @@
-import React, { ReactElement } from "react";
+import React from "react";
 import { TemplateDetails, ResumeTemplate } from "../types";
 import { AleksandraBase, AlexandraBaseStyle } from "../unstyled/aleksandraBase";
-import ReactPDF from "@react-pdf/renderer";
-import { Style } from "@react-pdf/types";
-import { link } from "fs/promises";
 
 const textColor = "#3a4157";
 const accentColor = "#858585";
@@ -151,12 +148,6 @@ const style: AlexandraBaseStyle = {
     jobTitle: {
       fontSize: 14,
       color: titleColor,
-    },
-    description: {
-      fontSize: 12,
-      fontWeight: 400,
-      marginTop: "15px",
-      marginBottom: "15px",
     },
   },
   legalClause: {

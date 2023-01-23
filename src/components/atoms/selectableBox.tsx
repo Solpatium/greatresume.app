@@ -5,7 +5,7 @@ import { SFC } from "../../utils/types";
 export const SelectableBox: SFC<{
   onClick?: () => void;
   answer: string;
-  explanation: string;
+  explanation?: string;
   wrapper?: string;
 }> = ({ answer, onClick, explanation, className, wrapper }) => {
   const component = wrapper ?? "button";
@@ -22,6 +22,6 @@ export const SelectableBox: SFC<{
     <div className="font-regular text-xl font-bold text-gray-800 group-hover:underline">
       {answer}
     </div>,
-    <div className="font-regular text-sm">{explanation}</div>,
+    explanation && <div className="font-regular text-sm">{explanation}</div>,
   );
 };

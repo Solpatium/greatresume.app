@@ -5,7 +5,7 @@ import React from "react";
 import { marked } from 'marked';
 
 marked.setOptions({
-    gfm: false, 
+    gfm: false,
 });
 
 export interface MarkdownStyle {
@@ -33,11 +33,12 @@ const renderToken = (token: marked.Token, style: MarkdownStyle): React.ReactElem
 
     // We only support unordered list
     if (token.type === "list" && !token.ordered) {
-        return <View style={style.list}>
+        // Margin right is a workaround for text going out of bounding box :|
+        return <View style={[{marginRight: 20}, style.list]}>
             {token.items.map(item => (
                 <View style={[{display: "flex", flexDirection: "row"}, style.listElement]}>
                     {style.unorderedListGlyph?.() ?? defaultUnorderedListGlyph}
-                    <Text>{renderTokens(item.tokens, style)}</Text>
+                    <View>{renderTokens(item.tokens, style)}</View>
                 </View>))
             }
         </View>
@@ -52,7 +53,7 @@ const renderToken = (token: marked.Token, style: MarkdownStyle): React.ReactElem
     }
 
     if (token.type === "space") {
-        return <View style={style.space}/>
+        return <View style={style.space} />
     }
 
     return <Text>{token.raw}</Text>
@@ -70,6 +71,5 @@ const renderTokens = (tokens: marked.Token[], style: MarkdownStyle): React.React
 export const Markdown: React.FC<TProps> = ({ children, style }) => {
     let parsed: marked.TokensList = marked.lexer(children)
 
-    console.log(parsed);
     return renderTokens(parsed, style);
 };

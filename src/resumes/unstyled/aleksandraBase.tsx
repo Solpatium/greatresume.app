@@ -82,14 +82,19 @@ export const AleksandraBase: React.FC<AlexandraBaseProps> = ({ data, style, colu
 
 
   const Experience: React.FC<{ data: ExperienceList[0] }> = ({ data }) => (
-    <View style={style.experienceEntry.wrapper}>
-      <View style={style.experienceEntry.titleWrapper}>
-        <T style={style.experienceEntry.title}>{data.title}</T>
-        <Date from={data.from} to={data.to} style={style.date} />
+    <TitledSection style={style.experienceEntry.wrapper} title={
+      <>
+        <View style={style.experienceEntry.titleWrapper}>
+          <T style={style.experienceEntry.title}>{data.title}</T>
+          <Date from={data.from} to={data.to} style={style.date} />
+        </View>
+        <T style={style.experienceEntry.subtitle} url={data.url}>{data.subtitle}</T>
+      </>
+    }>
+      <View style={style.experienceEntry.description}>
+        <Markdown style={style.markdown}>{data.description}</Markdown>
       </View>
-      <T style={style.experienceEntry.subtitle} url={data.url}>{data.subtitle}</T>
-      <View style={style.experienceEntry.description}><Markdown style={style.markdown}>{data.description}</Markdown></View>
-    </View>
+    </TitledSection>
   );
 
   const sidebarTitle = (title: string) => (<T wrap style={style.sidebarSection.title}>{title}</T>)

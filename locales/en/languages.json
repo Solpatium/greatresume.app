@@ -1,0 +1,10 @@
+{
+    "pageTitle": "Language selection",
+    "question": "What language do you want to use?",
+    "languages": {
+        "pl": "Polish",
+        "en": "English",
+        "fr": "French",
+        "de": "German"
+    }
+}
