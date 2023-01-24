@@ -4,13 +4,14 @@ import { useRouter } from "next/router";
 import { useDropzone } from "react-dropzone";
 import { SelectableBox } from "../src/components/atoms/selectableBox";
 import useTranslation from "next-translate/useTranslation";
-import { useAppStateStorage, useGetLastUpdate } from "../src/state/storage";
+import { useAppStateStorage, useDataPurgePermission, useGetLastUpdate } from "../src/state/storage";
 import { StructError } from "superstruct";
-import { ClientOnly, makeClientOnly } from "../src/components/atoms/clientOnly";
+import { ClientOnly } from "../src/components/atoms/clientOnly";
 
 const ImportResume: React.FC<{ dragging?: boolean, hasResume: boolean }> = ({ dragging, hasResume }) => {
   const { t } = useTranslation("start");
   const { push, prefetch } = useRouter();
+  const canPurge = useDataPurgePermission();
   const storage = useAppStateStorage();
 
   const { getRootProps, getInputProps } = useDropzone({
@@ -22,7 +23,7 @@ const ImportResume: React.FC<{ dragging?: boolean, hasResume: boolean }> = ({ dr
 
       prefetch("/creator");
 
-      if (hasResume && !confirm(t`overwriteQuestion`)) {
+      if (!canPurge()) {
         return;
       }
 
@@ -79,6 +80,7 @@ const UseSaved = () => {
 
 const StartFresh: React.FC<{ hasResume: boolean }> = ({ hasResume }) => {
   const { t } = useTranslation("start");
+  const canPurge = useDataPurgePermission();
   const storage = useAppStateStorage();
 
   const { push, prefetch } = useRouter();
@@ -87,7 +89,7 @@ const StartFresh: React.FC<{ hasResume: boolean }> = ({ hasResume }) => {
     onClick={() => {
       prefetch("/creator")
 
-      if (hasResume && !confirm(t`overwriteQuestion`)) {
+      if (!canPurge()) {
         return;
       }
 

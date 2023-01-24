@@ -10,9 +10,9 @@ import { ClientOnly } from "../src/components/atoms/clientOnly";
 
 const StorageSettings: React.FC = () => {
   const { t } = useTranslation("storage-settings");
-  const { push } = useRouter();
+  const { push, query } = useRouter();
   const [, setStorage] = useStorageSelected();
-  const start = () => push("/start");
+  const start = () => "skip-start" in query ? push("/creator") : push("/start");
   const migrateStorage = useStorageMigration();
 
   return (

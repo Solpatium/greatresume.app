@@ -1,7 +1,6 @@
 {
   "pageTitle": "Data source",
   "question": "What do you want to edit?",
-  "overwriteQuestion": "Are you sure you want to continue? Your currently edited resume will be overwritten.",
   "responses": {
     "continueEditing": {
       "title": "Continue editing",

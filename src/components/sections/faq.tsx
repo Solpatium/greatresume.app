@@ -34,11 +34,11 @@ const faqs = [
 ];
 
 export const FAQ = () => {
-    return <QuestionsList
+    return <div id="faq"><QuestionsList
         title="Frequently asked questions"
         description="Can't find the answer you're looking for? Contact us. There is also a technical FAQ available here."
         items={faqs}
-    />
+    /></div>
 }
 
 const technicalFaqs = [

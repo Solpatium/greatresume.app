@@ -14,7 +14,7 @@ const langs = [
 
 const StorageSettings: React.FC = () => {
     const { t } = useTranslation("languages");
-    const { push } = useRouter();
+    const { push, query } = useRouter();
 
     return (
         <div className="flex align-center justify-center min-h-screen">
@@ -27,7 +27,11 @@ const StorageSettings: React.FC = () => {
                     <SelectableBox
                         key={lang}
                         onClick={() => {
-                            push("/storage-settings", undefined, { locale: lang })
+                            if ("skip-start" in query) {
+                                push("/storage-settings?skip-start", undefined, { locale: lang })
+                            } else {
+                                push("/storage-settings", undefined, { locale: lang })
+                            }
                         }}
                         answer={t(`languages.${lang}`)}
                     />

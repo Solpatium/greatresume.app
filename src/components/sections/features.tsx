@@ -48,7 +48,7 @@ const features = [
 
 export const Features = () => {
     return (
-        <div className="overflow-hidden bg-white">
+        <div id="about" className="overflow-hidden bg-white">
             <div className="relative mx-auto max-w-3xl px-6 lg:max-w-7xl lg:px-8">
                 <div className="relative mt-12 lg:mt-24 lg:grid lg:grid-cols-2 lg:items-center lg:gap-8 bg-[#fff6f0] p-8 sm:p-10 md:p-20 rounded-3xl">
                     <div className="relative col-span-full mb-8">
@@ -56,8 +56,7 @@ export const Features = () => {
                             No bullshit resume creator
                         </h2>
                         <p className="mx-auto mt-4 max-w-3xl text-center text-xl text-gray-500">
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus magnam voluptatum cupiditate veritatis in,
-                            accusamus quisquam.
+                            Great features for free.
                         </p>
                     </div>
 

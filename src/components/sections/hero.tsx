@@ -1,13 +1,11 @@
-import { useState } from 'react'
-import { Dialog } from '@headlessui/react'
-import { Bars3Icon, XMarkIcon, HandThumbUpIcon } from '@heroicons/react/24/outline'
+import { HandThumbUpIcon } from '@heroicons/react/24/outline'
 import Link from 'next/link'
 
 const navigation = [
-    { name: 'About', href: '#' },
-    { name: 'Examples', href: '#' },
-    { name: 'FAQ', href: '#' },
-    { name: 'Author', href: '#' },
+    { name: 'About', href: '#about' },
+    { name: 'Examples', href: '#examples' },
+    { name: 'FAQ', href: '#faq' },
+    { name: 'Author', href: '#author' },
 ];
 
 
@@ -48,7 +46,7 @@ const Navbar = () => {
             <div>
                 <nav className="flex h-9 items-center space-between" aria-label="Global">
                     <div className="flex lg:min-w-0 lg:flex-1" aria-label="Global">
-                        <a href="#" className="-m-1.5 p-1.5">
+                        <a href="/home" className="-m-1.5 p-1.5">
                             <span className="sr-only">GreatResume app</span>
                             <HandThumbUpIcon className="h-8 text-[#4f46e5]"/>
                         </a>

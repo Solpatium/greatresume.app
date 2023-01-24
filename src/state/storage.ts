@@ -1,11 +1,11 @@
 import { SessionType, useStorageSelected } from "../utils/storage";
 import { useCallback, useEffect, useMemo } from "react";
-import { ApplicationState } from "./types";
 import { useRouter } from "next/router";
 import { useThrottleFn } from "react-use";
 import { subscribe } from "valtio";
-import { applicationStateStruct, resumeStruct } from "../models/v1";
+import { ApplicationState, applicationStateStruct, resumeStruct } from "../models/v1";
 import { assert, is } from "superstruct";
+import useTranslation from "next-translate/useTranslation";
 
 const lastUpdateKey = "last-update";
 export const useGetLastUpdate = (): string => {
@@ -41,6 +41,39 @@ const useStorage = (key: string, sessionType: SessionType): {
 };
 
 const appStateKey = "app state";
+
+export const useDataPurgePermission = () => {
+  const sessionStorage = useStorage(appStateKey, "session");
+  const localStorage = useStorage(appStateKey, "local");
+  const { t } = useTranslation("common");
+  return useCallback(() => {
+    const hasResume = sessionStorage.get() || localStorage.get();
+    return !hasResume || confirm(t`overwriteQuestion`);
+  }, [sessionStorage.get, localStorage.get]);
+}
+
+export const useImportState = () => {
+  const sessionStorage = useStorage(appStateKey, "session");
+  const localStorage = useStorage(appStateKey, "local");
+  const canPurge = useDataPurgePermission();
+  const [storageType, setStorageType] = useStorageSelected();
+
+  return useCallback((state: ApplicationState) => {
+    if(!canPurge()) {
+      return;
+    }
+
+    // Default to session storage
+    if(!storageType) {
+      sessionStorage.set(state);
+      setStorageType("session");
+      return;
+    }
+
+    const storage = storageType === "local" ? localStorage : sessionStorage;
+    storage.set(state);
+  }, [canPurge]);
+}
 
 export const useStorageMigration = () => {
   // If user selects a different storage mechanism we need to migrate exiting state to a new storage
