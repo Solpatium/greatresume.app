@@ -28,6 +28,7 @@ const Creator: React.FC = () => {
       <div className="lg:pb-0 grid grid-cols-1 lg:grid-cols-2">
         <div className="lg:h-screen overflow-y-scroll lg:p-4 rtl">
           <Editor
+            download={download ?? undefined}
             className={cn("ltr", isPreviewing ? "hidden" : "block pb-20 lg:p-0")}
           />
         </div>

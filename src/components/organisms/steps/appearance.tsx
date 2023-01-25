@@ -11,7 +11,7 @@ import { useSnapshot } from "valtio";
 import { StepDescription } from "../../atoms/stepDescription";
 import useTranslation from "next-translate/useTranslation";
 
-const TemplateList: React.FC<{
+export const TemplateList: React.FC<{
   template: string;
   setTemplate: (template: string) => void;
 }> = ({ template, setTemplate }) => (
@@ -50,13 +50,13 @@ const pageOptions: FlatSelectOption<PaperSize>[] = [
   { value: "LETTER", label: "Letter", description: "Popular in US." },
 ];
 
-export const Appearance: React.FC<{ isFinal?: boolean }> = ({ isFinal }) => {
+export const Appearance: React.FC = () => {
   const { t } = useTranslation("app");
   const settings = useAppState().resume.appearance;
   const { template, paperSize } = useSnapshot(settings);
   return (
     <>
-      <StepDescription>{isFinal ? t`steps.appearance.finalDescription` : t`steps.appearance.description`}</StepDescription>
+      <StepDescription>{t`steps.appearance.description`}</StepDescription>
       <div className="mb-4">
         {/*TODO: Accessibility*/}
         <Label name="Page size" />

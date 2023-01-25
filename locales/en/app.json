@@ -23,8 +23,7 @@
   "steps": {
     "appearance": {
       "title": "Appearance",
-      "description": "Select paper size and a template that you want to use. We will also allow you to change it at the end, after filling all the crucial info.",
-      "finalDescription": "Make sure the template you picked before is the one that you actually want to use. Every template looks different with custom data."
+      "description": "Select paper size and a template that you want to use. We will also allow you to change it at the end, after filling all the crucial info."
     },
     "personalInfo": {
       "title": "Personal info"
@@ -68,7 +67,11 @@
     },
     "legalClause": {
       "title": "Legal clause",
-      "description":  "In some countries you must explicility allow company to process your data during the recruitment process. Skip this if you don't need that."
+      "description":  "In some europen countries you must explicility allow company to process your data during the recruitment process. Skip this if you don't need that."
+    },
+    "export": {
+      "title": "Export",
+      "description": "All done! Now export your resume or choose a different look to see which one works best."
     }
   },
   "defaults": {

@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import classes from "classnames";
 import { StepWrapper } from "./stepWrapper";
 
@@ -8,12 +8,12 @@ export type Step = {
 };
 export const Stepper: React.FC<{
   steps: Step[];
-}> = ({ steps }) => {
+  download?: () => void;
+}> = ({ steps, download }) => {
   const [activeIndex, setIndex] = useState(0);
-  const lastIndex = steps.length;
+  const lastIndex = steps.length - 1;
   const prevIndex: number | null = activeIndex > 0 ? activeIndex - 1 : null;
   const nextIndex: number | null = activeIndex < lastIndex ? activeIndex + 1 : null;
-  // TODO: prevIndex must be either a function or null
   const [goToPrev, goToNext] = useMemo(
     () => [
       prevIndex != null ? () => setIndex(prevIndex) : null,
@@ -65,7 +65,7 @@ export const Stepper: React.FC<{
         ))}
       </div>
       {element && (
-        <StepWrapper goToNext={goToNext} goToPrev={goToPrev}>
+        <StepWrapper download={download} goToNext={goToNext} goToPrev={goToPrev}>
           {element}
         </StepWrapper>
       )}

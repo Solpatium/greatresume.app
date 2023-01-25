@@ -13,6 +13,7 @@ import { KeyValueForm } from "./keyValue";
 import { TextForm } from "./text";
 import { Section } from "../../../models/v1";
 import { LegalClauseForm } from "./legalClause";
+import { Export } from "./export";
 
 const renderSection = (sectionWrapped: Section): React.ReactElement => {
   const { section } = sectionWrapped;
@@ -30,7 +31,8 @@ const renderSection = (sectionWrapped: Section): React.ReactElement => {
 
 export const Editor: React.FC<{
   className?: string;
-}> = ({ className }) => {
+  download?: () => void;
+}> = ({ className, download }) => {
   const { t } = useTranslation("app");
   const state = useAppState();
 
@@ -59,14 +61,14 @@ export const Editor: React.FC<{
       element: <LegalClauseForm stateProxy={state.resume} />
     },
     {
-      title: t`steps.appearance.title`,
-      element: <Appearance isFinal/>,
+      title: t`steps.export.title`,
+      element: <Export/>,
     },
   ];
 
   return (
     <div className={className}>
-      <Stepper steps={steps} />
+      <Stepper steps={steps} download={download}/>
     </div>
   );
 };

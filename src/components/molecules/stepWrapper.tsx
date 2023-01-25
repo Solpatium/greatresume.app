@@ -1,12 +1,16 @@
+import useTranslation from "next-translate/useTranslation";
 import React, { useCallback } from "react";
+import { Button } from "../atoms/button";
 import { Card } from "../atoms/card";
 
 export const StepWrapper: React.FC<{
-  goToNext?: () => void;
-  goToPrev?: () => void;
+  goToNext?: null | (() => void);
+  goToPrev?: null | (() => void);
+  download?: null | (() => void);
   className?: string;
   children: React.ReactElement;
-}> = ({ className, goToPrev, goToNext, children }) => {
+}> = ({ className, goToPrev, goToNext, download, children }) => {
+  const { t } = useTranslation("app");
   const onSubmit = useCallback(
     (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
@@ -21,22 +25,20 @@ export const StepWrapper: React.FC<{
         {children}
         <div className="flex col-span-full flex-row-reverse	justify-between mt-4">
           {goToNext ? (
-            <button
-              type="button"
-              className="text-gray-600 font-bold p-4 rounded-xl hover:bg-gray-100 hover:text-gray-900"
-              onClick={goToNext}>
+            <Button ghost onClick={goToNext}>
               Next →
-            </button>
+            </Button>
           ) : (
-            <div />
+            download ? <Button ghost onClick={download}>
+              <span className="text-lg p-2">
+                💾 {t`export`}
+              </span>
+            </Button> : <div />
           )}
           {goToPrev && (
-            <button
-              type="button"
-              className="text-gray-600 font-bold p-4 rounded-xl hover:bg-gray-100 hover:text-gray-900"
-              onClick={goToPrev}>
+            <Button ghost onClick={goToPrev}>
               ← Prev
-            </button>
+            </Button>
           )}
         </div>
       </form>
