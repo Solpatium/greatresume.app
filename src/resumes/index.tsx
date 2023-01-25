@@ -24,7 +24,7 @@ const Resume: React.FC<{ data: ResumeModel, translate: (key: string) => string }
     library: libraryTemplate,
   };
   const { component: Template } = templates[data.appearance.template] ?? aleksandraTemplate;
-  
+  console.time("RENDER")
   return (
     <Document>
       <Template data={data} translate={translate} />
@@ -49,6 +49,8 @@ export const useRenderResume = (): {
   const [{ blob, loading }, refreshPdf] = usePDF({
     document: (<Resume data={stateProxy} translate={t} />),
   });
+
+  useEffect(() => {console.timeEnd("RENDER")})
 
   const [renderQueued, setQueued] = useState(false);
   const handle = useRef<null | ReturnType<typeof setTimeout>>();

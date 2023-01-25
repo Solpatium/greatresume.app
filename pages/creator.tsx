@@ -15,7 +15,7 @@ const Creator: React.FC = () => {
   const { t } = useTranslation("app");
   const [isPreviewing, setIsPreviewing] = useState(false);
   const { resume, download, loading } = useRenderResume();
-
+  // const [resume, download, loading] = [undefined, undefined, false];
   return (
     <>
       <Head>
@@ -43,7 +43,9 @@ const Creator: React.FC = () => {
             onClick={download}>
             <Icon>💾</Icon> {t`export`}
           </button>}
-          <ZoomArea>{resume ? <PdfViewer resume={resume} newPdfGenerating={loading} /> : null}</ZoomArea>
+            <ZoomArea>
+              {resume ? <PdfViewer resume={resume} newPdfGenerating={loading} /> : null}
+            </ZoomArea>
         </div>
         <div className="lg:hidden fixed bottom-3 right-3 flex flex-col">
           {isPreviewing && download && (
