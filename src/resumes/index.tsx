@@ -27,7 +27,7 @@ const rerender = async (worker: Worker, data: string): Promise<Blob> => {
 
 export const useRenderResume = (): {
   resume: Blob | null;
-  download: (() => void) | null;
+  download: (() => Promise<void>) | null;
   loading: boolean
 } => {
   const appStateProxy = useAppState();
@@ -36,7 +36,7 @@ export const useRenderResume = (): {
   const workerRef = useRef<Worker>();
 
   const [blob, setBlob] = useState<Blob | null>(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const refreshPdf = useCallback((data: ResumeModel) => {
     if (!workerRef.current) {
       return;
@@ -46,7 +46,7 @@ export const useRenderResume = (): {
     rerender(
       workerRef.current,
       // Data is stringified because proxy can't be serialized
-      JSON.stringify(data)
+      JSON.stringify(data),
     )
       .then(setBlob)
       .catch(console.error)
@@ -101,7 +101,7 @@ export const useRenderResume = (): {
       resume: blob,
       download: (blob === null ? null : (() => {
         const { name, surname } = stateProxy.personalInformation;
-        import("../utils/dataEmbeding")
+        return import("../utils/dataEmbeding")
           .then(module => module.addEmbededData(
             blob, appStateProxy, t("embededPdfFileDescription")
           ))

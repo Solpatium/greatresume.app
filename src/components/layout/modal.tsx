@@ -1,4 +1,5 @@
 import { Dialog, Transition } from "@headlessui/react";
+import { XMarkIcon } from "@heroicons/react/20/solid";
 import React, { Fragment } from "react";
 
 export const Modal: React.FC<{ title: string; children: React.ReactNode; onClose: () => void }> = ({
@@ -33,12 +34,22 @@ export const Modal: React.FC<{ title: string; children: React.ReactNode; onClose
           leave="ease-in duration-200"
           leaveFrom="opacity-100 translate-y-0 sm:scale-100"
           leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
-          <div className="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-2xl sm:w-full sm:p-6">
-            <Dialog.Title as="h3" className="text-lg leading-6 font-medium text-gray-900 mb-4">
-              {title}
-            </Dialog.Title>
+          <Dialog.Panel className="relative inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-2xl sm:w-full sm:p-6">
+            <div className="flex  mb-4 flex-row space-between gap-2 align-center">
+              <Dialog.Title as="h3" className="flex-grow text-lg leading-6 font-medium text-gray-900">
+                {title}
+              </Dialog.Title>
+              <button
+                type="button"
+                className="rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                onClick={onClose}
+              >
+                <span className="sr-only">Close</span>
+                <XMarkIcon className="h-6 w-6" aria-hidden="true" />
+              </button>
+            </div>
             {children}
-          </div>
+          </Dialog.Panel>
         </Transition.Child>
       </div>
     </Dialog>

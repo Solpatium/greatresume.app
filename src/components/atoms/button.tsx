@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback, useState } from "react";
 import cn from "classnames";
 
 const common =
@@ -14,22 +14,36 @@ export const Button: React.FC<{
   danger?: boolean;
   secondary?: boolean;
   ghost?: boolean;
-  onClick?: () => void;
+  onClick?: () => void | Promise<any>;
   type?: "button" | "submit";
   icon?: (props: React.ComponentProps<"svg">) => JSX.Element;
   disabled?: boolean;
   children: React.ReactNode;
 }> = ({ ghost, danger, onClick, secondary, type, children, icon, disabled }) => {
+  const [inProgress, setInProgress] = useState(false);
+  const handleClick = useCallback(() => {
+    if (inProgress) {
+      return;
+    }
+    const result = onClick?.();
+    if (result) {
+      setInProgress(true);
+      Promise.resolve(result)
+        .finally(() => setInProgress(false))
+    }
+  }, [onClick]);
+
   const variant =
     (danger && colors.danger) ||
     (secondary && colors.secondary) ||
     (ghost && colors.ghost) ||
     colors.primary;
-  const disabledColor = disabled ? "bg-slate-200 hover:bg-slate-200" : "";
+  const disabledColor = disabled || inProgress ? "bg-slate-200 hover:bg-slate-200" : "";
+
   return (
     <button
-      disabled={disabled}
-      onClick={onClick}
+      disabled={disabled || inProgress}
+      onClick={handleClick}
       type={type ?? "button"}
       className={cn(variant, disabledColor)}>
       {icon && React.createElement(icon, { className: "h-4 w-4 mr-2 -ml-0.5" })}

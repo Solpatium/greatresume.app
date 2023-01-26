@@ -22,21 +22,23 @@ const EditModal: React.FC<Pick<PhotoProps, "setImage"> & { close: () => void }> 
 }) => {
   const [file, setFile] = useState<File>();
   const onImageSave = useCallback(() => {
-    if (editorRef.current) {
-      return new Promise((res, rej) => {
-        editorRef.current.getImageScaledToCanvas().toBlob(blob =>
-          blobToBase64(blob)
-            .then(base64 => {
-              setImage(base64);
-              res(base64);
-            })
-            .catch(rej)
-            .finally(close),
-            "image/jpeg",
-            0.8,
-        );
-      });
+    const editor = editorRef.current;
+    if (!editor) {
+      return;
     }
+    return new Promise((res, rej) => {
+      editor.getImageScaledToCanvas().toBlob(blob =>
+        blobToBase64(blob)
+          .then(base64 => {
+            setImage(base64);
+            res(base64);
+          })
+          .catch(rej)
+          .finally(close),
+        "image/jpeg",
+        0.8,
+      );
+    });
   }, [close, setImage]);
 
   const editorRef = useRef<AvatarEditor>();
@@ -76,7 +78,7 @@ const EditModal: React.FC<Pick<PhotoProps, "setImage"> & { close: () => void }> 
             />
             <MagnifyingGlassPlusIcon className="h-5 w-5" />
           </div>
-          <div className="mt-5 sm:mt-6 sm:grid sm:grid-cols-2 sm:gap-3 sm:grid-flow-row-dense">
+          <div className="mt-5 sm:mt-6 grid grid-cols-2 sm:gap-3 sm:grid-flow-row-dense">
             <Button secondary onClick={close}>
               Cancel
             </Button>
