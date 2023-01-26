@@ -1,35 +1,28 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
-import { Document, usePDF } from "@react-pdf/renderer";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { downloadFile } from "../utils/downloadFile";
 import { aleksandraTemplate } from "./templates/aleksandra";
 import { TemplateDetails } from "./types";
 import { libraryTemplate } from "./templates/library";
-import { registerRequiredFonts } from "./fonts";
 import { useAppState } from "../state/store";
 import { subscribe } from "valtio";
 import { arraysEqual } from "../utils/array";
-import { ResumeModel } from "../models/v1";
 import useTranslation from "next-translate/useTranslation";
+import { ResumeModel } from "../models/v1";
 
+// TODO: Don't import templates in regular app
 export const templates: Record<string, TemplateDetails> = {
   aleksandra: aleksandraTemplate,
   library: libraryTemplate,
 };
 
-
-const Resume: React.FC<{ data: ResumeModel, translate: (key: string) => string }> = ({ data, translate }) => {
-  // Used for fast refresh
-  const templates: Record<string, TemplateDetails> = {
-    aleksandra: aleksandraTemplate,
-    library: libraryTemplate,
-  };
-  const { component: Template } = templates[data.appearance.template] ?? aleksandraTemplate;
-  console.time("RENDER")
-  return (
-    <Document>
-      <Template data={data} translate={translate} />
-    </Document>
-  )
+const rerender = async (worker: Worker, data: string): Promise<Blob> => {
+  worker.postMessage(data)
+  return new Promise((res, rej) => {
+    worker.onmessage = (event: MessageEvent<Blob>) => {
+      res(event.data)
+    }
+    worker.onerror = rej;
+  })
 }
 
 export const useRenderResume = (): {
@@ -37,20 +30,39 @@ export const useRenderResume = (): {
   download: (() => void) | null;
   loading: boolean
 } => {
-  const {t} = useTranslation("app");
   const appStateProxy = useAppState();
   const stateProxy = appStateProxy.resume;
 
-  // Register all fonts, they are only fetched when needed
+  const workerRef = useRef<Worker>();
+
+  const [blob, setBlob] = useState<Blob | null>(null);
+  const [loading, setLoading] = useState(false);
+  const refreshPdf = useCallback((data: ResumeModel) => {
+    if (!workerRef.current) {
+      return;
+    }
+
+    setLoading(true);
+    rerender(
+      workerRef.current,
+      // Data is stringified because proxy can't be serialized
+      JSON.stringify(data)
+    )
+      .then(setBlob)
+      .catch(console.error)
+      .finally(() => setLoading(false));
+  }, [])
+
   useEffect(() => {
-    Object.values(templates).forEach(d => registerRequiredFonts(d.fonts));
-  }, []);
+    workerRef.current = new Worker(new URL('./worker', import.meta.url));
 
-  const [{ blob, loading }, refreshPdf] = usePDF({
-    document: (<Resume data={stateProxy} translate={t} />),
-  });
+    refreshPdf(appStateProxy.resume);
+    return () => {
+      workerRef.current?.terminate()
+    }
+  }, [])
 
-  useEffect(() => {console.timeEnd("RENDER")})
+  const { t } = useTranslation("app");
 
   const [renderQueued, setQueued] = useState(false);
   const handle = useRef<null | ReturnType<typeof setTimeout>>();
@@ -66,7 +78,7 @@ export const useRenderResume = (): {
         }
         previousAppearance.current = newAppearance;
         setQueued(false);
-        refreshPdf();
+        refreshPdf(stateProxy);
         return;
       }
 
@@ -77,28 +89,24 @@ export const useRenderResume = (): {
         setQueued(true);
       }
       handle.current = setTimeout(() => {
-        refreshPdf();
+        refreshPdf(stateProxy);
         setQueued(false);
         handle.current = null;
       }, 1000);
     });
   }, [stateProxy, refreshPdf])
 
-  useEffect(() => {
-    refreshPdf();
-  }, [libraryTemplate]);
-
   return useMemo(
     () => ({
       resume: blob,
       download: (blob === null ? null : (() => {
-        const {name, surname} = stateProxy.personalInformation;
+        const { name, surname } = stateProxy.personalInformation;
         import("../utils/dataEmbeding")
-        .then(module => module.addEmbededData(
-          blob, appStateProxy, t("embededPdfFileDescription")
-        ))
-        .then(file => downloadFile(file, `${name} ${surname} - ${t`resume`}.pdf`))
-        .catch(console.error)
+          .then(module => module.addEmbededData(
+            blob, appStateProxy, t("embededPdfFileDescription")
+          ))
+          .then(file => downloadFile(file, `${name} ${surname} - ${t`resume`}.pdf`))
+          .catch(console.error)
       })),
       loading: loading || renderQueued,
     }),
