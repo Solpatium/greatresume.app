@@ -8,6 +8,7 @@ import { subscribe } from "valtio";
 import { arraysEqual } from "../utils/array";
 import useTranslation from "next-translate/useTranslation";
 import { ResumeModel } from "../models/v1";
+import type {WorkerMessage} from "./worker";
 
 // TODO: Don't import templates in regular app
 export const templates: Record<string, TemplateDetails> = {
@@ -15,8 +16,13 @@ export const templates: Record<string, TemplateDetails> = {
   library: libraryTemplate,
 };
 
-const rerender = async (worker: Worker, data: string): Promise<Blob> => {
-  worker.postMessage(data)
+const rerender = async (worker: Worker, data: string, translate: (value: string) => string): Promise<Blob> => {
+  const message: WorkerMessage = {resumeJson: data, translations: {
+    contact: translate("contact"),
+    phone: translate("phone"),
+    email: translate("email"),
+  }};
+  worker.postMessage(message)
   return new Promise((res, rej) => {
     worker.onmessage = (event: MessageEvent<Blob>) => {
       res(event.data)
@@ -30,6 +36,7 @@ export const useRenderResume = (): {
   download: (() => Promise<void>) | null;
   loading: boolean
 } => {
+  const { t } = useTranslation("app");
   const appStateProxy = useAppState();
   const stateProxy = appStateProxy.resume;
 
@@ -45,8 +52,8 @@ export const useRenderResume = (): {
     setLoading(true);
     rerender(
       workerRef.current,
-      // Data is stringified because proxy can't be serialized
       JSON.stringify(data),
+      t,
     )
       .then(setBlob)
       .catch(console.error)
@@ -62,7 +69,6 @@ export const useRenderResume = (): {
     }
   }, [])
 
-  const { t } = useTranslation("app");
 
   const [renderQueued, setQueued] = useState(false);
   const handle = useRef<null | ReturnType<typeof setTimeout>>();

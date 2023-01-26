@@ -9,10 +9,6 @@ export const TitledSection: React.FC<{
 }> = ({ style, title, children }) => {
   const [firstChild, ...otherChildren] = children instanceof Array ? children.filter(v => v) : [children];
 
-  if (!firstChild) {
-    return null;
-  }
-
   return (
     <View style={style}>
       {/*We need to be sure title won't end up alone in the page*/}
