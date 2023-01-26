@@ -1,10 +1,9 @@
 import React, { useCallback } from "react";
 import { Label } from "./label";
-import { SimpleStateSetter } from "../../../utils/mutators";
 
 export const Input: React.FC<{
   value?: string;
-  onChange?: SimpleStateSetter<string>;
+  onChange?: (value: string) => void;
   label?: string;
   placeholder?: string;
   disabled?: boolean;

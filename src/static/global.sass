@@ -6,6 +6,7 @@ body
     margin: 0
     font-family: 'Open Sans', sans-serif
     background: #fff6f0 !important
+    -webkit-tap-highlight-color: rgb(233 233 233 / 0.5)
 
 
 h1, h2, h3, h4, h5, h6
@@ -22,7 +23,7 @@ body .rc-md-editor
         .sec-md .input
             outline: 2px solid transparent
             overflow-y: auto
-            height: 100px
+            min-height: 200px
             font-size: 0.875rem
             line-height: 1.25rem
             resize: vertical
@@ -38,3 +39,7 @@ body .rc-md-editor
 
         .navigation-nav .button-wrap
             width: 100%
+
+    &.long-editor .editor-container .input
+        min-height: 300px
+    

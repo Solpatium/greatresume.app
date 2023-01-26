@@ -6,9 +6,12 @@ export const Label: React.FC<{
   className?: string;
   target?: string;
   children?: React.ReactNode;
-}> = ({ target, className, name, children }) => (
+  short?: boolean;
+}> = ({ target, className, name, short, children }) => (
   <label htmlFor={target} className={cn("block flex-col", className)}>
-    <span className="block text-sm font-medium text-gray-700 mb-1">{name}</span>
+    <span className={
+      cn(short ? "display-block" : "block", "text-sm font-medium text-gray-700 mb-1")
+    }>{name}</span>
     {children}
   </label>
 );

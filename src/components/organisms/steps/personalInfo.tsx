@@ -12,15 +12,15 @@ import { withId } from "../../../utils/lists";
 export const LinkEdit: React.FC<{ stateProxy: Entry }> = ({ stateProxy }) => {
   const { t } = useTranslation("app");
   const state = useSnapshot(stateProxy);
-  return (<div className="flex gap-2 w-full">
+  return (<div className="flex flex-col gap-3 md:flex-row md:gap-2 my-3 w-full">
     <Input
-      className="my-3 w-full"
+      className="w-full"
       label={t`linkName`}
       onChange={(value) => (stateProxy.name = value)}
       value={state.name}
     />
     <Input
-      className="my-3 w-full"
+      className="w-full"
       label={t`url`}
       onChange={(value) => (stateProxy.value = value)}
       value={state.value}
@@ -30,7 +30,7 @@ export const LinkEdit: React.FC<{ stateProxy: Entry }> = ({ stateProxy }) => {
 }
 
 export const PersonalInformation: React.FC = () => {
-  const {t} = useTranslation("app");
+  const { t } = useTranslation("app");
   const resumeProxy = useAppState().resume;
   const stateProxy = resumeProxy.personalInformation;
   const state = useSnapshot(stateProxy);
@@ -58,13 +58,12 @@ export const PersonalInformation: React.FC = () => {
           value={state["jobTitle"]}
         />
         <div className="row-start-1 md:row-end-3 md:col-span-2 md:col-start-5">
-          <Label target="edit-image" name={t`photo`} className="flex">
-            <PhotoEditor
-              buttonId="edit-image"
-              image={image}
-              setImage={v => (resumeProxy.appearance.image = v)}
-            />
-          </Label>
+          <Label target="edit-image" name={t`photo`} className="flex" />
+          <PhotoEditor
+            buttonId="edit-image"
+            image={image}
+            setImage={v => (resumeProxy.appearance.image = v)}
+          />
         </div>
         <Input
           label={t`phone`}

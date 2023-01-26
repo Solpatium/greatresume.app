@@ -18,7 +18,7 @@ export const TemplateList: React.FC<{
   <div>
     {/*TOOD: Accessibility*/}
     <Label name="Templates" />
-    <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
+    <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
       {Object.entries(templates).map(([name, { title }]) => {
         return (
           <div

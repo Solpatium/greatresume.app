@@ -11,16 +11,16 @@ const Entry: React.FC<{ stateProxy: Entry }> = ({ stateProxy }) => {
   const { t } = useTranslation("app");
   const state = useSnapshot(stateProxy);
   return (
-    <div className="flex gap-2 w-full">
+    <div className="flex flex-col gap-3 md:flex-row md:gap-2 my-3 w-full">
     <Input
-      className="my-3 w-full"
-      label={t`steps.interests.interest`}
+      className="w-full"
+      label={t`steps.skills.name`}
       onChange={(value) => (stateProxy.name = value)}
       value={state.name}
       />
       <Input
-      className="my-3 w-full"
-      label={t`steps.interests.interest`}
+      className="w-full"
+      label={t`steps.skills.value`}
       onChange={(value) => (stateProxy.value = value)}
       value={state.value}
       />

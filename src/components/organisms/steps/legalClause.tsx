@@ -12,6 +12,7 @@ export const LegalClauseForm: React.FC<{ stateProxy: ResumeModel }> = ({ statePr
     <>
       <StepDescription>{t`steps.legalClause.description`}</StepDescription>
       <RichTextEditor
+        long
         onChange={v => stateProxy.legalClause = v}
         value={value}
       />

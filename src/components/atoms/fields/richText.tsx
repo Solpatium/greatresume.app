@@ -1,6 +1,7 @@
 import { Label } from "./label";
 import React from "react";
 import dynamic from "next/dynamic";
+import cn from "classnames";
 
 const MdEditor = dynamic(() => import('react-markdown-editor-lite'), {
     ssr: false,
@@ -11,12 +12,13 @@ export const RichTextEditor: React.FC<{
     value?: string;
     onChange: (v: string) => void;
     className?: string;
-}> = ({ className, label, onChange, value: value }) => {
+    long?: boolean;
+}> = ({ className, label, onChange, value, long }) => {
     const editor = <MdEditor
         plugins={["font-bold", "font-italic", "link", "list-unordered", "logger"]}
         view={{ menu: true, md: true, html: false }}
         canView={{ menu: true, md: true, html: false, both: false, fullScreen: false, hideMenu: false }} 
-        className={className} 
+        className={cn(long && "long-editor", className)} 
         defaultValue={value} 
         onChange={({ text }) => onChange(text)} 
         // @ts-ignore
