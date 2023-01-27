@@ -1,33 +1,24 @@
 import { PDFDocumentProxy } from "pdfjs-dist";
 import React, { useEffect, useRef, useState } from "react";
 import { useAsync } from "react-use";
+import { PaperSize } from "../../models/v1";
+import { useIsVisible } from "../../utils/hooks";
 
 export interface PdfViewerProps {
-  resume: Blob;
+  resume?: Blob;
+  paperSize: PaperSize;
   newPdfGenerating: boolean;
 }
 
 const workerUrl = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.14.305/pdf.worker.min.js";
 
-export const PdfViewer: React.FC<PdfViewerProps> = ({ resume, newPdfGenerating }) => {
+export const PdfViewer: React.FC<PdfViewerProps> = ({ resume, paperSize, newPdfGenerating }) => {
   const wrapperRef = useRef<HTMLDivElement | null>(null);
 
   // We want to render resume only when it is visble
   const [visible, setVisible] = useState(false)
+  useIsVisible(wrapperRef, setVisible);
 
-  useEffect(() => {
-    if(!wrapperRef.current) {
-      return;
-    }
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        return setVisible((entry && entry.isIntersecting) ?? false);
-      }
-    )
-    observer.observe(wrapperRef.current)
-    return () => observer.disconnect()
-  }, [])
-  
   // document rendered in web worker, right away
   const documentState = useAsync(async () => {
     if (!resume) {
@@ -93,12 +84,16 @@ export const PdfViewer: React.FC<PdfViewerProps> = ({ resume, newPdfGenerating }
     pdfDocument.cleanup(true);
   }, [pdfDocument, visible]);
 
+  const paperClass = paperSize === "A4" ? "paper-a4" : "paper-letter";
   return (
-    <div className="relative">
+    <div className="relative flex">
       {(documentState.loading || renderState.loading || newPdfGenerating) && (
         <div className="absolute inset-x-0 margin-auto text-center top-1/2 text-xl">Loading...</div>
       )}
-      <div className="pdf-renderer" ref={wrapperRef} />
+      <div className="pdf-renderer flex flex-col" ref={wrapperRef}
+        dangerouslySetInnerHTML={{
+          __html: `<div class='${paperClass}'></div>`
+        }}></div>
     </div>
   );
 };

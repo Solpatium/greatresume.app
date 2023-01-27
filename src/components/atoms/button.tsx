@@ -19,7 +19,8 @@ export const Button: React.FC<{
   icon?: (props: React.ComponentProps<"svg">) => JSX.Element;
   disabled?: boolean;
   children: React.ReactNode;
-}> = ({ ghost, danger, onClick, secondary, type, children, icon, disabled }) => {
+  className?: string;
+}> = ({ ghost, danger, onClick, secondary, type, children, icon, disabled, className }) => {
   const [inProgress, setInProgress] = useState(false);
   const handleClick = useCallback(() => {
     if (inProgress) {
@@ -38,14 +39,22 @@ export const Button: React.FC<{
     (secondary && colors.secondary) ||
     (ghost && colors.ghost) ||
     colors.primary;
-  const disabledColor = disabled || inProgress ? "bg-slate-200 hover:bg-slate-200" : "";
+  let disabledColor = ""
+
+  if (disabled || inProgress) {
+    if (ghost) {
+      disabledColor = "opacity-25"
+    } else {
+      disabledColor = "bg-slate-200 hover:bg-slate-200";
+    }
+  }
 
   return (
     <button
       disabled={disabled || inProgress}
       onClick={handleClick}
       type={type ?? "button"}
-      className={cn(variant, disabledColor)}>
+      className={cn(variant, disabledColor, className)}>
       {icon && React.createElement(icon, { className: "h-4 w-4 mr-2 -ml-0.5" })}
       {children}
     </button>

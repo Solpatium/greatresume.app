@@ -1,7 +1,22 @@
-import { MutableRefObject, useRef } from "react";
+import { MutableRefObject, useEffect } from "react";
 
-export const useRefValue = <T>(state: T): MutableRefObject<T> => {
-  const ref = useRef(state);
-  ref.current = state;
-  return ref;
-};
+export const useIsVisible = (ref: MutableRefObject<HTMLElement | null | undefined>, onChange: (visible: boolean) => void) => {
+  useEffect(() => {
+    if (!ref.current) {
+      return;
+    }
+    let previousVisible = false;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        const newValue = entry?.isIntersecting ?? false;
+        if (previousVisible !== newValue) {
+          previousVisible = newValue;
+          onChange(newValue);
+        }
+        console.log({previousVisible, newValue})
+      }
+    )
+    observer.observe(ref.current)
+    return () => observer.disconnect()
+  }, [])
+}
