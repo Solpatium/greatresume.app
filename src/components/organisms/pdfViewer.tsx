@@ -136,7 +136,7 @@ const ZoomControl: React.FC<{ zoom: number, setZoom: (value: number) => void, re
   }
 
   return (
-    <div className="flex flex-row fixed md:absolute left-3 md:right-3 md:right-0 bottom-3 md:bottom-10 justify-center">
+    <div className="flex flex-row absolute md:absolute left-3 md:right-3 md:right-0 bottom-3 md:bottom-10 justify-center">
       <div className="flex flex-col gap-1 p-1 md:flex-row md:gap-3 md:p-3 bg-white rounded-2xl shadow-xl items-center">
         {/* <div className="flex flex-row gap-2"> */}
 
@@ -194,7 +194,7 @@ export const PdfViewer: React.FC<PdfViewerProps> = ({ resume, paperSize, newPdfG
   }, [zoom]);
 
   return (
-    <div className="w-full h-full overflow-auto flex flex-col flex-wrap justify-center items-center md:justify-start" ref={wrapperRef}>
+    <div className="w-full h-full overflow-auto flex flex-col flex-wrap items-center" ref={wrapperRef}>
       {(documentState.loading || newPdfGenerating) && (
         <div className="absolute inset-x-0 margin-auto text-center top-1/2 text-xl">Loading...</div>
       )}
