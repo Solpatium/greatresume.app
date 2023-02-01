@@ -58,47 +58,51 @@ class Controller {
     }
   }
 
-  private rerenderInProgres?: Promise<void>;
+  private rerenderInProgress?: Promise<void>;
   async render(updateScale: boolean = false) {
-    if (!this.pdf || !this._visible) {
+    const pdf = this.pdf;
+    if (!pdf || !this._visible) {
       return;
     }
 
-    if (this.rerenderInProgres) {
-      return this.rerenderInProgres
+    if (this.rerenderInProgress) {
+      return this.rerenderInProgress;
     }
 
-    const newCanvases = [...new Array(this.pdf.numPages)].map(
-      () => document.createElement("canvas")
-    );
+    this.rerenderInProgress = (async () => {
+      const newCanvases = [...new Array(pdf.numPages)].map(
+        () => document.createElement("canvas")
+      );
 
-    const wrapperWidth = this.wrapper.clientWidth;
-    for (const [i, canvas] of newCanvases.entries()) {
-      const page = await this.pdf.getPage(i + 1);
+      const wrapperWidth = this.wrapper.clientWidth;
+      for (const [i, canvas] of newCanvases.entries()) {
+        const page = await pdf.getPage(i + 1);
 
-      const viewport = page.getViewport({ scale: window.devicePixelRatio });
-      if (updateScale || this._scale === undefined) {
+        const viewport = page.getViewport({ scale: window.devicePixelRatio });
+        if (updateScale || this._scale === undefined) {
 
-        const padding = 60;
-        // We don't want it to be too big
-        this._scale = Math.min(2, wrapperWidth / (viewport.width + padding));
-        this.onRescale(this._scale);
+          const padding = 60;
+          // We don't want it to be too big
+          this._scale = Math.min(2, wrapperWidth / (viewport.width + padding));
+          this.onRescale(this._scale);
+        }
+
+        console.log({ scale: this._scale, wrapperWidth });
+        const width = viewport.width * this._scale;
+        const height = viewport.height * this._scale;
+        canvas.height = height;
+        canvas.width = width;
+        const renderContext = {
+          canvasContext: canvas.getContext("2d")!,
+          viewport: page.getViewport({ scale: this._scale * window.devicePixelRatio }),
+        };
+
+        await page.render(renderContext).promise;
       }
 
-      console.log({ scale: this._scale, wrapperWidth });
-      const width = viewport.width * this._scale;
-      const height = viewport.height * this._scale;
-      canvas.height = height;
-      canvas.width = width;
-      const renderContext = {
-        canvasContext: canvas.getContext("2d")!,
-        viewport: page.getViewport({ scale: this._scale * window.devicePixelRatio }),
-      };
-
-      await page.render(renderContext).promise;
-    }
-
-    this.container.replaceChildren(...newCanvases);
+      this.container.replaceChildren(...newCanvases);
+      this.rerenderInProgress = undefined;
+    })();
   }
 }
 
@@ -190,11 +194,15 @@ export const PdfViewer: React.FC<PdfViewerProps> = ({ resume, paperSize, newPdfG
   }, [zoom]);
 
   return (
-    <div className="w-full h-full overflow-auto flex flex-col justify-center items-center md:justify-start" ref={wrapperRef}>
+    <div className="w-full h-full overflow-auto flex flex-col flex-wrap justify-center items-center md:justify-start" ref={wrapperRef}>
       {(documentState.loading || newPdfGenerating) && (
         <div className="absolute inset-x-0 margin-auto text-center top-1/2 text-xl">Loading...</div>
       )}
-      <ZoomControl zoom={zoom} setZoom={setZoom} reset={() => controller.current.render(true)} />
+      <ZoomControl
+        zoom={zoom}
+        setZoom={setZoom}
+        reset={() => controller.current.render(true)}
+      />
       <div className="py-[30px]" ref={containerRef}></div>
     </div>
   );
