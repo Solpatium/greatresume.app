@@ -1,10 +1,9 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import Head from "next/head";
 import { Editor } from "../src/components/organisms/steps";
 import { useIsMounted } from "../src/utils/ssr";
 import { useRenderResume } from "../src/resumes";
 import cn from "classnames";
-import { ZoomArea } from "../src/components/layout/zoomArea";
 import { Icon } from "../src/components/atoms/icon";
 import useTranslation from "next-translate/useTranslation";
 import { PdfViewer } from "../src/components/organisms/pdfViewer";
@@ -37,7 +36,7 @@ const Creator: React.FC = () => {
         <div
           className={cn(
             isPreviewing ? "block" : "hidden",
-            "relative max-w-full lg:block lg:h-screen lg:flex overflow-hidden",
+            "relative min-h-screen w-full max-w-full lg:block lg:h-screen lg:flex overflow-hidden",
           )}>
           {/* {download && <button
             type="button"
@@ -45,9 +44,7 @@ const Creator: React.FC = () => {
             onClick={download}>
             <Icon>💾</Icon> {t`export`}
           </button>} */}
-          <ZoomArea paperSize={paperSize}>
-            <PdfViewer paperSize={paperSize} resume={resume ?? undefined} newPdfGenerating={loading} />
-          </ZoomArea>
+                  <PdfViewer paperSize={paperSize} resume={resume ?? undefined} newPdfGenerating={loading} />
         </div>
         <div className="lg:hidden fixed bottom-3 right-3 flex flex-col">
           {isPreviewing && download && (

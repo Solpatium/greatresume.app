@@ -27,6 +27,8 @@ const Entry: React.FC<{ state: Section }> = ({ state }) => {
         onChange={value => (state.title = value)}
         value={title}
       />
+      {/* TODO */}
+      {/* <Button>Fill in details</Button> */}
     </>
   );
 };

@@ -20,3 +20,18 @@ export const useIsVisible = (ref: MutableRefObject<HTMLElement | null | undefine
     return () => observer.disconnect()
   }, [])
 }
+
+export const useResize = (action: () => void) => {
+  useEffect(() => {
+    let handle: ReturnType<typeof setTimeout> | undefined;
+
+    const handler = () => {
+      if (handle) {
+        clearTimeout(handle);
+      }
+      handle = setTimeout(action, 100);
+    }
+    addEventListener("resize", handler);
+    return () => removeEventListener("resize", handler);
+  }, [])
+}
