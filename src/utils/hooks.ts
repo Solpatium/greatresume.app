@@ -13,7 +13,7 @@ export const useIsVisible = (ref: MutableRefObject<HTMLElement | null | undefine
           previousVisible = newValue;
           onChange(newValue);
         }
-        console.log({previousVisible, newValue})
+        console.log({ previousVisible, newValue })
       }
     )
     observer.observe(ref.current)
@@ -24,12 +24,17 @@ export const useIsVisible = (ref: MutableRefObject<HTMLElement | null | undefine
 export const useResize = (action: () => void) => {
   useEffect(() => {
     let handle: ReturnType<typeof setTimeout> | undefined;
-
+    let width = window.innerWidth;
     const handler = () => {
       if (handle) {
         clearTimeout(handle);
       }
-      handle = setTimeout(action, 100);
+      if (window.innerWidth != width) {
+        handle = setTimeout(() => {
+          action(); 
+          width = window.innerWidth;
+        }, 100);
+      }
     }
     addEventListener("resize", handler);
     return () => removeEventListener("resize", handler);
