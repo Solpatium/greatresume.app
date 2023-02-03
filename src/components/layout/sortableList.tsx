@@ -1,7 +1,8 @@
 import React, { ReactElement, useCallback } from "react";
 import { Label } from "../atoms/fields/label";
 import { Button } from "../atoms/button";
-import { Bars2Icon as MenuIcon, PlusIcon } from "@heroicons/react/20/solid";
+import { Bars2Icon as MenuIcon } from "@heroicons/react/20/solid";
+import { PlusIcon } from "@heroicons/react/24/outline";
 import { useSnapshot } from "valtio";
 import {
   sortableKeyboardCoordinates,
@@ -108,8 +109,8 @@ export const SortableList = <Type extends HasId>({
       </DndContext>
       {onAddNew && (
         <div className="flex flex-col items-stretch max-w-[200px]">
-          <Button secondary icon={PlusIcon} onClick={onAddNew}>
-            Add new
+          <Button icon={PlusIcon} onClick={onAddNew}>
+            <span className="text-base font-bold">Add new</span>
           </Button>
         </div>
       )}

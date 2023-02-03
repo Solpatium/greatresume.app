@@ -1,15 +1,16 @@
 import React, { MutableRefObject, useEffect, useLayoutEffect, useRef, useState } from "react";
-import { PaperSize } from "../../models/v1";
 
 import { useResize, useIsVisible } from "../../utils/hooks";
 import { useAsync } from "react-use";
 import { PDFDocumentProxy } from "pdfjs-dist";
-import { Button } from "../atoms/button";
+import { ActionButton, Button } from "../atoms/button";
+import { PlusIcon, MinusIcon, ArrowDownTrayIcon } from "@heroicons/react/24/outline";
+import useTranslation from "next-translate/useTranslation";
 
 export interface PdfViewerProps {
   resume?: Blob;
-  paperSize: PaperSize;
   newPdfGenerating: boolean;
+  download: null | (() => Promise<void>);
 }
 
 const workerUrl = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.14.305/pdf.worker.min.js";
@@ -24,18 +25,18 @@ class Controller {
     private onRescale: (scale: number) => void,
   ) { }
 
-  private _visible: boolean = false;
-  public set visible(value: boolean) {
-    this._visible = value;
+  private visible: boolean = false;
+  public setVisible(value: boolean) {
+    this.visible = value;
     this.render();
   }
 
-  private _scale?: number | undefined;
-  public set scale(value: number | undefined) {
-    if (value === this._scale) {
+  private scale?: number | undefined;
+  public setScale(value: number | undefined) {
+    if (value === this.scale) {
       return;
     }
-    this._scale = value;
+    this.scale = value;
     this.render();
   }
 
@@ -61,7 +62,7 @@ class Controller {
   private rerenderInProgress?: Promise<void>;
   async render(updateScale: boolean = false) {
     const pdf = this.pdf;
-    if (!pdf || !this._visible) {
+    if (!pdf || !this.visible) {
       return;
     }
 
@@ -79,22 +80,21 @@ class Controller {
         const page = await pdf.getPage(i + 1);
 
         const viewport = page.getViewport({ scale: window.devicePixelRatio });
-        if (updateScale || this._scale === undefined) {
+        if (updateScale || this.scale === undefined) {
 
           const padding = 60;
           // We don't want it to be too big
-          this._scale = Math.min(2, wrapperWidth / (viewport.width + padding));
-          this.onRescale(this._scale);
+          this.scale = Math.min(2, wrapperWidth / (viewport.width + padding));
+          this.onRescale(this.scale);
         }
 
-        console.log({ scale: this._scale, wrapperWidth });
-        const width = viewport.width * this._scale;
-        const height = viewport.height * this._scale;
+        const width = viewport.width * this.scale;
+        const height = viewport.height * this.scale;
         canvas.height = height;
         canvas.width = width;
         const renderContext = {
           canvasContext: canvas.getContext("2d")!,
-          viewport: page.getViewport({ scale: this._scale * window.devicePixelRatio }),
+          viewport: page.getViewport({ scale: this.scale * window.devicePixelRatio }),
         };
 
         await page.render(renderContext).promise;
@@ -127,7 +127,13 @@ const useController = (
 }
 
 const steps = [0.33, 0.5, 0.67, 0.75, 1, 1.1, 1.25, 1.5, 1.75, 2];
-const ZoomControl: React.FC<{ zoom: number, setZoom: (value: number) => void, reset: () => void }> = ({ zoom, setZoom, reset }) => {
+const ZoomControl: React.FC<{
+  zoom: number,
+  setZoom: (value: number) => void,
+  reset: () => void,
+  download: null | (() => Promise<void>),
+}> = ({ zoom, setZoom, reset, download }) => {
+  const { t } = useTranslation("app");
   let currentIndex = 0;
   for (let [index, step] of steps.entries()) {
     if (step <= zoom) {
@@ -136,40 +142,45 @@ const ZoomControl: React.FC<{ zoom: number, setZoom: (value: number) => void, re
   }
 
   return (
-    <div className="flex flex-row absolute md:absolute left-3 md:right-3 md:right-0 bottom-3 md:bottom-10 justify-center">
-      <div className="flex flex-col gap-1 p-1 md:flex-row md:gap-3 md:p-3 bg-white rounded-2xl shadow-xl items-center">
-        {/* <div className="flex flex-row gap-2"> */}
-
+    <div className="flex items-end md:items-stretch flex-row absolute md:absolute left-3 md:right-3 md:right-0 bottom-3 md:bottom-10 justify-center gap-3">
+      <div className="flex flex-col gap-1 p-1 md:flex-row md:gap-3 md:p-3 bg-indigo-100 rounded-2xl shadow-xl items-center">
         <Button
           disabled={currentIndex === 0}
           onClick={() => setZoom(steps[currentIndex - 1] ?? 100)}
-          className="p-2 w-full md:w-auto md:p-4"
+          className="p-2 hidden md:block w-full md:w-auto md:p-4"
           ghost
         >
           <span className="sr-only">Zoom out</span>
-          <span className="text-lg" aria-hidden>–</span>
+          <MinusIcon aria-hidden width={24}/>
         </Button>
-        <span className="w-10 flex justify-center items-center text-lg">
+        <span className="w-10 hidden md:flex justify-center items-center text-lg">
           <span className="sr-only">Zoom:</span> {Math.floor(zoom * 100)}%
         </span>
         <Button
           disabled={currentIndex === steps.length - 1}
           onClick={() => setZoom(steps[currentIndex + 1] ?? 100)}
-          className="p-2 w-full md:w-auto md:p-4"
+          className="p-2 w-full md:w-auto md:p-4 flex justify-center"
           ghost
         >
           <span className="sr-only">Zoom in</span>
-          <span className="text-lg" aria-hidden>+</span>
+          <PlusIcon aria-hidden width={24} />
         </Button>
         {/* </div> */}
         <div aria-hidden className="hidden md:block sm:h-[30px] sm:w-[1px] bg-gray-500" />
         <Button ghost onClick={reset}>Reset</Button>
+        {/* <Button ghost onClick={reset}>Download</Button> */}
       </div>
+      {download && <ActionButton
+        onClick={download}
+        icon={ArrowDownTrayIcon}
+      >
+        {t`save`}
+      </ActionButton>}
     </div>
   )
 }
 
-export const PdfViewer: React.FC<PdfViewerProps> = ({ resume, paperSize, newPdfGenerating }) => {
+export const PdfViewer: React.FC<PdfViewerProps> = ({ resume, download, newPdfGenerating }) => {
   const wrapperRef = useRef<HTMLDivElement | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
   const [zoom, setZoom] = useState(1);
@@ -184,13 +195,13 @@ export const PdfViewer: React.FC<PdfViewerProps> = ({ resume, paperSize, newPdfG
   }, [resume, controller]);
 
   useIsVisible(containerRef, (isVisible) => {
-    controller.current.visible = isVisible;
+    controller.current.setVisible(isVisible);
   });
 
   useResize(() => controller.current.render(true));
 
   useEffect(() => {
-    controller.current.scale = zoom;
+    controller.current.setScale(zoom);
   }, [zoom]);
 
   return (
@@ -202,8 +213,9 @@ export const PdfViewer: React.FC<PdfViewerProps> = ({ resume, paperSize, newPdfG
         zoom={zoom}
         setZoom={setZoom}
         reset={() => controller.current.render(true)}
+        download={download}
       />
-      <div className="py-[30px]" ref={containerRef}></div>
+      <div className="py-[30px] pdf-container" ref={containerRef}></div>
     </div>
   );
 };

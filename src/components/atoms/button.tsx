@@ -1,14 +1,30 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import cn from "classnames";
 
 const common =
   "inline-flex justify-center items-center px-4 py-2 border text-sm font-medium rounded shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2";
 const colors = {
   danger: `${common} bg-pink-600 hover:bg-pink-700 focus:ring-pink-500 text-white `,
-  primary: `${common} bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 text-white`,
+  primary: `${common} rounded-xl bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 text-white`,
   secondary: `${common} bg-white hover:bg-gray-50 border-gray-300 focus:ring-indigo-500 text-gray-700`,
   ghost: "text-gray-600 font-bold p-4 rounded-xl hover:bg-gray-100 hover:text-gray-900",
 };
+
+const useProgress = (action?: () => void | Promise<any>): [action: undefined | (() => void), inProgress: boolean] => {
+  const [inProgress, setInProgress] = useState(false);
+  const wrapped = useMemo(() => action && (() => {
+    if (inProgress) {
+      return;
+    }
+    const result = action?.();
+    if (result) {
+      setInProgress(true);
+      Promise.resolve(result)
+        .finally(() => setInProgress(false))
+    }
+  }), [action, inProgress]);
+  return [wrapped, inProgress]
+}
 
 export const Button: React.FC<{
   danger?: boolean;
@@ -21,18 +37,7 @@ export const Button: React.FC<{
   children: React.ReactNode;
   className?: string;
 }> = ({ ghost, danger, onClick, secondary, type, children, icon, disabled, className }) => {
-  const [inProgress, setInProgress] = useState(false);
-  const handleClick = useCallback(() => {
-    if (inProgress) {
-      return;
-    }
-    const result = onClick?.();
-    if (result) {
-      setInProgress(true);
-      Promise.resolve(result)
-        .finally(() => setInProgress(false))
-    }
-  }, [onClick]);
+  const [handleClick, inProgress] = useProgress(onClick);
 
   const variant =
     (danger && colors.danger) ||
@@ -60,3 +65,33 @@ export const Button: React.FC<{
     </button>
   );
 };
+
+
+export const ActionButton: React.FC<{
+  children: React.ReactElement,
+  onClick?: () => void | Promise<any>,
+  icon?: (props: React.ComponentProps<"svg">) => JSX.Element;
+  className?: string;
+
+}> = ({ children, onClick, icon, className }) => {
+  const [handleClick, inProgress] = useProgress(onClick);
+
+  return (
+    <button
+      type="button"
+      onClick={handleClick}
+      className={cn(
+        inProgress ? "bg-indigo-300" : "bg-indigo-600",
+        "text-white rounded-xl p-4 px-6 focus:outline-none",
+        "text-base font-bold",
+        "shadow-xl",
+        "flex items-center justify-center",
+        className,
+      )}
+      disabled={inProgress}
+    >
+      {icon && React.createElement(icon, { width: 20, style: {strokeWidth: 2}, className: "mr-2 -ml-0.5" })}
+      {children}
+    </button>
+  );
+}
