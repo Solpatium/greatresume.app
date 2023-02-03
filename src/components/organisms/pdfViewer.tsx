@@ -74,12 +74,13 @@ class Controller {
       const newCanvases = [...new Array(pdf.numPages)].map(
         () => document.createElement("canvas")
       );
-
+      
+      const deviceScale = window.devicePixelRatio;
       const wrapperWidth = this.wrapper.clientWidth;
       for (const [i, canvas] of newCanvases.entries()) {
         const page = await pdf.getPage(i + 1);
 
-        const viewport = page.getViewport({ scale: window.devicePixelRatio });
+        const viewport = page.getViewport({ scale: 1 });
         if (updateScale || this.scale === undefined) {
 
           const padding = 60;
@@ -90,11 +91,13 @@ class Controller {
 
         const width = viewport.width * this.scale;
         const height = viewport.height * this.scale;
-        canvas.height = height;
-        canvas.width = width;
+        canvas.height = height * deviceScale;
+        canvas.width = width * deviceScale;
+        canvas.style.width = `${width}px`;
+        canvas.style.height = `${height}px`;
         const renderContext = {
           canvasContext: canvas.getContext("2d")!,
-          viewport: page.getViewport({ scale: this.scale * window.devicePixelRatio }),
+          viewport: page.getViewport({ scale: this.scale * deviceScale }),
         };
 
         await page.render(renderContext).promise;
@@ -151,7 +154,7 @@ const ZoomControl: React.FC<{
           ghost
         >
           <span className="sr-only">Zoom out</span>
-          <MinusIcon aria-hidden width={24}/>
+          <MinusIcon aria-hidden width={24} />
         </Button>
         <span className="w-10 hidden md:flex justify-center items-center text-lg">
           <span className="sr-only">Zoom:</span> {Math.floor(zoom * 100)}%
@@ -215,7 +218,7 @@ export const PdfViewer: React.FC<PdfViewerProps> = ({ resume, download, newPdfGe
         reset={() => controller.current.render(true)}
         download={download}
       />
-      <div className="py-[30px] pdf-container" ref={containerRef}></div>
+        <div className="py-[30px] pdf-container" ref={containerRef}></div>
     </div>
   );
 };

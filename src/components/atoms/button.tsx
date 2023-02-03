@@ -72,8 +72,8 @@ export const ActionButton: React.FC<{
   onClick?: () => void | Promise<any>,
   icon?: (props: React.ComponentProps<"svg">) => JSX.Element;
   className?: string;
-
-}> = ({ children, onClick, icon, className }) => {
+  circle?: boolean;
+}> = ({ children, onClick, icon, circle, className }) => {
   const [handleClick, inProgress] = useProgress(onClick);
 
   return (
@@ -82,8 +82,9 @@ export const ActionButton: React.FC<{
       onClick={handleClick}
       className={cn(
         inProgress ? "bg-indigo-300" : "bg-indigo-600",
-        "text-white rounded-xl p-4 px-6 focus:outline-none",
+        "text-white p-4 px-6 focus:outline-none",
         "text-base font-bold",
+        circle ? "rounded-full" : "rounded-xl",
         "shadow-xl",
         "flex items-center justify-center",
         className,

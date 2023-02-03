@@ -17,7 +17,7 @@ const StorageSettings: React.FC = () => {
 
   return (
 
-    <div className="flex align-center justify-center min-h-screen">
+    <div className="flex align-center justify-center min-h-screen min-h-[100dvh]">
       <form className="p-4 grid grid-cols-1 md:grid-cols-2 gap-4 m-auto max-w-lg text-center">
         <h1 className="font-regular text-medium col-span-full uppercase font-semibold text-gray-600">
           <span className="text-lg">💾 </span> {t`pageTitle`}

@@ -109,7 +109,7 @@ const StorageSettings: React.FC = () => {
 
   return (
       <div
-        className="flex align-center justify-center min-h-screen"
+        className="flex align-center justify-center min-h-screen min-h-[100dvh]"
         {...getRootProps()}
         role={undefined} // We don't want role from getRootProps
         tabIndex={undefined}>

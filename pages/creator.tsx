@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Head from "next/head";
 import { Editor } from "../src/components/organisms/steps";
 import { useIsMounted } from "../src/utils/ssr";
@@ -11,10 +11,14 @@ import 'react-markdown-editor-lite/lib/index.css';
 import { PencilIcon, EyeIcon, DocumentIcon } from "@heroicons/react/24/outline";
 import { ActionButton } from "../src/components/atoms/button";
 
+
 const Creator: React.FC = () => {
   const { t } = useTranslation("app");
   const [isPreviewing, setIsPreviewing] = useState(false);
   const { resume, download, loading } = useRenderResume();
+
+  // We don't want it to lose state
+  const hiddenClass = "absolute top-[-100%]";
   return (
     <>
       <Head>
@@ -24,16 +28,17 @@ const Creator: React.FC = () => {
           content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
         />
       </Head>
-      <div className="lg:pb-0 h-screen overflow-y-hidden lg:grid grid-cols-1 lg:grid-cols-2">
-        <div className={cn("h-full w-full overflow-y-scroll lg:p-4 md:rtl lg:static", isPreviewing && "absolute top-[-100%]")}>
+      <div className="lg:pb-0 lg:h-screen lg:h-[100dvh] overflow-y-hidden lg:grid grid-cols-1 lg:grid-cols-2">
+        <div className={cn("h-full w-full overflow-y-scroll lg:p-4 md:rtl lg:static", isPreviewing && hiddenClass)}>
           <Editor
             download={download ?? undefined}
-            className={cn("ltr", "block pb-20 lg:p-0")}
+            className={cn("ltr", "block pb-[120px] lg:p-0")}
           />
         </div>
         <div
           className={cn(
-            "relative min-h-screen w-full h-screen overflow-hidden",
+            "w-full h-screen h-[100dvh] overflow-hidden lg:relative lg:top-0",
+            !isPreviewing && hiddenClass
           )}
         >
           <PdfViewer
