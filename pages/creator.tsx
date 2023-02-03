@@ -28,7 +28,7 @@ const Creator: React.FC = () => {
         />
       </Head>
       <div className="lg:pb-0 h-screen overflow-y-hidden md:grid grid-cols-1 lg:grid-cols-2">
-        <div className="h-full overflow-y-scroll lg:p-4 rtl" style={isPreviewing ? {position: "absolute", top: "100%"}: {}}>
+        <div className={cn("h-full overflow-y-scroll lg:p-4 rtl md:static", isPreviewing && "absolute top-[-100%]")}>
           <Editor
             download={download ?? undefined}
             className={cn("ltr", "block pb-20 lg:p-0")}

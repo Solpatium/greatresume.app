@@ -50,11 +50,11 @@ class Controller {
     this.pdf = newPdf;
     if (oldPdf) {
       oldPdf.cleanup(true).catch(console.error);
+      // Just rerender existing
+      this.render();
+    } else {
       // First render
       this.render(true);
-    } else {
-      // Jest rerender
-      this.render();
     }
   }
 
