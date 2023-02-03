@@ -10,7 +10,6 @@ import { PdfViewer } from "../src/components/organisms/pdfViewer";
 import { AppStateProvider, useAppState } from "../src/state/store";
 import 'react-markdown-editor-lite/lib/index.css';
 import { useSnapshot } from "valtio";
-import { relative } from "path";
 
 const Creator: React.FC = () => {
   const { t } = useTranslation("app");
@@ -28,7 +27,7 @@ const Creator: React.FC = () => {
         />
       </Head>
       <div className="lg:pb-0 h-screen overflow-y-hidden md:grid grid-cols-1 lg:grid-cols-2">
-        <div className={cn("h-full overflow-y-scroll lg:p-4 rtl md:static", isPreviewing && "absolute top-[-100%]")}>
+        <div className={cn("h-full overflow-y-scroll lg:p-4 md:rtl md:static", isPreviewing && "absolute top-[-100%]")}>
           <Editor
             download={download ?? undefined}
             className={cn("ltr", "block pb-20 lg:p-0")}
