@@ -16,7 +16,6 @@ const Creator: React.FC = () => {
   const [isPreviewing, setIsPreviewing] = useState(false);
   const { resume, download, loading } = useRenderResume();
   const { paperSize } = useSnapshot(useAppState().resume.appearance);
-  // const [resume, download, loading] = [undefined, undefined, false];
   return (
     <>
       <Head>
@@ -27,7 +26,7 @@ const Creator: React.FC = () => {
         />
       </Head>
       <div className="lg:pb-0 h-screen overflow-y-hidden md:grid grid-cols-1 lg:grid-cols-2">
-        <div className={cn("h-full overflow-y-scroll lg:p-4 md:rtl md:static", isPreviewing && "absolute top-[-100%]")}>
+        <div className={cn("h-full w-full overflow-y-scroll lg:p-4 md:rtl md:static", isPreviewing && "absolute top-[-100%]")}>
           <Editor
             download={download ?? undefined}
             className={cn("ltr", "block pb-20 lg:p-0")}
