@@ -8,7 +8,7 @@ import useTranslation from "next-translate/useTranslation";
 import { PdfViewer } from "../src/components/organisms/pdfViewer";
 import { AppStateProvider, useAppState } from "../src/state/store";
 import 'react-markdown-editor-lite/lib/index.css';
-import { PencilIcon, EyeIcon} from "@heroicons/react/24/outline";
+import { PencilIcon, EyeIcon, DocumentIcon } from "@heroicons/react/24/outline";
 import { ActionButton } from "../src/components/atoms/button";
 
 const Creator: React.FC = () => {
@@ -44,8 +44,18 @@ const Creator: React.FC = () => {
         </div>
         <div className="lg:hidden fixed bottom-3 right-3 flex flex-col">
           <ActionButton
-            icon={isPreviewing ? PencilIcon : EyeIcon} onClick={() => setIsPreviewing(v => !v)}>
-            {isPreviewing ? t`edit` : t`view`}
+            onClick={() => setIsPreviewing(v => !v)}
+            className="w-[80px] h-[80px] rounded-full"
+          >
+            {isPreviewing ?
+              <>
+                <span className="sr-only">{t`edit`}</span>
+                <PencilIcon aria-hidden className="w-[30px]" />
+              </> :
+              <>
+                <span className="sr-only">{t`view`}</span>
+                <DocumentIcon aria-hidden className="w-[30px]" />
+              </>}
           </ActionButton>
         </div>
       </div>
