@@ -24,7 +24,7 @@ interface TProps {
     style: MarkdownStyle;
 }
 
-const defaultUnorderedListGlyph = <View style={{marginRight: 8}}><Text>●</Text></View>
+const defaultUnorderedListGlyph = <View style={{marginRight: 4}}><Text>-</Text></View>
 
 const renderToken = (token: marked.Token, style: MarkdownStyle): React.ReactElement => {
     if (token.type === "text") {

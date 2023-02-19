@@ -9,11 +9,15 @@ import { arraysEqual } from "../utils/array";
 import useTranslation from "next-translate/useTranslation";
 import { ResumeModel } from "../models/v1";
 import type {WorkerMessage} from "./worker";
+import { bubblyTemplate } from "./templates/bubbly";
+import { edwardTemplate } from "./templates/edward";
 
 // TODO: Don't import templates in regular app
 export const templates: Record<string, TemplateDetails> = {
   aleksandra: aleksandraTemplate,
   library: libraryTemplate,
+  bubbly: bubblyTemplate,
+  edward: edwardTemplate,
 };
 
 const rerender = async (worker: Worker, data: string, translate: (value: string) => string): Promise<Blob> => {

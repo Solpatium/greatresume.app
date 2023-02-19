@@ -1,5 +1,4 @@
 import { Image, Link, Page, StyleSheet, Text, View, Font } from "@react-pdf/renderer";
-import { TwoColumns } from "../layouts/twoColumns";
 import React, { ReactElement } from "react";
 import { ResumeTemplate } from "../types";
 import {
@@ -9,37 +8,16 @@ import { Style } from "@react-pdf/types";
 import { T } from "../components/text";
 import { Date, DateStyle } from "../components/date";
 import { ExperienceList, ExperienceSection } from "../../models/sections/experienceSection";
-import { RepeatedEntriesSection, TitledSection } from "../components/sections";
+import { RepeatedEntriesSection, spreadEntries, TitledSection } from "../components/sections";
 import { KeyValueList } from "../../models/sections/keyValueSection";
 import { Markdown, MarkdownStyle } from "../components/markdown";
 import { PersonalInformation } from "../../models/sections/personalInfo";
+import { ContactInside, ExperienceEntry, ExperienceEntryStyle, Introduction, KeyValueEntry, KeyValueEntryStyle, KeyValueSection, PersonalInfoStyle, SimpleListSection } from "./parts";
 
-interface PersonalInfoStyle {
-  image: Style;
-  container: Style;
-  fullName: Style;
-  jobTitle: Style;
-}
-
-interface ExperienceEntryStyle {
-  wrapper: Style;
-  titleWrapper: Style;
-  title: Style;
-  // IMPORTANT! This can be a link and should therefore include color
-  subtitle: Style;
-  description: Style;
-}
-
-
-interface KeyValueEntryStyle {
-  wrapper: Style;
-  name: Style;
-  value: Style;
-}
 
 interface SectionStyle {
   title: Style;
-  section: Style;
+  section: Style & { gap: number };
 }
 
 export interface AlexandraBaseStyle {
@@ -52,7 +30,6 @@ export interface AlexandraBaseStyle {
   textSection: {
     content: Style;
   }
-  date: DateStyle;
   mainSection: SectionStyle;
   sidebarSection: SectionStyle;
   leftPane: Style;
@@ -68,69 +45,32 @@ export interface AlexandraBaseProps {
   translate: (key: string) => string;
 }
 
-export const AleksandraBase: React.FC<AlexandraBaseProps> = ({ data, style, columnsGap, translate }) => {
-  const image = data.appearance.image;
-  const Introduction: React.FC<{data: ResumeModel}> = ({ data }) => (
-    <View style={style.personalInfo.container}>
-      {image && <Image style={style.personalInfo.image} src={image} />}
-      <T style={style.personalInfo.fullName}>
-        {data.personalInformation.name} {data.personalInformation.surname}
-      </T>
-      <T style={style.personalInfo.jobTitle}>{data.personalInformation.jobTitle}</T>
+export const TwoColumns: React.FC<{
+  left: ReactElement | ReactElement[];
+  right: ReactElement | ReactElement[];
+  leftStyle: Style;
+  rightStyle: Style;
+  gap?: string;
+}> = ({ left, right, gap, leftStyle, rightStyle }) => {
+  return (
+    <View style={{ display: "flex", flexDirection: "row" }}>
+      <View style={[{ minHeight: "100%" }, leftStyle]}>{left}</View>
+      <View style={{ width: gap }} />
+      <View style={[{ minHeight: "100%" }, rightStyle]}>{right}</View>
     </View>
   );
+};
 
-
-  const Experience: React.FC<{ data: ExperienceList[0] }> = ({ data }) => (
-    <TitledSection style={style.experienceEntry.wrapper} title={
-      <>
-        <View style={style.experienceEntry.titleWrapper}>
-          <T style={style.experienceEntry.title}>{data.title}</T>
-          <Date from={data.from} to={data.to} style={style.date} />
-        </View>
-        <T style={style.experienceEntry.subtitle} url={data.url}>{data.subtitle}</T>
-      </>
-    }>
-      <View style={style.experienceEntry.description}>
-        <Markdown style={style.markdown}>{data.description}</Markdown>
-      </View>
-    </TitledSection>
-  );
+export const AleksandraBase: React.FC<AlexandraBaseProps> = ({ data, style, columnsGap, translate }) => {
+  const image = data.appearance.image;
 
   const sidebarTitle = (title: string) => (<T wrap style={style.sidebarSection.title}>{title}</T>)
 
-  const Contact: React.FC<{ data: PersonalInformation }> = ({ data }) => {
-    const email = data.email.trim();
-    const phone = data.phone.trim();
-    const { links } = data;
-
-    if (!email && !phone && !links.length) {
-      return null;
-    }
-
-    const entry = (name: string, value: string, url: string): React.ReactElement => (<View style={style.contactEntry.wrapper}>
-      <T style={style.contactEntry.name}>{name}</T>
-      <T style={style.contactEntry.value} url={url}>{value}</T>
-    </View>)
-
-    return <TitledSection title={sidebarTitle(translate("contact"))} style={style.sidebarSection.section}>
-      {phone ? entry(translate("phone"), phone, `tel:${phone}`) : null}
-      {email ? entry(translate("email"), data.email, `mailto:${email}`) : null}
-      <>{links.map(l => entry(l.name, l.value, l.value))}</>
-    </TitledSection>
-  }
-
-  const KeyValueEntry: React.FC<{ data: KeyValueList[0] }> = ({ data }) => {
-    return <View style={{
-      display: "flex",
-      flexDirection: "row",
-      flexWrap: "wrap",
-      justifyContent: "space-between",
-      ...style.keyValueEntry.wrapper
-    }}>
-      <Text style={style.keyValueEntry.name}>{data.name}</Text><Text style={style.keyValueEntry.value}>{data.value}</Text>
-    </View>
-  }
+  const SidebarSectionWrapper: React.FC<{ title: string, children: ReactElement }> = ({ title, children }) => (<TitledSection
+    title={<T wrap style={style.sidebarSection.title}>{title}</T>}
+    style={style.sidebarSection.section}>
+    {children}
+  </TitledSection>);
 
   const MainSection: React.FC<{ data: Section }> = ({ data }) => {
     const title = <T wrap={true} style={style.mainSection.title}>
@@ -140,7 +80,7 @@ export const AleksandraBase: React.FC<AlexandraBaseProps> = ({ data, style, colu
       return <RepeatedEntriesSection
         style={style.mainSection.section}
         title={title}
-        component={Experience}
+        component={props => <ExperienceEntry {...props} style={style.experienceEntry} markdownStyle={style.markdown} />}
         data={data.section.content}
       />
     }
@@ -155,38 +95,41 @@ export const AleksandraBase: React.FC<AlexandraBaseProps> = ({ data, style, colu
   }
 
   const SidebarSection: React.FC<{ data: Section }> = ({ data }) => {
-    const title = sidebarTitle(data.title);
     if (data.section.type === "key value") {
-      return <RepeatedEntriesSection
-        style={style.sidebarSection.section}
-        title={title}
-        component={KeyValueEntry}
-        data={data.section.content}
-      />
+      return <SidebarSectionWrapper title={data.title}>
+        <KeyValueSection data={data.section.content} style={style.keyValueEntry} />
+      </SidebarSectionWrapper>
     }
     if (data.section.type === "simple list") {
-      return <TitledSection title={title} style={style.sidebarSection.section}>
-        <View>
-          {data.section.content.map(({ content }) => <Text style={style.simpleListEntry}>{content}</Text>)}
-        </View>
-      </TitledSection>
+      return <SidebarSectionWrapper title={data.title}>
+        <SimpleListSection data={data.section.content} style={style.simpleListEntry} />
+      </SidebarSectionWrapper>
     }
     return null;
   }
+
+  const contact = (<SidebarSectionWrapper title={translate("contact")}>
+    <ContactInside
+      data={data.personalInformation} style={style.contactEntry}
+      phoneLabel={translate("phone")} emailLabel={translate("email")}
+    />
+  </SidebarSectionWrapper>)
 
   return (
     <Page style={style.page} size={data.appearance.paperSize}>
       <TwoColumns
         gap={columnsGap}
         left={<View>
-          <Introduction data={data} />
-          <Contact data={data.personalInformation}/>
+          <Introduction data={data} style={style.personalInfo} image={image} />
+          {contact}
           {data.sections.map(s => (<SidebarSection data={s} />))}
         </View>}
         right={
           <View
             style={{
               display: "flex",
+              flexGrow: 1,
+              flexShrink: 0,
               flexDirection: "column",
               minHeight: "100%",
             }}>

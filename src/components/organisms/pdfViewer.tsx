@@ -85,7 +85,7 @@ class Controller {
 
           const padding = 60;
           // We don't want it to be too big
-          this.scale = Math.min(2, wrapperWidth / (viewport.width + padding));
+          this.scale = Math.min(1.5, wrapperWidth / (viewport.width + padding));
           this.onRescale(this.scale);
         }
 

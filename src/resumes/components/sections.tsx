@@ -27,7 +27,7 @@ export interface RepeatedEntriesSectionProps<DataType> {
   title: ReactElement;
   component: Entry<DataType>;
   data: DataType[];
-  style?: Style;
+  style?: Style & { gap?: number | string };
 }
 
 export const RepeatedEntriesSection = <DataType,>(
@@ -35,7 +35,28 @@ export const RepeatedEntriesSection = <DataType,>(
 ): ReactElement => (
   <TitledSection style={props.style} title={props.title}>
     {props.data.map((entry, i) => (
-      <props.component key={i} data={entry} />
+      <View style={{ marginBottom: i === props.data.length - 1 ? 0 : props.style?.gap }}>
+        <props.component key={i} data={entry} />
+      </View>
     ))}
   </TitledSection>
 );
+
+
+export interface RepeatedEntriesProps<DataType> {
+  component: Entry<DataType>;
+  data: DataType[];
+  gap?: number;
+}
+export const spreadEntries = <DataType,>(
+  data: DataType[],
+  Component: Entry<DataType>,
+  options: { gap?: number | string }
+): ReactElement[] => data.map((entry, i) => (
+  <View
+    key={i}
+    style={{ marginTop: i === 0 ? 0 : options.gap }}
+  >
+    <Component key={i} data={entry} />
+  </View>
+));

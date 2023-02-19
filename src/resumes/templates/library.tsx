@@ -1,3 +1,4 @@
+import { View, Text } from "@react-pdf/renderer";
 import React from "react";
 import { TemplateDetails, ResumeTemplate } from "../types";
 import { AleksandraBase, AlexandraBaseStyle } from "../unstyled/aleksandraBase";
@@ -39,7 +40,8 @@ const style: AlexandraBaseStyle = {
     },
     space: {
       height: 10,
-    }
+    },
+    unorderedListGlyph: () => <View style={{marginRight: 8}}><Text>●</Text></View>
   },
   leftPane: {
     width: "25%",
@@ -48,18 +50,18 @@ const style: AlexandraBaseStyle = {
     width: "75%",
   },
 
-  date: {
-    date: {},
-    container: {
-      display: "flex",
-      flexDirection: "row",
-      flexShrink: 0,
-      fontSize: "12px",
-      // To push it lower
-      paddingTop: "2px",
-    },
-  },
   experienceEntry: {
+    date: {
+      date: {},
+      container: {
+        display: "flex",
+        flexDirection: "row",
+        flexShrink: 0,
+        fontSize: "12px",
+        // To push it lower
+        paddingTop: "2px",
+      },
+    },
     wrapper: {
       marginBottom: "20px",
     },
