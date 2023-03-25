@@ -5,56 +5,41 @@ import { KeyValueList } from "../../models/sections/keyValueSection";
 import { PersonalInformation } from "../../models/sections/personalInfo";
 import { SimpleListEntry } from "../../models/sections/simpleListSection";
 import { ResumeModel } from "../../models/v1";
-import { Markdown } from "../components/markdown";
+import { Markdown, MarkdownStyle } from "../components/markdown";
 import { Date, DateStyle } from "../components/date";
 import { spreadEntries, TitledSection } from "../components/sections";
 import { T } from "../components/text";
+import { V } from "../components/view";
+import cn from "classnames";
+import { ReactElement } from "react";
+import { Img } from "../components/image";
 
-export interface PersonalInfoStyle {
-    image: Style;
-    container: Style;
-    textWrapper: Style;
-    fullName: Style;
-    jobTitle: Style;
-}
-
-export const Introduction: React.FC<{ data: ResumeModel, style: PersonalInfoStyle; image?: string }> = ({ data, style, image }) => (
-    <View style={style.container}>
-        {image && <Image style={style.image} src={image} />}
-        <View style={style.textWrapper}>
-            <T style={style.fullName}>
+export const Introduction: React.FC<{ data: ResumeModel, image?: string }> = ({ data, image }) => (
+    <V className="personalInfo">
+        <Img image={image} className="personalInfoImage" />
+        <V className="personalInfoTextWrapper">
+            <T className="personalInfoName">
                 {data.personalInformation.name} {data.personalInformation.surname}
             </T>
-            <T style={style.jobTitle}>{data.personalInformation.jobTitle}</T>
-        </View>
-    </View>
+            <T className="personalInfoJobTitle">{data.personalInformation.jobTitle}</T>
+        </V>
+    </V>
 );
 
 
-export interface ExperienceEntryStyle {
-    wrapper: Style;
-    titleWrapper: Style;
-    title: Style;
-    date: DateStyle,
-    // IMPORTANT! This can be a link and should therefore include color
-    subtitle: Style;
-    description: Style;
-}
-
-
-export const ExperienceEntry: React.FC<{ data: ExperienceList[0], style: ExperienceEntryStyle, markdownStyle }> = ({ data, style, markdownStyle }) => (
-    <TitledSection style={style.wrapper} title={
+export const ExperienceEntry: React.FC<{ data: ExperienceList[0], className: string, markdownStyle?: MarkdownStyle }> = ({ data, style, markdownStyle, className }) => (
+    <TitledSection className={cn(className, "experienceEntry")} title={
         <>
-            <View style={style.titleWrapper}>
-                <T style={style.title}>{data.title}</T>
-                <Date from={data.from} to={data.to} style={style.date} />
-            </View>
-            <T style={style.subtitle} url={data.url}>{data.subtitle}</T>
+            <V className="experienceEntryTitleWrapper">
+                <T className="experienceEntryTitle">{data.title}</T>
+                <Date name="experienceEntryDate" from={data.from} to={data.to} />
+            </V>
+            <T className="experienceEntrySubtitle" url={data.url}>{data.subtitle}</T>
         </>
     }>
-        <View style={style.description}>
+        {data.description.trim() ? <V className="experienceEntryDescription">
             <Markdown style={markdownStyle}>{data.description}</Markdown>
-        </View>
+        </V> : null}
     </TitledSection>
 );
 
@@ -67,7 +52,7 @@ export interface KeyValueEntryStyle {
 
 export const ContactInside: React.FC<{
     data: PersonalInformation,
-    style: KeyValueEntryStyle,
+    style?: KeyValueEntryStyle,
     phoneLabel: string,
     emailLabel: string
 }> = ({ data, style, phoneLabel, emailLabel }) => {
@@ -79,10 +64,10 @@ export const ContactInside: React.FC<{
         return null;
     }
 
-    const entry = (name: string, value: string, url: string): React.ReactElement => (<View style={style.wrapper}>
-        <T style={style.name}>{name}</T>
-        <T style={style.value} url={url}>{value}</T>
-    </View>)
+    const entry = (name: string, value: string, url: string): React.ReactElement => (<V style={style?.wrapper} className="contactEntryWrapper">
+        <T style={style?.name} className="contactEntryName">{name}</T>
+        <T style={style?.value} className="contactEntryValue" url={url}>{value}</T>
+    </V>)
 
     return (<>
         {phone ? entry(phoneLabel, phone, `tel:${phone}`) : null}
@@ -91,29 +76,60 @@ export const ContactInside: React.FC<{
     </>);
 }
 
-const KeyValueEntry: React.FC<{ data: KeyValueList[0], style: KeyValueEntryStyle, }> = ({ data, style }) => {
-    return <View style={{
-        display: "flex",
-        flexDirection: "row",
-        flexWrap: "wrap",
-        justifyContent: "space-between",
-        ...style.wrapper
-    }}>
-        <Text style={style.name}>{data.name}</Text>
-        <Text style={style.value}>{data.value}</Text>
-    </View>
+const KeyValueEntry: React.FC<{ data: KeyValueList[0], style?: KeyValueEntryStyle, className: string }> = ({ data, style, className }) => {
+    return <V
+        style={{
+            display: "flex",
+            flexDirection: "row",
+            flexWrap: "wrap",
+            justifyContent: "space-between",
+            ...(style?.wrapper ?? {}),
+        }}
+        className={cn("keyValueEntry", className)}
+    >
+        <T style={style?.name} className="keyValueEntryName">{data.name}</T>
+        <T style={style?.value} className="keyValueEntryValue">{data.value}</T>
+    </V>
 }
 
-export const KeyValueSection: React.FC<{ data: KeyValueList, style: KeyValueEntryStyle, }> = ({ data, style }) => {
+export const KeyValueSection: React.FC<{ data: KeyValueList, style?: KeyValueEntryStyle, }> = ({ data, style }) => {
     return <>
-        {spreadEntries(data, props => <KeyValueEntry {...props} style={style} />, { gap: style.wrapper.gap })}
+        {spreadEntries(data, props => <KeyValueEntry {...props} style={style} />)}
     </>
 }
 
 // TODO gap
-export const SimpleListSection: React.FC<{ data: SimpleListEntry[], style: Style, }> = ({ data, style }) => {
+export const SimpleListSection: React.FC<{ data: SimpleListEntry[], style?: Style, }> = ({ data, style }) => {
     return <>
-        {spreadEntries(data, ({ data }) => <Text style={style}>{data.content}</Text>, { gap: 0 })}
+        {spreadEntries(data, ({ data, className }) =>
+            <T className={cn("simpleListEntry", className)} style={style}>
+                {data.content}
+            </T>
+        )}
     </>
 }
 
+const SectionWrapper: React.FC<{ className: string, title: string, children: ReactElement | ReactElement[], prefix: string }> = ({ title, children, className, prefix }) => (<V
+    className={cn(`${prefix}Section`, className)}
+>
+    <V wrap={false} className={`${prefix}SectionTitle ${className}Title`}>
+        <V className={`${prefix}SectionTitleBefore`} showEmpty />
+        <T className={`${prefix}SectionTitleText ${className}TitleText`}>{title}</T>
+        <V className={`${prefix}SectionTitleAfter`} showEmpty />
+    </V>
+    {children}
+</V>);
+
+
+export const MainSectionWrapper: React.FC<{ className: string, title: string, children: ReactElement | ReactElement[] }> = (props) => (<SectionWrapper {...props} prefix="main" />)
+
+export const SidebarSectionWrapper: React.FC<{ className: string, title: string, children: ReactElement | ReactElement[] }> = (props) => (<SectionWrapper {...props} prefix="main" />)
+
+export const ExperienceSection: React.FC<{ title: string, data: ExperienceList, markdownStyle?: MarkdownStyle }> = ({ title, data, markdownStyle }) => {
+    return <MainSectionWrapper title={title} className="experienceSection">
+        {spreadEntries(
+            data,
+            props => <ExperienceEntry {...props} markdownStyle={markdownStyle} />,)
+        }
+    </MainSectionWrapper>
+}

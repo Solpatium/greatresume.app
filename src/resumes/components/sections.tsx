@@ -1,27 +1,30 @@
 import React, { ReactElement } from "react";
 import { Style } from "@react-pdf/types";
 import { View } from "@react-pdf/renderer";
+import { V } from "./view";
+import classNames from "classnames";
 
 export const TitledSection: React.FC<{
   style?: Style;
+  className?: string;
   title: ReactElement;
-  children: ReactElement | (ReactElement | null)[];
-}> = ({ style, title, children }) => {
+  children: null | ReactElement | (ReactElement | null)[];
+}> = ({ style, title, children, className }) => {
   const [firstChild, ...otherChildren] = children instanceof Array ? children.filter(v => v) : [children];
 
   return (
-    <View style={style}>
+    <V style={style} className={className}>
       {/*We need to be sure title won't end up alone in the page*/}
-      <View wrap={false}>
+      <V wrap={false}>
         {title}
         {firstChild}
-      </View>
+      </V>
       {otherChildren}
-    </View>
+    </V>
   );
 };
 
-export type Entry<DataType> = React.FC<{ data: DataType }>;
+export type Entry<DataType> = React.FC<{ data: DataType, className: string }>;
 
 export interface RepeatedEntriesSectionProps<DataType> {
   title: ReactElement;
@@ -51,12 +54,21 @@ export interface RepeatedEntriesProps<DataType> {
 export const spreadEntries = <DataType,>(
   data: DataType[],
   Component: Entry<DataType>,
-  options: { gap?: number | string }
-): ReactElement[] => data.map((entry, i) => (
-  <View
-    key={i}
-    style={{ marginTop: i === 0 ? 0 : options.gap }}
-  >
-    <Component key={i} data={entry} />
-  </View>
-));
+): ReactElement[] => data.map((entry, i) => {
+  const isFirst = i === 0;
+  const isLast = i === data.length - 1;
+  const isMiddle = !isFirst && !isLast;
+  const isOnly = data.length === 1;
+  return (
+    <Component
+      key={i}
+      data={entry}
+      className={classNames({
+        middle: isMiddle, 
+        first: isFirst && !isOnly,
+        last: isLast && !isOnly, 
+        isOnly: "only",
+        hasPreceding: !isFirst,
+      })} />
+  );
+});

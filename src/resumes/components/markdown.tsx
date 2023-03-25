@@ -1,30 +1,24 @@
 import { View, Text, Link } from "@react-pdf/renderer";
-import { Style } from "@react-pdf/types";
 import React from "react";
 
 import { marked } from 'marked';
+import { V } from "./view";
+import { T } from "./text";
 
 marked.setOptions({
     gfm: false,
 });
 
 export interface MarkdownStyle {
-    list: Style,
-    listElement: Style,
-    strong: Style,
-    link: Style,
-    em: Style,
-    paragraph: Style,
-    space: Style,
     unorderedListGlyph?: () => React.ReactElement;
 }
 
 interface TProps {
     children: string;
-    style: MarkdownStyle;
+    style?: MarkdownStyle;
 }
 
-const defaultUnorderedListGlyph = <View style={{marginRight: 4}}><Text>-</Text></View>
+const defaultUnorderedListGlyph = <View style={{ marginRight: 4 }}><Text>-</Text></View>
 
 const renderToken = (token: marked.Token, style: MarkdownStyle): React.ReactElement => {
     if (token.type === "text") {
@@ -34,26 +28,26 @@ const renderToken = (token: marked.Token, style: MarkdownStyle): React.ReactElem
     // We only support unordered list
     if (token.type === "list" && !token.ordered) {
         // Margin right is a workaround for text going out of bounding box :|
-        return <View style={[{marginRight: 20}, style.list]}>
+        return <V className="ul" style={{ marginRight: 20 }}>
             {token.items.map(item => (
-                <View style={[{display: "flex", flexDirection: "row"}, style.listElement]}>
+                <V className="li" style={{ display: "flex", flexDirection: "row" }}>
                     {style.unorderedListGlyph?.() ?? defaultUnorderedListGlyph}
                     <View>{renderTokens(item.tokens, style)}</View>
-                </View>))
+                </V>))
             }
-        </View>
+        </V>
     }
 
     if (token.type === "strong" || token.type === "em" || token.type === "paragraph") {
-        return <Text style={style[token.type]}>{renderTokens(token.tokens, style)}</Text>;
+        return <T className={token.type}>{renderTokens(token.tokens, style)}</T>;
     }
 
     if (token.type === "link") {
-        return <Link style={style.link} src={token.href}>{renderTokens(token.tokens, style)}</Link>;
+        return <T className="textLink" url={token.href}>{renderTokens(token.tokens, style)}</T>;
     }
 
     if (token.type === "space") {
-        return <View style={style.space} />
+        return <V showEmpty className="space" />
     }
 
     return <Text>{token.raw}</Text>
@@ -69,7 +63,9 @@ const renderTokens = (tokens: marked.Token[], style: MarkdownStyle): React.React
 //TODO CACHE
 // We don't want to render an empty text component`
 export const Markdown: React.FC<TProps> = ({ children, style }) => {
+    console.time("lexer")
     let parsed: marked.TokensList = marked.lexer(children)
+    console.timeEnd("lexer")
 
-    return renderTokens(parsed, style);
+    return renderTokens(parsed, style ?? {});
 };

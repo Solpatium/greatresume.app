@@ -1,5 +1,6 @@
 import { View, Text } from "@react-pdf/renderer";
 import React from "react";
+import { StylesDefinition } from "../stylesheet";
 import { TemplateDetails, ResumeTemplate } from "../types";
 import { AleksandraBase, AlexandraBaseStyle } from "../unstyled/aleksandraBase";
 
@@ -10,152 +11,147 @@ const sectionTitleColor = "#202529";
 const linkColor = "#3e40cf";
 
 const style: AlexandraBaseStyle = {
-  page: {
+  markdown: {
+    unorderedListGlyph: () => <View style={{ marginRight: 8 }}><Text>●</Text></View>
+  },
+};
+
+const styles: StylesDefinition = {
+  ".page": {
     color: textColor,
     fontSize: "16px",
     fontFamily: "NotoSerif",
     padding: "16px",
   },
-  markdown: {
-    list: {
-      marginLeft: 10,
-    },
-    listElement: {
-      marginTop: 5,
-    },
-    strong: {
-      fontWeight: 900,
-      border: "solid",
-      borderColor: "red",
-      borderWidth: "2px",
-    },
-    link: {
-      color: linkColor,
-      textDecoration: "none",
-    },
-    em: {
-      fontStyle: "italic",
-    },
-    paragraph: {
-    },
-    space: {
-      height: 10,
-    },
-    unorderedListGlyph: () => <View style={{marginRight: 8}}><Text>●</Text></View>
-  },
-  leftPane: {
+  ".leftPane": {
     width: "25%",
   },
-  rightPane: {
+  ".rightPane": {
     width: "75%",
   },
 
-  experienceEntry: {
-    date: {
-      date: {},
-      container: {
-        display: "flex",
-        flexDirection: "row",
-        flexShrink: 0,
-        fontSize: "12px",
-        // To push it lower
-        paddingTop: "2px",
-      },
-    },
-    wrapper: {
-      marginBottom: "20px",
-    },
-    titleWrapper: {
-      display: "flex",
-      flexDirection: "row",
-      justifyContent: "space-between",
-      width: "100%",
-      marginBottom: "4px",
-    },
-    title: {
-      fontWeight: "heavy",
-      fontSize: "14px",
-      maxWidth: "300px",
-      color: titleColor,
-    },
-    subtitle: {
-      fontSize: 12,
-      marginBottom: 10,
-      color: titleColor,
-    },
-    description: {
-      fontSize: "11px",
-    },
+  ".personalInfo": {
+    display: "flex",
+    alignItems: "center",
+    marginBottom: "20px",
   },
-  keyValueEntry: {
-    wrapper: {},
-    name: {fontSize: 10, marginRight: 5},
-    value: {fontSize: 10},
+  ".personalInfoImage": {
+    width: "80%",
+    maxHeight: "200px",
+    marginBottom: "20px",
+    borderRadius: "100%",
   },
-  contactEntry: {
-    wrapper: {marginBottom: 5},
-    name: {fontSize: 10 },
-    value: {fontSize: 10, color: linkColor},
+  ".personalInfoTextWrapper": { 
+    width: "100%"
   },
-  simpleListEntry: {fontSize: 11},
-  textSection: {content: {fontSize: 11}},
-  mainSection: {
-    title: {
-      fontSize: 16,
-      fontWeight: 500,
-      marginBottom: "10px",
-      paddingBottom: "4px",
-      borderBottomStyle: "solid",
-      borderColor: accentColor,
-      borderBottomWidth: "1px",
-      color: sectionTitleColor,
-    },
-    section: {
-      marginBottom: "20px",
-      width: "100%",
-    },
+  ".personalInfoName": {
+    textAlign: "center",
+    width: "100%",
+    paddingBottom: "5px",
+    marginBottom: "5px",
+    fontSize: 18,
+    fontWeight: 700,
   },
-  sidebarSection: {
-    title: {
-      fontSize: 11,
-      fontWeight: 900,
-      marginBottom: 4,
-      color: sectionTitleColor,
-    },
-    section: {
-      marginBottom: "20px",
-      width: "100%",
-    },
+  ".personalInfoJobTitle": {
+    fontSize: 14,
+    color: titleColor,
   },
-  personalInfo: {
-    container: {
-      display: "flex",
-      alignItems: "center",
-      marginBottom: "20px",
-    },
-    image: {
-      width: "80%",
-      maxHeight: "200px",
-      marginBottom: "20px",
-      borderRadius: "100%",
-    },
-    fullName: {
-      textAlign: "center",
-      width: "100%",
-      paddingBottom: "5px",
-      marginBottom: "5px",
-      fontSize: 18,
-      fontWeight: 700,
-    },
-    jobTitle: {
-      fontSize: 14,
-      color: titleColor,
-    },
+
+  ".mainSection": {
+    marginBottom: "20px",
+    width: "100%",
   },
-  legalClause: {
+  ".mainSectionTitle": {
+    fontSize: 16,
+    fontWeight: 500,
+    marginBottom: "10px",
+    paddingBottom: "4px",
+    borderBottomStyle: "solid",
+    borderColor: accentColor,
+    borderBottomWidth: "1px",
+    color: sectionTitleColor,
+  },
+
+  ".sidebarSection": {
+    marginBottom: "20px",
+    width: "100%",
+  },
+  ".sidebarSectionTitle": {
+    fontSize: 11,
+    fontWeight: 900,
+    marginBottom: 4,
+    color: sectionTitleColor,
+  },
+
+  ".experienceEntry": {
+    marginBottom: "20px",
+  },
+  ".experienceEntryTitleWrapper": {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    width: "100%",
+    marginBottom: "4px",
+  },
+  ".experienceEntryTitle": {
+    fontWeight: "heavy",
+    fontSize: "14px",
+    maxWidth: "300px",
+    color: titleColor,
+  },
+  ".experienceEntrySubtitle": {
+    fontSize: 12,
+    marginBottom: 10,
+    color: titleColor,
+  },
+  ".experienceEntrySubtitle.link": {},
+  ".experienceEntryDescription": {
+    fontSize: "11px",
+  },
+  ".experienceEntryDateWrapper": {
+    display: "flex",
+    flexDirection: "row",
+    flexShrink: 0,
+    fontSize: "12px",
+    // To push it lower
+    paddingTop: "2px",
+  },
+
+  ".keyValueEntryName": { fontSize: 10, marginRight: 5 },
+  ".keyValueEntryValue": { fontSize: 10 },
+
+  ".contactSection": {},
+  ".contactSectionTitle": {},
+  ".contactEntryWrapper": { marginBottom: 5, fontSize: 10 },
+  ".contactEntryValue": { color: linkColor },
+
+  ".simpleListEntry": { fontSize: 11 },
+  ".textSection": { fontSize: 11 },
+
+  ".legalClause": {
     fontSize: 8,
     fontStyle: "italic",
   },
+
+  ".ul": {
+    marginLeft: 10,
+  },
+  ".li": {
+    marginTop: 5,
+  },
+  ".strong": {
+    fontWeight: 900,
+  },
+  ".textLink": {
+    color: linkColor,
+    textDecoration: "none",
+  },
+  ".em": {
+    fontStyle: "italic",
+  },
+  ".space": {
+    height: 10,
+  }
 };
 
 const Template: ResumeTemplate = ({ data, translate }) => (
@@ -168,4 +164,5 @@ export const libraryTemplate: TemplateDetails = {
     NotoSerif: ["Regular", "Bold", "Italic", "BoldItalic"],
   },
   title: "Library",
+  styles: styles,
 };
