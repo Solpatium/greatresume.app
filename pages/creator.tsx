@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import Head from "next/head";
 import { Editor } from "../src/components/organisms/steps";
 import { useIsMounted } from "../src/utils/ssr";
@@ -10,12 +10,31 @@ import { AppStateProvider, useAppState } from "../src/state/store";
 import 'react-markdown-editor-lite/lib/index.css';
 import { PencilIcon, EyeIcon, DocumentIcon } from "@heroicons/react/24/outline";
 import { ActionButton } from "../src/components/atoms/button";
+import { useRouter } from "next/router";
 
 
 const Creator: React.FC = () => {
   const { t } = useTranslation("app");
-  const [isPreviewing, setIsPreviewing] = useState(false);
+  const router = useRouter();
   const { resume, download, loading } = useRenderResume();
+
+  const isPreviewing = router.asPath.split("#")[1] === "preview";
+
+  // In case someone opened a link with the preview hash there is no history entry to go back
+  const pushed = useRef(false);
+  const togglePreview = useCallback(() => {
+    if (isPreviewing) {
+      if( pushed ) {
+        router.back();
+        pushed.current = false;
+      } else {
+        router.replace({ hash: undefined}, undefined, { shallow: true, scroll: false });
+      }
+    } else {
+      router.push({ hash: "preview" }, undefined, { shallow: true });
+      pushed.current = true;
+    }
+  }, [isPreviewing, router]);
 
   // We don't want it to lose state
   const hiddenClass = "absolute top-[-100%]";
@@ -45,11 +64,12 @@ const Creator: React.FC = () => {
             resume={resume ?? undefined}
             newPdfGenerating={loading}
             download={download}
+            isMobilePreview={isPreviewing}
           />
         </div>
         <div className="lg:hidden fixed bottom-3 right-3 flex flex-col">
           <ActionButton
-            onClick={() => setIsPreviewing(v => !v)}
+            onClick={togglePreview}
             className="w-[80px] h-[80px] rounded-full"
           >
             {isPreviewing ?

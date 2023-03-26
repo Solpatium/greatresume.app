@@ -6,10 +6,12 @@ import { PDFDocumentProxy } from "pdfjs-dist";
 import { ActionButton, Button } from "../atoms/button";
 import { PlusIcon, MinusIcon, ArrowDownTrayIcon } from "@heroicons/react/24/outline";
 import useTranslation from "next-translate/useTranslation";
+import cn from "classnames";
 
 export interface PdfViewerProps {
   resume?: Blob;
   newPdfGenerating: boolean;
+  isMobilePreview: boolean;
   download: null | (() => Promise<void>);
 }
 
@@ -74,7 +76,7 @@ class Controller {
       const newCanvases = [...new Array(pdf.numPages)].map(
         () => document.createElement("canvas")
       );
-      
+
       const deviceScale = window.devicePixelRatio;
       const wrapperWidth = this.wrapper.clientWidth;
       for (const [i, canvas] of newCanvases.entries()) {
@@ -135,7 +137,8 @@ const ZoomControl: React.FC<{
   setZoom: (value: number) => void,
   reset: () => void,
   download: null | (() => Promise<void>),
-}> = ({ zoom, setZoom, reset, download }) => {
+  isMobilePreview: boolean,
+}> = ({ zoom, setZoom, reset, download, isMobilePreview }) => {
   const { t } = useTranslation("app");
   let currentIndex = 0;
   for (let [index, step] of steps.entries()) {
@@ -145,7 +148,10 @@ const ZoomControl: React.FC<{
   }
 
   return (
-    <div className="flex items-end md:items-stretch flex-row fixed md:absolute left-3 md:right-3 md:right-0 bottom-3 md:bottom-10 justify-center gap-3">
+    <div className={cn(
+      isMobilePreview ? "flex" : "hidden md:flex",
+      "items-end md:items-stretch flex-row fixed md:absolute left-3 md:right-3 md:right-0 bottom-3 md:bottom-10 justify-center gap-3")}
+    >
       <div className="flex flex-col gap-1 p-1 md:flex-row md:gap-3 md:p-3 bg-indigo-100 rounded-2xl shadow-xl items-center">
         <Button
           disabled={currentIndex === 0}
@@ -183,7 +189,7 @@ const ZoomControl: React.FC<{
   )
 }
 
-export const PdfViewer: React.FC<PdfViewerProps> = ({ resume, download, newPdfGenerating }) => {
+export const PdfViewer: React.FC<PdfViewerProps> = ({ resume, download, newPdfGenerating, isMobilePreview }) => {
   const wrapperRef = useRef<HTMLDivElement | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
   const [zoom, setZoom] = useState(1);
@@ -213,12 +219,13 @@ export const PdfViewer: React.FC<PdfViewerProps> = ({ resume, download, newPdfGe
         <div className="absolute inset-x-0 margin-auto text-center top-1/2 text-xl">Loading...</div>
       )}
       <ZoomControl
+        isMobilePreview={isMobilePreview}
         zoom={zoom}
         setZoom={setZoom}
         reset={() => controller.current.render(true)}
         download={download}
       />
-        <div className="py-[30px] pdf-container" ref={containerRef}></div>
+      <div className="py-[30px] pdf-container" ref={containerRef}></div>
     </div>
   );
 };
