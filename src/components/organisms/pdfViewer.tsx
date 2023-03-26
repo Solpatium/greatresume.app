@@ -145,7 +145,7 @@ const ZoomControl: React.FC<{
   }
 
   return (
-    <div className="flex items-end md:items-stretch flex-row absolute md:absolute left-3 md:right-3 md:right-0 bottom-3 md:bottom-10 justify-center gap-3">
+    <div className="flex items-end md:items-stretch flex-row fixed md:absolute left-3 md:right-3 md:right-0 bottom-3 md:bottom-10 justify-center gap-3">
       <div className="flex flex-col gap-1 p-1 md:flex-row md:gap-3 md:p-3 bg-indigo-100 rounded-2xl shadow-xl items-center">
         <Button
           disabled={currentIndex === 0}
