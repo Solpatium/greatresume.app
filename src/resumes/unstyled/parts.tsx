@@ -109,16 +109,29 @@ export const SimpleListSection: React.FC<{ data: SimpleListEntry[], style?: Styl
     </>
 }
 
-const SectionWrapper: React.FC<{ className: string, title: string, children: ReactElement | ReactElement[], prefix: string }> = ({ title, children, className, prefix }) => (<V
-    className={cn(`${prefix}Section`, className)}
->
-    <V wrap={false} className={`${prefix}SectionTitle ${className}Title`}>
-        <V className={`${prefix}SectionTitleBefore`} showEmpty />
-        <T className={`${prefix}SectionTitleText ${className}TitleText`}>{title}</T>
-        <V className={`${prefix}SectionTitleAfter`} showEmpty />
-    </V>
-    {children}
-</V>);
+const SectionWrapper: React.FC<{ className: string, title: string, children: ReactElement | ReactElement[], prefix: string }> = ({ title, children, className, prefix }) => {
+    let first: ReactElement | ReactElement[], rest: ReactElement[];
+    if (Array.isArray(children) && children[0]) {
+        [first, ...rest] = children;
+    } else {   
+        first = children;
+        rest = []; 
+    }
+
+    return (<V
+        className={cn(`${prefix}Section`, className)}
+    >
+        <View wrap={false} style={{width: "100%"}}>
+        <V wrap={false} className={`${prefix}SectionTitle ${className}Title`}>
+            <V className={`${prefix}SectionTitleBefore`} showEmpty />
+            <T className={`${prefix}SectionTitleText ${className}TitleText`}>{title}</T>
+            <V className={`${prefix}SectionTitleAfter`} showEmpty />
+        </V>
+        {first}
+        </View>
+        {rest}
+    </V>);
+};
 
 
 export const MainSectionWrapper: React.FC<{ className: string, title: string, children: ReactElement | ReactElement[] }> = (props) => (<SectionWrapper {...props} prefix="main" />)
