@@ -55,13 +55,15 @@ const SortableItem = <Type extends HasId>(props: SortableItemProps<Type>) => {
       style={style}
       // TODO CHECK
       aria-live="polite">
-      <button
-        type="button"
-        {...attributes}
-        {...listeners}
-        className="touch-none	cursor-grab px-2 py-4 flex justify-center items-center">
-        <MenuIcon className="h-6 w-6 text-gray-800" />
-      </button>
+      <div className="flex items-center">
+        <button
+          type="button"
+          {...attributes}
+          {...listeners}
+          className="touch-none	cursor-grab px-2 py-3">
+          <MenuIcon className="h-6 w-6 text-gray-800" />
+        </button>
+      </div>
       {props.render(props.stateProxy, props.index)}
     </div>
   );
