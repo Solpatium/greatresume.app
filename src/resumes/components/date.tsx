@@ -26,7 +26,9 @@ export const Date: React.FC<DateProps> = ({ from, to, style, name }) => {
     return (
       <V style={style?.container} className={`${name}Wrapper`}>
         <T style={style?.date} className={name}>{from}</T>
+        <T className="dateSeparatorWrapper">
         {style?.dateSeparator ?? <DateSeparator />}
+        </T>
         <T style={style?.date}>{to}</T>
       </V>
     );

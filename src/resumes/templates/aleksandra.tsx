@@ -1,14 +1,19 @@
+import { Text, View } from "@react-pdf/renderer";
 import React from "react";
 import { StylesDefinition } from "../stylesheet";
 import { TemplateDetails, ResumeTemplate } from "../types";
 import { AleksandraBase, AlexandraBaseStyle } from "../unstyled/aleksandraBase";
 
 const textColor = "#2B364D";
-const leftBackgroundColor = "#BBD6DD";
+const leftBackgroundColor = "#FBFEFF";
+const titleColor = "#056C8C";
 const linkColor = "#0a82a1";
+const lightColor = "#778197";
 
 const Template: ResumeTemplate = ({ data, translate }) => (
-  <AleksandraBase data={data} translate={translate} columnsGap="20px" />
+  <AleksandraBase data={data} style={{markdown: {
+    unorderedListGlyph: () => <View style={{ marginRight: 8 }}><Text>•</Text></View>
+  }}} translate={translate} columnsGap="0" />
 );
 
 const styles: StylesDefinition = {
@@ -16,10 +21,11 @@ const styles: StylesDefinition = {
     color: textColor,
     fontSize: "14px",
     fontFamily: "Karla",
+    backgroundColor: "#F2F9FB",
   },
   ".leftPane": {
-    padding: "20px",
-    width: "30%",
+    padding: 24,
+    width: "38%",
     backgroundColor: leftBackgroundColor,
   },
   ".rightPane": {
@@ -30,28 +36,30 @@ const styles: StylesDefinition = {
   ".personalInfo": {
     display: "flex",
     alignItems: "center",
-    marginBottom: 20,
+    marginBottom: 32,
   },
   ".personalInfoImage": {
-    width: "80%",
-    maxHeight: "200px",
-    marginBottom: "20px",
+    width: "100%",
+    maxHeight: 180,
+    marginBottom: 32,
+    borderRadius: "100%",
   },
   ".personalInfoTextWrapper": { 
-    width: "100%"
+    width: "100%",
+    textAlign: "center",
   },
   ".personalInfoName": {
+    fontFamily: "Merriweather",
+    color: titleColor,
     textAlign: "center",
     width: "100%",
-    paddingBottom: "5px",
-    marginBottom: "5px",
-    fontSize: 20,
-    fontFamily: "Karla",
-    fontWeight: 500,
+    fontSize: 25,
+    fontWeight: 600,
+    marginBottom: 12,
   },
   ".personalInfoJobTitle": {
-    fontSize: 14,
-    fontWeight: 300,
+    fontSize: 12,
+    fontWeight: 400,
   },
 
   ".mainSection": {
@@ -59,67 +67,78 @@ const styles: StylesDefinition = {
     width: "100%",
   },
   ".mainSectionTitle": {
-    fontSize: 16,
-    fontWeight: 500,
-    marginBottom: 10,
+    fontFamily: "Merriweather",
+    color: titleColor,
+    fontSize: 18,
+    fontWeight: 600,
+    marginBottom: 12,
   },
 
   ".sidebarSection": {
-    marginBottom: 20,
+    marginBottom: 32,
     width: "100%",
     fontSize: 12,
     fontWeight: 300,
   },
   ".sidebarSectionTitle": {
-    fontSize: 14,
-    fontWeight: 400,
-    marginBottom: 5,
+    fontFamily: "Merriweather",
+    color: titleColor,
+    fontSize: 16,
+    fontWeight: 600,
+    marginBottom: 12,
   },
 
   ".experienceEntry": {
-    marginBottom: "20px",
+    marginBottom: 16,
   },
   ".experienceEntryTitleWrapper": {
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
     width: "100%",
-    marginBottom: "5px",
+    marginBottom: 4,
   },
   ".experienceEntryTitle": {
-    fontSize: "14px",
+    fontSize: 12,
     maxWidth: "300px",
+    fontWeight: 600,
   },
   ".experienceEntrySubtitle": {
-    fontSize: "12px",
+    fontSize: 12,
     fontStyle: "italic",
     color: textColor,
     textDecoration: "none",
+    marginBottom: 8,
   },
-  ".experienceEntrySubtitle.link": {},
   ".experienceEntryDescription": {
-    fontSize: 11,
+    fontSize: 12,
+    lineHeight: 1.4,
+  },
+  ".dateSeparatorWrapper": {
+    marginLeft: 4,
+    marginRight: 4,
   },
   ".experienceEntryDateWrapper": {
     display: "flex",
     flexDirection: "row",
     flexShrink: 0,
-    fontSize: "12px",
+    fontSize: 12,
+    color: lightColor,
     // To push it lower
-    paddingTop: "2px",
+    paddingTop: 2,
   },
 
-  // TODO: CHECK
-  ".keyValueEntryName": { fontSize: 10, marginRight: 5 },
-  ".keyValueEntryValue": { fontSize: 10 },
+  ".keyValueEntry": { marginBottom: 8 },
+  ".keyValueEntryName": { fontSize: 13 },
+  ".keyValueEntryValue": { fontSize: 13 },
 
   ".contactSection": {},
-  ".contactSectionTitle": {},
-  ".contactEntryWrapper": { fontSize: 12, marginBottom: 4 },
-  ".contactEntryValue": { color: linkColor },
+  ".contactEntryWrapper": { fontSize: 12, marginBottom: 8 },
+  ".contactEntryName": { color: lightColor, marginBottom: 2 },
+  ".contactEntryValue": { color: textColor, textDecoration: "none" },
 
-  ".simpleListEntry": { fontSize: 11 },
-  ".textSection": { fontSize: 11 },
+  ".simpleListEntry": { fontSize: 13, marginBottom: 8 },
+  ".textSection": { fontSize: 12, lineHeight: 1.4 },
 
   ".legalClause": {
     fontSize: 8,
@@ -150,6 +169,15 @@ const styles: StylesDefinition = {
 export const aleksandraTemplate: TemplateDetails = {
   component: Template,
   fonts: {
+    Merriweather: [
+      "Light",
+      "LightItalic",
+      "Regular",
+      "Bold",
+      "BoldItalic",
+      "Black",
+      "BlackItalic",
+  ],
     Karla: [
       "ExtraLight",
       "ExtraLightItalic",
