@@ -27,7 +27,7 @@ export const SingleColumnTemplate: React.FC<SingleColumnTemplateProps> = ({ data
 
   const MainSection: React.FC<{ data: Section }> = ({ data }) => {
     if (data.section.type === "experience") {
-      return <ExperienceSection title={data.title} data={data.section.content} />;
+      return <ExperienceSection markdownStyle={style?.markdown} title={data.title} data={data.section.content} />;
     }
     if (data.section.type === "text") {
       return <MainSectionWrapper title={data.title} className="textSection">
