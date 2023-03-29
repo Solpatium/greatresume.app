@@ -11,9 +11,15 @@ const linkColor = "#0a82a1";
 const lightColor = "#778197";
 
 const Template: ResumeTemplate = ({ data, translate }) => (
-  <AleksandraBase data={data} style={{markdown: {
-    unorderedListGlyph: () => <View style={{ marginRight: 8 }}><Text>•</Text></View>
-  }}} translate={translate} columnsGap="0" />
+  <AleksandraBase
+    data={data}
+    style={{
+      markdown: {
+        unorderedListGlyph: () => <View style={{ marginRight: 8 }}><Text>•</Text></View>
+      }
+    }}
+    translate={translate}
+    columnsGap="0" />
 );
 
 const styles: StylesDefinition = {
@@ -44,7 +50,7 @@ const styles: StylesDefinition = {
     marginBottom: 32,
     borderRadius: "100%",
   },
-  ".personalInfoTextWrapper": { 
+  ".personalInfoTextWrapper": {
     width: "100%",
     textAlign: "center",
   },
@@ -141,7 +147,8 @@ const styles: StylesDefinition = {
   ".textSection": { fontSize: 12, lineHeight: 1.4 },
 
   ".legalClause": {
-    fontSize: 8,
+    fontSize: 7,
+    lineHeight: 1.2,
     fontStyle: "italic",
   },
 
@@ -177,7 +184,7 @@ export const aleksandraTemplate: TemplateDetails = {
       "BoldItalic",
       "Black",
       "BlackItalic",
-  ],
+    ],
     Karla: [
       "ExtraLight",
       "ExtraLightItalic",

@@ -50,13 +50,15 @@ export const SingleColumnTemplate: React.FC<SingleColumnTemplateProps> = ({ data
 
   return (
     <StyledPage size={data.appearance.paperSize}>
-      <Introduction data={data} image={image} />
-      <MainSectionWrapper title={translate("contact")} className="contactSection">
-        <ContactInside
-          data={data.personalInformation}
-          phoneLabel={translate("phone")} emailLabel={translate("email")}
-        />
-      </MainSectionWrapper>
+      <V className="headerWrapper">
+        <Introduction data={data} image={image} />
+        <V className="contactSection">
+          <ContactInside
+            data={data.personalInformation}
+            phoneLabel={translate("phone")} emailLabel={translate("email")}
+            />
+        </V>
+      </V>
       {data.sections.map(s => (<MainSection data={s} />))}
       <T className="legalClause" style={{ marginTop: "auto" }}>{data.legalClause}</T>
     </StyledPage>
