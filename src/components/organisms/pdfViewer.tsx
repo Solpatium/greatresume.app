@@ -86,8 +86,9 @@ class Controller {
         if (updateScale || this.scale === undefined) {
 
           const padding = 60;
+          const calculatedScale = wrapperWidth / (viewport.width + padding);
           // We don't want it to be too big
-          this.scale = Math.min(1.5, wrapperWidth / (viewport.width + padding));
+          this.scale = Math.min(1.5, calculatedScale);
           this.onRescale(this.scale);
         }
 
@@ -209,10 +210,6 @@ export const PdfViewer: React.FC<PdfViewerProps> = ({ resume, download, newPdfGe
 
   useResize(() => controller.current.render(true));
 
-  useEffect(() => {
-    controller.current.setScale(zoom);
-  }, [zoom]);
-
   return (
     <div className="w-full h-full overflow-auto flex flex-col flex-wrap items-center" ref={wrapperRef}>
       {(documentState.loading || newPdfGenerating) && (
@@ -221,7 +218,10 @@ export const PdfViewer: React.FC<PdfViewerProps> = ({ resume, download, newPdfGe
       <ZoomControl
         isMobilePreview={isMobilePreview}
         zoom={zoom}
-        setZoom={setZoom}
+        setZoom={(value) => {
+          setZoom(value);
+          controller.current.setScale(value);
+        }}
         reset={() => controller.current.render(true)}
         download={download}
       />
