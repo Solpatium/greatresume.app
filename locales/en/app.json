@@ -20,6 +20,8 @@
   "contact": "Contact",
   "embededPdfFileDescription": "Structured data for editing resume at xyz.com.", 
   "resume": "Resume",
+  "ok": "OK",
+  "toggleButtonInfo": "Use this button to toggle between editing and previewing your resume",
   "steps": {
     "appearance": {
       "title": "Appearance",

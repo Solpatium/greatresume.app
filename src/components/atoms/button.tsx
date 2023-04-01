@@ -66,18 +66,19 @@ export const Button: React.FC<{
   );
 };
 
-
-export const ActionButton: React.FC<{
+interface ActionButtonProps {
   children: React.ReactElement,
   onClick?: () => void | Promise<any>,
   icon?: (props: React.ComponentProps<"svg">) => JSX.Element;
   className?: string;
   circle?: boolean;
-}> = ({ children, onClick, icon, circle, className }) => {
-  const [handleClick, inProgress] = useProgress(onClick);
+};
 
+export const ActionButton = React.forwardRef<HTMLButtonElement, ActionButtonProps>(({ children, onClick, icon, circle, className }, ref) => {
+  const [handleClick, inProgress] = useProgress(onClick);
   return (
     <button
+      ref={ref}
       type="button"
       onClick={handleClick}
       className={cn(
@@ -91,8 +92,8 @@ export const ActionButton: React.FC<{
       )}
       disabled={inProgress}
     >
-      {icon && React.createElement(icon, { width: 20, style: {strokeWidth: 2}, className: "mr-2 -ml-0.5" })}
+      {icon && React.createElement(icon, { width: 20, style: { strokeWidth: 2 }, className: "mr-2 -ml-0.5" })}
       {children}
     </button>
   );
-}
+});
