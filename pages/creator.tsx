@@ -11,12 +11,18 @@ import 'react-markdown-editor-lite/lib/index.css';
 import { PencilIcon, EyeIcon, DocumentIcon } from "@heroicons/react/24/outline";
 import { ActionButton } from "../src/components/atoms/button";
 import { useRouter } from "next/router";
+import { MobileInfoToggle } from "../src/components/molecules/mobileToggleInfo";
+import { useIsVisible } from "../src/utils/hooks";
+import { useToggle } from "react-use";
 
 
 const Creator: React.FC = () => {
   const { t } = useTranslation("app");
   const router = useRouter();
   const { resume, download, loading } = useRenderResume();
+  const mobilePreviewToggleRef = useRef<HTMLButtonElement>(null);
+  const [hasPreviewToggle, toggleHasPreviewToggle] = useToggle(false);
+  useIsVisible(mobilePreviewToggleRef, toggleHasPreviewToggle);
 
   const isPreviewing = router.asPath.split("#")[1] === "preview";
 
@@ -24,11 +30,11 @@ const Creator: React.FC = () => {
   const pushed = useRef(false);
   const togglePreview = useCallback(() => {
     if (isPreviewing) {
-      if( pushed ) {
+      if (pushed) {
         router.back();
         pushed.current = false;
       } else {
-        router.replace({ hash: undefined}, undefined, { shallow: true, scroll: false });
+        router.replace({ hash: undefined }, undefined, { shallow: true, scroll: false });
       }
     } else {
       router.push({ hash: "preview" }, undefined, { shallow: true });
@@ -68,7 +74,10 @@ const Creator: React.FC = () => {
           />
         </div>
         <div className="lg:hidden fixed bottom-3 right-3 flex flex-col">
+          {hasPreviewToggle && <MobileInfoToggle />}
+
           <ActionButton
+            ref={mobilePreviewToggleRef}
             onClick={togglePreview}
             className="w-[80px] h-[80px] rounded-full"
           >
