@@ -173,16 +173,12 @@ export const bubblyTemplate: TemplateDetails = {
   component: Template,
   fonts: {
     Lato: [
-      "Black",
-      "BlackItalic",
       "Bold",
       "BoldItalic",
       "Italic",
       "Light",
       "LightItalic",
       "Regular",
-      "Thin",
-      "ThinItalic",
     ],
   },
   title: "Bubbly",
