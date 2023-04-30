@@ -125,7 +125,7 @@ const styles: StylesDefinition = {
         fontSize: 12,
     },
 
-    ".experienceEntry": {
+    ".experienceEntry.hasSucceeding": {
         marginBottom: 16,
     },
     ".experienceEntryTitle": {

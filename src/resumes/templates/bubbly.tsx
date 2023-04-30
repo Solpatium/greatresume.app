@@ -5,26 +5,27 @@ import { TemplateDetails, ResumeTemplate } from "../types";
 import { AleksandraBase, AlexandraBaseStyle } from "../unstyled/aleksandraBase";
 
 const titleColor = "#16057C";
-const textColor = "#232323";
+const textColor = "#3F4A62";
+const accentColor = "#09A979";
 const bubbleColor = "#eff4f9";
-
-const bubbleStyle = {
-  backgroundColor: bubbleColor,
-  padding: 20,
-  borderRadius: 30,
-}
+const labelColor = "#BDC8C5";
 
 // Important! Paddings can leave just the padding on another page.
 const style: AlexandraBaseStyle = {};
 
 const styles: StylesDefinition = {
   ".page": {
+    backgroundColor: "#DCEEE9",
     color: textColor,
-    fontSize: 14,
-    fontFamily: "Poppins",
-    padding: 20,
+    fontSize: 12,
+    fontFamily: "Lato",
+    padding: 12,
   },
-
+  ".pageInside": {
+    backgroundColor: "#FFFFFF",
+    borderRadius: 16,
+    padding: 12,
+  },
   ".leftPane": {
     width: "35%",
   },
@@ -34,130 +35,133 @@ const styles: StylesDefinition = {
 
   ".personalInfo": {
     display: "flex",
-    marginBottom: 20,
-    ...bubbleStyle,
+    alignItems: "center",
+    marginBottom: 24,
+    padding: 12,
   },
   ".personalInfoImage": {
-    width: "100%",
-    marginBottom: 10,
-    borderRadius: 30,
+    maxHeight: 100,
+    marginBottom: 4,
+    borderRadius: 16,
   },
   ".personalInfoTextWrapper": {
-    display: "flex",
-    flexDirection: "column-reverse",
+    width: "100%"
   },
   ".personalInfoName": {
+    color: accentColor,
+    textAlign: "center",
+    marginBottom: 4,
     fontSize: 22,
-    fontFamily: "Karla",
     fontWeight: 700,
-    color: titleColor,
   },
   ".personalInfoJobTitle": {
-    fontSize: 14,
-    fontWeight: 300,
-    marginBottom: 3,
+    textAlign: "center",
+    fontSize: 15,
+    color: textColor,
+  },
+
+  ".mainSection": {
+    marginBottom: 24,
+    padding: 12,
+    paddingBottom: 0,
+    width: "100%",
+  },
+  ".mainSectionTitle": {
+    fontSize: 18,
+    fontWeight: 700,
+    marginBottom: 12,
+    color: accentColor
   },
 
   ".sidebarSection": {
-    ...bubbleStyle,
-    marginBottom: 20,
-    width: "100%",
-    fontSize: 12,
-    fontWeight: 300,
-    gap: 4,
-    flexGrow: 0,
-    flexShrink: 1,
+    marginBottom: 12,
+    padding: 12
   },
   ".sidebarSectionTitle": {
-    fontSize: 14,
-    fontWeight: 500,
-    marginBottom: 5,
-  },
-
-  // Main
-  ".mainSection": {
-    gap: 10,
-    marginBottom: 20,
-    ...bubbleStyle,
-  },
-  ".mainSectionTitle": {
     fontSize: 16,
-    fontWeight: 500,
-    letterSpacing: 1,
+    fontWeight: 700,
+    marginBottom: 12,
+    color: accentColor,
   },
 
-
-  ".experienceEntry": {
-    display: "flex",
-    flexDirection: "row",
-    flexShrink: 0,
-    fontSize: 14,
-    color: "#3d4772",
-    marginBottom: 4,
+  ".experienceEntry.hasSucceeding": {
+    marginBottom: 20,
   },
   ".experienceEntryTitleWrapper": {
     display: "flex",
-    flexDirection: "column-reverse",
-    paddingTop: 5,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    width: "100%",
+    marginBottom: "4px",
   },
   ".experienceEntryTitle": {
-    fontSize: 14,
-    color: titleColor,
-    fontWeight: 500,
+    fontWeight: 700,
+    fontSize: 13,
+    maxWidth: 220,
+    color: textColor,
+    marginBottom: 4,
   },
   ".experienceEntrySubtitle": {
-    fontSize: 13,
-    fontWeight: 500,
-    color: "#000000",
-    marginTop: 2,
-  },
-  ".experienceEntrySubtitle.link": {
+    fontSize: 12,
+    marginBottom: 8,
+    fontStyle: "italic",
+    color: textColor,
     textDecoration: "none",
   },
+  ".experienceEntrySubtitle.link": {},
   ".experienceEntryDescription": {
     fontSize: 12,
-    marginTop: 10,
+    lineHeight: 1.4,
+  },
+  ".dateSeparatorWrapper": {
+    marginLeft: 4,
+    marginRight: 4,
   },
   ".experienceEntryDateWrapper": {
+    display: "flex",
     flexDirection: "row",
     flexShrink: 0,
     fontSize: "12px",
     // To push it lower
-    paddingTop: 2,
+    paddingTop: "2px",
+    color: labelColor,
   },
 
-  ".keyValueEntryName": {
-    fontWeight: 500,
-  },
+  ".keyValueEntry": { fontSize: 12, marginBottom: 8 },
+  ".keyValueEntryName": { marginRight: 5 },
+  ".keyValueEntryValue": {},
 
-  // Contact
-  ".contactSection": {
-  },
-  ".contactSectionTitle": {
-  },
-  ".contactEntryWrapper": {
-    fontSize: 12, marginBottom: 4, marginTop: 4
-  },
-  ".contactEntryValue": {
-    color: textColor, fontWeight: 500
-  },
+  ".contactSectionTitle": {},
+  ".contactEntryWrapper": { marginBottom: 8, fontSize: 12 },
+  ".contactEntryName": { color: labelColor, marginBottom: 2 },
+  ".contactEntryValue": { color: textColor, textDecoration: "none" },
 
-  // Simple list
-  ".simpleListEntry": {
-    fontSize: 11
-  },
-  ".textSection": {
-    fontSize: 11
-  },
+  ".simpleListEntry": { fontSize: 12, marginBottom: 8 },
+  ".textSection": { fontSize: 12, lineHeight: 1.4 },
 
   ".legalClause": {
     fontSize: 8,
     fontStyle: "italic",
   },
 
-  // Markdown
+  ".ul": {
+    marginLeft: 10,
+  },
   ".li": {
     marginTop: 5,
+  },
+  ".strong": {
+    fontWeight: 900,
+  },
+  ".textLink": {
+    color: textColor,//linkColor,
+    textDecoration: "none",
+  },
+  ".em": {
+    fontStyle: "italic",
+  },
+  ".space": {
+    height: 10,
   }
 }
 
@@ -168,21 +172,17 @@ const Template: ResumeTemplate = ({ data, translate }) => (
 export const bubblyTemplate: TemplateDetails = {
   component: Template,
   fonts: {
-    Poppins: [
-      "ExtraLight",
-      "ExtraLightItalic",
+    Lato: [
+      "Black",
+      "BlackItalic",
+      "Bold",
+      "BoldItalic",
+      "Italic",
       "Light",
       "LightItalic",
       "Regular",
-      "Italic",
-      "Medium",
-      "MediumItalic",
-      "SemiBold",
-      "SemiBoldItalic",
-      "Bold",
-      "BoldItalic",
-      "ExtraBold",
-      "ExtraBoldItalic",
+      "Thin",
+      "ThinItalic",
     ],
   },
   title: "Bubbly",

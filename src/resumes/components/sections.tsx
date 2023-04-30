@@ -65,10 +65,11 @@ export const spreadEntries = <DataType,>(
       data={entry}
       className={classNames({
         middle: isMiddle, 
-        first: isFirst && !isOnly,
-        last: isLast && !isOnly, 
-        isOnly: "only",
+        first: isFirst,
+        last: isLast, 
+        isOnly: isOnly,
         hasPreceding: !isFirst,
+        hasSucceeding: !isLast,
       })} />
   );
 });

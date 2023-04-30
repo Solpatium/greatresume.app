@@ -94,7 +94,7 @@ const styles: StylesDefinition = {
     marginBottom: 12,
   },
 
-  ".experienceEntry": {
+  ".experienceEntry.hasSucceeding": {
     marginBottom: 16,
   },
   ".experienceEntryTitleWrapper": {

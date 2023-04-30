@@ -19,20 +19,13 @@ const allVariants = {
 
 export type FontVariant = keyof typeof allVariants;
 
-const fonts = ["Karla", "NotoSerif", "Poppins", "Merriweather", "Montserrat", "Quicksand"] as const;
+const fonts = ["Karla", "NotoSerif", "Poppins", "Merriweather", "Montserrat", "Quicksand", "CrimsonPro", "Lato"] as const;
 export type FontFamily = typeof fonts[number];
 
 export type FontRequirements = Partial<Record<FontFamily, FontVariant[]>>;
 
 export const registerRequiredFonts = (requirements: FontRequirements): void => {
   for (const [font, variants] of Object.entries(requirements)) {
-    console.log("REGISTER", {
-      family: font,
-      fonts: variants.map(name => ({
-        ...allVariants[name],
-        src: `wololo.com/fonts/${font}/${font}-${name}.ttf`,
-      })),
-    });
     Font.register({
       family: font,
       fonts: variants.map(name => ({
