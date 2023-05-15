@@ -14,6 +14,8 @@ import { TextForm } from "./text";
 import { Section } from "../../../models/v1";
 import { LegalClauseForm } from "./legalClause";
 import { Export } from "./export";
+import cn from "classnames";
+
 
 const renderSection = (sectionWrapped: Section): React.ReactElement => {
   const { section } = sectionWrapped;
@@ -41,33 +43,39 @@ export const Editor: React.FC<{
 
   const steps: Step[] = [
     {
-      title: t`steps.appearance.title`,
-      element: <Appearance />,
-    },
-    {
       title: "Personal info",
       element: <PersonalInformation />,
+      id: "personal-info",
+    },
+    {
+      title: t`steps.appearance.title`,
+      element: <Appearance />,
+      id: "appearance",
     },
     {
       title: t`newSection.title`,
       element: <StepsForm />,
+      id: "sections",
     },
     ...state.resume.sections.map((section) => ({
       title: section.title,
       element: renderSection(section),
+      id: "section-" + section.id
     })),
     {
       title: t`steps.legalClause.title`,
-      element: <LegalClauseForm stateProxy={state.resume} />
+      element: <LegalClauseForm stateProxy={state.resume} />,
+      id: "legal-clause",
     },
     {
       title: t`steps.export.title`,
       element: <Export/>,
+      id: "export",
     },
   ];
 
   return (
-    <div className={className}>
+    <div className={cn(className, "relative flex flex-col gap-5 lg:gap-12")}>
       <Stepper steps={steps} download={download}/>
     </div>
   );

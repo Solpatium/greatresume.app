@@ -50,20 +50,14 @@ export const SectionPicker: React.FC<{ onSelect: (value: Section) => void }> = (
       icon: WrenchScrewdriverIcon,
     },
     {
-      value: "text",
-      label: t`newSection.sections.text.label`,
-      description: t`newSection.sections.text.description`,
-      icon: DocumentTextIcon,
-    },
-  ];
-  
-  const otherOptions: FlatSelectOption<SectionKind>[] = [
-    {
       value: "experience",
       label: t`newSection.sections.experience.label`,
       description: t`newSection.sections.experience.description`,
       icon: CalendarIcon,
     },
+  ];
+  
+  const otherOptions: FlatSelectOption<SectionKind>[] = [
     {
       value: "skills",
       label: t`newSection.sections.skills.label`,

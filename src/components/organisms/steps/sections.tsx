@@ -10,6 +10,9 @@ import { useAppState } from "../../../state/store";
 import { useSnapshot } from "valtio";
 import { StepDescription } from "../../atoms/stepDescription";
 import { FastEditableList } from "../../layout/flatEditableList";
+import { Button } from "../../atoms/button";
+import { highlight } from "pdfkit";
+import { highlightElement } from "../../../utils/highlight";
 
 const Entry: React.FC<{ state: Section }> = ({ state }) => {
   const { t } = useTranslation("app");
@@ -18,17 +21,18 @@ const Entry: React.FC<{ state: Section }> = ({ state }) => {
   const Icon = kindIcons[kind];
   return (
     <>
-      <div className="flex items-center ml-2 mr-4">
+      <div className="flex py-4 items-center ml-2 mr-4 gap-4">
         <Icon className="w-8 h-8" />
+        <div>{state.title}</div>
+        <div className="align-self-end"><Button onClick={() => {
+          const section = document.getElementById("section-" + state.id);
+          if (!section) {
+            return;
+          }
+          section.scrollIntoView({ behavior: "smooth" });
+          highlightElement(section);
+        }}>Edit</Button></div>
       </div>
-      <Input
-        className="my-3 w-full max-w-[250px]"
-        label={t`newSection.sectionTitle`}
-        onChange={value => (state.title = value)}
-        value={title}
-      />
-      {/* TODO */}
-      {/* <Button>Fill in details</Button> */}
     </>
   );
 };
