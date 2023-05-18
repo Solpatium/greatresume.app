@@ -12,6 +12,7 @@ export interface FlatEditableListProps<Type> {
     onAddNew?: () => void;
     label?: string;
     deletionConfirmation?: string;
+    buttonText?: string;
 }
 
 interface FlatEditableItemProps<Type> {
@@ -19,7 +20,6 @@ interface FlatEditableItemProps<Type> {
     stateProxy: Type;
     render: (state: Type) => ReactElement;
     onDelete: (index: number) => void;
-    defaultOpen?: boolean;
 }
 
 const FlatEditableItem = <Type extends HasId>(props: FlatEditableItemProps<Type>) => {
@@ -47,10 +47,9 @@ export const FastEditableList = <Type extends HasId>({
     className,
     onAddNew,
     label,
+    buttonText,
     deletionConfirmation,
 }: FlatEditableListProps<Type>): ReactElement => {
-    // Variable needed to set defaultOpen for new entries
-    const recentlyAddedId = useRef<string | undefined>();
     const onDelete = useCallback(
         (index: number) => {
             if (!deletionConfirmation || confirm(deletionConfirmation)) {
@@ -59,23 +58,11 @@ export const FastEditableList = <Type extends HasId>({
         },
         [stateProxy],
     );
-    useEffect(() => {
-        let idsBefore = new Set(stateProxy.map(e => e.id));
-        const handler = () => {
-            stateProxy.forEach(entry => {
-                if (!idsBefore.has(entry.id)) {
-                    recentlyAddedId.current = entry.id;
-                }
-            });
-            idsBefore = new Set(stateProxy.map(e => e.id));
-        };
-        handler();
-        return subscribe(stateProxy, handler);
-    }, [onAddNew, stateProxy]);
 
     return (
         <SortableList
             label={label}
+            buttonText={buttonText}
             stateProxy={stateProxy}
             onAddNew={onAddNew}
             className={className}
@@ -85,7 +72,6 @@ export const FastEditableList = <Type extends HasId>({
                     onDelete={onDelete}
                     render={render}
                     index={i}
-                    defaultOpen={recentlyAddedId.current === s.id}
                 />
             )}
         />

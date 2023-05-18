@@ -23,15 +23,15 @@ const Entry: React.FC<{ state: Section }> = ({ state }) => {
     <>
       <div className="flex py-4 items-center ml-2 mr-4 gap-4">
         <Icon className="w-8 h-8" />
-        <div>{state.title}</div>
-        <div className="align-self-end"><Button onClick={() => {
+        <div className="text-md font-semibold text-slate-700">{state.title}</div>
+        {/* <div className="align-self-end"><Button onClick={() => {
           const section = document.getElementById("section-" + state.id);
           if (!section) {
             return;
           }
           section.scrollIntoView({ behavior: "smooth" });
           highlightElement(section);
-        }}>Edit</Button></div>
+        }}>Edit</Button></div> */}
       </div>
     </>
   );
@@ -60,6 +60,7 @@ export const StepsForm: React.FC = () => {
         render={e => <Entry state={e} />}
         onAddNew={() => setModalOpened(true)}
         deletionConfirmation={t`newSection.deletionConfirmation`}
+        buttonText={t`newSection.addNew`}
       />
     </>
   );

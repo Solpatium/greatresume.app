@@ -103,7 +103,6 @@ export const SectionPicker: React.FC<{ onSelect: (value: Section) => void }> = (
         />
       </Label>
       <Button
-        secondary
         disabled={!sectionKind}
         onClick={() =>
           sectionKind &&

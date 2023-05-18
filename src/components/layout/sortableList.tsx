@@ -28,6 +28,7 @@ export interface SortableListProps<Type> {
   className?: string;
   onAddNew?: () => void;
   label?: string;
+  buttonText?: string;
 }
 
 interface SortableItemProps<Type> {
@@ -75,6 +76,7 @@ export const SortableList = <Type extends HasId>({
   className,
   onAddNew,
   label,
+  buttonText,
 }: SortableListProps<Type>): ReactElement => {
   const onDragEnd = useCallback(
     ({ active, over }: DragEndEvent) => {
@@ -98,6 +100,7 @@ export const SortableList = <Type extends HasId>({
     }),
   );
 
+  // TODO: Delete default button text
   return (
     <div className={className}>
       {label && <Label name={label} />}
@@ -112,7 +115,7 @@ export const SortableList = <Type extends HasId>({
       {onAddNew && (
         <div className="flex flex-col items-stretch max-w-[200px]">
           <Button icon={PlusIcon} onClick={onAddNew}>
-            <span className="text-base font-bold">Add new</span>
+            <span className="text-base font-bold">{buttonText ?? "Add new entry"}</span>
           </Button>
         </div>
       )}

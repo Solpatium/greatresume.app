@@ -1,4 +1,4 @@
-import { array, enums, Infer, is, optional, string, type, union } from "superstruct";
+import { array, boolean, enums, Infer, is, optional, string, type, union } from "superstruct";
 import { personalInformationStruct } from "./sections/personalInfo";
 import {
   ExperienceKind,
@@ -37,6 +37,7 @@ const sectionStruct = union([
 const sectionEntry = type({
   title: string(),
   id: string(),
+  filled: optional(boolean()),
   section: sectionStruct,
 });
 export type Section = Infer<typeof sectionEntry>;
@@ -51,9 +52,13 @@ export type AppearanceSettings = Infer<typeof appearanceSettings>;
 
 export const resumeStruct = type({
   version: string(),
-  appearance: appearanceSettings,
+  filledPersonalInformation: optional(boolean()),
   personalInformation: personalInformationStruct,
+  filledAppearance: optional(boolean()),
+  appearance: appearanceSettings,
+  filledSections: optional(boolean()),
   sections: array(sectionEntry),
+  filledLegalClause: optional(boolean()),
   legalClause: string(),
 });
 export type ResumeModel = Infer<typeof resumeStruct>;
