@@ -22,8 +22,9 @@ export type Step = {
 };
 export const Stepper: React.FC<{
   steps: Step[];
+  maxSteps: number;
   download?: () => void;
-}> = ({ steps, download }) => {
+}> = ({ steps, download, maxSteps }) => {
   const containerRef = React.useRef<HTMLDivElement>(null);
   const [initialSize] = useState(steps.length);
   // This effect is called every time steps size is changed. 
@@ -51,7 +52,7 @@ export const Stepper: React.FC<{
     ];
     for (let i = 0; i < steps.length; i++) {
       const step = steps[i]!;
-      const progress = 100 * (i + 1) / steps.length;
+      const progress = 100 * (i + 1) / maxSteps;
       if (i == 0) {
         results.push(<ProgressCard key="start" icon="👋" title="Let's create your resume!" subtitle="Complete the forms below to export your resume." />
         )
@@ -64,7 +65,7 @@ export const Stepper: React.FC<{
       else if (i == 3) {
         results.push(<ProgressCard key="template-after" icon="✅" title="Sections configured." subtitle="Now edit their contents." />,);
       }
-      else if (i == steps.length - 1) {
+      else if (i == maxSteps - 1) {
         results.push(<ProgressCard key="100%" icon="🎉" title="You're all set!" subtitle="Customize and export your resume below." />,);
       }
       else if (progress < 100 && encouragmentStack[encouragmentStack.length - 1] && encouragmentStack[encouragmentStack.length - 1]![0] <= progress) {

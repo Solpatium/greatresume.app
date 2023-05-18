@@ -102,7 +102,7 @@ export const Editor: React.FC<{
 
   return (
     <div className={cn(className, "relative flex flex-col gap-5 lg:gap-12")}>
-      <Stepper steps={steps} download={download} />
+      <Stepper maxSteps={5 + state.resume.sections.length} steps={steps} download={download} />
     </div>
   );
 };
