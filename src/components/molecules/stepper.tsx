@@ -69,7 +69,14 @@ export const Stepper: React.FC<{
         results.push(<ProgressCard key="100%" icon="🎉" title="You're all set!" subtitle="Customize and export your resume below." />,);
       }
       else if (progress < 100 && encouragmentStack[encouragmentStack.length - 1] && encouragmentStack[encouragmentStack.length - 1]![0] <= progress) {
-        results.push(encouragmentStack.pop()![1]);
+        let selected = null;
+        // Ignore encouragment for smaller progress if a better one is present.
+        while (encouragmentStack.length > 0 && encouragmentStack[encouragmentStack.length - 1]![0] <= progress) {
+          selected = encouragmentStack.pop()![1];
+        }
+        if (selected) {
+          results.push(selected);
+        }
       }
 
       results.push(<StepWrapper goToNext={step.onNext} id={step.id} key={step.id} download={download} goToNext={undefined} goToPrev={undefined} title={step.title}>
