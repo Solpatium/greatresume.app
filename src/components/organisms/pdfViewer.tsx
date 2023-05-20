@@ -138,8 +138,7 @@ const ZoomControl: React.FC<{
   setZoom: (value: number) => void,
   reset: () => void,
   download: null | (() => Promise<void>),
-  isMobilePreview: boolean,
-}> = ({ zoom, setZoom, reset, download, isMobilePreview }) => {
+}> = ({ zoom, setZoom, reset, download }) => {
   const { t } = useTranslation("app");
   let currentIndex = 0;
   for (let [index, step] of steps.entries()) {
@@ -149,9 +148,8 @@ const ZoomControl: React.FC<{
   }
 
   return (
-    <div className={cn(
-      isMobilePreview ? "flex" : "hidden md:flex",
-      "items-end md:items-stretch flex-row fixed md:absolute left-3 md:right-3 md:right-0 bottom-3 md:bottom-10 justify-center gap-3")}
+    <div className={
+      "flex items-end md:items-stretch flex-row absolute left-3 md:right-3 md:right-0 bottom-3 md:bottom-10 justify-center gap-3"}
     >
       <div className="flex flex-col gap-1 p-1 md:flex-row md:gap-3 md:p-3 bg-indigo-100 rounded-2xl shadow-xl items-center">
         <Button
@@ -216,7 +214,6 @@ export const PdfViewer: React.FC<PdfViewerProps> = ({ resume, download, newPdfGe
         <div className="absolute inset-x-0 margin-auto text-center top-1/2 text-xl">Loading...</div>
       )}
       <ZoomControl
-        isMobilePreview={isMobilePreview}
         zoom={zoom}
         setZoom={(value) => {
           setZoom(value);

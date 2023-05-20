@@ -21,7 +21,7 @@
   "embededPdfFileDescription": "Structured data for editing resume at xyz.com.", 
   "resume": "Resume",
   "ok": "OK",
-  "toggleButtonInfo": "Use this button to toggle between editing and previewing your resume",
+  "toggleButtonInfo": "Use this button to toggle between editing and previewing your resume. You can also swipe between them!",
   "steps": {
     "appearance": {
       "title": "Appearance",

@@ -6,40 +6,54 @@ import { useRenderResume } from "../src/resumes";
 import cn from "classnames";
 import useTranslation from "next-translate/useTranslation";
 import { PdfViewer } from "../src/components/organisms/pdfViewer";
-import { AppStateProvider, useAppState } from "../src/state/store";
+import { AppStateProvider } from "../src/state/store";
 import 'react-markdown-editor-lite/lib/index.css';
-import { PencilIcon, EyeIcon, DocumentIcon } from "@heroicons/react/24/outline";
-import { ActionButton } from "../src/components/atoms/button";
 import { useRouter } from "next/router";
-import { MobileInfoToggle } from "../src/components/molecules/mobileToggleInfo";
-import { useIsVisible } from "../src/utils/hooks";
-import { useToggle } from "react-use";
 import { MobilePreviewButton } from "../src/components/organisms/mobilePreviewButton";
 
 const Creator: React.FC = () => {
   const { t } = useTranslation("app");
   const router = useRouter();
   const { resume, download, loading } = useRenderResume();
-  
-  const isPreviewing = router.asPath.split("#")[1] === "preview";
-  // In case someone opened a link with the preview hash there is no history entry to go back
-  const pushed = useRef(false);
+  const editorRef = useRef<HTMLDivElement>(null);
+  const previewRef = useRef<HTMLDivElement>(null);
+
+  const [isPreviewing, setIsPreviewing] = useState(false);
   const togglePreview = useCallback(() => {
     if (isPreviewing) {
-      if (pushed) {
-        router.back();
-        pushed.current = false;
-      } else {
-        router.replace({ hash: undefined }, undefined, { shallow: true, scroll: false });
-      }
+      editorRef.current?.scrollIntoView({ behavior: "smooth" });
+      setIsPreviewing(false);
     } else {
-      router.push({ hash: "preview" }, undefined, { shallow: true });
-      pushed.current = true;
+      previewRef.current?.scrollIntoView({ behavior: "smooth" });
+      setIsPreviewing(true);
     }
   }, [isPreviewing, router]);
 
+  // Change isPreviewing on user's scroll.
+  useEffect(() => {
+    const wrapper = editorRef.current?.parentElement;
+    if(!wrapper) {
+      return;
+    }
+
+    let timeout: any;
+    const handler = () => {
+      if (timeout) {
+        clearTimeout(timeout);
+      }
+      timeout = setTimeout(() => {
+        console.log({ scrollLeft: wrapper.scrollLeft, clientWidth: wrapper.clientWidth });
+        setIsPreviewing(wrapper.scrollLeft > wrapper.clientWidth/2);
+      }, 100);
+    }
+
+    // Wrapper is scrollable only horizonally
+    wrapper.addEventListener("scroll", handler);
+    return () => wrapper.removeEventListener("scroll", handler);
+  }, []);
+
   // We don't want it to lose state
-  const hiddenClass = "absolute top-[-100%]";
+  const commonClasses = "h-full min-w-[100dvw] w-[100dvw] h-[100dvh] lg:min-w-[50%] lg:w-[50%] snap-center";
   return (
     <>
       <Head>
@@ -49,17 +63,18 @@ const Creator: React.FC = () => {
           content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
         />
       </Head>
-      <div className="lg:pb-0 lg:h-screen lg:h-[100dvh] overflow-y-hidden lg:grid grid-cols-1 lg:grid-cols-2">
-        <div className={cn("h-full w-full overflow-y-scroll lg:p-4 md:rtl lg:static", isPreviewing && hiddenClass)}>
+      <div className={"pb-0 w-[100dvw] h-screen h-[100dvh] overflow-x-auto overflow-y-hidden flex snap-x snap-mandatory"}>
+        <div ref={editorRef} className={cn(commonClasses, "overflow-y-scroll lg:p-4 lg:rtl lg:static")}>
           <Editor
             download={download ?? undefined}
             className={cn("ltr", "block pb-[120px] lg:p-0")}
           />
         </div>
         <div
+          ref={previewRef}
           className={cn(
-            "w-full h-screen h-[100dvh] overflow-hidden lg:relative lg:top-0",
-            !isPreviewing && hiddenClass
+            commonClasses,
+            "overflow-hidden relative lg:top-0",
           )}
         >
           <PdfViewer
