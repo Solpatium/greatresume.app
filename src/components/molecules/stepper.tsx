@@ -85,8 +85,16 @@ export const Stepper: React.FC<{
 
       if (i == steps.length - 1 && step.onNext) {
         results.push(
-          <div className="flex justify-center">
+          <div className="flex justify-center mt-10 mb-20 z-1 relative">
             <Button className="text-base font-bold py-5 w-full md:max-w-[33%] bg-indigo-800" onClick={step.onNext}>Next step</Button>
+          </div>
+        )
+      }
+
+      if (i == maxSteps - 1) {
+        results.push(
+          <div className="flex justify-center mt-10 mb-20">
+            <Button className="text-base font-bold py-5 w-full md:max-w-[50%] bg-indigo-500" onClick={download}>Download your resume</Button>
           </div>
         )
       }
