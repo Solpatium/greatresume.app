@@ -14,18 +14,14 @@ import { useRouter } from "next/router";
 import { MobileInfoToggle } from "../src/components/molecules/mobileToggleInfo";
 import { useIsVisible } from "../src/utils/hooks";
 import { useToggle } from "react-use";
-
+import { MobilePreviewButton } from "../src/components/organisms/mobilePreviewButton";
 
 const Creator: React.FC = () => {
   const { t } = useTranslation("app");
   const router = useRouter();
   const { resume, download, loading } = useRenderResume();
-  const mobilePreviewToggleRef = useRef<HTMLButtonElement>(null);
-  const [hasPreviewToggle, toggleHasPreviewToggle] = useToggle(false);
-  useIsVisible(mobilePreviewToggleRef, toggleHasPreviewToggle);
-
+  
   const isPreviewing = router.asPath.split("#")[1] === "preview";
-
   // In case someone opened a link with the preview hash there is no history entry to go back
   const pushed = useRef(false);
   const togglePreview = useCallback(() => {
@@ -73,25 +69,7 @@ const Creator: React.FC = () => {
             isMobilePreview={isPreviewing}
           />
         </div>
-        <div className="lg:hidden fixed bottom-3 right-3 flex flex-col">
-          {hasPreviewToggle && <MobileInfoToggle />}
-
-          <ActionButton
-            ref={mobilePreviewToggleRef}
-            onClick={togglePreview}
-            className="w-[80px] h-[80px] rounded-full"
-          >
-            {isPreviewing ?
-              <>
-                <span className="sr-only">{t`edit`}</span>
-                <PencilIcon aria-hidden className="w-[30px]" />
-              </> :
-              <>
-                <span className="sr-only">{t`view`}</span>
-                <DocumentIcon aria-hidden className="w-[30px]" />
-              </>}
-          </ActionButton>
-        </div>
+        <MobilePreviewButton isPreviewing={isPreviewing} togglePreview={togglePreview} />
       </div>
     </>
   );
