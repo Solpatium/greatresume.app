@@ -14,6 +14,14 @@ const ProgressCard: React.FC<{ icon: string, title: string, subtitle: string }> 
   </div>)
 };
 
+const scrollToStep = (index: number) => {
+  const step = document.getElementById(`step-${index + 1}`);
+  step?.focus({ preventScroll: true });
+  setTimeout(() => {
+    step?.scrollIntoView({ behavior: "smooth" });
+  }, 100);
+}
+
 export type Step = {
   title: string;
   id: string;
@@ -33,13 +41,7 @@ export const Stepper: React.FC<{
     if (initialSize == steps.length || containerRef.current == null) {
       return;
     }
-    const children = containerRef.current.children;
-    for (let i = children.length - 1; i >= 0; i--) {
-      if (children[i]?.classList.contains("progress-card")) {
-        children[i]?.scrollIntoView({ behavior: "smooth" });
-        return;
-      }
-    }
+    scrollToStep(steps.length - 1);
   }, [initialSize, steps.length]);
 
   const elements = useMemo(() => {
@@ -53,56 +55,66 @@ export const Stepper: React.FC<{
     for (let i = 0; i < steps.length; i++) {
       const step = steps[i]!;
       const progress = 100 * (i + 1) / maxSteps;
+      let progressCard = null;
       if (i == 0) {
-        results.push(<ProgressCard key="start" icon="👋" title="Let's create your resume!" subtitle="Complete the forms below to export your resume." />
-        )
+        progressCard = <ProgressCard key="start" icon="👋" title="Let's create your resume!" subtitle="Complete the forms below to export your resume." />;
       } else if (i == 1) {
-        results.push(<ProgressCard key="template-before" icon="🎨" title="Choose the design!" subtitle="We're sure you'll find a perfect one just for you." />,);
+        progressCard = <ProgressCard key="template-before" icon="🎨" title="Choose the design!" subtitle="We're sure you'll find a perfect one just for you." />;
       }
       else if (i == 2) {
-        results.push(<ProgressCard key="template-after" icon="😍" title="Great choice!" subtitle="Now personalize the list of sections." />,);
+        progressCard = <ProgressCard key="template-after" icon="😍" title="Great choice!" subtitle="Now personalize the list of sections." />;
       }
       else if (i == 3) {
-        results.push(<ProgressCard key="template-after" icon="✅" title="Sections configured." subtitle="Now edit their contents." />,);
+        progressCard = <ProgressCard key="template-after" icon="✅" title="Sections configured." subtitle="Now edit their contents." />;
       }
       else if (i == maxSteps - 1) {
-        results.push(<ProgressCard key="100%" icon="🎉" title="You're all set!" subtitle="Customize and export your resume below." />,);
+        progressCard = <ProgressCard key="100%" icon="🎉" title="You're all set!" subtitle="Customize and export your resume below." />;
       }
       else if (progress < 100 && encouragmentStack[encouragmentStack.length - 1] && encouragmentStack[encouragmentStack.length - 1]![0] <= progress) {
-        let selected = null;
         // Ignore encouragment for smaller progress if a better one is present.
         while (encouragmentStack.length > 0 && encouragmentStack[encouragmentStack.length - 1]![0] <= progress) {
-          selected = encouragmentStack.pop()![1];
-        }
-        if (selected) {
-          results.push(selected);
+          progressCard = encouragmentStack.pop()![1];
         }
       }
 
-      results.push(<StepWrapper goToNext={step.onNext} id={step.id} key={step.id} download={download} goToNext={undefined} goToPrev={undefined} title={step.title}>
-        {step.element}
-      </StepWrapper>);
-
+      let button = null;
       if (i == steps.length - 1 && step.onNext) {
-        results.push(
-          <div className="flex justify-center mt-10 mb-20 z-1 relative">
-            <Button className="text-base font-bold py-5 w-full md:max-w-[33%] bg-indigo-800" onClick={step.onNext}>Next step</Button>
-          </div>
-        )
+        button = <div className="flex justify-center mt-10 mb-20 z-1 relative">
+          <Button type="submit" className="text-base font-bold py-5 w-full md:max-w-[33%] bg-indigo-800" onClick={step.onNext}>Next step</Button>
+        </div>;
+      } else if (i == maxSteps - 1) {
+        button = <div className="flex justify-center mt-10 mb-20">
+          <Button type="submit" className="text-base font-bold py-5 w-full md:max-w-[50%] bg-indigo-500" onClick={download}>Download your resume</Button>
+        </div>;
+      } else {
+        button = <button type="submit" className="hidden" />;
       }
 
-      if (i == maxSteps - 1) {
-        results.push(
-          <div className="flex justify-center mt-10 mb-20">
-            <Button className="text-base font-bold py-5 w-full md:max-w-[50%] bg-indigo-500" onClick={download}>Download your resume</Button>
-          </div>
-        )
-      }
+      results.push(
+        <form tabindex={0} id={`step-${i}`} onSubmit={(e) => {
+          e.preventDefault();
+          scrollToStep(i+1);
+        }} >
+          {progressCard}
+          <StepWrapper id={step.id} key={step.id} title={step.title}>
+            {step.element}
+          </StepWrapper>;
+          {button}
+        </form>
+      )
     }
     return results;
   }, [steps]);
 
-  return (<div className="flex flex-col gap-10" ref={containerRef}>
+  return (<div onSubmit={(e) => {
+    e.preventDefault();
+    // const lastStep = steps[steps.length - 1];
+    // if (lastStep && lastStep.onNext) {
+    //   lastStep.onNext();
+    // } else {
+    //   download?.();
+    // }
+  }} className="flex flex-col gap-10" ref={containerRef}>
     {elements}
   </div>)
 };
