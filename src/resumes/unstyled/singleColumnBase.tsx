@@ -10,6 +10,7 @@ import { styleContext } from "../stylesheet";
 import { V } from "../components/view";
 import cn from "classnames";
 import { StyledPage } from "../components/page";
+import { View } from "@react-pdf/renderer";
 
 export interface SingleColumnStyle {
   markdown?: MarkdownStyle,
@@ -50,17 +51,19 @@ export const SingleColumnTemplate: React.FC<SingleColumnTemplateProps> = ({ data
 
   return (
     <StyledPage size={data.appearance.paperSize}>
-      <V className="headerWrapper">
-        <Introduction data={data} image={image} />
-        <V className="contactSection">
-          <ContactInside
-            data={data.personalInformation}
-            phoneLabel={translate("phone")} emailLabel={translate("email")}
+      <View style={{ display: "flex", flexDirection: "column", minHeight: "100%" }}>
+        <V className="headerWrapper">
+          <Introduction data={data} image={image} />
+          <V className="contactSection">
+            <ContactInside
+              data={data.personalInformation}
+              phoneLabel={translate("phone")} emailLabel={translate("email")}
             />
+          </V>
         </V>
-      </V>
-      {data.sections.map(s => (<MainSection data={s} />))}
-      <T className="legalClause" style={{ marginTop: "auto" }}>{data.legalClause}</T>
+        {data.sections.map(s => (<MainSection data={s} />))}
+        <T className="legalClause" style={{ marginTop: "auto" }}>{data.legalClause}</T>
+      </View>
     </StyledPage>
   );
 };
