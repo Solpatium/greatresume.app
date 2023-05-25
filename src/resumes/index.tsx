@@ -11,6 +11,8 @@ import { ResumeModel } from "../models/v1";
 import type {WorkerMessage} from "./worker";
 import { bubblyTemplate } from "./templates/bubbly";
 import { edwardTemplate } from "./templates/edward";
+import { peachyTemplate } from "./templates/peachy";
+import { jamesTemplate } from "./templates/james";
 
 // TODO: Don't import templates in regular app
 export const templates: Record<string, TemplateDetails> = {
@@ -18,6 +20,8 @@ export const templates: Record<string, TemplateDetails> = {
   library: libraryTemplate,
   bubbly: bubblyTemplate,
   edward: edwardTemplate,
+  peachy: peachyTemplate,
+  james: jamesTemplate,
 };
 
 const rerender = async (worker: Worker, data: string, translate: (value: string) => string): Promise<Blob> => {

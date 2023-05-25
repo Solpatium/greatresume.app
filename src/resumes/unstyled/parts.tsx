@@ -64,16 +64,19 @@ export const ContactInside: React.FC<{
         return null;
     }
 
-    const entry = (name: string, value: string, url: string): React.ReactElement => (<V style={style?.wrapper} className="contactEntryWrapper">
-        <T style={style?.name} className="contactEntryName">{name}</T>
-        <T style={style?.value} className="contactEntryValue" url={url}>{value}</T>
-    </V>)
+    const wholeData = [];
+    if (phone) {
+        wholeData.push({ name: phoneLabel, value: phone, url: `tel:${phone}` });
+    }
+    if (email) {
+        wholeData.push({ name: emailLabel, value: email, url: `mailto:${email}` });
+    }
+    wholeData.push(...links);
 
-    return (<>
-        {phone ? entry(phoneLabel, phone, `tel:${phone}`) : null}
-        {email ? entry(emailLabel, data.email, `mailto:${email}`) : null}
-        <>{links.map(l => entry(l.name, l.value, l.value))}</>
-    </>);
+    return spreadEntries(wholeData, ({ data, className }) => (<V style={style?.wrapper} className={`${className} contactEntryWrapper`}>
+        <T style={style?.name} className="contactEntryName">{data.name}</T>
+        <T style={style?.value} className="contactEntryValue" url={"url" in data ? data.url : data.value}>{data.value}</T>
+    </V>));
 }
 
 const KeyValueEntry: React.FC<{ data: KeyValueList[0], style?: KeyValueEntryStyle, className: string }> = ({ data, style, className }) => {
@@ -113,21 +116,21 @@ const SectionWrapper: React.FC<{ className: string, title: string, children: Rea
     let first: ReactElement | ReactElement[], rest: ReactElement[];
     if (Array.isArray(children) && children[0]) {
         [first, ...rest] = children;
-    } else {   
+    } else {
         first = children;
-        rest = []; 
+        rest = [];
     }
 
     return (<V
         className={cn(`${prefix}Section`, className)}
     >
-        <View wrap={false} style={{width: "100%"}}>
-        <V wrap={false} className={`${prefix}SectionTitle ${className}Title`}>
-            <V className={`${prefix}SectionTitleBefore`} showEmpty />
-            <T className={`${prefix}SectionTitleText ${className}TitleText`}>{title}</T>
-            <V className={`${prefix}SectionTitleAfter`} showEmpty />
-        </V>
-        {first}
+        <View wrap={false} style={{ width: "100%" }}>
+            <V wrap={false} className={`${prefix}SectionTitle ${className}Title`}>
+                <V className={`${prefix}SectionTitleBefore`} showEmpty />
+                <T className={`${prefix}SectionTitleText ${className}TitleText`}>{title}</T>
+                <V className={`${prefix}SectionTitleAfter`} showEmpty />
+            </V>
+            {first}
         </View>
         {rest}
     </V>);
