@@ -1,5 +1,4 @@
 import React from "react";
-import { templates } from "../../../resumes";
 import Image from "next/image";
 import classes from "classnames";
 import { Label } from "../../atoms/fields/label";
@@ -10,6 +9,7 @@ import { useAppState } from "../../../state/store";
 import { useSnapshot } from "valtio";
 import { StepDescription } from "../../atoms/stepDescription";
 import useTranslation from "next-translate/useTranslation";
+import { templateDetails } from "../../../resumes/templateDetails";
 
 export const TemplateList: React.FC<{
   template: string;
@@ -19,7 +19,7 @@ export const TemplateList: React.FC<{
     {/*TOOD: Accessibility*/}
     <Label name="Templates" />
     <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-      {Object.entries(templates).map(([name, { title }]) => {
+      {Object.entries(templateDetails).map(([name, { title }]) => {
         return (
           <div
             key={title}

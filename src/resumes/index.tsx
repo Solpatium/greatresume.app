@@ -1,28 +1,11 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { downloadFile } from "../utils/downloadFile";
-import { aleksandraTemplate } from "./templates/aleksandra";
-import { TemplateDetails } from "./types";
-import { libraryTemplate } from "./templates/library";
 import { useAppState } from "../state/store";
 import { subscribe } from "valtio";
 import { arraysEqual } from "../utils/array";
 import useTranslation from "next-translate/useTranslation";
 import { ResumeModel } from "../models/v1";
 import type {WorkerMessage} from "./worker";
-import { bubblyTemplate } from "./templates/bubbly";
-import { edwardTemplate } from "./templates/edward";
-import { peachyTemplate } from "./templates/peachy";
-import { jamesTemplate } from "./templates/james";
-
-// TODO: Don't import templates in regular app
-export const templates: Record<string, TemplateDetails> = {
-  aleksandra: aleksandraTemplate,
-  library: libraryTemplate,
-  bubbly: bubblyTemplate,
-  edward: edwardTemplate,
-  peachy: peachyTemplate,
-  james: jamesTemplate,
-};
 
 const rerender = async (worker: Worker, data: string, translate: (value: string) => string): Promise<Blob> => {
   const message: WorkerMessage = {resumeJson: data, translations: {

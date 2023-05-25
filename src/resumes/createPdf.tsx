@@ -1,27 +1,14 @@
+// Only import in worker!
 import ReactPDF, { Document } from "@react-pdf/renderer";
 import type { ResumeModel } from "../models/v1";
 import { registerRequiredFonts } from "./fonts";
 import { makeStylesheet, styleContext, StyleSheet } from "./stylesheet";
 import { aleksandraTemplate } from "./templates/aleksandra";
-import { bubblyTemplate } from "./templates/bubbly";
-import { edwardTemplate } from "./templates/edward";
-import { libraryTemplate } from "./templates/library";
-import { peachyTemplate } from "./templates/peachy";
-import { jamesTemplate } from "./templates/james";
-import { TemplateDetails } from "./types";
+import { templates } from "./templates";
 
 let cachedStyleSheet: null | { title: string, styleSheet: StyleSheet } = null;
 
 export const createPdf = (data: ResumeModel, translate: (value: string) => string): ReturnType<typeof ReactPDF.pdf> => {
-  // TODO: move from here!
-  const templates: Record<string, TemplateDetails> = {
-    aleksandra: aleksandraTemplate,
-    library: libraryTemplate,
-    bubbly: bubblyTemplate,
-    edward: edwardTemplate,
-    peachy: peachyTemplate,
-    james: jamesTemplate,
-  };
   // Register all fonts, they are only fetched when needed
   Object.values(templates).forEach(d => registerRequiredFonts(d.fonts));
 
