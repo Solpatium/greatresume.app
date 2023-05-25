@@ -19,7 +19,11 @@ const allVariants = {
 
 export type FontVariant = keyof typeof allVariants;
 
-const fonts = ["Karla", "NotoSerif", "Poppins", "Merriweather", "Montserrat", "Quicksand", "CrimsonPro", "Lato"] as const;
+const fonts = [
+  "Karla", "NotoSerif", "Poppins",
+  "Merriweather", "Montserrat", "Quicksand",
+  "CrimsonPro", "Lato", "Nunito", "Manrope"
+] as const;
 export type FontFamily = typeof fonts[number];
 
 export type FontRequirements = Partial<Record<FontFamily, FontVariant[]>>;
