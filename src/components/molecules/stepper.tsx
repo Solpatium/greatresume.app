@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { StepWrapper } from "./stepWrapper";
 import { Button } from "../atoms/button";
+import styles from "./stepper.module.scss";
 
 const ProgressCard: React.FC<{ icon: string, title: string, subtitle: string }> = ({ icon, title, subtitle }) => {
   return (<div className="progress-card flex justify-center p-3 my-7">
@@ -15,7 +16,7 @@ const ProgressCard: React.FC<{ icon: string, title: string, subtitle: string }> 
 };
 
 const scrollToStep = (index: number) => {
-  const step = document.getElementById(`step-${index + 1}`);
+  const step = document.getElementById(`step-${index}`);
   step?.focus({ preventScroll: true });
   setTimeout(() => {
     step?.scrollIntoView({ behavior: "smooth" });
@@ -92,15 +93,20 @@ export const Stepper: React.FC<{
 
       // TODO: Accessibility
       results.push(
-        <form tabindex={0} id={`step-${i}`} onSubmit={(e) => {
-          e.preventDefault();
-          scrollToStep(i + 1);
-        }} >
-          {progressCard}
-          <StepWrapper id={step.id} key={step.id} title={step.title}>
-            {step.element}
-          </StepWrapper>
-          {button}
+        <form
+          tabindex={0} id={`step-${i}`} onSubmit={(e) => {
+            e.preventDefault();
+            // This works only when next field is already present.
+            scrollToStep(i + 1);
+          }} >
+          {/*Add animation only to new steps*/}
+          <div className={i >= initialSize ? styles.slideIn : ""}>
+            {progressCard}
+            <StepWrapper id={step.id} key={step.id} title={step.title}>
+              {step.element}
+            </StepWrapper>
+            {button}
+          </div>
         </form>
       )
     }
