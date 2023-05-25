@@ -90,15 +90,16 @@ export const Stepper: React.FC<{
         button = <button type="submit" className="hidden" />;
       }
 
+      // TODO: Accessibility
       results.push(
         <form tabindex={0} id={`step-${i}`} onSubmit={(e) => {
           e.preventDefault();
-          scrollToStep(i+1);
+          scrollToStep(i + 1);
         }} >
           {progressCard}
           <StepWrapper id={step.id} key={step.id} title={step.title}>
             {step.element}
-          </StepWrapper>;
+          </StepWrapper>
           {button}
         </form>
       )
@@ -106,15 +107,7 @@ export const Stepper: React.FC<{
     return results;
   }, [steps]);
 
-  return (<div onSubmit={(e) => {
-    e.preventDefault();
-    // const lastStep = steps[steps.length - 1];
-    // if (lastStep && lastStep.onNext) {
-    //   lastStep.onNext();
-    // } else {
-    //   download?.();
-    // }
-  }} className="flex flex-col gap-10" ref={containerRef}>
+  return (<div className="flex flex-col gap-10" ref={containerRef}>
     {elements}
   </div>)
 };
