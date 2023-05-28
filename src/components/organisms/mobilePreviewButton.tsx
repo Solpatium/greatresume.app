@@ -90,7 +90,7 @@ export const MobilePreviewButton: React.FC<{ isPreviewing: boolean, togglePrevie
         const unsubscribe = subscribe(resumeProxy, () => {
             if (resumeProxy.filledPersonalInformation) {
                 // Show it after section is scrolled
-                setTimeout(() => setEnablePreview(true), 600);
+                setTimeout(() => setEnablePreview(true), 2000);
                 unsubscribe();
             }
         });
