@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import Image from "next/image";
 import classes from "classnames";
 import { Label } from "../../atoms/fields/label";
@@ -50,7 +50,7 @@ const pageOptions: FlatSelectOption<PaperSize>[] = [
   { value: "LETTER", label: "Letter", description: "Popular in US." },
 ];
 
-export const Appearance: React.FC = () => {
+export const Appearance: React.FC = React.memo(() => {
   const { t } = useTranslation("app");
   const settings = useAppState().resume.appearance;
   const { template, paperSize } = useSnapshot(settings);
@@ -70,4 +70,4 @@ export const Appearance: React.FC = () => {
       <TemplateList template={template} setTemplate={v => (settings.template = v)} />
     </>
   );
-};
+});

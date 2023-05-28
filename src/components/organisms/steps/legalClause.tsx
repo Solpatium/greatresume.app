@@ -5,7 +5,7 @@ import { ResumeModel } from "../../../models/v1";
 import { RichTextEditor } from "../../atoms/fields/richText";
 import { StepDescription } from "../../atoms/stepDescription";
 
-export const LegalClauseForm: React.FC<{ stateProxy: ResumeModel }> = ({ stateProxy }) => {
+export const LegalClauseForm: React.FC<{ stateProxy: ResumeModel }> = React.memo(({ stateProxy }) => {
   const { t } = useTranslation("app")
   const value = useSnapshot(stateProxy).legalClause;
   return (
@@ -18,4 +18,4 @@ export const LegalClauseForm: React.FC<{ stateProxy: ResumeModel }> = ({ statePr
       />
     </>
   );
-};
+});

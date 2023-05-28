@@ -6,7 +6,7 @@ import useTranslation from "next-translate/useTranslation";
 import { TemplateList } from "./appearance";
 import { Button } from "../../atoms/button";
 
-export const Export: React.FC = () => {
+export const Export: React.FC = React.memo(() => {
     const { t } = useTranslation("app");
     const settings = useAppState().resume.appearance;
     const { template } = useSnapshot(settings);
@@ -16,4 +16,4 @@ export const Export: React.FC = () => {
             <TemplateList template={template} setTemplate={v => (settings.template = v)} />
         </>
     );
-};
+});

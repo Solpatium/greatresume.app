@@ -91,7 +91,7 @@ const Preview: React.FC<{ stateProxy: Entry }> = ({ stateProxy }) => {
 
 export const Experience: React.FC<{
   stateProxy: ExperienceSection;
-}> = ({ stateProxy }) => {
+}> = React.memo(({ stateProxy }) => {
   const { t } = useTranslation("app");
   return (
     <>
@@ -108,4 +108,4 @@ export const Experience: React.FC<{
       />
     </>
   );
-};
+});

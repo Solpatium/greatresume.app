@@ -65,6 +65,7 @@ export const useRenderResume = (): {
   const handle = useRef<null | ReturnType<typeof setTimeout>>();
   const previousAppearance = useRef<any[]>([]);
   useEffect(() => {
+    // TODO: optimize rendering.
     return subscribe(stateProxy, () => {
       // Don't wait at all when appearance is changed
       const newAppearance = Object.values(stateProxy.appearance);

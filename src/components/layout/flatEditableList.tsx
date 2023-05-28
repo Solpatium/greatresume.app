@@ -22,7 +22,7 @@ interface FlatEditableItemProps<Type> {
     onDelete: (index: number) => void;
 }
 
-const FlatEditableItem = <Type extends HasId>(props: FlatEditableItemProps<Type>) => {
+const FlatEditableItem = React.memo(<Type extends HasId>(props: FlatEditableItemProps<Type>) => {
     const { t } = useTranslation("app");
     return (
         <>
@@ -39,9 +39,9 @@ const FlatEditableItem = <Type extends HasId>(props: FlatEditableItemProps<Type>
             </div>
         </>
     );
-};
+});
 
-export const FastEditableList = <Type extends HasId>({
+export const FastEditableList = React.memo(<Type extends HasId>({
     stateProxy,
     render,
     className,
@@ -59,6 +59,14 @@ export const FastEditableList = <Type extends HasId>({
         [stateProxy],
     );
 
+    const renderItem = useCallback((s: Type, i: number) => (
+        <FlatEditableItem
+            stateProxy={s}
+            onDelete={onDelete}
+            render={render}
+            index={i}
+        />
+    ), [onDelete, render])
     return (
         <SortableList
             label={label}
@@ -66,14 +74,7 @@ export const FastEditableList = <Type extends HasId>({
             stateProxy={stateProxy}
             onAddNew={onAddNew}
             className={className}
-            render={(s, i) => (
-                <FlatEditableItem
-                    stateProxy={s}
-                    onDelete={onDelete}
-                    render={render}
-                    index={i}
-                />
-            )}
+            render={renderItem}
         />
     );
-};
+});

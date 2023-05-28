@@ -92,7 +92,7 @@ const EditModal: React.FC<Pick<PhotoProps, "setImage"> & { close: () => void }> 
   );
 };
 
-export const PhotoEditor: React.FC<PhotoProps & { buttonId?: string }> = ({
+export const PhotoEditor: React.FC<PhotoProps & { buttonId?: string }> = React.memo(({
   buttonId,
   image,
   setImage,
@@ -132,4 +132,4 @@ export const PhotoEditor: React.FC<PhotoProps & { buttonId?: string }> = ({
       {isEditing && <EditModal setImage={setImage} close={toggleEditing} />}
     </div>
   );
-};
+});

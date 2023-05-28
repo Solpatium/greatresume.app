@@ -20,7 +20,7 @@ const Entry: React.FC<{ stateProxy: SimpleListEntry }> = ({ stateProxy }) => {
   );
 };
 
-export const InterestsForm: React.FC<{ stateProxy: SimpleListEntry[] }> = ({ stateProxy }) => {
+export const InterestsForm: React.FC<{ stateProxy: SimpleListEntry[] }> = React.memo(({ stateProxy }) => {
   const { t } = useTranslation("app");
   return (
     <>
@@ -32,4 +32,4 @@ export const InterestsForm: React.FC<{ stateProxy: SimpleListEntry[] }> = ({ sta
       />
     </>
   );
-};
+});

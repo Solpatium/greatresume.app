@@ -14,7 +14,7 @@ import { Button } from "../../atoms/button";
 import { highlight } from "pdfkit";
 import { highlightElement } from "../../../utils/highlight";
 
-const Entry: React.FC<{ state: Section }> = ({ state }) => {
+const Entry: React.FC<{ state: Section }> = React.memo(({ state }) => {
   const { t } = useTranslation("app");
   const { title, section } = useSnapshot(state);
   const { kind } = section;
@@ -35,9 +35,9 @@ const Entry: React.FC<{ state: Section }> = ({ state }) => {
       </div>
     </>
   );
-};
+});
 
-export const StepsForm: React.FC = () => {
+export const StepsForm: React.FC = React.memo(() => {
   const { t } = useTranslation("app");
   const { sections } = useAppState().resume;
 
@@ -64,4 +64,4 @@ export const StepsForm: React.FC = () => {
       />
     </>
   );
-};
+});

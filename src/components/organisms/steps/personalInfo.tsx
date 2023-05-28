@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { Input } from "../../atoms/fields/input";
 import { PhotoEditor } from "../../molecules/photoEdit";
 import { Label } from "../../atoms/fields/label";
@@ -29,13 +29,17 @@ export const LinkEdit: React.FC<{ stateProxy: Entry }> = ({ stateProxy }) => {
   )
 }
 
-export const PersonalInformation: React.FC = () => {
+const entryToLinkEdit = (data: Entry) => <LinkEdit stateProxy={data} />;
+
+export const PersonalInformation: React.FC = React.memo(() => {
   const { t } = useTranslation("app");
   const resumeProxy = useAppState().resume;
   const stateProxy = resumeProxy.personalInformation;
   const state = useSnapshot(stateProxy);
   const { image } = useSnapshot(resumeProxy.appearance);
+  const addNew = useCallback(() => stateProxy.links.push(withId({ name: "", value: "" })), [stateProxy.links]);
 
+  const setImage = useCallback((v?: string) => (resumeProxy.appearance.image = v), [resumeProxy.appearance]);
   return (
     <>
       <div className="grid md:grid-cols-6 gap-4">
@@ -62,7 +66,7 @@ export const PersonalInformation: React.FC = () => {
           <PhotoEditor
             buttonId="edit-image"
             image={image}
-            setImage={v => (resumeProxy.appearance.image = v)}
+            setImage={setImage}
           />
         </div>
         <Input
@@ -79,11 +83,11 @@ export const PersonalInformation: React.FC = () => {
         />
         <FastEditableList
           label={t`links`}
-          className="col-span-full"
+          className="col-span-full" z
           stateProxy={stateProxy.links}
-          render={data => <LinkEdit stateProxy={data} />}
-          onAddNew={() => stateProxy.links.push(withId({ name: "", value: "" }))} />
+          render={entryToLinkEdit}
+          onAddNew={addNew} />
       </div>
     </>
   );
-};
+});

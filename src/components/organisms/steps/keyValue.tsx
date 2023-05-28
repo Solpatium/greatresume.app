@@ -28,7 +28,7 @@ const Entry: React.FC<{ stateProxy: Entry }> = ({ stateProxy }) => {
   );
 };
 
-export const KeyValueForm: React.FC<{ stateProxy: KeyValueSection }> = ({ stateProxy }) => {
+export const KeyValueForm: React.FC<{ stateProxy: KeyValueSection }> = React.memo(({ stateProxy }) => {
   const { t } = useTranslation("app");
   return (
     <>
@@ -40,4 +40,4 @@ export const KeyValueForm: React.FC<{ stateProxy: KeyValueSection }> = ({ stateP
       />
     </>
   );
-};
+});
