@@ -1,5 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
-import { StepWrapper } from "./stepWrapper";
+import React, { useEffect, useMemo, useState } from "react"
 import { Button } from "../atoms/button";
 import styles from "./stepper.module.scss";
 
@@ -14,6 +13,23 @@ const ProgressCard: React.FC<{ icon: string, title: string, subtitle: string }> 
     </div>
   </div>)
 };
+
+export const StepWrapper: React.FC<{
+  className?: string;
+  title: string;
+  id: string;
+  children: React.ReactElement | React.ReactElement[];
+}> = ({ className, children, title, id }) => {
+  return (
+    <div
+      id={id}
+      className={`${className} md:shadow-xl bg-white px-3 md:px-5 py-5 pb-8 md:border-solid md:border md:border-gray-200 rounded-none md:rounded-xl`}>
+        <h2 className="text-xl font-semibold my-4 text-slate-800">{title}</h2>
+        {children}
+    </div>
+  );
+};
+
 
 const scrollToStep = (index: number) => {
   const step = document.getElementById(`step-${index}`);
@@ -93,8 +109,7 @@ export const Stepper: React.FC<{
 
       // TODO: Accessibility
       results.push(
-        <form
-          tabindex={0} id={`step-${i}`} onSubmit={(e) => {
+        <form className="focus:outline-0" aria-label={step.title} tabIndex={-1} role="region" id={`step-${i}`} onSubmit={(e) => {
             e.preventDefault();
             // This works only when next field is already present.
             scrollToStep(i + 1);
