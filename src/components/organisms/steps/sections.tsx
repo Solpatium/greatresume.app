@@ -48,6 +48,8 @@ export const StepsForm: React.FC = React.memo(() => {
         <Modal title={t`newSection.modalTitle`} onClose={() => setModalOpened(false)}>
           <SectionPicker
             onSelect={newSection => {
+              // We should show it right away if all sections are filled.
+              newSection.filled = sections[sections.length-1]?.filled;
               sections.push(newSection);
               setModalOpened(false);
             }}
