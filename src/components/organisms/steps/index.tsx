@@ -15,20 +15,24 @@ import { Section } from "../../../models/v1";
 import { LegalClauseForm } from "./legalClause";
 import { Export } from "./export";
 import cn from "classnames";
+import { SectionTitle } from "../../molecules/sectionTitle";
 
 
 const renderSection = (sectionWrapped: Section): React.ReactElement => {
   const { section } = sectionWrapped;
+  let sectionForm: React.ReactElement;
   if (section.type === "experience") {
-    return <Experience stateProxy={section} />;
-  }
-  if (section.type == "simple list") {
-    return <InterestsForm stateProxy={section.content} />
-  }
-  if (section.type == "key value") {
-    return <KeyValueForm stateProxy={section} />;
-  }
-  return <TextForm stateProxy={section} />;
+    sectionForm = <Experience stateProxy={section} />;
+  } else
+    if (section.type == "simple list") {
+      sectionForm = <InterestsForm stateProxy={section.content} />
+    } else
+      if (section.type == "key value") {
+        sectionForm = <KeyValueForm stateProxy={section} />;
+      } else {
+        sectionForm = <TextForm stateProxy={section} />;
+      }
+  return <><SectionTitle sectionProxy={sectionWrapped} />{sectionForm}</>
 }
 
 export const Editor: React.FC<{
@@ -42,8 +46,7 @@ export const Editor: React.FC<{
   useSnapshot(state.resume.sections);
 
   let steps: Step[] = [{
-    title: "Personal info",
-    element: <PersonalInformation />,
+    element: <><SectionTitle title="Personal info" /><PersonalInformation /></>,
     id: "personal-info",
     onNext: () => {
       state.resume.filledPersonalInformation = true;
@@ -51,8 +54,7 @@ export const Editor: React.FC<{
   }];
   if (state.resume.filledPersonalInformation) {
     steps.push({
-      title: t`steps.appearance.title`,
-      element: <Appearance />,
+      element: <><SectionTitle title={t`steps.appearance.title`} /><Appearance /></>,
       id: "appearance",
       onNext: () => {
         state.resume.filledAppearance = true;
@@ -61,8 +63,7 @@ export const Editor: React.FC<{
   }
   if (state.resume.filledAppearance) {
     steps.push({
-      title: t`newSection.title`,
-      element: <StepsForm />,
+      element: <><SectionTitle title={t`newSection.title`} /><StepsForm /></>,
       id: "sections",
       onNext: () => {
         state.resume.filledSections = true;
@@ -73,7 +74,6 @@ export const Editor: React.FC<{
   for (let i = 0; i < state.resume.sections.length && previousSectionFilled; i++) {
     let section = state.resume.sections[i]!;
     steps.push({
-      title: section.title,
       element: renderSection(section),
       id: "section-" + section.id,
       onNext: () => {
@@ -84,8 +84,7 @@ export const Editor: React.FC<{
   }
   if (previousSectionFilled) {
     steps.push({
-      title: t`steps.legalClause.title`,
-      element: <LegalClauseForm stateProxy={state.resume} />,
+      element: <><SectionTitle title={t`steps.legalClause.title`} /><LegalClauseForm stateProxy={state.resume} /></>,
       id: "legal-clause",
       onNext: () => {
         state.resume.filledLegalClause = true;
@@ -94,8 +93,7 @@ export const Editor: React.FC<{
   }
   if (state.resume.filledLegalClause) {
     steps.push({
-      title: t`steps.export.title`,
-      element: <Export />,
+      element: <><SectionTitle title={t`steps.export.title`} /><Export /></>,
       id: "export",
     });
   }
