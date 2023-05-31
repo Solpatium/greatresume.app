@@ -16,7 +16,7 @@ const SectionTitleEdit: React.FC<{ sectionProxy: Section }> = ({ sectionProxy })
             type="text"
             className={cn(
                 textStyle,
-                "block w-full focus:ml-0 -ml-3 pr-18 focus:ring-indigo-500 focus:shadow-sm focus:border-indigo-500 block border-transparent rounded-md"
+                "block w-full focus:ml-0 -ml-3 pr-[36px] focus:ring-indigo-500 focus:shadow-sm focus:border-indigo-500 block border-transparent rounded-md"
             )}
             aria-label={t`newSection.sectionTitle`}
             placeholder={t`newSection.sectionTitle`}
@@ -24,7 +24,7 @@ const SectionTitleEdit: React.FC<{ sectionProxy: Section }> = ({ sectionProxy })
             value={section.title}
         />
         <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
-            <PencilIcon className="h-[20px] w-[20] text-slate-600" aria-hidden="true" />
+            <PencilIcon className="h-[20px] w-[20px] text-slate-600" aria-hidden="true" />
         </div>
     </div>;
 }
