@@ -35,7 +35,7 @@ const ExpandableItem = <Type extends HasId>(props: ExpandableItemProps<Type>) =>
   return (
     <div className="sortable-list flex-1 items-center p-2">
       <dt>
-        <button onClick={() => props.onToggle(props.id)} className="text-left w-full flex justify-between items-center text-gray-900">
+        <button type="button" onClick={() => props.onToggle(props.id)} className="text-left w-full flex justify-between items-center text-gray-900">
           <span className="min-h-[38px] flex items-center font-medium">
             {props.renderPreview(props.stateProxy)}
           </span>
