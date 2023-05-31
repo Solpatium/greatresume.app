@@ -113,9 +113,6 @@ export const makeEmptyResume = ({
     phone: "",
     links: [],
   },
-  sections: [
-    createEmptySection(texts.experienceTitle, "employment"),
-    createEmptySection(texts.educationTitle, "education"),
-  ],
+  sections: [],
   legalClause: texts.legalClause,
 });
