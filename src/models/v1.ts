@@ -67,7 +67,7 @@ export type ResumeModel = Infer<typeof resumeStruct>;
 export const applicationStateStruct = type({
   resume: resumeStruct,
 });
-export type ApplicationState = Infer<typeof applicationStateStruct>;
+export type ApplicationPersistentState = Infer<typeof applicationStateStruct>;
 
 const mapping = {
   education: makeEmptyExperience,

@@ -1,11 +1,25 @@
 import React, { useContext, createContext, useState, useMemo } from "react";
-import { ApplicationState, makeEmptyResume } from "../models/v1";
+import { ApplicationPersistentState, makeEmptyResume } from "../models/v1";
 import useTranslation from "next-translate/useTranslation";
 import { proxy } from "valtio";
-import { ApplicationCache } from "./types";
 import { useAppStateStorage, useThrottledAppPersistance } from "./storage";
 
-const StoreContext = createContext(null as unknown as { state: ApplicationState, cache: ApplicationCache });
+export interface RenderingState {
+  pdfCreationInProgress: boolean;
+  renderingInProgress: boolean;
+}
+
+export interface RenderedPdf {
+  file: Blob | null;
+  download: (() => Promise<void>) | null;
+}
+
+export interface PdfState {
+  renderingState: RenderingState;
+  rendered: RenderedPdf;
+}
+
+const StoreContext = createContext(null as unknown as { state: ApplicationPersistentState, pdfState: PdfState });
 
 export const AppStateProvider: React.FC<{
   children?: React.ReactNode;
@@ -30,20 +44,28 @@ export const AppStateProvider: React.FC<{
     return proxy({ resume });
   });
 
-  // TODO
-  const cache = {};
+  const [pdfState] = useState(() => proxy({
+    renderingState: {
+      pdfCreationInProgress: false,
+      renderingInProgress: false,
+    },
+    rendered: {
+      file: null,
+      download: null,
+    }
+  } as PdfState));
 
   useThrottledAppPersistance(state);
 
   // Stable object reference
-  const value = useMemo(() => ({ state, cache }), [state, cache]);
+  const value = useMemo(() => ({ state, pdfState }), [state, pdfState]);
   return <StoreContext.Provider value={value}>{children}</StoreContext.Provider>;
 };
 
-export const useAppState = (): ApplicationState => {
+export const useAppState = (): ApplicationPersistentState => {
   return useContext(StoreContext).state;
 };
 
-export const useAppCache = (): ApplicationCache => {
-  return useContext(StoreContext).cache;
+export const usePdfState = (): PdfState => {
+  return useContext(StoreContext).pdfState;
 };

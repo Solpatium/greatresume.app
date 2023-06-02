@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import Head from "next/head";
 import { Editor } from "../src/components/organisms/steps";
 import { useIsMounted } from "../src/utils/ssr";
-import { useRenderResume } from "../src/resumes";
+import { useCreatePdf } from "../src/resumes";
 import cn from "classnames";
 import useTranslation from "next-translate/useTranslation";
 import { PdfViewer } from "../src/components/organisms/pdfViewer";
@@ -12,9 +12,9 @@ import { useRouter } from "next/router";
 import { MobilePreviewButton } from "../src/components/organisms/mobilePreviewButton";
 
 const Creator: React.FC = () => {
+  useCreatePdf();
   const { t } = useTranslation("app");
   const router = useRouter();
-  const { resume, download, loading } = useRenderResume();
   const editorRef = useRef<HTMLDivElement>(null);
   const previewRef = useRef<HTMLDivElement>(null);
 
@@ -65,10 +65,7 @@ const Creator: React.FC = () => {
       </Head>
       <div className={"pb-0 w-[100dvw] h-screen h-[100dvh] overflow-x-auto overflow-y-hidden flex snap-x snap-mandatory"}>
         <div ref={editorRef} className={cn(commonClasses, "overflow-y-scroll overflow-x-hidden lg:p-4 lg:rtl lg:static")}>
-          <Editor
-            download={download ?? undefined}
-            className={cn("ltr", "block pb-[120px] lg:p-0")}
-          />
+          <Editor className={cn("ltr", "block pb-[120px] lg:p-0")}/>
         </div>
         <div
           ref={previewRef}
@@ -77,12 +74,7 @@ const Creator: React.FC = () => {
             "overflow-hidden relative lg:top-0",
           )}
         >
-          <PdfViewer
-            resume={resume ?? undefined}
-            newPdfGenerating={loading}
-            download={download}
-            isMobilePreview={isPreviewing}
-          />
+          <PdfViewer/>
         </div>
         <MobilePreviewButton isPreviewing={isPreviewing} togglePreview={togglePreview} />
       </div>

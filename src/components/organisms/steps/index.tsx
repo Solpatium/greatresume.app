@@ -37,8 +37,7 @@ const renderSection = (sectionWrapped: Section): React.ReactElement => {
 
 export const Editor: React.FC<{
   className?: string;
-  download?: () => void;
-}> = ({ className, download }) => {
+}> = ({ className }) => {
   const { t } = useTranslation("app");
   const state = useAppState();
 
@@ -100,7 +99,7 @@ export const Editor: React.FC<{
 
   return (
     <div className={cn(className, "relative flex flex-col gap-5 lg:gap-12")}>
-      <Stepper maxSteps={5 + state.resume.sections.length} steps={steps} download={download} />
+      <Stepper maxSteps={5 + state.resume.sections.length} steps={steps} />
     </div>
   );
 };

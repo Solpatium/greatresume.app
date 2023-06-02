@@ -3,7 +3,7 @@ import { useCallback, useEffect, useMemo } from "react";
 import { useRouter } from "next/router";
 import { useThrottleFn } from "react-use";
 import { subscribe } from "valtio";
-import { ApplicationState, applicationStateStruct, resumeStruct } from "../models/v1";
+import { ApplicationPersistentState, applicationStateStruct, resumeStruct } from "../models/v1";
 import { assert, is } from "superstruct";
 import useTranslation from "next-translate/useTranslation";
 
@@ -58,7 +58,7 @@ export const useImportState = () => {
   const canPurge = useDataPurgePermission();
   const [storageType, setStorageType] = useStorageSelected();
 
-  return useCallback((state: ApplicationState) => {
+  return useCallback((state: ApplicationPersistentState) => {
     if(!canPurge()) {
       return;
     }
@@ -101,7 +101,7 @@ export const useStorageMigration = () => {
 }
 
 export const useAppStateStorage = (): {
-  get: () => ApplicationState | undefined;
+  get: () => ApplicationPersistentState | undefined;
   set: (data: Record<any, any>) => void;
   remove: () => void;
 } => {
@@ -121,7 +121,7 @@ export const useAppStateStorage = (): {
     storage.set(data);
   }, [storage.set]);
 
-  const get = useCallback((): ApplicationState | undefined => {
+  const get = useCallback((): ApplicationPersistentState | undefined => {
     const data = storage.get();
     
     if (!data) {
@@ -142,7 +142,7 @@ export const useAppStateStorage = (): {
 };
 
 const savePeriod = 2000;
-export const useThrottledAppPersistance = (stateProxy: ApplicationState): void => {
+export const useThrottledAppPersistance = (stateProxy: ApplicationPersistentState): void => {
   const storage = useAppStateStorage();
 
   useEffect(() => {

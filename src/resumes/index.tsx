@@ -1,113 +1,122 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { downloadFile } from "../utils/downloadFile";
-import { useAppState } from "../state/store";
-import { subscribe } from "valtio";
+import { PdfState, useAppState, usePdfState } from "../state/store";
+import { ref, subscribe } from "valtio";
 import { arraysEqual } from "../utils/array";
 import useTranslation from "next-translate/useTranslation";
-import { ResumeModel } from "../models/v1";
-import type {WorkerMessage} from "./worker";
+import { ApplicationPersistentState, ResumeModel } from "../models/v1";
+import type { WorkerRequest, WorkerResponse } from "./worker";
 
-const rerender = async (worker: Worker, data: string, translate: (value: string) => string): Promise<Blob> => {
-  const message: WorkerMessage = {resumeJson: data, translations: {
-    contact: translate("contact"),
-    phone: translate("phone"),
-    email: translate("email"),
-  }};
-  worker.postMessage(message)
-  return new Promise((res, rej) => {
-    worker.onmessage = (event: MessageEvent<Blob>) => {
-      res(event.data)
-    }
-    worker.onerror = rej;
-  })
-}
+class CreationController {
+  constructor(private persistentStateProxy: ApplicationPersistentState, private pdfStateProxy: PdfState, private translate: (value: string) => string) {
+    this.resumeProxy = persistentStateProxy.resume;
+  }
 
-export const useRenderResume = (): {
-  resume: Blob | null;
-  download: (() => Promise<void>) | null;
-  loading: boolean
-} => {
-  const { t } = useTranslation("app");
-  const appStateProxy = useAppState();
-  const stateProxy = appStateProxy.resume;
+  start() {
+    this.setupWorker();
+    this.setupSubscription();
+  }
 
-  const workerRef = useRef<Worker>();
+  stop() {
+    this.worker?.terminate();
+    this.unsubscribe?.();
+  }
 
-  const [blob, setBlob] = useState<Blob | null>(null);
-  const [loading, setLoading] = useState(true);
-  const refreshPdf = useCallback((data: ResumeModel) => {
-    if (!workerRef.current) {
+  refresh() {
+    const worker = this.worker;
+    if (!worker) {
       return;
     }
 
-    setLoading(true);
-    rerender(
-      workerRef.current,
-      JSON.stringify(data),
-      t,
-    )
-      .then(setBlob)
-      .catch(console.error)
-      .finally(() => setLoading(false));
-  }, [])
+    this.requestIndex += 1;
 
-  useEffect(() => {
-    workerRef.current = new Worker(new URL('./worker', import.meta.url));
+    const message: WorkerRequest = {
+      requestIndex: this.requestIndex,
+      resumeJson: JSON.stringify(this.resumeProxy),
+      translations: {
+        contact: this.translate("contact"),
+        phone: this.translate("phone"),
+        email: this.translate("email"),
+      }
+    };
 
-    refreshPdf(appStateProxy.resume);
-    return () => {
-      workerRef.current?.terminate()
+    worker.postMessage(message)
+  }
+
+  private setupWorker = () => {
+    this.worker = new Worker(new URL('./worker', import.meta.url));
+    this.worker.onmessage = (event: MessageEvent<WorkerResponse>) => {
+      const { requestIndex, blob } = event.data;
+      if (requestIndex === this.requestIndex) {
+        this.pdfStateProxy.renderingState.pdfCreationInProgress = false;
+        this.pdfStateProxy.rendered.file = ref(blob);
+        this.pdfStateProxy.rendered.download = this.createDownload(blob);
+      }
     }
-  }, [])
+    this.worker.onerror = (err) => {
+      this.pdfStateProxy.renderingState.pdfCreationInProgress = false;
+    };
+  }
 
+  private createDownload = (blob: Blob) => async () => {
+    const { name, surname } = this.resumeProxy.personalInformation;
+    try {
+      const module = await import("../utils/dataEmbeding");
+      const file = await module.addEmbededData(
+        blob, this.persistentStateProxy, this.translate("embededPdfFileDescription")
+      );
+      return downloadFile(
+        file,
+        `${name} ${surname} - ${this.translate("resume")}.pdf`
+      );
+    } catch (message) {
+      return console.error(message);
+    }
+  }
 
-  const [renderQueued, setQueued] = useState(false);
-  const handle = useRef<null | ReturnType<typeof setTimeout>>();
-  const previousAppearance = useRef<any[]>([]);
-  useEffect(() => {
-    // TODO: optimize rendering, it shouldn't go through the creator page component.
-    return subscribe(stateProxy, () => {
+  private setupSubscription = () => {
+    let handle: ReturnType<typeof setTimeout> | undefined;
+    let previousAppearance: string[] = Object.values(this.resumeProxy.appearance);
+    const handler = () => {
+      this.pdfStateProxy.renderingState.pdfCreationInProgress = true;
+      if (handle) {
+        clearTimeout(handle);
+        handle = undefined;
+      }
       // Don't wait at all when appearance is changed
-      const newAppearance = Object.values(stateProxy.appearance);
-      if (!arraysEqual(previousAppearance.current, newAppearance)) {
-        if (handle.current) {
-          clearTimeout(handle.current);
-          handle.current = null;
-        }
-        previousAppearance.current = newAppearance;
-        setQueued(false);
-        refreshPdf(stateProxy);
+      const newAppearance = Object.values(this.resumeProxy.appearance);
+      if (!arraysEqual(previousAppearance, newAppearance)) {
+        previousAppearance = newAppearance;
+        this.refresh();
         return;
       }
 
-      if (handle.current) {
-        clearTimeout(handle.current);
-        handle.current = null;
-      } else {
-        setQueued(true);
-      }
-      handle.current = setTimeout(() => {
-        refreshPdf(stateProxy);
-        setQueued(false);
-        handle.current = null;
+      handle = setTimeout(() => {
+        this.refresh();
       }, 1000);
-    });
-  }, [stateProxy, refreshPdf])
+    };
+    subscribe(this.resumeProxy, handler);
+    handler();
+  }
 
-  return useMemo(
-    () => ({
-      resume: blob,
-      download: (blob === null ? null : (() => {
-        const { name, surname } = stateProxy.personalInformation;
-        return import("../utils/dataEmbeding")
-          .then(module => module.addEmbededData(
-            blob, appStateProxy, t("embededPdfFileDescription")
-          ))
-          .then(file => downloadFile(file, `${name} ${surname} - ${t`resume`}.pdf`))
-          .catch(console.error)
-      })),
-      loading: loading || renderQueued,
-    }),
-    [blob, loading, renderQueued],
-  );
+  private resumeProxy: ResumeModel;
+  private requestIndex: number = 0;
+  private worker?: Worker;
+  private unsubscribe?: () => void;
+}
+
+// Creates pdf in worker running in the background.
+export const useCreatePdf = () => {
+  const { t } = useTranslation("app");
+  const pdfStateProxy = usePdfState();
+  const appStateProxy = useAppState();
+
+  useEffect(() => {
+    const controller = new CreationController(appStateProxy, pdfStateProxy, t);
+    controller.start();
+
+    return () => {
+      controller.stop();
+    }
+  }, [pdfStateProxy, appStateProxy, t]);
 };

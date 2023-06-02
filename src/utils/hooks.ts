@@ -13,7 +13,6 @@ export const useIsVisible = (ref: MutableRefObject<HTMLElement | null | undefine
           previousVisible = newValue;
           onChange(newValue);
         }
-        console.log({ previousVisible, newValue })
       }
     )
     observer.observe(ref.current)

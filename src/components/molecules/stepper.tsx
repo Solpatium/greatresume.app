@@ -1,6 +1,8 @@
 import React, { useEffect, useMemo, useState } from "react"
 import { Button } from "../atoms/button";
 import styles from "./stepper.module.scss";
+import { useSnapshot } from "valtio";
+import { usePdfState } from "../../state/store";
 
 const ProgressCard: React.FC<{ icon: string, title: string, subtitle: string }> = ({ icon, title, subtitle }) => {
   return (<div className="progress-card flex justify-center p-3 my-7">
@@ -23,11 +25,21 @@ export const StepWrapper: React.FC<{
     <div
       id={id}
       className={`${className} md:shadow-xl bg-white px-3 md:px-5 py-5 pb-8 md:border-solid md:border md:border-gray-200 rounded-none md:rounded-xl`}>
-        {children}
+      {children}
     </div>
   );
 };
 
+export const DownloadButton = () => {
+  const download = useSnapshot(usePdfState().rendered).download;
+  if (!download) {
+    return null;
+  }
+
+  return (<Button type="submit" className="text-base font-bold py-5 w-full md:max-w-[50%] bg-indigo-500" onClick={download}>
+    Download your resume
+  </Button>);
+}
 
 const scrollToStep = (index: number) => {
   const step = document.getElementById(`step-${index}`);
@@ -45,8 +57,7 @@ export type Step = {
 export const Stepper: React.FC<{
   steps: Step[];
   maxSteps: number;
-  download?: () => void;
-}> = ({ steps, download, maxSteps }) => {
+}> = ({ steps, maxSteps }) => {
   const containerRef = React.useRef<HTMLDivElement>(null);
   const [initialSize] = useState(steps.length);
   // This effect is called every time steps size is changed. 
@@ -97,20 +108,19 @@ export const Stepper: React.FC<{
           <Button type="submit" className="text-base font-bold py-5 w-full md:max-w-[33%] bg-indigo-800" onClick={step.onNext}>Next step</Button>
         </div>;
       } else if (i == maxSteps - 1) {
-        button = <div className="flex justify-center mt-10 mb-20">
-          <Button type="submit" className="text-base font-bold py-5 w-full md:max-w-[50%] bg-indigo-500" onClick={download}>Download your resume</Button>
-        </div>;
+        button = <DownloadButton />;
       } else {
         button = <button type="submit" className="hidden" />;
       }
 
       // TODO: Accessibility
+      // Fix aria label title
       results.push(
         <form className="focus:outline-0" aria-label={step.title} tabIndex={-1} role="region" id={`step-${i}`} onSubmit={(e) => {
-            e.preventDefault();
-            // This works only when next field is already present.
-            scrollToStep(i + 1);
-          }} >
+          e.preventDefault();
+          // This works only when next field is already present.
+          scrollToStep(i + 1);
+        }} >
           {/*Add animation only to new steps*/}
           <div className={i >= initialSize ? styles.slideIn : ""}>
             {progressCard}

@@ -7,30 +7,33 @@ import { ActionButton, Button } from "../atoms/button";
 import { PlusIcon, MinusIcon, ArrowDownTrayIcon } from "@heroicons/react/24/outline";
 import useTranslation from "next-translate/useTranslation";
 import cn from "classnames";
-
-export interface PdfViewerProps {
-  resume?: Blob;
-  newPdfGenerating: boolean;
-  isMobilePreview: boolean;
-  download: null | (() => Promise<void>);
-}
+import { subscribe, useSnapshot } from "valtio";
+import { PdfState, usePdfState } from "../../state/store";
 
 const workerUrl = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.14.305/pdf.worker.min.js";
 
-
 class Controller {
-  public pdf?: PDFDocumentProxy;
-
   constructor(
+    private pdfStateProxy: PdfState,
     private wrapper: HTMLDivElement,
     private container: HTMLDivElement,
     private onRescale: (scale: number) => void,
   ) { }
 
+  public init(): () => void {
+    return subscribe(this.pdfStateProxy.rendered, () => {
+      if (this.pdfStateProxy.rendered.file) {
+        this.refreshPdf(this.pdfStateProxy.rendered.file);
+      }
+    });
+  }
+
   private visible: boolean = false;
   public setVisible(value: boolean) {
     this.visible = value;
-    this.render();
+    if (this.visible && this.pdfIndex != this.renderedPdfIndex) {
+      this.render();
+    }
   }
 
   private scale?: number | undefined;
@@ -42,19 +45,36 @@ class Controller {
     this.render();
   }
 
-  async updatePdf(resume: Blob) {
+  public handleResize() {
+    if (this.visible) {
+      // Rerender with updated scale.
+      this.render(true);
+    }
+  }
+
+  private async refreshPdf(resume: Blob) {
+    this.pdfStateProxy.renderingState.renderingInProgress = true;
+    // TODO: Does this impact performance?
     const lib = await import("pdfjs-dist");
     lib.GlobalWorkerOptions.workerSrc = workerUrl;
+
+    // TODO: trycatch
+    this.pdfIndex += 1;
+    const timeLabel = `Parsed PDF ${this.pdfIndex}`;
+    console.time(timeLabel);
     const url = URL.createObjectURL(resume);
     const newPdf = await lib.getDocument(url).promise;
-
     URL.revokeObjectURL(url);
+    console.timeEnd(timeLabel);
+
     const oldPdf = this.pdf;
     this.pdf = newPdf;
     if (oldPdf) {
       oldPdf.cleanup(true).catch(console.error);
-      // Just rerender existing
-      this.render();
+      if (this.visible) {
+        // Just rerender existing
+        this.render();
+      }
     } else {
       // First render
       this.render(true);
@@ -62,17 +82,21 @@ class Controller {
   }
 
   private rerenderInProgress?: Promise<void>;
-  async render(updateScale: boolean = false) {
+  public async render(updateScale: boolean = false) {
     const pdf = this.pdf;
     if (!pdf || !this.visible) {
       return;
     }
 
+    // TODO: Last one should win.
     if (this.rerenderInProgress) {
       return this.rerenderInProgress;
     }
 
+    const pdfIndex = this.pdfIndex;
     this.rerenderInProgress = (async () => {
+      const timeLabel = `Rendering PDF #${this.pdfIndex}`;
+      console.time(timeLabel)
       const newCanvases = [...new Array(pdf.numPages)].map(
         () => document.createElement("canvas")
       );
@@ -108,28 +132,30 @@ class Controller {
 
       this.container.replaceChildren(...newCanvases);
       this.rerenderInProgress = undefined;
+      this.pdfStateProxy.renderingState.renderingInProgress = false;
+      this.renderedPdfIndex = pdfIndex;
+      console.timeEnd(timeLabel);
     })();
   }
+
+  private pdfIndex = 0;
+  private renderedPdfIndex = 0;
+  private pdf?: PDFDocumentProxy;
 }
 
-const useController = (
-  wrapperRef: React.MutableRefObject<HTMLDivElement | null>,
-  containerRef: React.MutableRefObject<HTMLDivElement | null>,
-  onRescale: (scale: number) => void,
-): MutableRefObject<Controller> => {
-  // Controller must be attached at all time
-  const controller = useRef<Controller>(undefined as any);
-  useLayoutEffect(() => {
-    const wrapper = wrapperRef.current;
-    const container = containerRef.current;
-    if (!container || !wrapper) {
-      throw Error("Controller not attached.");
-    }
+const DownloadButton: React.FC = () => {
+  const { t } = useTranslation("app");
+  const download = useSnapshot(usePdfState().rendered).download;
+  if (!download) {
+    return null;
+  }
 
-    controller.current = new Controller(wrapper, container, onRescale);
-  }, []);
-
-  return controller;
+  return <ActionButton
+    onClick={download}
+    icon={ArrowDownTrayIcon}
+  >
+    {t`save`}
+  </ActionButton>
 }
 
 const steps = [0.33, 0.5, 0.67, 0.75, 1, 1.1, 1.25, 1.5, 1.75, 2];
@@ -137,8 +163,7 @@ const ZoomControl: React.FC<{
   zoom: number,
   setZoom: (value: number) => void,
   reset: () => void,
-  download: null | (() => Promise<void>),
-}> = ({ zoom, setZoom, reset, download }) => {
+}> = ({ zoom, setZoom, reset }) => {
   const { t } = useTranslation("app");
   let currentIndex = 0;
   for (let [index, step] of steps.entries()) {
@@ -178,41 +203,50 @@ const ZoomControl: React.FC<{
         <Button ghost onClick={reset}>Reset</Button>
         {/* <Button ghost onClick={reset}>Download</Button> */}
       </div>
-      {download && <ActionButton
-        onClick={download}
-        icon={ArrowDownTrayIcon}
-      >
-        {t`save`}
-      </ActionButton>}
+      <DownloadButton />
     </div>
   )
 }
 
-export const PdfViewer: React.FC<PdfViewerProps> = ({ resume, download, newPdfGenerating, isMobilePreview }) => {
+const LoadingIndicator: React.FC = () => {
+  const loading = useSnapshot(usePdfState().renderingState);
+  if (loading.pdfCreationInProgress || loading.renderingInProgress) {
+    return (
+      <div className="absolute inset-x-0 margin-auto text-center top-1/2 text-xl">Loading...</div>
+    );
+  }
+  return null;
+}
+
+export const PdfViewer: React.FC = () => {
   const wrapperRef = useRef<HTMLDivElement | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
   const [zoom, setZoom] = useState(1);
 
-  const controller = useController(wrapperRef, containerRef, setZoom)
-
-  // We want to render resume only when it is visble
-  const documentState = useAsync(async () => {
-    if (resume) {
-      controller.current.updatePdf(resume);
+  const pdfStateProxy = usePdfState();
+  const controller = useRef<Controller>(undefined as any);
+  useLayoutEffect(() => {
+    const wrapper = wrapperRef.current;
+    const container = containerRef.current;
+    if (!container || !wrapper) {
+      throw Error("Controller not attached.");
     }
-  }, [resume, controller]);
 
-  useIsVisible(containerRef, (isVisible) => {
-    controller.current.setVisible(isVisible);
-  });
+    controller.current = new Controller(pdfStateProxy, wrapper, container, setZoom);
+  }, [pdfStateProxy]);
+  // useEffect runs after useLayoutEffect.
+  useEffect(() => {
+    return controller.current.init();
+  }, []);
 
-  useResize(() => controller.current.render(true));
+  // During the first render controller.current is not set.
+  useResize(() => controller.current.handleResize());
+  // We want to render resume only when it is visble
+  useIsVisible(containerRef, (isVisible) => controller.current.setVisible(isVisible));
 
   return (
     <div className="w-full h-full overflow-auto flex flex-col flex-wrap items-center" ref={wrapperRef}>
-      {(documentState.loading || newPdfGenerating) && (
-        <div className="absolute inset-x-0 margin-auto text-center top-1/2 text-xl">Loading...</div>
-      )}
+      <LoadingIndicator />
       <ZoomControl
         zoom={zoom}
         setZoom={(value) => {
@@ -220,7 +254,6 @@ export const PdfViewer: React.FC<PdfViewerProps> = ({ resume, download, newPdfGe
           controller.current.setScale(value);
         }}
         reset={() => controller.current.render(true)}
-        download={download}
       />
       <div className="py-[30px] pdf-container" ref={containerRef}></div>
     </div>

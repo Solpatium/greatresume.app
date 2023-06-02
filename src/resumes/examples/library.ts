@@ -1,6 +1,6 @@
-import { ApplicationState } from "../../models/v1";
+import { ApplicationPersistentState } from "../../models/v1";
 
-export const libraryExample: ApplicationState = {
+export const libraryExample: ApplicationPersistentState = {
     "resume": {
         "version": "1",
         "appearance": {
