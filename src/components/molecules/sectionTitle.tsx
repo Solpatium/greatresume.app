@@ -6,7 +6,7 @@ import useTranslation from "next-translate/useTranslation";
 import { PencilIcon } from "@heroicons/react/20/solid";
 import cn from "classnames";
 
-const textStyle = "text-xl font-semibold my-4 text-slate-800";
+const textStyle = "text-xl font-semibold my-4 text-slate-800 truncate";
 
 const SectionTitleEdit: React.FC<{ sectionProxy: Section }> = ({ sectionProxy }) => {
     const section = useSnapshot(sectionProxy);
