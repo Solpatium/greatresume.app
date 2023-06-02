@@ -21,9 +21,9 @@ const Entry: React.FC<{ state: Section }> = React.memo(({ state }) => {
   const Icon = kindIcons[kind];
   return (
     <>
-      <div className="flex py-4 items-center ml-2 mr-4 gap-4">
+      <div className="flex py-4 items-center ml-2 mr-4 gap-4 overflow-hidden">
         <Icon className="w-8 h-8" />
-        <div className="text-md font-semibold text-slate-700">{state.title}</div>
+        <div className="text-md font-semibold text-slate-700 truncate">{state.title}</div>
         {/* <div className="align-self-end"><Button onClick={() => {
           const section = document.getElementById("section-" + state.id);
           if (!section) {
