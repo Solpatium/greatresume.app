@@ -52,18 +52,21 @@ class Controller {
     }
   }
 
+  private pdfjs: any;
   private async refreshPdf(resume: Blob) {
     this.pdfStateProxy.renderingState.renderingInProgress = true;
-    // TODO: Does this impact performance?
-    const lib = await import("pdfjs-dist");
-    lib.GlobalWorkerOptions.workerSrc = workerUrl;
+
+    this.pdfjs = this.pdfjs || await import("pdfjs-dist");
+    if (!this.pdfjs.GlobalWorkerOptions.workerSrc) {
+      this.pdfjs.GlobalWorkerOptions.workerSrc = workerUrl;
+    }
 
     // TODO: trycatch
     this.pdfIndex += 1;
     const timeLabel = `Parsed PDF ${this.pdfIndex}`;
     console.time(timeLabel);
     const url = URL.createObjectURL(resume);
-    const newPdf = await lib.getDocument(url).promise;
+    const newPdf = await this.pdfjs.getDocument(url).promise;
     URL.revokeObjectURL(url);
     console.timeEnd(timeLabel);
 
