@@ -16,6 +16,7 @@ import { LegalClauseForm } from "./legalClause";
 import { Export } from "./export";
 import cn from "classnames";
 import { SectionTitle } from "../../molecules/sectionTitle";
+import { useRerender } from "../../../utils/hooks";
 
 
 const renderSection = (sectionWrapped: Section): React.ReactElement => {
@@ -34,12 +35,15 @@ const renderSection = (sectionWrapped: Section): React.ReactElement => {
       }
   return <><SectionTitle sectionProxy={sectionWrapped} />{sectionForm}</>
 }
-
+let renderedCount = 0;
 export const Editor: React.FC<{
   className?: string;
 }> = ({ className }) => {
   const { t } = useTranslation("app");
   const state = useAppState();
+  // This is hacky, but it works. 
+  // It is easier than tracking status of flags used to fill steps
+  const rerender = useRerender();
 
   // Subscribe to sections to render them properly below
   useSnapshot(state.resume.sections);
@@ -49,6 +53,7 @@ export const Editor: React.FC<{
     id: "personal-info",
     onNext: () => {
       state.resume.filledPersonalInformation = true;
+      rerender();
     },
   }];
   if (state.resume.filledPersonalInformation) {
@@ -57,6 +62,7 @@ export const Editor: React.FC<{
       id: "appearance",
       onNext: () => {
         state.resume.filledAppearance = true;
+        rerender();
       },
     });
   }
@@ -66,6 +72,7 @@ export const Editor: React.FC<{
       id: "sections",
       onNext: () => {
         state.resume.filledSections = true;
+        rerender();
       },
     });
   }
@@ -77,6 +84,7 @@ export const Editor: React.FC<{
       id: "section-" + section.id,
       onNext: () => {
         section.filled = true;
+        rerender();
       },
     });
     previousSectionFilled = !!section.filled;
@@ -87,6 +95,7 @@ export const Editor: React.FC<{
       id: "legal-clause",
       onNext: () => {
         state.resume.filledLegalClause = true;
+        rerender();
       },
     });
   }
@@ -100,6 +109,7 @@ export const Editor: React.FC<{
   return (
     <div className={cn(className, "relative flex flex-col gap-5 lg:gap-12")}>
       <Stepper maxSteps={5 + state.resume.sections.length} steps={steps} />
+      <h1>{renderedCount++}</h1>
     </div>
   );
 };

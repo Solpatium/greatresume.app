@@ -1,4 +1,4 @@
-import { MutableRefObject, useEffect } from "react";
+import { MutableRefObject, useCallback, useEffect, useState } from "react";
 
 export const useIsVisible = (ref: MutableRefObject<HTMLElement | null | undefined>, onChange: (visible: boolean) => void) => {
   useEffect(() => {
@@ -38,4 +38,11 @@ export const useResize = (action: () => void) => {
     addEventListener("resize", handler);
     return () => removeEventListener("resize", handler);
   }, [])
+}
+
+export const useRerender = (): (() => void) => {
+  const [, setState] = useState<any>();
+  return useCallback(() => {
+    setState({});
+  }, []);
 }
