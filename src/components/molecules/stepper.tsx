@@ -108,7 +108,7 @@ export const Stepper: React.FC<{
           <Button type="submit" className="text-base font-bold py-5 w-full md:max-w-[33%] bg-indigo-800" onClick={step.onNext}>Next step</Button>
         </div>;
       } else if (i == maxSteps - 1) {
-        button = <DownloadButton />;
+        button = <div className="flex justify-center mt-10 mb-20 z-1 relative"><DownloadButton /></div>;
       } else {
         button = <button type="submit" className="hidden" />;
       }
