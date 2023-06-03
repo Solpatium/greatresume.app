@@ -16,7 +16,7 @@ export default function MyApp({ Component, pageProps }) {
       <Head>
         <meta name="robots" content="noindex" />
       </Head>
-      <Script strategy="lazyOnload" src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "f99d1b42c59740eeb28fff361d0a5652"}' />
+      <Script strategy="lazyOnload" src='https://plausible.io/js/script.js' data-domain="greatresume.app" />
       <div className={`${josefin.variable} ${open.variable}`}>
         <Component {...pageProps} />
       </div>
