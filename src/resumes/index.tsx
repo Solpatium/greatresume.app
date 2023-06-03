@@ -6,6 +6,7 @@ import { arraysEqual } from "../utils/array";
 import useTranslation from "next-translate/useTranslation";
 import { ApplicationPersistentState, ResumeModel } from "../models/v1";
 import type { WorkerRequest, WorkerResponse } from "./worker";
+import {countResumeDownload} from "../utils/statistics";
 
 class CreationController {
   constructor(private persistentStateProxy: ApplicationPersistentState, private pdfStateProxy: PdfState, private translate: (value: string) => string) {
@@ -65,6 +66,7 @@ class CreationController {
       const file = await module.addEmbededData(
         blob, this.persistentStateProxy, this.translate("embededPdfFileDescription")
       );
+      countResumeDownload(this.resumeProxy, file.size);
       return downloadFile(
         file,
         `${name} ${surname} - ${this.translate("resume")}.pdf`
