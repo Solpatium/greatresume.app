@@ -41,7 +41,7 @@ const Creator: React.FC = () => {
       </Head>
       <div className={"pb-0 w-[100dvw] h-screen h-[100dvh] overflow-x-auto overflow-y-hidden flex snap-x snap-mandatory"}>
         <div ref={editorRef} className={cn(commonClasses, "overflow-y-scroll overflow-x-hidden lg:p-4 lg:rtl lg:static")}>
-          <Editor className={cn("ltr", "block pb-[120px] lg:p-0")}/>
+          <Editor className={cn("ltr", "block pb-[120px] lg:p-0 lg:max-w-[1000px]")}/>
         </div>
         <div
           ref={previewRef}
