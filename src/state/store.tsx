@@ -14,8 +14,13 @@ export interface RenderedPdf {
   download: (() => Promise<void>) | null;
 }
 
+export interface PreviewState {
+  previewVisible: boolean;
+}
+
 export interface PdfState {
   renderingState: RenderingState;
+  previewState: PreviewState,
   rendered: RenderedPdf;
 }
 
@@ -49,10 +54,13 @@ export const AppStateProvider: React.FC<{
       pdfCreationInProgress: false,
       renderingInProgress: false,
     },
+    previewState: {
+      previewVisible: false,
+    },
     rendered: {
       file: null,
       download: null,
-    }
+    },
   } as PdfState));
 
   useThrottledAppPersistance(state);

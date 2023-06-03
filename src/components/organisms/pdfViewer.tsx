@@ -31,8 +31,9 @@ class Controller {
   private visible: boolean = false;
   public setVisible(value: boolean) {
     this.visible = value;
-    if (this.visible && this.pdfIndex != this.renderedPdfIndex) {
-      this.render();
+    this.pdfStateProxy.previewState.previewVisible = value;
+    if (this.visible && this.pdfIndex != this.renderedPdfIndex && this.pdfStateProxy.rendered.file) {
+      this.refreshPdf(this.pdfStateProxy.rendered.file);
     }
   }
 
@@ -54,33 +55,40 @@ class Controller {
 
   private pdfjs: any;
   private async refreshPdf(resume: Blob) {
-    this.pdfStateProxy.renderingState.renderingInProgress = true;
+    this.pdfIndex += 1;
 
     this.pdfjs = this.pdfjs || await import("pdfjs-dist");
     if (!this.pdfjs.GlobalWorkerOptions.workerSrc) {
       this.pdfjs.GlobalWorkerOptions.workerSrc = workerUrl;
     }
 
-    // TODO: trycatch
-    this.pdfIndex += 1;
+    if (!this.visible) {
+      return;
+    }
+
+    this.pdfStateProxy.renderingState.renderingInProgress = true;
+
     const timeLabel = `Parsed PDF ${this.pdfIndex}`;
     console.time(timeLabel);
-    const url = URL.createObjectURL(resume);
-    const newPdf = await this.pdfjs.getDocument(url).promise;
-    URL.revokeObjectURL(url);
-    console.timeEnd(timeLabel);
+    try {
+      const url = URL.createObjectURL(resume);
+      const newPdf = await this.pdfjs.getDocument(url).promise;
+      URL.revokeObjectURL(url);
 
-    const oldPdf = this.pdf;
-    this.pdf = newPdf;
-    if (oldPdf) {
-      oldPdf.cleanup(true).catch(console.error);
-      if (this.visible) {
-        // Just rerender existing
-        this.render();
+      const oldPdf = this.pdf;
+      this.pdf = newPdf;
+      if (oldPdf) {
+        oldPdf.cleanup(true).catch(console.error);
+        if (this.visible) {
+          // Just rerender existing
+          this.render();
+        }
+      } else {
+        // First render
+        this.render(true);
       }
-    } else {
-      // First render
-      this.render(true);
+    } finally {
+      console.timeEnd(timeLabel);
     }
   }
 
@@ -91,7 +99,6 @@ class Controller {
       return;
     }
 
-    // TODO: Last one should win.
     if (this.rerenderInProgress) {
       return this.rerenderInProgress;
     }
