@@ -52,8 +52,10 @@ export const Editor: React.FC<{
     element: <><SectionTitle title="Personal info" /><PersonalInformation /></>,
     id: "personal-info",
     onNext: () => {
-      state.resume.filledPersonalInformation = true;
-      rerender();
+      if (!state.resume.filledPersonalInformation) {
+        state.resume.filledPersonalInformation = true;
+        rerender();
+      }
     },
   }];
   if (state.resume.filledPersonalInformation) {
@@ -61,8 +63,10 @@ export const Editor: React.FC<{
       element: <><SectionTitle title={t`steps.appearance.title`} /><Appearance /></>,
       id: "appearance",
       onNext: () => {
-        state.resume.filledAppearance = true;
-        rerender();
+        if (!state.resume.filledAppearance) {
+          state.resume.filledAppearance = true;
+          rerender();
+        }
       },
     });
   }
@@ -71,8 +75,10 @@ export const Editor: React.FC<{
       element: <><SectionTitle title={t`newSection.title`} /><StepsForm /></>,
       id: "sections",
       onNext: () => {
-        state.resume.filledSections = true;
-        rerender();
+        if (!state.resume.filledSections) {
+          state.resume.filledSections = true;
+          rerender();
+        }
       },
     });
   }
@@ -83,8 +89,10 @@ export const Editor: React.FC<{
       element: renderSection(section),
       id: "section-" + section.id,
       onNext: () => {
-        section.filled = true;
-        rerender();
+        if (!section.filled) {
+          section.filled = true;
+          rerender();
+        }
       },
     });
     previousSectionFilled = !!section.filled;
@@ -94,8 +102,10 @@ export const Editor: React.FC<{
       element: <><SectionTitle title={t`steps.legalClause.title`} /><LegalClauseForm stateProxy={state.resume} /></>,
       id: "legal-clause",
       onNext: () => {
-        state.resume.filledLegalClause = true;
-        rerender();
+        if (!state.resume.filledLegalClause) {
+          state.resume.filledLegalClause = true;
+          rerender();
+        }
       },
     });
   }
@@ -109,7 +119,6 @@ export const Editor: React.FC<{
   return (
     <div className={cn(className, "relative flex flex-col gap-5 lg:gap-12")}>
       <Stepper maxSteps={5 + state.resume.sections.length} steps={steps} />
-      <h1>{renderedCount++}</h1>
     </div>
   );
 };
