@@ -88,7 +88,7 @@ export const SectionPicker: React.FC<{ onSelect: (value: Section) => void }> = (
     <div className="flex flex-col gap-3">
       <Label name={t`newSection.groups.datedEntries`}>
         <FlatSelect
-          wrapperClassName="grid sm:grid-cols-2 grid-cols-1 gap-2"
+          wrapperClassName="grid grid-cols-2 gap-2"
           options={mainOptions}
           value={sectionKind}
           onChange={setSectionKind}
@@ -96,7 +96,7 @@ export const SectionPicker: React.FC<{ onSelect: (value: Section) => void }> = (
       </Label>
       <Label name={t`newSection.groups.others`}>
         <FlatSelect
-          wrapperClassName="grid sm:grid-cols-2 grid-cols-1 gap-2"
+          wrapperClassName="grid grid-cols-2 gap-2"
           options={otherOptions}
           value={sectionKind}
           onChange={setSectionKind}

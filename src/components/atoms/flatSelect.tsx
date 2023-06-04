@@ -34,14 +34,14 @@ export const FlatSelect = <T,>({
             className={({ active }) =>
               classNames(
                 active ? "ring-1 ring-offset-2 ring-indigo-500" : "",
-                "relative block rounded-lg border border-gray-300 bg-white shadow-sm px-6 py-4 cursor-pointer hover:border-gray-400 sm:flex sm:justify-between focus:outline-none",
+                "relative block rounded-lg border border-gray-300 bg-white shadow-sm p-3 sm:px-6 sm:py-4 cursor-pointer hover:border-gray-400 sm:flex sm:justify-between focus:outline-none",
               )
             }>
             {({ checked }) => (
               <>
-                <div className="flex flex-row items-center">
+                <div className="flex flex-col sm:flex-row sm:items-center gap-2">
                   {option.icon &&
-                    React.createElement(option.icon, { className: "h-8 w-8 mr-2 -ml-2" })}
+                    React.createElement(option.icon, { className: "h-8 w-8" })}
                   <div className="flex items-center">
                     <div className="text-sm">
                       <RadioGroup.Label as="p" className="font-medium text-gray-900">
