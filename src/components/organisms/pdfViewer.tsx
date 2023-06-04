@@ -9,6 +9,8 @@ import useTranslation from "next-translate/useTranslation";
 import cn from "classnames";
 import { subscribe, useSnapshot } from "valtio";
 import { PdfState, usePdfState } from "../../state/store";
+import spinner from "../../../public/images/spinner.svg"
+import Image from "next/image"
 
 const workerUrl = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.14.305/pdf.worker.min.js";
 
@@ -222,7 +224,7 @@ const LoadingIndicator: React.FC = () => {
   const loading = useSnapshot(usePdfState().renderingState);
   if (loading.pdfCreationInProgress || loading.renderingInProgress) {
     return (
-      <div className="absolute inset-x-0 margin-auto text-center top-1/2 text-xl">Loading...</div>
+        <Image className="absolute inset-x-0 inset-y-0 m-auto w-[60%] md:w-[50%] lg:w-[30%]" alt="Loading" src={spinner} />
     );
   }
   return null;
