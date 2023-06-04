@@ -117,7 +117,7 @@ const StorageSettings: React.FC = () => {
           <h1 className="font-regular text-medium col-span-full uppercase font-semibold text-gray-600">
             <span className="text-lg">🗄️ </span> {t("pageTitle")}
           </h1>
-          <h2 className="font-fancy text-4xl col-span-full mb-0">{t`question`}</h2>
+          <h2 className="text-4xl col-span-full mb-0 tracking-wide">{t`question`}</h2>
           {hasResume && <UseSaved />}
           <StartFresh hasResume={hasResume} />
           {/* TODO should be visible right away */}

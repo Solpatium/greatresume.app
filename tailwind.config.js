@@ -4,7 +4,6 @@ module.exports = {
     darkMode: 'media',
     theme: {
         fontFamily: {
-            fancy: ["var(--font-fancy)"],
             regular: ['var(--font-regular)'],
         },
         extend: {
