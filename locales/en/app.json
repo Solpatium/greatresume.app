@@ -18,10 +18,15 @@
   "links": "Links",
   "linkName": "Link name",
   "contact": "Contact",
-  "embededPdfFileDescription": "Structured data for editing resume at xyz.com.", 
+  "embededPdfFileDescription": "Structured data for editing resume at xyz.com.",
+  "listOfTemplates": "Templates",
+  "reset": "Reset",
   "resume": "Resume",
   "ok": "OK",
   "toggleButtonInfo": "Use this button to toggle between editing and previewing your resume. You can also swipe between them!",
+  "addNewEntry": "Add new entry",
+  "nextStep": "Next step",
+  "downloadYourResume": "Download your resume",
   "steps": {
     "appearance": {
       "title": "Appearance",
@@ -30,17 +35,17 @@
     "personalInfo": {
       "title": "Personal info"
     },
-    "employment":  {
+    "employment": {
       "description": "Provide your employment history.",
-      "entryTitle":"Job title",
+      "entryTitle": "Job title",
       "entrySubtitle": "Company"
     },
     "education": {
-      "description":  "Provide your education history.",
-      "entryTitle":"Degree",
+      "description": "Provide your education history.",
+      "entryTitle": "Degree",
       "entrySubtitle": "School"
     },
-    "projects":  {
+    "projects": {
       "description": "Provide some interesting projects you've been involved in.",
       "entryTitle": "Position",
       "entrySubtitle": "Project name"
@@ -50,30 +55,64 @@
       "entryTitle": "Title",
       "entrySubtitle": "Subtitle"
     },
-    "skills":  {
-      "description":  "Add your skills",
+    "skills": {
+      "description": "Add your skills",
       "name": "Skill",
       "value": "Level or confirmation"
     },
     "languages": {
-      "description":  "Add your languages",
+      "description": "Add your languages",
       "name": "Language",
       "value": "Level or confirmation"
     },
-    "interests":  {
-      "description":  "Add entries of your interests.",
+    "interests": {
+      "description": "Add entries of your interests.",
       "interest": "Interest"
     },
     "text": {
-      "description":  "Provide your text below"
+      "description": "Provide your text below"
     },
     "legalClause": {
       "title": "Legal clause",
-      "description":  "In some europen countries you must explicility allow company to process your data during the recruitment process. Skip this if you don't need that."
+      "description": "In some europen countries you must explicility allow company to process your data during the recruitment process. Skip this if you don't need that."
     },
     "export": {
       "title": "Export",
       "description": "All done! Now export your resume or choose a different look to see which one works best."
+    }
+  },
+  "progress": {
+    "start": {
+      "title": "Let's create your resume!",
+      "subtitle": "Complete the forms below to export your resume."
+    },
+    "before-template": {
+      "title": "Choose the design!",
+      "subtitle": "We're sure you'll find a perfect one just for you."
+    },
+    "after-template": {
+      "title": "Great choice!",
+      "subtitle": "Now personalize the list of sections."
+    },
+    "after-sections": {
+      "title": "Sections configured.",
+      "subtitle": "Now edit their contents."
+    },
+    "25%": {
+      "title": "Only {{stepsLeft}} steps left.",
+      "subtitle": "You're doing great!"
+    },
+    "50%": {
+      "title": "You are halfway through!",
+      "subtitle": "The other half is the small one."
+    },
+    "75%": {
+      "title": "You're almost done!",
+      "subtitle": "We're missing just a few details."
+    },
+    "100%": {
+      "title": "You're all set!",
+      "subtitle": "Customize and export your resume below."
     }
   },
   "defaults": {

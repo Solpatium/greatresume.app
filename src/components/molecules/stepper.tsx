@@ -3,6 +3,7 @@ import { Button } from "../atoms/button";
 import styles from "./stepper.module.scss";
 import { useSnapshot } from "valtio";
 import { usePdfState } from "../../state/store";
+import useTranslation from "next-translate/useTranslation";
 
 const ProgressCard: React.FC<{ icon: string, title: string, subtitle: string }> = ({ icon, title, subtitle }) => {
   return (<div className="progress-card flex justify-center p-3 my-7">
@@ -31,13 +32,14 @@ export const StepWrapper: React.FC<{
 };
 
 export const DownloadButton = () => {
+  const {t} = useTranslation("app");
   const download = useSnapshot(usePdfState().rendered).download;
   if (!download) {
     return null;
   }
 
   return (<Button type="submit" className="text-base font-bold py-5 w-full md:max-w-[50%] bg-indigo-500" onClick={download}>
-    Download your resume
+    {t`downloadYourResume`}
   </Button>);
 }
 
@@ -58,6 +60,7 @@ export const Stepper: React.FC<{
   steps: Step[];
   maxSteps: number;
 }> = ({ steps, maxSteps }) => {
+  const { t } = useTranslation("app");
   const containerRef = React.useRef<HTMLDivElement>(null);
   const [initialSize] = useState(steps.length);
   // This effect is called every time steps size is changed. 
@@ -71,41 +74,43 @@ export const Stepper: React.FC<{
 
   const elements = useMemo(() => {
     let results: React.ReactElement[] = [];
-    let encouragmentStack: [number, React.ReactElement][] = [
-      [75, <ProgressCard key="75%" icon="⚡️" title="You're almost done!" subtitle="We're missing just a few details." />],
-      [50, <ProgressCard key="50%" icon="💫" title="You are halfway through!" subtitle="The other half is the small one." />],
-      // TODO: Fill value
-      [25, <ProgressCard key="25%" icon="🔥" title="Only X steps left." subtitle="You're doing great!" />],
+    let encouragmentStack: [number, { icon: string, title: string, subtitle: string }][] = [
+      [75, { icon: "⚡️", title: "progress.75%.title", subtitle: "progress.75%.subtitle" }],
+      [50, { icon: "💫", title: "progress.50%.title", subtitle: "progress.50%.subtitle" }],
+      [25, { icon: "🔥", title: "progress.25%.title", subtitle: "progress.25%.subtitle" }],
     ];
     for (let i = 0; i < steps.length; i++) {
       const step = steps[i]!;
       const progress = 100 * (i + 1) / maxSteps;
       let progressCard = null;
       if (i == 0) {
-        progressCard = <ProgressCard key="start" icon="👋" title="Let's create your resume!" subtitle="Complete the forms below to export your resume." />;
+        progressCard = <ProgressCard key="start" icon="👋" title={t`progress.start.title`} subtitle={t`progress.start.subtitle`} />;
       } else if (i == 1) {
-        progressCard = <ProgressCard key="template-before" icon="🎨" title="Choose the design!" subtitle="We're sure you'll find a perfect one just for you." />;
+        progressCard = <ProgressCard key="before-template" icon="🎨" title={t`progress.before-template.title`} subtitle={t`progress.before-template.subtitle`} />;
       }
       else if (i == 2) {
-        progressCard = <ProgressCard key="template-after" icon="😍" title="Great choice!" subtitle="Now personalize the list of sections." />;
+        progressCard = <ProgressCard key="after-template" icon="😍" title={t`progress.after-template.title`} subtitle={t`progress.after-template.subtitle`} />;
       }
       else if (i == 3) {
-        progressCard = <ProgressCard key="template-after" icon="✅" title="Sections configured." subtitle="Now edit their contents." />;
+        progressCard = <ProgressCard key="after-sections" icon="✅" title={t`progress.after-sections.title`} subtitle={t`progress.after-sections.subtitle`} />;
       }
       else if (i == maxSteps - 1) {
-        progressCard = <ProgressCard key="100%" icon="🎉" title="You're all set!" subtitle="Customize and export your resume below." />;
+        progressCard = <ProgressCard key="100%" icon="🎉" title={t`progress.100%.title`} subtitle={t`progress.100%.subtitle`} />;
       }
       else if (progress < 100 && encouragmentStack[encouragmentStack.length - 1] && encouragmentStack[encouragmentStack.length - 1]![0] <= progress) {
         // Ignore encouragment for smaller progress if a better one is present.
         while (encouragmentStack.length > 0 && encouragmentStack[encouragmentStack.length - 1]![0] <= progress) {
-          progressCard = encouragmentStack.pop()![1];
+          const { icon, title, subtitle } = encouragmentStack.pop()![1];
+          progressCard = <ProgressCard key={title} icon={icon} title={t(title, {stepsLeft: maxSteps-i-1})} subtitle={t(subtitle)} />
         }
       }
 
       let button = null;
       if (i == steps.length - 1 && step.onNext) {
         button = <div className="flex justify-center mt-10 mb-20 z-1 relative">
-          <Button type="submit" className="text-base font-bold py-5 w-full md:max-w-[33%] bg-indigo-800" onClick={step.onNext}>Next step</Button>
+          <Button type="submit" className="text-base font-bold py-5 w-full md:max-w-[33%] bg-indigo-800" onClick={step.onNext}>
+            {t("nextStep")}
+          </Button>
         </div>;
       } else if (i == maxSteps - 1) {
         button = <div className="flex justify-center mt-10 mb-20 z-1 relative"><DownloadButton /></div>;

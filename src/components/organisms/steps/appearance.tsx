@@ -14,36 +14,38 @@ import { templateDetails } from "../../../resumes/templateDetails";
 export const TemplateList: React.FC<{
   template: string;
   setTemplate: (template: string) => void;
-}> = ({ template, setTemplate }) => (
-  <div>
-    {/*TOOD: Accessibility*/}
-    <Label name="Templates" />
-    <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-      {Object.entries(templateDetails).map(([name, { title }]) => {
-        return (
-          <div
-            key={title}
-            className="cursor-pointer relative rounded-xl"
-            onClick={() => setTemplate(name)}>
-            <Image
-              className="bg-gray-100 rounded-xl border-solid border-2 border-b-0 border-gray-100 hover:border-blue-200"
-              src={placeholderCvImage}
-              alt="Template design"
-            />
+}> = ({ template, setTemplate }) => {
+  const {t} = useTranslation("app");
+  return (
+    <div>
+      {/*TOOD: Accessibility*/}
+      <Label name={t`listOfTemplates`} />
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+        {Object.entries(templateDetails).map(([name, { title }]) => {
+          return (
             <div
-              className={classes(
-                "text-base font-regular text-white capitalize absolute bottom-0 px-3 py-2 rounded-b-xl w-full",
-                name === template ? "bg-blue-500" : "bg-blue-400",
-              )}>
-              {name === template && <div className="text-xs">Selected</div>}
-              {title}
+              key={title}
+              className="cursor-pointer relative rounded-xl"
+              onClick={() => setTemplate(name)}>
+              <Image
+                className="bg-gray-100 rounded-xl border-solid border-2 border-b-0 border-gray-100 hover:border-blue-200"
+                src={placeholderCvImage}
+                alt="Template design" />
+              <div
+                className={classes(
+                  "text-base font-regular text-white capitalize absolute bottom-0 px-3 py-2 rounded-b-xl w-full",
+                  name === template ? "bg-blue-500" : "bg-blue-400"
+                )}>
+                {name === template && <div className="text-xs">Selected</div>}
+                {title}
+              </div>
             </div>
-          </div>
-        );
-      })}
+          );
+        })}
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 const pageOptions: FlatSelectOption<PaperSize>[] = [
   { value: "A4", label: "A4", description: "Popular in EU." },

@@ -21,6 +21,7 @@ import {
   useSensors,
 } from "@dnd-kit/core";
 import { HasId } from "../../utils/lists";
+import useTranslation from "next-translate/useTranslation";
 
 export interface SortableListProps<Type> {
   stateProxy: Type[];
@@ -78,6 +79,7 @@ export const SortableList = <Type extends HasId>({
   label,
   buttonText,
 }: SortableListProps<Type>): ReactElement => {
+  const {t} = useTranslation("app");
   const onDragEnd = useCallback(
     ({ active, over }: DragEndEvent) => {
       if (!over || active.id === over.id) {
@@ -115,7 +117,7 @@ export const SortableList = <Type extends HasId>({
       {onAddNew && (
         <div className="flex flex-col items-stretch max-w-[200px]">
           <Button icon={PlusIcon} onClick={onAddNew}>
-            <span className="text-base font-bold">{buttonText ?? "Add new entry"}</span>
+            <span className="text-base font-bold">{buttonText ?? t("addNewEntry")}</span>
           </Button>
         </div>
       )}

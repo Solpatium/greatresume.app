@@ -35,7 +35,7 @@ const renderSection = (sectionWrapped: Section): React.ReactElement => {
       }
   return <><SectionTitle sectionProxy={sectionWrapped} />{sectionForm}</>
 }
-let renderedCount = 0;
+
 export const Editor: React.FC<{
   className?: string;
 }> = ({ className }) => {
@@ -49,7 +49,7 @@ export const Editor: React.FC<{
   useSnapshot(state.resume.sections);
 
   let steps: Step[] = [{
-    element: <><SectionTitle title="Personal info" /><PersonalInformation /></>,
+    element: <><SectionTitle title={t`steps.personalInfo.title`} /><PersonalInformation /></>,
     id: "personal-info",
     onNext: () => {
       if (!state.resume.filledPersonalInformation) {

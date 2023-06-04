@@ -212,8 +212,7 @@ const ZoomControl: React.FC<{
         </Button>
         {/* </div> */}
         <div aria-hidden className="hidden md:block sm:h-[30px] sm:w-[1px] bg-gray-500" />
-        <Button ghost onClick={reset}>Reset</Button>
-        {/* <Button ghost onClick={reset}>Download</Button> */}
+        <Button ghost onClick={reset}>{t`reset`}</Button>
       </div>
       <DownloadButton />
     </div>
