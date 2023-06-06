@@ -52,7 +52,7 @@ const Navbar = () => {
                 <nav className="flex h-9 items-center space-between" aria-label="Global">
                     <div className="flex lg:min-w-0 lg:flex-1" aria-label="Global">
                         <a href="/home" className="-m-1.5 p-1.5">
-                            <span className="sr-only">GreatResume app</span>
+                            <span className="sr-only">{t("home")}</span>
                             <HandThumbUpIcon className="h-8 text-[#4f46e5]" />
                         </a>
                     </div>

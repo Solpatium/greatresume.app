@@ -7,33 +7,34 @@ const faqKeys = [
 ];
 
 const components = {
-    start: <Link href="/start" />,
+    start: <Link className="underline" href="/start" />,
     em: <em className="font-bold" />,
-    githubIssues: <a href="#" />,
-    sourceCode: <a href="#" />,
-    plausible: <a target="_blank" href="https://plausible.io/" />
+    githubIssues: <a className="underline" href="#" />,
+    sourceCode: <a className="underline" href="#" />,
+    plausible: <a className="underline" target="_blank" href="https://plausible.io/" />,
+    contact: <a className="underline" href="#" />,
 }
 
 export const FAQ = () => {
-    const { t } = useTranslation("home");
     return <div id="faq"><QuestionsList
-        titleKey="Frequently asked questions"
-        descriptionKey="Can't find the answer you're looking for? Contact us. There is also a technical FAQ available here."
+        titleKey="faq.title"
+        descriptionKey="faq.description"
         faqKeys={faqKeys.map(entry => `faq.${entry}`)}
     /></div>
 }
 
 const QuestionsList: React.FC<{ titleKey: string; descriptionKey: React.ReactElement | string; faqKeys: string[] }> = (props) => {
+    const { t } = useTranslation("home");
     return (
         <div className="bg-white">
             <div className="mx-auto max-w-7xl px-6 py-24 sm:pt-32 lg:py-40 lg:px-8">
                 <div className="lg:grid lg:grid-cols-12 lg:gap-8">
                     <div className="lg:col-span-5">
                         <h2 className="text-2xl font-bold leading-10 tracking-tight text-gray-900">
-                            {props.titleKey}
+                            {t(props.titleKey)}
                         </h2>
                         <p className="mt-4 text-base leading-7 text-gray-600">
-                            {props.descriptionKey}
+                        <Trans i18nKey={`home:${props.descriptionKey}`} components={components} />
                         </p>
                     </div>
                     <div className="mt-10 lg:col-span-7 lg:mt-0">
