@@ -14,6 +14,7 @@ export default function Home() {
     <>
       <Head>
         <title>{t("title")}</title>
+        <meta name="description" content={t("description")} />
       </Head>
       <HeroSection />
       <Features />

@@ -14,6 +14,7 @@ export default function MyApp({ Component, pageProps }) {
     <>
       <Head>
         <meta name="robots" content="noindex" />
+        <meta name="theme-color" content="#aca8fb" />
       </Head>
       <Script strategy="lazyOnload" src='https://plausible.io/js/script.js' data-domain="greatresume.app" />
       <div className={`${open.variable}`}>
