@@ -1,21 +1,24 @@
 import { HandThumbUpIcon } from '@heroicons/react/24/outline'
+import Trans from 'next-translate/Trans';
+import useTranslation from 'next-translate/useTranslation';
 import Link from 'next/link'
 
 const navigation = [
-    { name: 'About', href: '#about' },
-    { name: 'Examples', href: '#examples' },
-    { name: 'FAQ', href: '#faq' },
-    { name: 'Author', href: '#author' },
+    { translationKey: 'about', href: '#about' },
+    { translationKey: 'examples', href: '#examples' },
+    { translationKey: 'faq', href: '#faq' },
+    { translationKey: 'authors', href: '#authors' },
 ];
 
 
 export const LaunchButton = () => {
+    const { t } = useTranslation("home");
     return (
         <Link
             href="/languages"
             className="inline-block rounded-lg bg-indigo-600 px-5 py-3 text-xl font-semibold leading-7 text-white shadow-sm ring-1 ring-indigo-600 hover:bg-indigo-700 hover:ring-indigo-700"
         >
-            Let's go!{' '}
+            {t("actionLabel")}{' '}
             <span className="text-indigo-200" aria-hidden="true">
                 &rarr;
             </span>
@@ -24,15 +27,16 @@ export const LaunchButton = () => {
 }
 
 const Title = () => {
+    const { t } = useTranslation("home");
     return (<>
         <h1 className="text-4xl font-bold tracking-tight sm:text-center sm:text-6xl">
-            Create a <span className="text-blue-600">Great Resume</span> completely for <span className="text-blue-600">free</span>
+            <Trans i18nKey="home:hero.title" components={{ em: <span className="text-blue-600" /> }} />
         </h1>
         <h2 className="text-3xl font-bold tracking-tight sm:text-center sm:text-5xl text-gray-700">
-            No strings attached.
+            {t("hero.subtitle")}
         </h2>
         <p className="mt-6 text-lg leading-8 text-gray-600 sm:text-center">
-            Use one of 20 professional templates to create a resume and export it to a PDF file. All completly private and free, because people looking for a job shouldn't have to pay a penny to create a good CV.
+            {t("hero.description")}
         </p>
         <div className="mt-8 flex gap-x-4 sm:justify-center">
             <LaunchButton />
@@ -41,6 +45,7 @@ const Title = () => {
 }
 
 const Navbar = () => {
+    const {t} = useTranslation("home");
     return (
         <div className="px-6 pt-6 lg:px-8 max-w-7xl m-auto">
             <div>
@@ -48,13 +53,13 @@ const Navbar = () => {
                     <div className="flex lg:min-w-0 lg:flex-1" aria-label="Global">
                         <a href="/home" className="-m-1.5 p-1.5">
                             <span className="sr-only">GreatResume app</span>
-                            <HandThumbUpIcon className="h-8 text-[#4f46e5]"/>
+                            <HandThumbUpIcon className="h-8 text-[#4f46e5]" />
                         </a>
                     </div>
                     <div className="flex min-w-0 flex-1 justify-end	 gap-x-3 sm:gap-x-6 md:gap-x-12">
                         {navigation.map((item) => (
-                            <a key={item.name} href={item.href} className="font-semibold text-gray-900 hover:text-gray-900">
-                                {item.name}
+                            <a key={item.translationKey} href={item.href} className="font-semibold text-gray-900 hover:text-gray-900">
+                                {t("nav."+item.translationKey)}
                             </a>
                         ))}
                     </div>

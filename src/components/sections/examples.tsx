@@ -3,46 +3,41 @@ import { useRouter } from "next/router"
 import cvImage from "../../../public/images/cv.jpg"
 import { useImportState } from "../../state/storage"
 import { makeClientOnly } from "../atoms/clientOnly"
+import useTranslation from "next-translate/useTranslation"
 
 const products = [
     {
         name: 'Focus Paper Refill',
-        href: '#',
         src: cvImage,
         imageAlt: 'Person using a pen to cross a task off a productivity paper card.',
         getData: () => import("../../resumes/examples/library").then(r => r.libraryExample),
     },
     {
         name: 'Focus Card Holder',
-        href: '#',
         src: cvImage,
         imageAlt: 'Paper card sitting upright in walnut card holder on desk.',
         getData: () => import("../../resumes/examples/library").then(r => r.libraryExample),
     },
     {
         name: 'Focus Carry Case',
-        href: '#',
         src: cvImage,
         imageAlt: 'Textured gray felt pouch for paper cards with snap button flap and elastic pen holder loop.',
         getData: () => import("../../resumes/examples/library").then(r => r.libraryExample),
     },
     {
         name: 'Focus Paper Refill',
-        href: '#',
         src: cvImage,
         imageAlt: 'Person using a pen to cross a task off a productivity paper card.',
         getData: () => import("../../resumes/examples/library").then(r => r.libraryExample),
     },
     {
         name: 'Focus Card Holder',
-        href: '#',
         src: cvImage,
         imageAlt: 'Paper card sitting upright in walnut card holder on desk.',
         getData: () => import("../../resumes/examples/library").then(r => r.libraryExample),
     },
     {
         name: 'Focus Carry Case',
-        href: '#',
         src: cvImage,
         imageAlt: 'Textured gray felt pouch for paper cards with snap button flap and elastic pen holder loop.',
         getData: () => import("../../resumes/examples/library").then(r => r.libraryExample),
@@ -51,6 +46,7 @@ const products = [
 ]
 
 export const Examples = makeClientOnly(() => {
+    const { t } = useTranslation("home");
     const saveData = useImportState();
     const { push } = useRouter();
     return (
@@ -58,10 +54,10 @@ export const Examples = makeClientOnly(() => {
             <div className="mx-auto max-w-2xl py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
                 <div className="mb-10">
                     <h2 className="text-center text-3xl font-bold leading-8 tracking-tight text-gray-900 sm:text-4xl">
-                        Example resumes
+                        {t("examples.title")}
                     </h2>
                     <p className="mx-auto mt-4 max-w-3xl text-center text-xl text-gray-500">
-                        Click on any resume to use it as a template.
+                        {t("examples.subtitle")}
                     </p>
                 </div>
 

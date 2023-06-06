@@ -1,1 +1,86 @@
-{}
+{
+    "title": "Free resume creator",
+    "actionLabel": "Let's go!",
+    "nav": {
+        "about": "About",
+        "examples": "Examples",
+        "faq": "FAQ",
+        "authors": "Authors"
+    },
+    "hero": {
+        "title": "Create a <em>Great Resume</em> completely for <em>free</em>",
+        "subtitle": "No strings attached",
+        "description": "Use one of 6 professional templates to create a resume and export it to a PDF file. All completly private and free, because people looking for a job shouldn't have to pay a penny to create a good CV."
+    },
+    "features": {
+        "title": "No bullshit resume creator",
+        "subtitle": "Great features for free",
+        "customization": {
+            "title": "Make the resume yours",
+            "description": "Select one of 6 templates that reflects your experience the best. Adjust its appearance by rearranging sections, adding a picture or changing paper size."
+        },
+        "noFees": {
+            "title": "No hidden fees",
+            "description": "Application is 100% free and doesn't offer any paid features. Just fill the form and export pdf file containing your resume."
+        },
+        "private": {
+            "title": "Completly private",
+            "description": "Your data doesn't leave your browser. We also don't server any ads."
+        },
+        "languages": {
+            "title": "4 supported languages",
+            "description": "Currently we support English, German, French and Polish."
+        },
+        "devices": {
+            "title": "Works great on any device",
+            "description": "Laptop, tablet, smartphone - just choose any of them and perfect your resume."
+        },
+        "reimport": {
+            "title": "Reimport your pdf",
+            "description": "During export we save resume's structure in pdf itself. This way you can later import your resume in the future to update it."
+        }
+    },
+    "examples": {
+        "title": "Example resumes",
+        "subtitle": "Click on any resume to edit it in the application"
+    },
+    "action": {
+        "title": "Ready to dive in? Create your resume for free."
+    },
+    "faq": {
+        "title": "Frequently asked questions",
+        "description": "Can't find the answer you're looking for? <contact>Contact us</contact>.",
+        "dataProcessing": {
+            "question": "How do you process my data?",
+            "answer": "Your data is only used to generate your resume and it does not leave your browser. Our application doesn't use any server to generate your resume. It uses javascript to generate it in your browser, securely and privately."
+        },
+        "cookieConsent": {
+            "question": "Why is there no cookie consent bar?",
+            "answer": "Because it is not needed. Your data is only used to generate resumes. Generating them happens in your browser, we don't send your information anywhere."
+        },
+        "reimport": {
+            "question": "I've created a resume some time ago, how do I edit it?",
+            "answer": "Go <start>here</start> and select the 'import' option. Please note that <em>this option only works for pdfs generated throught our application</em>."
+        },
+        "bugs": {
+            "question": "How do I report a bug?",
+            "answer": "Github issues are used to track bugs. Please note that all issues are public, <em>make sure you don't include any data you want to keep private</em>! You can create issue on github <githubIssues>here</githubIssues>."
+        },
+        "monetization": {
+            "question": "How do you make money from this?",
+            "answer": "We don't."
+        },
+        "monetizationContinuation": {
+            "question": "What do you mean you don't make money out of this?",
+            "answer": "We just want to make resume creation accessible for everyone. It all started when my mother lost her job and I wanted to find some resume creators. I found a lot of them baiting you with the promise of 'free resume creator', but they allow you to export only to a text file (yes, a regular .txt file), forcing you to pay for the pdf. You learn this only after you fill ALL YOUR DATA. I think this process can be even more infuriating for people who are not tech savvy. Of course you can pay for resume creator, but for some people it is not an option."
+        },
+        "tracking": {
+            "question": "Do you track your users?",
+            "answer": "We only the basic tracking, using privacy-first <plausible>plausible.io</plausible>"
+        },
+        "trust": {
+            "question": "How can I be sure you are not lying?",
+            "answer": "You can see the source code yourself <sourceCode>here</sourceCode>."
+        }
+    }
+}

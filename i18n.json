@@ -3,7 +3,7 @@
   "defaultLocale": "en",
   "pages": {
     "*": ["common"],
-    "/": ["home"],
+    "/home": ["home"],
     "/start": ["start"],
     "/storage-settings": ["storage-settings"],
     "/languages": ["languages"],
