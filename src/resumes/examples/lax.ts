@@ -42,7 +42,7 @@ export const laxExample: ApplicationPersistentState = {
                     "id": "lcvs2focabpsy8dlzd7"
                 },
                 "id": "lcvs2foccn3zw0pa75b",
-                "filled": true
+                "filled": false
             },
             {
                 "title": "Tools",
@@ -68,7 +68,7 @@ export const laxExample: ApplicationPersistentState = {
                     ]
                 },
                 "id": "lin2wa08blgsrn0h8l",
-                "filled": true
+                "filled": false
             },
             {
                 "title": "Languages",
@@ -94,7 +94,7 @@ export const laxExample: ApplicationPersistentState = {
                     ]
                 },
                 "id": "lin3078mevq5xtq20ik",
-                "filled": true
+                "filled": false
             },
             {
                 "title": "Experience",
@@ -115,7 +115,7 @@ export const laxExample: ApplicationPersistentState = {
                     "id": "lindfcusg5sm4kjun38"
                 },
                 "id": "lindfcusnxud3snhzxf",
-                "filled": true
+                "filled": false
             },
             {
                 "title": "Skills",
@@ -141,12 +141,12 @@ export const laxExample: ApplicationPersistentState = {
                     ]
                 },
                 "id": "lindkhuipodhs42ns3r",
-                "filled": true
+                "filled": false
             }
         ],
         "legalClause": "I hereby give consent for my personal data included in the application to be processed for the purposes of the recruitment process in accordance with Art. 6 paragraph 1 letter a of the Regulation of the European Parliament and of the Council (EU) 2016/679 of 27 April 2016 on the protection of natural persons with regard to the processing of personal data and on the free movement of such data, and repealing Directive 95/46/EC (General Data Protection Regulation).",
-        "filledPersonalInformation": true,
-        "filledAppearance": true,
-        "filledSections": true
+        "filledPersonalInformation": false,
+        "filledAppearance": false,
+        "filledSections": false
     }
 }

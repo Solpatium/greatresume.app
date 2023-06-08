@@ -31,7 +31,7 @@ export const seriousExample: ApplicationPersistentState = {
                     "content": "Experienced lawyer with a proven track record of success spanning 40 years. Seeking a challenging position in a reputable law firm where I can apply my extensive legal knowledge, strategic thinking, and client advocacy skills to provide exceptional legal services."
                 },
                 "id": "lcvw0zf0wgxdx3mzkih",
-                "filled": true
+                "filled": false
             },
             {
                 "title": "Employment",
@@ -70,7 +70,7 @@ export const seriousExample: ApplicationPersistentState = {
                     "id": "lin2pg3nl0afc9epn2"
                 },
                 "id": "lin2pg3n56mc5cg70yf",
-                "filled": true
+                "filled": false
             },
             {
                 "title": "Education",
@@ -100,7 +100,7 @@ export const seriousExample: ApplicationPersistentState = {
                     "id": "lcvs2focabpsy8dlzd7"
                 },
                 "id": "lcvs2foccn3zw0pa75b",
-                "filled": true
+                "filled": false
             },
             {
                 "title": "Skills",
@@ -131,7 +131,7 @@ export const seriousExample: ApplicationPersistentState = {
                     ]
                 },
                 "id": "lin2wa08blgsrn0h8l",
-                "filled": true
+                "filled": false
             },
             {
                 "title": "Languages",
@@ -157,7 +157,7 @@ export const seriousExample: ApplicationPersistentState = {
                     ]
                 },
                 "id": "lin3078mevq5xtq20ik",
-                "filled": true
+                "filled": false
             },
             {
                 "title": "References",
@@ -167,12 +167,12 @@ export const seriousExample: ApplicationPersistentState = {
                     "content": "Available upon request."
                 },
                 "id": "lin90bf1a4462rugru8",
-                "filled": true
+                "filled": false
             }
         ],
         "legalClause": "I hereby give consent for my personal data included in the application to be processed for the purposes of the recruitment process in accordance with Art. 6 paragraph 1 letter a of the Regulation of the European Parliament and of the Council (EU) 2016/679 of 27 April 2016 on the protection of natural persons with regard to the processing of personal data and on the free movement of such data, and repealing Directive 95/46/EC (General Data Protection Regulation).",
-        "filledPersonalInformation": true,
-        "filledAppearance": true,
-        "filledSections": true
+        "filledPersonalInformation": false,
+        "filledAppearance": false,
+        "filledSections": false
     }
 }
