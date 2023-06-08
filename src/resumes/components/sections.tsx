@@ -38,7 +38,7 @@ export const RepeatedEntriesSection = <DataType,>(
 ): ReactElement => (
   <TitledSection style={props.style} title={props.title}>
     {props.data.map((entry, i) => (
-      <View style={{ marginBottom: i === props.data.length - 1 ? 0 : props.style?.gap }}>
+      <View key={i} style={{ marginBottom: i === props.data.length - 1 ? 0 : props.style?.gap }}>
         <props.component key={i} data={entry} />
       </View>
     ))}

@@ -175,6 +175,5 @@ export const peachyTemplate: TemplateDetails = {
     fonts: {
         Manrope: ["Regular", "Bold", "ExtraBold", "ExtraLight", "Light", "Medium", "SemiBold"]
     },
-    title: "Peachy",
     styles,
 };

@@ -2,16 +2,15 @@ import { View, Text } from "@react-pdf/renderer";
 import React from "react";
 import { StylesDefinition } from "../stylesheet";
 import { TemplateDetails, ResumeTemplate } from "../types";
-import { AleksandraBase, AlexandraBaseStyle } from "../unstyled/aleksandraBase";
+import { TwoColumnsBase, TwoColumnsBaseStyle } from "../unstyled/twoColumnsBase";
 
 const textColor = "#2B364D";
-const accentColor = "#858585";
 const titleColor = "#2B364D";
 const labelColor = "#778197";
 const sectionTitleColor = "#202529";
 const linkColor = "#3e40cf";
 
-const style: AlexandraBaseStyle = {
+const style: TwoColumnsBaseStyle = {
   markdown: {
     unorderedListGlyph: () => <View style={{ marginRight: 8, fontFamily: "NotoSerif"}}><Text>●</Text></View>
   },
@@ -166,15 +165,14 @@ const styles: StylesDefinition = {
 };
 
 const Template: ResumeTemplate = ({ data, translate }) => (
-  <AleksandraBase data={data} translate={translate} style={style} columnsGap="0" />
+  <TwoColumnsBase data={data} translate={translate} style={style} columnsGap="0" />
 );
 
-export const libraryTemplate: TemplateDetails = {
+export const seriousTemplate: TemplateDetails = {
   component: Template,
   fonts: {
     NotoSerif: ["Regular", "Bold", "Italic", "BoldItalic"],
     CrimsonPro: ["Regular", "Italic", "Bold"],
   },
-  title: "Library",
   styles: styles,
 };

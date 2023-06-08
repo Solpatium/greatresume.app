@@ -171,7 +171,7 @@ const styles: StylesDefinition = {
     }
 }
 
-export const edwardTemplate: TemplateDetails = {
+export const energeticTemplate: TemplateDetails = {
     component: Template,
     fonts: {
         Quicksand: [
@@ -182,6 +182,5 @@ export const edwardTemplate: TemplateDetails = {
             // "Semibold",
         ],
     },
-    title: "Edward",
     styles,
 };

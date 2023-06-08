@@ -58,20 +58,20 @@ export const useImportState = () => {
   const canPurge = useDataPurgePermission();
   const [storageType, setStorageType] = useStorageSelected();
 
-  return useCallback((state: ApplicationPersistentState) => {
+  return useCallback((state: ApplicationPersistentState): boolean => {
     if(!canPurge()) {
-      return;
+      return false;
     }
 
     // Default to session storage
     if(!storageType) {
       sessionStorage.set(state);
       setStorageType("session");
-      return;
     }
 
     const storage = storageType === "local" ? localStorage : sessionStorage;
     storage.set(state);
+    return true;
   }, [canPurge]);
 }
 

@@ -7,8 +7,8 @@ import {
     ArrowUpOnSquareIcon,
 } from '@heroicons/react/24/outline'
 import Image from "next/image";
-import cvImage from "../../../public/images/cv.jpg"
 import useTranslation from 'next-translate/useTranslation';
+import { useTemplateDetails } from '../../resumes/templateDetails';
 
 const features = [
     { feature: 'noFees', icon: FaceSmileIcon },
@@ -21,6 +21,7 @@ const features = [
 
 export const Features = () => {
     const { t } = useTranslation("home");
+    const templateImage = useTemplateDetails().professional.image;
     return (
         <div id="about" className="overflow-hidden bg-white">
             <div className="relative mx-auto max-w-3xl px-6 lg:max-w-7xl lg:px-8">
@@ -54,7 +55,8 @@ export const Features = () => {
                         <Image
                             className="relative mx-auto rounded-lg"
                             // width={490}
-                            src={cvImage}
+                            src={templateImage}
+                            // TODO i18n!
                             alt="Example resume"
                         />
                     </div>

@@ -181,12 +181,11 @@ const styles: StylesDefinition = {
     }
 }
 
-export const jamesTemplate: TemplateDetails = {
+export const simpleTemplate: TemplateDetails = {
     component: Template,
     fonts: {
         NotoSerif: ["Regular", "Bold", "Italic", "BoldItalic"],
         Nunito: ["Regular", "Bold", "Light", "Medium"],
     },
-    title: "James",
     styles,
 };

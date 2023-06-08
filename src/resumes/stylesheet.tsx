@@ -51,8 +51,6 @@ export const makeStylesheet = (styles: StylesDefinition): StyleSheet => {
             cache[classnames] = result;
         }
 
-        console.log({classnames, result})
-
         return result;
     }
 }

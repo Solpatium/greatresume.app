@@ -1,17 +1,17 @@
-import { aleksandraTemplate } from "./aleksandra";
-import { bubblyTemplate } from "./bubbly";
-import { edwardTemplate } from "./edward";
-import { libraryTemplate } from "./library";
+import { professionalTemplate } from "./professional";
+import { laxTemplate } from "./lax";
+import { energeticTemplate } from "./energetic";
+import { seriousTemplate } from "./serious";
 import { peachyTemplate } from "./peachy";
-import { jamesTemplate } from "./james";
+import { simpleTemplate } from "./simple";
 
 export const templates = {
-    aleksandra: aleksandraTemplate,
-    library: libraryTemplate,
-    bubbly: bubblyTemplate,
-    edward: edwardTemplate,
+    professional: professionalTemplate,
+    serious: seriousTemplate,
+    lax: laxTemplate,
+    energetic: energeticTemplate,
     peachy: peachyTemplate,
-    james: jamesTemplate,
+    simple: simpleTemplate,
 };
 
 export type TemplateId = keyof typeof templates;

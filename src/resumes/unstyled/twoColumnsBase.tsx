@@ -13,14 +13,14 @@ import { V } from "../components/view";
 import { StyledPage } from "../components/page";
 
 
-export interface AlexandraBaseStyle {
+export interface TwoColumnsBaseStyle {
   markdown?: MarkdownStyle,
 }
 
-export interface AlexandraBaseProps {
+export interface TwoColumnsBaseProps {
   data: ResumeModel;
   columnsGap: string;
-  style?: AlexandraBaseStyle;
+  style?: TwoColumnsBaseStyle;
   translate: (key: string) => string;
 }
 
@@ -38,7 +38,7 @@ export const TwoColumns: React.FC<{
   );
 };
 
-export const AleksandraBase: React.FC<AlexandraBaseProps> = ({ data, style, columnsGap, translate }) => {
+export const TwoColumnsBase: React.FC<TwoColumnsBaseProps> = ({ data, style, columnsGap, translate }) => {
   const image = data.appearance.image;
 
   const SidebarSectionWrapper: React.FC<{ title: string, children: ReactElement }> = ({ title, children }) => (<TitledSection
@@ -90,7 +90,7 @@ export const AleksandraBase: React.FC<AlexandraBaseProps> = ({ data, style, colu
         left={<View>
           <Introduction data={data} image={image} />
           {contact}
-          {data.sections.map(s => (<SidebarSection data={s} />))}
+          {data.sections.map((s,i) => (<SidebarSection key={i} data={s} />))}
         </View>}
         right={
           <View
@@ -101,7 +101,7 @@ export const AleksandraBase: React.FC<AlexandraBaseProps> = ({ data, style, colu
               flexDirection: "column",
               minHeight: "100%",
             }}>
-            {data.sections.map(s => (<MainSection data={s} />))}
+            {data.sections.map((s,i) => (<MainSection key={i} data={s} />))}
             <T className="legalClause" style={{ marginTop: "auto" }}>{data.legalClause}</T>
           </View>
         }

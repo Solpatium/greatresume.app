@@ -4,24 +4,24 @@ import classes from "classnames";
 import { Label } from "../../atoms/fields/label";
 import { FlatSelect, FlatSelectOption } from "../../atoms/flatSelect";
 import { PaperSize } from "../../../models/v1";
-import placeholderCvImage from "../../../../public/images/cv.jpg";
 import { useAppState } from "../../../state/store";
 import { useSnapshot } from "valtio";
 import { StepDescription } from "../../atoms/stepDescription";
 import useTranslation from "next-translate/useTranslation";
-import { templateDetails } from "../../../resumes/templateDetails";
+import { useTemplateDetails } from "../../../resumes/templateDetails";
 
 export const TemplateList: React.FC<{
   template: string;
   setTemplate: (template: string) => void;
 }> = ({ template, setTemplate }) => {
   const {t} = useTranslation("app");
+  const templates = useTemplateDetails();
   return (
     <div>
       {/*TOOD: Accessibility*/}
       <Label name={t`listOfTemplates`} />
       <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-        {Object.entries(templateDetails).map(([name, { title }]) => {
+        {Object.entries(templates).map(([name, { title, image }]) => {
           return (
             <div
               key={title}
@@ -29,7 +29,7 @@ export const TemplateList: React.FC<{
               onClick={() => setTemplate(name)}>
               <Image
                 className="bg-gray-100 rounded-xl border-solid border-2 border-b-0 border-gray-100 hover:border-blue-200"
-                src={placeholderCvImage}
+                src={image}
                 alt="Template design" />
               <div
                 className={classes(

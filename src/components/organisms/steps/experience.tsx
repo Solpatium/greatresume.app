@@ -68,7 +68,7 @@ const Preview: React.FC<{ stateProxy: Entry }> = ({ stateProxy }) => {
 
   if (state.from || state.to) {
     parts.push(
-      <span className="italic text-base inline-block mr-2">
+      <span key="date" className="italic text-base inline-block mr-2">
         {joinNonEmpty(" - ", state.from, state.to)}
       </span>,
     );
@@ -76,14 +76,14 @@ const Preview: React.FC<{ stateProxy: Entry }> = ({ stateProxy }) => {
 
   if (state.title || state.subtitle) {
     parts.push(
-      <span className="inline-block font-semibold text-base">
+      <span key="title" className="inline-block font-semibold text-base">
         {joinNonEmpty(" : ", state.title, state.subtitle)}
       </span>,
     );
   }
 
   if (!parts.length) {
-    parts.push(<span className="italic text-base">{t`empty`}</span>)
+    parts.push(<span key="empty" className="italic text-base">{t`empty`}</span>)
   }
 
   return <div>{parts}</div>;

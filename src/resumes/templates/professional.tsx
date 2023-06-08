@@ -2,7 +2,7 @@ import { Text, View } from "@react-pdf/renderer";
 import React from "react";
 import { StylesDefinition } from "../stylesheet";
 import { TemplateDetails, ResumeTemplate } from "../types";
-import { AleksandraBase, AlexandraBaseStyle } from "../unstyled/aleksandraBase";
+import { TwoColumnsBase, TwoColumnsBaseStyle } from "../unstyled/twoColumnsBase";
 
 const textColor = "#2B364D";
 const leftBackgroundColor = "#FBFEFF";
@@ -11,7 +11,7 @@ const linkColor = "#0a82a1";
 const lightColor = "#778197";
 
 const Template: ResumeTemplate = ({ data, translate }) => (
-  <AleksandraBase
+  <TwoColumnsBase
     data={data}
     style={{
       markdown: {
@@ -173,7 +173,7 @@ const styles: StylesDefinition = {
   }
 };
 
-export const aleksandraTemplate: TemplateDetails = {
+export const professionalTemplate: TemplateDetails = {
   component: Template,
   fonts: {
     Merriweather: [
@@ -202,6 +202,5 @@ export const aleksandraTemplate: TemplateDetails = {
       "ExtraBoldItalic",
     ],
   },
-  title: "Aleksandra",
   styles: styles,
 };

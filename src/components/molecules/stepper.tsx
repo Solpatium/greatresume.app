@@ -121,7 +121,9 @@ export const Stepper: React.FC<{
       // TODO: Accessibility
       // Fix aria label title
       results.push(
-        <form className="focus:outline-0" aria-label={step.title} tabIndex={-1} role="region" id={`step-${i}`} onSubmit={(e) => {
+        <form 
+        key={step.id}
+        className="focus:outline-0" aria-label={step.title} tabIndex={-1} role="region" id={`step-${i}`} onSubmit={(e) => {
           e.preventDefault();
           // This works only when next field is already present.
           scrollToStep(i + 1);

@@ -61,7 +61,7 @@ export const SingleColumnTemplate: React.FC<SingleColumnTemplateProps> = ({ data
             />
           </V>
         </V>
-        {data.sections.map(s => (<MainSection data={s} />))}
+        {data.sections.map((s,i) => (<MainSection key={i} data={s} />))}
         <T className="legalClause" style={{ marginTop: "auto" }}>{data.legalClause}</T>
       </View>
     </StyledPage>

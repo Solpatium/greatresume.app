@@ -2,7 +2,7 @@ import { Page, View, Text } from "@react-pdf/renderer";
 import React from "react";
 import { StylesDefinition } from "../stylesheet";
 import { TemplateDetails, ResumeTemplate } from "../types";
-import { AleksandraBase, AlexandraBaseStyle } from "../unstyled/aleksandraBase";
+import { TwoColumnsBase, TwoColumnsBaseStyle } from "../unstyled/twoColumnsBase";
 
 const titleColor = "#16057C";
 const textColor = "#3F4A62";
@@ -11,7 +11,7 @@ const bubbleColor = "#eff4f9";
 const labelColor = "#BDC8C5";
 
 // Important! Paddings can leave just the padding on another page.
-const style: AlexandraBaseStyle = {};
+const style: TwoColumnsBaseStyle = {};
 
 const styles: StylesDefinition = {
   ".page": {
@@ -166,10 +166,10 @@ const styles: StylesDefinition = {
 }
 
 const Template: ResumeTemplate = ({ data, translate }) => (
-  <AleksandraBase data={data} translate={translate} columnsGap="20px" style={style} />
+  <TwoColumnsBase data={data} translate={translate} columnsGap="20px" style={style} />
 );
 
-export const bubblyTemplate: TemplateDetails = {
+export const laxTemplate: TemplateDetails = {
   component: Template,
   fonts: {
     Lato: [
@@ -181,6 +181,5 @@ export const bubblyTemplate: TemplateDetails = {
       "Regular",
     ],
   },
-  title: "Bubbly",
   styles: styles,
 };

@@ -7,6 +7,5 @@ export type ResumeTemplate = React.FC<{ data: Readonly<ResumeModel>, translate: 
 export interface TemplateDetails {
   component: ResumeTemplate;
   fonts: FontRequirements;
-  title: string;
   styles: StylesDefinition;
 }

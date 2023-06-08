@@ -20,7 +20,7 @@ interface TProps {
 
 const defaultUnorderedListGlyph = <View style={{ marginRight: 4 }}><Text>-</Text></View>
 
-const renderToken = (token: marked.Token, style: MarkdownStyle): React.ReactElement => {
+const Token: React.FC<{ token: marked.Token, style: MarkdownStyle }> = ({ token, style }) => {
     if (token.type === "text") {
         return <Text>{"tokens" in token && token.tokens ? renderTokens(token.tokens, style) : token.text}</Text>;
     }
@@ -29,8 +29,8 @@ const renderToken = (token: marked.Token, style: MarkdownStyle): React.ReactElem
     if (token.type === "list" && !token.ordered) {
         // Margin right is a workaround for text going out of bounding box :|
         return <V className="ul" style={{ marginRight: 20 }}>
-            {token.items.map(item => (
-                <V className="li" style={{ display: "flex", flexDirection: "row" }}>
+            {token.items.map((item, i) => (
+                <V key={i} className="li" style={{ display: "flex", flexDirection: "row" }}>
                     {style.unorderedListGlyph?.() ?? defaultUnorderedListGlyph}
                     <View>{renderTokens(item.tokens, style)}</View>
                 </V>))
@@ -55,17 +55,14 @@ const renderToken = (token: marked.Token, style: MarkdownStyle): React.ReactElem
 
 const renderTokens = (tokens: marked.Token[], style: MarkdownStyle): React.ReactElement => (
     <View>
-        {tokens.map(token => renderToken(token, style))}
+        {tokens.map((token, i) => <Token key={i} token={token} style={style} />)}
     </View>
 )
 
 
-//TODO CACHE
 // We don't want to render an empty text component`
 export const Markdown: React.FC<TProps> = ({ children, style }) => {
-    console.time("lexer")
     let parsed: marked.TokensList = marked.lexer(children)
-    console.timeEnd("lexer")
 
     return renderTokens(parsed, style ?? {});
 };

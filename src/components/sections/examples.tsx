@@ -1,54 +1,15 @@
 import Image from "next/image"
 import { useRouter } from "next/router"
-import cvImage from "../../../public/images/cv.jpg"
 import { useImportState } from "../../state/storage"
 import { makeClientOnly } from "../atoms/clientOnly"
 import useTranslation from "next-translate/useTranslation"
-
-const products = [
-    {
-        name: 'Focus Paper Refill',
-        src: cvImage,
-        imageAlt: 'Person using a pen to cross a task off a productivity paper card.',
-        getData: () => import("../../resumes/examples/library").then(r => r.libraryExample),
-    },
-    {
-        name: 'Focus Card Holder',
-        src: cvImage,
-        imageAlt: 'Paper card sitting upright in walnut card holder on desk.',
-        getData: () => import("../../resumes/examples/library").then(r => r.libraryExample),
-    },
-    {
-        name: 'Focus Carry Case',
-        src: cvImage,
-        imageAlt: 'Textured gray felt pouch for paper cards with snap button flap and elastic pen holder loop.',
-        getData: () => import("../../resumes/examples/library").then(r => r.libraryExample),
-    },
-    {
-        name: 'Focus Paper Refill',
-        src: cvImage,
-        imageAlt: 'Person using a pen to cross a task off a productivity paper card.',
-        getData: () => import("../../resumes/examples/library").then(r => r.libraryExample),
-    },
-    {
-        name: 'Focus Card Holder',
-        src: cvImage,
-        imageAlt: 'Paper card sitting upright in walnut card holder on desk.',
-        getData: () => import("../../resumes/examples/library").then(r => r.libraryExample),
-    },
-    {
-        name: 'Focus Carry Case',
-        src: cvImage,
-        imageAlt: 'Textured gray felt pouch for paper cards with snap button flap and elastic pen holder loop.',
-        getData: () => import("../../resumes/examples/library").then(r => r.libraryExample),
-    },
-    // More products...
-]
+import { useTemplateDetails } from "../../resumes/templateDetails"
 
 export const Examples = makeClientOnly(() => {
     const { t } = useTranslation("home");
     const saveData = useImportState();
     const { push } = useRouter();
+    const templates = useTemplateDetails();
     return (
         <div id="examples" className="bg-white">
             <div className="mx-auto max-w-2xl py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
@@ -62,26 +23,32 @@ export const Examples = makeClientOnly(() => {
                 </div>
 
                 <div className="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8">
-                    {products.map((product, index) => (
+                    {Object.values(templates).map((details, index) => (
                         <button
                             type="button"
                             key={index}
                             className="group"
                             onClick={
-                                () => product.getData()
+                                () => details.example()
                                     .then(saveData)
-                                    .then(() => push("/languages?skip-start").catch(console.error))
+                                    .then((saved) => {
+                                        if(!saved) {
+                                            return;
+                                        }
+                                        return push("/languages?skip-start").catch(console.error)
+                                    })
                             }
                         >
                             <div className="w-full">
                                 <Image
-                                    src={product.src}
-                                    alt={product.imageAlt}
-                                    className="rounded-lg group-hover:opacity-75"
+                                    src={details.image}
+                                    // TODO i18n!
+                                    // alt={product.imageAlt}
+                                    className="shadow-md group-hover:opacity-75"
                                 />
                             </div>
                             <div className="mt-4 flex items-center justify-between text-base font-medium text-gray-900">
-                                <h3>{product.name}</h3>
+                                <h3>{details.title}</h3>
                             </div>
                         </button>
                     ))}
