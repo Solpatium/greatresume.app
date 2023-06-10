@@ -31,7 +31,7 @@ export const professionalExample: ApplicationPersistentState = {
                     "content": "Experienced Sales Professional with a proven track record of exceeding sales goals. Strong communication and interpersonal skills, with the ability to build and maintain relationships with clients. Proven ability to identify new business opportunities, and effectively negotiate deals to close."
                 },
                 "id": "lcvw0zf0wgxdx3mzkih",
-                "filled": false
+                
             },
             {
                 "title": "Employment",
@@ -61,7 +61,7 @@ export const professionalExample: ApplicationPersistentState = {
                     "id": "lin2pg3nl0afc9epn2"
                 },
                 "id": "lin2pg3n56mc5cg70yf",
-                "filled": false
+                
             },
             {
                 "title": "Certifications",
@@ -91,7 +91,7 @@ export const professionalExample: ApplicationPersistentState = {
                     "id": "lin2xqbgfu9iqtpyrbb"
                 },
                 "id": "lin2xqbgadcygqkk6jn",
-                "filled": false
+                
             },
             {
                 "title": "Education",
@@ -112,7 +112,7 @@ export const professionalExample: ApplicationPersistentState = {
                     "id": "lcvs2focabpsy8dlzd7"
                 },
                 "id": "lcvs2foccn3zw0pa75b",
-                "filled": false
+                
             },
             {
                 "title": "Languages",
@@ -138,7 +138,7 @@ export const professionalExample: ApplicationPersistentState = {
                     ]
                 },
                 "id": "lin3078mevq5xtq20ik",
-                "filled": false
+                
             },
             {
                 "title": "Skills",
@@ -169,12 +169,11 @@ export const professionalExample: ApplicationPersistentState = {
                     ]
                 },
                 "id": "lin2wa08blgsrn0h8l",
-                "filled": false
+                
             }
         ],
         "legalClause": "I hereby give consent for my personal data included in the application to be processed for the purposes of the recruitment process in accordance with Art. 6 paragraph 1 letter a of the Regulation of the European Parliament and of the Council (EU) 2016/679 of 27 April 2016 on the protection of natural persons with regard to the processing of personal data and on the free movement of such data, and repealing Directive 95/46/EC (General Data Protection Regulation).",
-        "filledPersonalInformation": false,
-        "filledAppearance": false,
-        "filledSections": false
-    }
+    },
+    progress: { sectionsFilled: 0 },
+
 }

@@ -46,7 +46,7 @@ export const AppStateProvider: React.FC<{
         legalClause: t("defaults.legal-clause"),
       },
     });
-    return proxy({ resume });
+    return proxy({ resume, progress: {sectionsFilled: 0} });
   });
 
   const [pdfState] = useState(() => proxy({

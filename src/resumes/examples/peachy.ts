@@ -31,7 +31,7 @@ export const peachyExample: ApplicationPersistentState = {
                     "content": "Dedicated and experienced teacher with a passion for fostering a positive learning environment and facilitating student success. Seeking a position where I can apply my expertise, instructional skills, and educational leadership to contribute to the growth of students."
                 },
                 "id": "linefruqhyaf60iexuv",
-                "filled": false
+
             },
             {
                 "title": "Employment",
@@ -70,7 +70,7 @@ export const peachyExample: ApplicationPersistentState = {
                     "id": "line8eingnz4egum04f"
                 },
                 "id": "line8einfr5szhsp7hv",
-                "filled": false
+
             },
             {
                 "title": "Education",
@@ -100,12 +100,11 @@ export const peachyExample: ApplicationPersistentState = {
                     "id": "linebrz734e2873jyt3"
                 },
                 "id": "linebrz7g7pkcbnxetj",
-                "filled": false
+
             }
         ],
         "legalClause": "I hereby give consent for my personal data included in the application to be processed for the purposes of the recruitment process in accordance with Art. 6 paragraph 1 letter a of the Regulation of the European Parliament and of the Council (EU) 2016/679 of 27 April 2016 on the protection of natural persons with regard to the processing of personal data and on the free movement of such data, and repealing Directive 95/46/EC (General Data Protection Regulation).",
-        "filledPersonalInformation": false,
-        "filledAppearance": false,
-        "filledSections": false
-    }
+    },
+    progress: { sectionsFilled: 0 },
+
 }

@@ -1,5 +1,5 @@
 import { Step, Stepper } from "../../molecules/stepper";
-import React from "react";
+import React, { useState } from "react";
 import { PersonalInformation } from "./personalInfo";
 import { Appearance } from "./appearance";
 
@@ -41,79 +41,61 @@ export const Editor: React.FC<{
 }> = ({ className }) => {
   const { t } = useTranslation("app");
   const state = useAppState();
-  // This is hacky, but it works. 
-  // It is easier than tracking status of flags used to fill steps
-  const rerender = useRerender();
+
+  const progress = useSnapshot(state.progress);
+  let sectionsLeft = progress.sectionsFilled;
 
   // Subscribe to sections to render them properly below
   useSnapshot(state.resume.sections);
 
+  const onNext = () => {
+    state.progress.sectionsFilled += 1;
+  }
+
   let steps: Step[] = [{
     element: <><SectionTitle title={t`steps.personalInfo.title`} /><PersonalInformation /></>,
     id: "personal-info",
-    onNext: () => {
-      if (!state.resume.filledPersonalInformation) {
-        state.resume.filledPersonalInformation = true;
-        rerender();
-      }
-    },
+    onNext,
   }];
-  if (state.resume.filledPersonalInformation) {
+  if (sectionsLeft) {
     steps.push({
       element: <><SectionTitle title={t`steps.appearance.title`} /><Appearance /></>,
       id: "appearance",
-      onNext: () => {
-        if (!state.resume.filledAppearance) {
-          state.resume.filledAppearance = true;
-          rerender();
-        }
-      },
+      onNext,
     });
+    sectionsLeft -= 1;
   }
-  if (state.resume.filledAppearance) {
+  if (sectionsLeft) {
     steps.push({
       element: <><SectionTitle title={t`newSection.title`} /><StepsForm /></>,
       id: "sections",
-      onNext: () => {
-        if (!state.resume.filledSections) {
-          state.resume.filledSections = true;
-          rerender();
-        }
-      },
+      onNext,
     });
+    sectionsLeft -= 1;
   }
-  let previousSectionFilled = !!state.resume.filledSections;
-  for (let i = 0; i < state.resume.sections.length && previousSectionFilled; i++) {
+  for (let i = 0; i < state.resume.sections.length && sectionsLeft; i++) {
     let section = state.resume.sections[i]!;
     steps.push({
       element: renderSection(section),
       id: "section-" + section.id,
-      onNext: () => {
-        if (!section.filled) {
-          section.filled = true;
-          rerender();
-        }
-      },
+      onNext,
     });
-    previousSectionFilled = !!section.filled;
+    sectionsLeft -= 1;
   }
-  if (previousSectionFilled) {
+  if (sectionsLeft) {
     steps.push({
       element: <><SectionTitle title={t`steps.legalClause.title`} /><LegalClauseForm stateProxy={state.resume} /></>,
       id: "legal-clause",
-      onNext: () => {
-        if (!state.resume.filledLegalClause) {
-          state.resume.filledLegalClause = true;
-          rerender();
-        }
-      },
+      onNext,
     });
+    sectionsLeft -= 1;
   }
-  if (state.resume.filledLegalClause) {
+  if (sectionsLeft) {
     steps.push({
       element: <><SectionTitle title={t`steps.export.title`} /><Export /></>,
       id: "export",
     });
+    sectionsLeft -= 1;
   }
 
   return (

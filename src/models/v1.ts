@@ -1,4 +1,4 @@
-import { array, boolean, enums, Infer, is, optional, string, type, union } from "superstruct";
+import { array, boolean, enums, Infer, is, number, optional, string, type, union } from "superstruct";
 import { personalInformationStruct } from "./sections/personalInfo";
 import {
   ExperienceKind,
@@ -37,7 +37,6 @@ const sectionStruct = union([
 const sectionEntry = type({
   title: string(),
   id: string(),
-  filled: optional(boolean()),
   section: sectionStruct,
 });
 export type Section = Infer<typeof sectionEntry>;
@@ -52,20 +51,20 @@ export type AppearanceSettings = Infer<typeof appearanceSettings>;
 
 export const resumeStruct = type({
   version: string(),
-  filledPersonalInformation: optional(boolean()),
   personalInformation: personalInformationStruct,
-  filledAppearance: optional(boolean()),
   appearance: appearanceSettings,
-  filledSections: optional(boolean()),
   sections: array(sectionEntry),
-  filledLegalClause: optional(boolean()),
   legalClause: string(),
 });
 export type ResumeModel = Infer<typeof resumeStruct>;
 
+const progressStruct = type({
+  sectionsFilled: number(),
+});
 
 export const applicationStateStruct = type({
   resume: resumeStruct,
+  progress: progressStruct,
 });
 export type ApplicationPersistentState = Infer<typeof applicationStateStruct>;
 
@@ -102,7 +101,7 @@ export const makeEmptyResume = ({
   version: "1",
   appearance: {
     paperSize: is(paperSize, paperSizeStruct) ? paperSize : "A4",
-    template: "aleksandra",
+    template: "professional",
     image: undefined,
   },
   personalInformation: {

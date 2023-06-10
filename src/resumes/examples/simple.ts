@@ -25,7 +25,7 @@ export const simpleExample: ApplicationPersistentState = {
                     "content": "Compassionate and experienced nurse with a proven track record of delivering high-quality patient care. Seeking a challenging position in a reputable healthcare facility where I can utilize my expertise, clinical skills, and strong commitment to patient well-being."
                 },
                 "id": "linefruqhyaf60iexuv",
-                "filled": false
+                
             },
             {
                 "title": "Employment",
@@ -55,7 +55,7 @@ export const simpleExample: ApplicationPersistentState = {
                     "id": "line8eingnz4egum04f"
                 },
                 "id": "line8einfr5szhsp7hv",
-                "filled": false
+                
             },
             {
                 "title": "Education",
@@ -76,7 +76,7 @@ export const simpleExample: ApplicationPersistentState = {
                     "id": "linebrz734e2873jyt3"
                 },
                 "id": "linebrz7g7pkcbnxetj",
-                "filled": false
+                
             },
             {
                 "title": "References",
@@ -86,7 +86,7 @@ export const simpleExample: ApplicationPersistentState = {
                     "content": "Available upon request.\n\n"
                 },
                 "id": "lineosffyqln7qcaerq",
-                "filled": false
+                
             },
             {
                 "title": "Certifications",
@@ -125,12 +125,15 @@ export const simpleExample: ApplicationPersistentState = {
                     "id": "linel7wvjlfcd0sgppl"
                 },
                 "id": "linel7wvvhugpxdimzk",
-                "filled": false
+                
             }
         ],
         "legalClause": "I hereby give consent for my personal data included in the application to be processed for the purposes of the recruitment process in accordance with Art. 6 paragraph 1 letter a of the Regulation of the European Parliament and of the Council (EU) 2016/679 of 27 April 2016 on the protection of natural persons with regard to the processing of personal data and on the free movement of such data, and repealing Directive 95/46/EC (General Data Protection Regulation).",
-        "filledPersonalInformation": false,
-        "filledAppearance": false,
-        "filledSections": false
-    }
+        "filledPersonalInformation": {},
+        "filledAppearance": {},
+        "filledSections": {},
+        "filledLegalClause": {},
+    },
+    progress: { sectionsFilled: 0 },
+
 }
