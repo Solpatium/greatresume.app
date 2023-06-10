@@ -63,13 +63,17 @@ export const Stepper: React.FC<{
   const { t } = useTranslation("app");
   const containerRef = React.useRef<HTMLDivElement>(null);
   const [initialSize] = useState(steps.length);
+  const [previousLength] = useState({value: steps.length});
   // This effect is called every time steps size is changed. 
   useEffect(() => {
     // We don't want to run it at the beginning.
     if (initialSize == steps.length || containerRef.current == null) {
       return;
     }
-    scrollToStep(steps.length - 1);
+    if (previousLength.value < steps.length) {
+      scrollToStep(steps.length - 1);
+      previousLength.value = steps.length;
+    }
   }, [initialSize, steps.length]);
 
   const elements = useMemo(() => {
