@@ -100,7 +100,6 @@ const styles: StylesDefinition = {
     },
 
     ".keyValueEntry": {
-        width: "60%",
         flexDirection: "row",
         justifyContent: "space-between",
         alignItems: "flex-start",
@@ -130,6 +129,7 @@ const styles: StylesDefinition = {
     ".experienceEntryTitle": {
         fontSize: 12,
         fontWeight: 600,
+        width: "100%",
     },
     ".experienceEntrySubtitle": {
         fontSize: 12,
@@ -154,6 +154,8 @@ const styles: StylesDefinition = {
         flexDirection: "row",
         flexShrink: 0,
         fontSize: "12px",
+        width: 280,
+        justifyContent: "flex-end",
     },
     ".dateSeparatorWrapper": {
         marginLeft: 4,

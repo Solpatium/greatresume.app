@@ -7,10 +7,14 @@ import { V } from "./view";
 
 
 export const StyledPage: React.FC<{
+    background?: React.ReactElement;
     children: React.ReactElement | React.ReactElement[],
     size: "A4" | "LETTER"
-}> = ({ children, size }) => {
+}> = ({ children, background, size }) => {
     const stylesheet = useContext(styleContext);
 
-    return <Page style={stylesheet("page")} size={size}><V className="pageInside">{children}</V></Page>;
+    return <Page style={stylesheet("page")} size={size}>
+        {background ?? null}
+        <V className="pageInside">{children}</V>
+    </Page>;
 }

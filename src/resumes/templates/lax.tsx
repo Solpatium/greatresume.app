@@ -9,6 +9,18 @@ const textColor = "#3F4A62";
 const accentColor = "#09A979";
 const bubbleColor = "#eff4f9";
 const labelColor = "#BDC8C5";
+const pagePadding = 12;
+
+const background = <View fixed style={{
+  position: "absolute",
+  width: "100%",
+  height: "100%",
+  marginLeft: pagePadding,
+  marginTop: pagePadding,
+  zIndex: -1,
+  backgroundColor: "#fff",
+  borderRadius: 16,
+}}/>
 
 // Important! Paddings can leave just the padding on another page.
 const style: TwoColumnsBaseStyle = {};
@@ -19,12 +31,10 @@ const styles: StylesDefinition = {
     color: textColor,
     fontSize: 12,
     fontFamily: "Lato",
-    padding: 12,
+    padding: pagePadding,
   },
   ".pageInside": {
-    backgroundColor: "#FFFFFF",
-    borderRadius: 16,
-    padding: 12,
+    padding: pagePadding,
   },
   ".leftPane": {
     width: "35%",
@@ -70,7 +80,7 @@ const styles: StylesDefinition = {
     fontSize: 18,
     fontWeight: 700,
     marginBottom: 12,
-    color: accentColor
+    color: accentColor,
   },
 
   ".sidebarSection": {
@@ -95,9 +105,9 @@ const styles: StylesDefinition = {
     marginBottom: "4px",
   },
   ".experienceEntryTitle": {
+    width: "100%",
     fontWeight: 700,
     fontSize: 13,
-    maxWidth: 220,
     color: textColor,
     marginBottom: 4,
   },
@@ -121,10 +131,10 @@ const styles: StylesDefinition = {
     display: "flex",
     flexDirection: "row",
     flexShrink: 0,
-    fontSize: "12px",
-    // To push it lower
-    paddingTop: "2px",
+    fontSize: 12,
     color: labelColor,
+    width: 250,
+    justifyContent: "flex-end",
   },
 
   ".keyValueEntry": { fontSize: 12, marginBottom: 8 },
@@ -166,7 +176,7 @@ const styles: StylesDefinition = {
 }
 
 const Template: ResumeTemplate = ({ data, translate }) => (
-  <TwoColumnsBase data={data} translate={translate} columnsGap="20px" style={style} />
+  <TwoColumnsBase background={background} data={data} translate={translate} columnsGap="20px" style={style} />
 );
 
 export const laxTemplate: TemplateDetails = {

@@ -24,11 +24,11 @@ const styles: StylesDefinition = {
     padding: 24,
   },
   ".leftPane": {
-    width: "40%",
+    width: "32%",
     paddingRight: 24,
   },
   ".rightPane": {
-    width: "60%",
+    width: "68%",
     paddingLeft: 24,
   },
 
@@ -97,9 +97,9 @@ const styles: StylesDefinition = {
     marginBottom: 4,
   },
   ".experienceEntryTitle": {
+    width: "100%",
     fontWeight: 700,
     fontSize: 13,
-    maxWidth: 220,
     color: titleColor,
   },
   ".experienceEntrySubtitle": {
@@ -118,11 +118,12 @@ const styles: StylesDefinition = {
   },
   ".experienceEntryDateWrapper": {
     color: labelColor,
+    justifyContent: "flex-end",
     display: "flex",
     flexDirection: "row",
     flexShrink: 0,
     fontSize: 11,
-    // To push it lower
+    width: 200,
     paddingTop: 2,
   },
 

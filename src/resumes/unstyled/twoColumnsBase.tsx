@@ -87,8 +87,7 @@ export const TwoColumnsBase: React.FC<TwoColumnsBaseProps> = ({
   </SidebarSectionWrapper>)
 
   return (
-    <StyledPage size={data.appearance.paperSize}>
-      {background ?? null}
+    <StyledPage background={background} size={data.appearance.paperSize}>
       <TwoColumns
         gap={columnsGap}
         left={<View>
