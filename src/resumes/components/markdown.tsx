@@ -22,7 +22,7 @@ const defaultUnorderedListGlyph = <View style={{ marginRight: 4 }}><Text>-</Text
 
 const Token: React.FC<{ token: marked.Token, style: MarkdownStyle }> = ({ token, style }) => {
     if (token.type === "text") {
-        return <Text>{"tokens" in token && token.tokens ? renderTokens(token.tokens, style) : token.text}</Text>;
+        return <Text>{"tokens" in token && token.tokens ? renderTokens(token.tokens, style) : token.raw}</Text>;
     }
 
     // We only support unordered list
