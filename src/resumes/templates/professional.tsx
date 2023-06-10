@@ -122,8 +122,19 @@ const styles: StylesDefinition = {
   },
   ".experienceEntryTitle": {
     fontSize: 12,
-    maxWidth: "300px",
+    width: "100%",
+    flexBasis: "auto",
     fontWeight: 600,
+  },
+  ".experienceEntryDateWrapper": {
+    display: "flex",
+    paddingLeft: 5,
+    width: 250,
+    justifyContent: "flex-end",
+    flexDirection: "row",
+    flexShrink: 0,
+    fontSize: 12,
+    color: lightColor,
   },
   ".experienceEntrySubtitle": {
     fontSize: 12,
@@ -139,15 +150,6 @@ const styles: StylesDefinition = {
   ".dateSeparatorWrapper": {
     marginLeft: 4,
     marginRight: 4,
-  },
-  ".experienceEntryDateWrapper": {
-    display: "flex",
-    flexDirection: "row",
-    flexShrink: 0,
-    fontSize: 12,
-    color: lightColor,
-    // To push it lower
-    paddingTop: 2,
   },
 
   ".keyValueEntry": { marginBottom: 8 },

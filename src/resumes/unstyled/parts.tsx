@@ -31,7 +31,7 @@ export const ExperienceEntry: React.FC<{ data: ExperienceList[0], className: str
     <TitledSection className={cn(className, "experienceEntry")} title={
         <>
             <V className="experienceEntryTitleWrapper">
-                <T className="experienceEntryTitle">{data.title}</T>
+                <V className="experienceEntryTitle"><T>{data.title}</T></V>
                 <Date name="experienceEntryDate" from={data.from} to={data.to} />
             </V>
             <T className="experienceEntrySubtitle" url={data.url}>{data.subtitle}</T>
