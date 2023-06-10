@@ -2,13 +2,28 @@ import { Text, View } from "@react-pdf/renderer";
 import React from "react";
 import { StylesDefinition } from "../stylesheet";
 import { TemplateDetails, ResumeTemplate } from "../types";
-import { TwoColumnsBase, TwoColumnsBaseStyle } from "../unstyled/twoColumnsBase";
+import { TwoColumnsBase } from "../unstyled/twoColumnsBase";
 
 const textColor = "#2B364D";
 const leftBackgroundColor = "#FBFEFF";
 const titleColor = "#056C8C";
 const linkColor = "#0a82a1";
 const lightColor = "#778197";
+
+const pagePadding = 24;
+const leftPaneWidth = "38vw";
+
+const background = <View fixed style={{
+  marginLeft: -pagePadding,
+  marginTop: -pagePadding,
+  marginBottom: -pagePadding,
+  position: "absolute",
+  width: leftPaneWidth,
+  padding: pagePadding,
+  height: "100vh",
+  zIndex: -1,
+  backgroundColor: leftBackgroundColor
+}}/>
 
 const Template: ResumeTemplate = ({ data, translate }) => (
   <TwoColumnsBase
@@ -19,23 +34,24 @@ const Template: ResumeTemplate = ({ data, translate }) => (
       }
     }}
     translate={translate}
+    background={background}
     columnsGap="0" />
 );
 
 const styles: StylesDefinition = {
   ".page": {
+    padding: pagePadding,
     color: textColor,
     fontSize: "14px",
     fontFamily: "Karla",
     backgroundColor: "#F2F9FB",
   },
   ".leftPane": {
-    padding: 24,
-    width: "38%",
-    backgroundColor: leftBackgroundColor,
+    paddingRight: pagePadding,
+    width: leftPaneWidth,
   },
   ".rightPane": {
-    padding: "20px",
+    paddingLeft: pagePadding,
     width: "70%",
   },
 

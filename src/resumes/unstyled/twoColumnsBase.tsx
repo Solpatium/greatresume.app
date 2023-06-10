@@ -19,6 +19,7 @@ export interface TwoColumnsBaseStyle {
 
 export interface TwoColumnsBaseProps {
   data: ResumeModel;
+  background?: React.ReactElement;
   columnsGap: string;
   style?: TwoColumnsBaseStyle;
   translate: (key: string) => string;
@@ -38,7 +39,9 @@ export const TwoColumns: React.FC<{
   );
 };
 
-export const TwoColumnsBase: React.FC<TwoColumnsBaseProps> = ({ data, style, columnsGap, translate }) => {
+export const TwoColumnsBase: React.FC<TwoColumnsBaseProps> = ({ 
+  data, style, columnsGap, translate, background,
+}) => {
   const image = data.appearance.image;
 
   const SidebarSectionWrapper: React.FC<{ title: string, children: ReactElement }> = ({ title, children }) => (<TitledSection
@@ -85,6 +88,7 @@ export const TwoColumnsBase: React.FC<TwoColumnsBaseProps> = ({ data, style, col
 
   return (
     <StyledPage size={data.appearance.paperSize}>
+      {background ?? null}
       <TwoColumns
         gap={columnsGap}
         left={<View>
