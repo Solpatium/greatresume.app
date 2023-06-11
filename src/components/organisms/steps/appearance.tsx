@@ -21,7 +21,7 @@ export const TemplateList: React.FC<{
     <RadioGroup value={template} onChange={setTemplate}>
       <RadioGroup.Label className={labelTextStyle}>{t`listOfTemplates`}</RadioGroup.Label>
       <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-        {Object.entries(templates).map(([name, { title, image }]) => {
+        {Object.entries(templates).map(([name, { title, image, description }]) => {
           return (
             <RadioGroup.Option
               value={name}
@@ -37,10 +37,12 @@ export const TemplateList: React.FC<{
                 className={classes(
                   "text-base font-regular text-white capitalize absolute bottom-0 px-3 py-2 rounded-b-xl w-full",
                   name === template ? "bg-blue-500" : "bg-blue-400"
-                )}>
+                )}
+                >
                 {name === template && <div aria-hidden className="text-xs">{t("selected")}</div>}
                 {title}
               </div>
+              <p className="sr-only">{description}</p>
             </RadioGroup.Option>
           );
         })}
@@ -63,7 +65,7 @@ export const Appearance: React.FC = React.memo(() => {
       <div className="mb-4">
         <FlatSelect
           label={t("pageSize")}
-          wrapperClassName="grid lg:grid-cols-2 grid-cols-1 gap-2"
+          wrapperClassName="grid grid-cols-2 gap-2"
           options={options}
           value={paperSize}
           onChange={v => (settings.paperSize = v)}
