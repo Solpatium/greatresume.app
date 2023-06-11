@@ -4,23 +4,23 @@ import { StylesDefinition } from "../stylesheet";
 import { TemplateDetails, ResumeTemplate } from "../types";
 import { TwoColumnsBase, TwoColumnsBaseStyle } from "../unstyled/twoColumnsBase";
 
-const titleColor = "#16057C";
 const textColor = "#3F4A62";
 const accentColor = "#09A979";
-const bubbleColor = "#eff4f9";
 const labelColor = "#BDC8C5";
-const pagePadding = 12;
+const basicPadding = 12;
 
 const background = <View fixed style={{
   position: "absolute",
+  width: "100vw",
+  height: "100vh",
+  padding: basicPadding,
+  zIndex: -1,
+}}><View style={{
   width: "100%",
   height: "100%",
-  marginLeft: pagePadding,
-  marginTop: pagePadding,
-  zIndex: -1,
   backgroundColor: "#fff",
   borderRadius: 16,
-}}/>
+}}></View></View>
 
 // Important! Paddings can leave just the padding on another page.
 const style: TwoColumnsBaseStyle = {};
@@ -31,10 +31,9 @@ const styles: StylesDefinition = {
     color: textColor,
     fontSize: 12,
     fontFamily: "Lato",
-    padding: pagePadding,
+    padding: basicPadding * 2,
   },
   ".pageInside": {
-    padding: pagePadding,
   },
   ".leftPane": {
     width: "35%",
