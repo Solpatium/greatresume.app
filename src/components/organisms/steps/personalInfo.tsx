@@ -16,12 +16,14 @@ export const LinkEdit: React.FC<{ stateProxy: Entry }> = ({ stateProxy }) => {
     <Input
       className="w-full"
       label={t`linkName`}
+      name="link-name[]"
       onChange={(value) => (stateProxy.name = value)}
       value={state.name}
     />
     <Input
       className="w-full"
       label={t`url`}
+      name="link-value[]"
       onChange={(value) => (stateProxy.value = value)}
       value={state.value}
     />
@@ -45,18 +47,23 @@ export const PersonalInformation: React.FC = React.memo(() => {
       <div className="grid md:grid-cols-6 gap-4">
         <Input
           label={t`name`}
+          name="name"
+          autocomplete="given-name"
           className="md:col-span-2"
           onChange={v => (stateProxy.name = v)}
           value={state["name"]}
         />
         <Input
           label={t`surname`}
+          name="surname"
+          autocomplete="family-name"
           className="md:col-span-2"
           onChange={v => (stateProxy.surname = v)}
           value={state["surname"]}
         />
         <Input
           label={t`jobTitle`}
+          name="job-title"
           className="md:col-span-4"
           onChange={v => (stateProxy.jobTitle = v)}
           value={state["jobTitle"]}
@@ -71,12 +78,18 @@ export const PersonalInformation: React.FC = React.memo(() => {
         </div>
         <Input
           label={t`phone`}
+          name="phone"
+          type="tel"
+          autocomplete="tel"
           className="md:col-span-3"
           onChange={v => (stateProxy.phone = v)}
           value={state["phone"]}
         />
         <Input
           label={t`email`}
+          name="email"
+          type="email"
+          autocomplete="email"
           className="md:col-span-3"
           onChange={v => (stateProxy.email = v)}
           value={state["email"]}

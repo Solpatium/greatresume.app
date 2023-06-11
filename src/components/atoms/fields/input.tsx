@@ -9,12 +9,17 @@ export const Input: React.FC<{
   disabled?: boolean;
   className?: string;
   info?: string;
-}> = ({ className, label, value, onChange, placeholder, disabled, info }) => {
+  name?: string;
+  type?: string;
+  autocomplete?: string;
+}> = ({ className, label, value, onChange, placeholder, disabled, info, name, type, autocomplete }) => {
   const changeHandler = useCallback(e => onChange?.(e.target.value), [onChange]);
   return (
     <Label className={className} name={label}>
       <input
-        type="text"
+        name={name}
+        type={type ?? "text"}
+        autoComplete={autocomplete}
         disabled={disabled}
         defaultValue={value}
         onChange={changeHandler}
