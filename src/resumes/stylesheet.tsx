@@ -5,6 +5,13 @@ export type StylesDefinition = Record<string, Style>;
 export type StyleSheet = (classnames?: string, baseStyle?: Style) => Style;
 
 
+const isEmpty = (value: Record<any, any>) => {
+    for (var _ in value) {
+        return false;
+    }
+    return true;
+}
+
 export const makeStylesheet = (styles: StylesDefinition): StyleSheet => {
     const parsedStyles: [string[], Style][] = [];
     for (const [selector, style] of Object.entries(styles)) {
@@ -20,7 +27,7 @@ export const makeStylesheet = (styles: StylesDefinition): StyleSheet => {
         if(classnames === undefined) {
             return baseStyle ?? {};
         }
-        if (!baseStyle && cache[classnames] !== undefined) {
+        if ((!baseStyle || isEmpty(baseStyle)) && classnames in cache) {
             return cache[classnames] as any;
         }
         classnames = classnames ?? "";
