@@ -14,9 +14,6 @@ const pagePadding = 24;
 const leftPaneWidth = "38vw";
 
 const background = <View fixed style={{
-  marginLeft: -pagePadding,
-  marginTop: -pagePadding,
-  marginBottom: -pagePadding,
   position: "absolute",
   width: leftPaneWidth,
   padding: pagePadding,
