@@ -53,6 +53,7 @@ const scrollToStep = (index: number) => {
 
 export type Step = {
   id: string;
+  title: string;
   element: React.ReactElement;
   onNext?: () => void;
 };

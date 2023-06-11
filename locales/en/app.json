@@ -27,6 +27,14 @@
   "addNewEntry": "Add new entry",
   "nextStep": "Next step",
   "downloadYourResume": "Download your resume",
+  "pageSize": "Page size",
+  "selected": "Selected",
+  "paper": {
+    "a4": "A4",
+    "a4Description": "Popular in EU.",
+    "letter": "Letter",
+    "letterDescription": "Popular in US."
+  },
   "steps": {
     "appearance": {
       "title": "Appearance",
@@ -70,7 +78,7 @@
       "interest": "Interest"
     },
     "text": {
-      "description": "Provide your text below"
+      "description": "Provide your text below."
     },
     "legalClause": {
       "title": "Legal clause",

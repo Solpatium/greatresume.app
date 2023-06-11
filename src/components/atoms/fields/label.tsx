@@ -1,6 +1,8 @@
 import React from "react";
 import cn from "classnames";
 
+export const labelTextStyle = "text-sm font-medium text-gray-700 mb-1";
+
 export const Label: React.FC<{
   name?: string;
   className?: string;

@@ -1,7 +1,7 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useMemo } from "react";
 import Image from "next/image";
 import classes from "classnames";
-import { Label } from "../../atoms/fields/label";
+import { Label, labelTextStyle } from "../../atoms/fields/label";
 import { FlatSelect, FlatSelectOption } from "../../atoms/flatSelect";
 import { PaperSize } from "../../../models/v1";
 import { useAppState } from "../../../state/store";
@@ -9,62 +9,62 @@ import { useSnapshot } from "valtio";
 import { StepDescription } from "../../atoms/stepDescription";
 import useTranslation from "next-translate/useTranslation";
 import { useTemplateDetails } from "../../../resumes/templateDetails";
+import { RadioGroup } from "@headlessui/react";
 
 export const TemplateList: React.FC<{
   template: string;
   setTemplate: (template: string) => void;
 }> = ({ template, setTemplate }) => {
-  const {t} = useTranslation("app");
+  const { t } = useTranslation("app");
   const templates = useTemplateDetails();
   return (
-    <div>
-      {/*TOOD: Accessibility*/}
-      <Label name={t`listOfTemplates`} />
+    <RadioGroup value={template} onChange={setTemplate}>
+      <RadioGroup.Label className={labelTextStyle}>{t`listOfTemplates`}</RadioGroup.Label>
       <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
         {Object.entries(templates).map(([name, { title, image }]) => {
           return (
-            <div
+            <RadioGroup.Option
+              value={name}
               key={title}
               className="cursor-pointer relative rounded-xl"
-              onClick={() => setTemplate(name)}>
+            >
               <Image
                 className="bg-gray-100 rounded-xl border-solid border-2 border-b-0 border-gray-100 hover:border-blue-200"
                 src={image}
-                alt="Template design" />
+                aria-hidden
+                alt="" />
               <div
                 className={classes(
                   "text-base font-regular text-white capitalize absolute bottom-0 px-3 py-2 rounded-b-xl w-full",
                   name === template ? "bg-blue-500" : "bg-blue-400"
                 )}>
-                {name === template && <div className="text-xs">Selected</div>}
+                {name === template && <div aria-hidden className="text-xs">{t("selected")}</div>}
                 {title}
               </div>
-            </div>
+            </RadioGroup.Option>
           );
         })}
       </div>
-    </div>
+    </RadioGroup>
   );
 };
-
-const pageOptions: FlatSelectOption<PaperSize>[] = [
-  { value: "A4", label: "A4", description: "Popular in EU." },
-  { value: "LETTER", label: "Letter", description: "Popular in US." },
-];
 
 export const Appearance: React.FC = React.memo(() => {
   const { t } = useTranslation("app");
   const settings = useAppState().resume.appearance;
   const { template, paperSize } = useSnapshot(settings);
+  const options = useMemo(() => [
+    { value: "A4", label: t("paper.a4"), description: t("paper.a4Description") },
+    { value: "LETTER", label: t("paper.letter"), description: t("paper.letterDescription") },
+  ] as FlatSelectOption<PaperSize>[], [t]);
   return (
     <>
       <StepDescription>{t`steps.appearance.description`}</StepDescription>
       <div className="mb-4">
-        {/*TODO: Accessibility*/}
-        <Label name="Page size" />
         <FlatSelect
+          label={t("pageSize")}
           wrapperClassName="grid lg:grid-cols-2 grid-cols-1 gap-2"
-          options={pageOptions}
+          options={options}
           value={paperSize}
           onChange={v => (settings.paperSize = v)}
         />

@@ -16,7 +16,6 @@ import { LegalClauseForm } from "./legalClause";
 import { Export } from "./export";
 import cn from "classnames";
 import { SectionTitle } from "../../molecules/sectionTitle";
-import { useRerender } from "../../../utils/hooks";
 
 
 const renderSection = (sectionWrapped: Section): React.ReactElement => {
@@ -54,12 +53,14 @@ export const Editor: React.FC<{
 
   let steps: Step[] = [{
     element: <><SectionTitle title={t`steps.personalInfo.title`} /><PersonalInformation /></>,
+    title: t`steps.personalInfo.title`,
     id: "personal-info",
     onNext,
   }];
   if (sectionsLeft) {
     steps.push({
       element: <><SectionTitle title={t`steps.appearance.title`} /><Appearance /></>,
+      title: t`steps.appearance.title`,
       id: "appearance",
       onNext,
     });
@@ -68,6 +69,7 @@ export const Editor: React.FC<{
   if (sectionsLeft) {
     steps.push({
       element: <><SectionTitle title={t`newSection.title`} /><StepsForm /></>,
+      title: t`newSection.title`,
       id: "sections",
       onNext,
     });
@@ -77,6 +79,7 @@ export const Editor: React.FC<{
     let section = state.resume.sections[i]!;
     steps.push({
       element: renderSection(section),
+      title: section.title,
       id: "section-" + section.id,
       onNext,
     });
@@ -85,6 +88,7 @@ export const Editor: React.FC<{
   if (sectionsLeft) {
     steps.push({
       element: <><SectionTitle title={t`steps.legalClause.title`} /><LegalClauseForm stateProxy={state.resume} /></>,
+      title: t`steps.legalClause.title`,
       id: "legal-clause",
       onNext,
     });
@@ -93,6 +97,7 @@ export const Editor: React.FC<{
   if (sectionsLeft) {
     steps.push({
       element: <><SectionTitle title={t`steps.export.title`} /><Export /></>,
+      title: t`steps.export.title`,
       id: "export",
     });
     sectionsLeft -= 1;

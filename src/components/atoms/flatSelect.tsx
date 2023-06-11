@@ -1,6 +1,7 @@
 import React from "react";
 import classNames from "classnames";
 import { RadioGroup } from "@headlessui/react";
+import { labelTextStyle } from "./fields/label";
 
 export interface FlatSelectOption<T> {
   value: T;
@@ -10,6 +11,7 @@ export interface FlatSelectOption<T> {
 }
 
 export interface FlatSelectProps<T> {
+  label: string;
   options: FlatSelectOption<T>[];
   value: T;
   onChange: (value: T) => void;
@@ -20,12 +22,13 @@ export const FlatSelect = <T,>({
   options,
   value,
   onChange,
+  label,
   wrapperClassName,
 }: FlatSelectProps<T>): React.ReactElement => {
   return (
     <RadioGroup value={value} onChange={onChange}>
       {/*TODO*/}
-      <RadioGroup.Label className="sr-only">Server size</RadioGroup.Label>
+      <RadioGroup.Label className={labelTextStyle}>{label}</RadioGroup.Label>
       <div className={wrapperClassName}>
         {options.map(option => (
           <RadioGroup.Option
