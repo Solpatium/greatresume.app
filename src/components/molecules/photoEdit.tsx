@@ -10,6 +10,7 @@ import { Modal } from "../layout/modal";
 import { Button } from "../atoms/button";
 import { DropZone } from "../atoms/dropZone";
 import { useToggle } from "react-use";
+import useTranslation from "next-translate/useTranslation";
 
 interface PhotoProps {
   image?: string;
@@ -20,6 +21,7 @@ const EditModal: React.FC<Pick<PhotoProps, "setImage"> & { close: () => void }> 
   close,
   setImage,
 }) => {
+  const {t} = useTranslation("app");
   const [file, setFile] = useState<File>();
   const onImageSave = useCallback(() => {
     const editor = editorRef.current;
@@ -49,7 +51,7 @@ const EditModal: React.FC<Pick<PhotoProps, "setImage"> & { close: () => void }> 
   }, []);
 
   return (
-    <Modal title="Add your picture" onClose={close}>
+    <Modal title={t("addYourPhoto")} onClose={close}>
       {!file && <DropZone onDrop={onDrop} accept="image/*" multiple={false} />}
       {file && (
         <>
@@ -80,10 +82,10 @@ const EditModal: React.FC<Pick<PhotoProps, "setImage"> & { close: () => void }> 
           </div>
           <div className="mt-5 sm:mt-6 grid grid-cols-2 sm:gap-3 sm:grid-flow-row-dense">
             <Button secondary onClick={close}>
-              Cancel
+              {t("cancel")}
             </Button>
             <Button type="button" onClick={onImageSave}>
-              Save
+              {t("save")}
             </Button>
           </div>
         </>
@@ -97,6 +99,7 @@ export const PhotoEditor: React.FC<PhotoProps & { buttonId?: string }> = React.m
   image,
   setImage,
 }) => {
+  const {t} = useTranslation("app");
   const [isEditing, toggleEditing] = useToggle(false);
   const deleteImage = useCallback(() => {
     setImage(undefined);
@@ -107,7 +110,7 @@ export const PhotoEditor: React.FC<PhotoProps & { buttonId?: string }> = React.m
         <>
           <img
             style={{ maxWidth: "300px" }}
-            alt="Selected image"
+            alt={t("yourPhoto")}
             src={image}
             className="rounded-xl mw-full w-full h-full border-2 border-solid border-gray-100"
           />
@@ -115,8 +118,8 @@ export const PhotoEditor: React.FC<PhotoProps & { buttonId?: string }> = React.m
             id={buttonId}
             type="button"
             onClick={deleteImage}
-            className="font-semibold rounded-xl bg-gray-100 py-2 px-4 my-2 mx-auto absolute bottom-0 inset-x-0  flex items-center justify-center">
-            Remove
+            className="font-semibold rounded-xl bg-gray-100 p-2 my-2 mx-auto absolute bottom-0 inset-x-0  flex items-center justify-center">
+            {t("deletePhoto")}
           </button>
         </>
       ) : (
@@ -125,8 +128,8 @@ export const PhotoEditor: React.FC<PhotoProps & { buttonId?: string }> = React.m
           onClick={toggleEditing}
           type="button"
           className="font-semibold flex flex-col items-center justify-center w-full h-full rounded-xl bg-gray-100 ">
-          Add image
-          <FaceSmileIcon className="w-10 h-10 text-gray-700" />
+          {t("addPhoto")}
+          <FaceSmileIcon aria-hidden className="w-10 h-10 text-gray-700" />
         </button>
       )}
       {isEditing && <EditModal setImage={setImage} close={toggleEditing} />}
