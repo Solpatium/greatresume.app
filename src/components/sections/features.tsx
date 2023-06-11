@@ -54,10 +54,9 @@ export const Features = () => {
                     <div className="hidden lg:block relative -mx-4 mt-10 lg:mt-0" aria-hidden="true">
                         <Image
                             className="relative mx-auto rounded-lg"
-                            // width={490}
                             src={templateImage}
-                            // TODO i18n!
-                            alt="Example resume"
+                            aria-hidden
+                            alt=""
                         />
                     </div>
                 </div>

@@ -102,7 +102,6 @@ export const SortableList = <Type extends HasId>({
     }),
   );
 
-  // TODO: Delete default button text
   return (
     <div className={className}>
       {label && <Label name={label} />}

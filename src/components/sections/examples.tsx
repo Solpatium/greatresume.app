@@ -42,8 +42,8 @@ export const Examples = makeClientOnly(() => {
                             <div className="w-full">
                                 <Image
                                     src={details.image}
-                                    // TODO i18n!
-                                    // alt={product.imageAlt}
+                                    aria-hidden
+                                    alt=""
                                     className="shadow-md group-hover:opacity-75"
                                 />
                             </div>

@@ -27,7 +27,6 @@ export const FlatSelect = <T,>({
 }: FlatSelectProps<T>): React.ReactElement => {
   return (
     <RadioGroup value={value} onChange={onChange}>
-      {/*TODO*/}
       <RadioGroup.Label className={labelTextStyle}>{label}</RadioGroup.Label>
       <div className={wrapperClassName}>
         {options.map(option => (
