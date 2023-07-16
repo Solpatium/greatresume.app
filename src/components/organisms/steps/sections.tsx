@@ -13,6 +13,7 @@ import { FastEditableList } from "../../layout/flatEditableList";
 import { Button } from "../../atoms/button";
 import { highlight } from "pdfkit";
 import { highlightElement } from "../../../utils/highlight";
+import { BigModal } from "../../layout/bigModal";
 
 const Entry: React.FC<{ state: Section }> = React.memo(({ state }) => {
   const { t } = useTranslation("app");
@@ -44,18 +45,18 @@ export const StepsForm: React.FC = React.memo(() => {
   const [modalOpened, setModalOpened] = useState(false);
   return (
     <>
-      {modalOpened && (
-        <Modal title={t`newSection.modalTitle`} onClose={() => setModalOpened(false)}>
+      {
+        <BigModal show={modalOpened} title={t`newSection.modalTitle`} onClose={() => setModalOpened(false)}>
           <SectionPicker
             onSelect={newSection => {
               // We should show it right away if all sections are filled.
-              newSection.filled = sections[sections.length-1]?.filled;
+              newSection.filled = sections[sections.length - 1]?.filled;
               sections.push(newSection);
               setModalOpened(false);
             }}
           />
-        </Modal>
-      )}
+        </BigModal>
+      }
       <StepDescription>{t`newSection.description`}</StepDescription>
       <FastEditableList
         stateProxy={sections}

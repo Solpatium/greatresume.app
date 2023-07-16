@@ -11,6 +11,8 @@ import {
 import { useSnapshot } from "valtio";
 import { StepDescription } from "../../atoms/stepDescription";
 import useTranslation from "next-translate/useTranslation";
+import { BigModal } from "../../layout/bigModal";
+import { SmallEditButton } from "../../atoms/button";
 
 const Entry: React.FC<{ kind: ExperienceKind; stateProxy: Entry }> = ({ kind, stateProxy }) => {
   const state = useSnapshot(stateProxy);
@@ -62,7 +64,7 @@ const joinNonEmpty = (joinWith: string, ...args: string[]): string =>
   args.filter(v => v.trim()).join(joinWith);
 
 const Preview: React.FC<{ stateProxy: Entry }> = ({ stateProxy }) => {
-  const {t} = useTranslation("app");
+  const { t } = useTranslation("app");
   const state = useSnapshot(stateProxy);
   const parts = [];
 
@@ -89,6 +91,17 @@ const Preview: React.FC<{ stateProxy: Entry }> = ({ stateProxy }) => {
   return <div>{parts}</div>;
 };
 
+// const SectionEdit: React.FC<{
+//   stateProxy: ExperienceSection;
+// }> = ({stateProxy}) => {
+//   return (<Input
+//     className="md:col-span-1"
+//     label={t`startDate`}
+//     onChange={v => (stateProxy = v)}
+//     value={state["from"]}
+//   />)
+// }
+
 export const Experience: React.FC<{
   stateProxy: ExperienceSection;
 }> = React.memo(({ stateProxy }) => {
@@ -96,6 +109,7 @@ export const Experience: React.FC<{
   return (
     <>
       <StepDescription>{t(`steps.${stateProxy.kind}.description`)}</StepDescription>
+      <SmallEditButton>{t`edit`}</SmallEditButton>
       <ExpandableList
         // label="Entries"
         stateProxy={stateProxy.content}

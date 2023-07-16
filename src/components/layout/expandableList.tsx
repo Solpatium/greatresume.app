@@ -7,6 +7,8 @@ import { HasId } from "../../utils/lists";
 import { SortableList } from "./sortableList";
 import { subscribe } from "valtio";
 import useTranslation from "next-translate/useTranslation";
+import { useIsMobile } from "../../utils/hooks";
+import { BigModal } from "./bigModal";
 
 export interface ExpandableListProps<Type> {
   stateProxy: Type[];
@@ -30,14 +32,28 @@ interface ExpandableItemProps<Type> {
 }
 
 const ExpandableItem = <Type extends HasId>(props: ExpandableItemProps<Type>) => {
+  const isMobile = useIsMobile();
   const { t } = useTranslation("app");
+  const close = () => props.onToggle(props.id);
+  const preview = props.renderPreview(props.stateProxy);
+  const content = (
+    <div>
+      <fieldset className="grid md:grid-cols-2 gap-4">
+        {props.render(props.stateProxy)}
+      </fieldset>
+      <div className="flex justify-end mt-6 mb-2">
+        <Button icon={TrashIcon} onClick={() => props.onDelete(props.index)} danger>
+          {t`delete`}
+        </Button>
+      </div>
+    </div>)
   // TODO: accessibility
   return (
     <div className="sortable-list flex-1 items-center p-2">
       <dt>
-        <button type="button" onClick={() => props.onToggle(props.id)} className="text-left w-full flex justify-between items-center text-gray-900">
+        <button type="button" onClick={close} className="text-left w-full flex justify-between items-center text-gray-900">
           <span className="min-h-[38px] flex items-center font-medium">
-            {props.renderPreview(props.stateProxy)}
+            {preview}
           </span>
           <span className="ml-6 h-7 flex items-center">
             <ChevronDownIcon
@@ -49,15 +65,12 @@ const ExpandableItem = <Type extends HasId>(props: ExpandableItemProps<Type>) =>
       </dt>
 
       {props.open && <dd className="mt-2 mr-1">
-        <fieldset className="grid md:grid-cols-2 gap-4">
-          {props.render(props.stateProxy)}
-        </fieldset>
-        <div className="flex justify-end mt-6 mb-2">
-          <Button icon={TrashIcon} onClick={() => props.onDelete(props.index)} danger>
-            {t`delete`}
-          </Button>
-        </div>
+        {content}
       </dd>}
+
+      <BigModal title={preview} show={isMobile && props.open} onClose={close}>
+        {content}
+      </BigModal>
     </div>
   );
 };
