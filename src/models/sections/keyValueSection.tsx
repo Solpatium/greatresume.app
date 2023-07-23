@@ -1,4 +1,6 @@
 import { array, Infer, string, type, literal, enums } from "superstruct";
+import { sectionBase } from "./base";
+import { withId } from "../../utils/lists";
 
 /*
   Can be used as skill lists with described levels.
@@ -21,6 +23,7 @@ const keyValueListSchema = array(entryStruct);
 export type KeyValueList = Infer<typeof keyValueListSchema>;
 
 export const keyValueSectionStruct = type({
+  ...sectionBase.schema,
   type: literal(keyValueTypeName),
   kind: kindStruct,
   content: keyValueListSchema,
@@ -28,7 +31,8 @@ export const keyValueSectionStruct = type({
 
 export type KeyValueSection = Infer<typeof keyValueSectionStruct>;
 
-export const makeKeyValue = (kind: KeyValueKind): Infer<typeof keyValueSectionStruct> => ({
+export const makeKeyValue = (kind: KeyValueKind): Infer<typeof keyValueSectionStruct> => withId({
+  title: "",
   type: keyValueTypeName,
   kind,
   content: [],

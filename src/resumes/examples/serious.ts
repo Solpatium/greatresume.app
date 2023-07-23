@@ -25,149 +25,135 @@ export const seriousExample: ApplicationPersistentState = {
         "sections": [
             {
                 "title": "Profile",
-                "section": {
-                    "type": "text",
-                    "kind": "text",
-                    "content": "Experienced lawyer with a proven track record of success spanning 40 years. Seeking a challenging position in a reputable law firm where I can apply my extensive legal knowledge, strategic thinking, and client advocacy skills to provide exceptional legal services."
-                },
+                "type": "text",
+                "kind": "text",
+                "content": "Experienced lawyer with a proven track record of success spanning 40 years. Seeking a challenging position in a reputable law firm where I can apply my extensive legal knowledge, strategic thinking, and client advocacy skills to provide exceptional legal services.",
                 "id": "lcvw0zf0wgxdx3mzkih",
-                
+
             },
             {
                 "title": "Employment",
-                "section": {
-                    "type": "experience",
-                    "kind": "employment",
-                    "content": [
-                        {
-                            "title": "Senior Attorney",
-                            "subtitle": "Hamlin, Hamlin & McGill",
-                            "from": "June 2010",
-                            "to": "Present",
-                            "description": "- Represented clients in complex civil litigation cases, including contract disputes, intellectual property matters, and employment law issues.\n- Conducted legal research, prepared legal briefs, and developed effective litigation strategies.\n- Successfully negotiated settlements and resolved cases through mediation and arbitration.\n- Managed a team of associate attorneys and provided guidance on legal matters.\n- Maintained strong client relationships and ensured high levels of client satisfaction.",
-                            "url": "",
-                            "id": "lin2prvfxdy6so9ugxq"
-                        },
-                        {
-                            "title": "Partner",
-                            "subtitle": "Specter Litt",
-                            "from": "July 2000",
-                            "to": "May 2010",
-                            "description": "- Led a team of attorneys in a wide range of legal practice areas, including corporate law, real estate transactions, and commercial litigation.\n- Provided legal counsel to clients on business formation, contract drafting, and compliance matters.\n- Drafted and negotiated complex agreements and contracts on behalf of clients.\n- Represented clients in court proceedings and argued cases before state and federal courts.\n- Developed new business opportunities and expanded the client base.",
-                            "url": "",
-                            "id": "lin2qheu0weu51lq3nqn"
-                        },
-                        {
-                            "title": "Associate Attorney",
-                            "subtitle": "Lionel Hutz Law Firm",
-                            "from": "August 1990",
-                            "to": "June 2000",
-                            "description": "- Assisted senior attorneys in all stages of litigation, including legal research, drafting pleadings, and preparing for trials.\n- Conducted client interviews, gathered evidence, and conducted depositions.\n- Analyzed complex legal issues and provided sound legal advice to clients.\n- Participated in settlement negotiations and alternative dispute resolution processes.\n- Drafted and reviewed various legal documents, including contracts, agreements, and legal opinions.",
-                            "url": "",
-                            "id": "lin8oa22rdo8h6bg57o"
-                        }
-                    ],
-                    "id": "lin2pg3nl0afc9epn2"
-                },
+                "type": "experience",
+                "kind": "employment",
+                "content": [
+                    {
+                        "title": "Senior Attorney",
+                        "subtitle": "Hamlin, Hamlin & McGill",
+                        "from": "June 2010",
+                        "to": "Present",
+                        "description": "- Represented clients in complex civil litigation cases, including contract disputes, intellectual property matters, and employment law issues.\n- Conducted legal research, prepared legal briefs, and developed effective litigation strategies.\n- Successfully negotiated settlements and resolved cases through mediation and arbitration.\n- Managed a team of associate attorneys and provided guidance on legal matters.\n- Maintained strong client relationships and ensured high levels of client satisfaction.",
+                        "url": "",
+                        "id": "lin2prvfxdy6so9ugxq"
+                    },
+                    {
+                        "title": "Partner",
+                        "subtitle": "Specter Litt",
+                        "from": "July 2000",
+                        "to": "May 2010",
+                        "description": "- Led a team of attorneys in a wide range of legal practice areas, including corporate law, real estate transactions, and commercial litigation.\n- Provided legal counsel to clients on business formation, contract drafting, and compliance matters.\n- Drafted and negotiated complex agreements and contracts on behalf of clients.\n- Represented clients in court proceedings and argued cases before state and federal courts.\n- Developed new business opportunities and expanded the client base.",
+                        "url": "",
+                        "id": "lin2qheu0weu51lq3nqn"
+                    },
+                    {
+                        "title": "Associate Attorney",
+                        "subtitle": "Lionel Hutz Law Firm",
+                        "from": "August 1990",
+                        "to": "June 2000",
+                        "description": "- Assisted senior attorneys in all stages of litigation, including legal research, drafting pleadings, and preparing for trials.\n- Conducted client interviews, gathered evidence, and conducted depositions.\n- Analyzed complex legal issues and provided sound legal advice to clients.\n- Participated in settlement negotiations and alternative dispute resolution processes.\n- Drafted and reviewed various legal documents, including contracts, agreements, and legal opinions.",
+                        "url": "",
+                        "id": "lin8oa22rdo8h6bg57o"
+                    }
+                ],
                 "id": "lin2pg3n56mc5cg70yf",
-                
+
             },
             {
                 "title": "Education",
-                "section": {
-                    "type": "experience",
-                    "kind": "education",
-                    "content": [
-                        {
-                            "title": "Juris Doctor",
-                            "subtitle": "Harvard Law School, Cambridge, Massachusetts",
-                            "from": "May 2006",
-                            "to": "May 2010",
-                            "description": "",
-                            "url": "",
-                            "id": "lcvs2zzjfqh415bdjww"
-                        },
-                        {
-                            "title": "Bachelor of Arts in Political Science",
-                            "subtitle": "Yale University, New Haven, Connecticut",
-                            "from": "",
-                            "to": "",
-                            "description": "",
-                            "url": "",
-                            "id": "lin8uxltpc3na8kr5nf"
-                        }
-                    ],
-                    "id": "lcvs2focabpsy8dlzd7"
-                },
+                "type": "experience",
+                "kind": "education",
+                "content": [
+                    {
+                        "title": "Juris Doctor",
+                        "subtitle": "Harvard Law School, Cambridge, Massachusetts",
+                        "from": "May 2006",
+                        "to": "May 2010",
+                        "description": "",
+                        "url": "",
+                        "id": "lcvs2zzjfqh415bdjww"
+                    },
+                    {
+                        "title": "Bachelor of Arts in Political Science",
+                        "subtitle": "Yale University, New Haven, Connecticut",
+                        "from": "",
+                        "to": "",
+                        "description": "",
+                        "url": "",
+                        "id": "lin8uxltpc3na8kr5nf"
+                    }
+                ],
                 "id": "lcvs2foccn3zw0pa75b",
-                
+
             },
             {
                 "title": "Skills",
-                "section": {
-                    "type": "key value",
-                    "kind": "skills",
-                    "content": [
-                        {
-                            "name": "Extensive knowledge of corporate law",
-                            "value": "",
-                            "id": "lin2wbnfbcadlyw29jc"
-                        },
-                        {
-                            "name": "Strong research, analytical, and problem-solving skills",
-                            "value": "",
-                            "id": "lin2wlgdvjjh89nmrd7"
-                        },
-                        {
-                            "name": "Exceptional client advocacy ",
-                            "value": "",
-                            "id": "lin2wlx80v8r0f3gpr"
-                        },
-                        {
-                            "name": "Proficient in legal research tools",
-                            "value": "",
-                            "id": "lin2x01so45ph00fq9"
-                        }
-                    ]
-                },
+                "type": "key value",
+                "kind": "skills",
+                "content": [
+                    {
+                        "name": "Extensive knowledge of corporate law",
+                        "value": "",
+                        "id": "lin2wbnfbcadlyw29jc"
+                    },
+                    {
+                        "name": "Strong research, analytical, and problem-solving skills",
+                        "value": "",
+                        "id": "lin2wlgdvjjh89nmrd7"
+                    },
+                    {
+                        "name": "Exceptional client advocacy ",
+                        "value": "",
+                        "id": "lin2wlx80v8r0f3gpr"
+                    },
+                    {
+                        "name": "Proficient in legal research tools",
+                        "value": "",
+                        "id": "lin2x01so45ph00fq9"
+                    }
+                ],
                 "id": "lin2wa08blgsrn0h8l",
-                
+
             },
             {
                 "title": "Languages",
-                "section": {
-                    "type": "key value",
-                    "kind": "languages",
-                    "content": [
-                        {
-                            "name": "English",
-                            "value": "Native",
-                            "id": "lin30zha7xxltpwdri3"
-                        },
-                        {
-                            "name": "French",
-                            "value": "C1",
-                            "id": "lin31el2qz9x4l1we18"
-                        },
-                        {
-                            "name": "Italian",
-                            "value": "B2",
-                            "id": "lin31ja0jt1gvppogrn"
-                        }
-                    ]
-                },
+                "type": "key value",
+                "kind": "languages",
+                "content": [
+                    {
+                        "name": "English",
+                        "value": "Native",
+                        "id": "lin30zha7xxltpwdri3"
+                    },
+                    {
+                        "name": "French",
+                        "value": "C1",
+                        "id": "lin31el2qz9x4l1we18"
+                    },
+                    {
+                        "name": "Italian",
+                        "value": "B2",
+                        "id": "lin31ja0jt1gvppogrn"
+                    }
+                ],
                 "id": "lin3078mevq5xtq20ik",
-                
+
             },
             {
                 "title": "References",
-                "section": {
-                    "type": "text",
-                    "kind": "text",
-                    "content": "Available upon request."
-                },
+                "type": "text",
+                "kind": "text",
+                "content": "Available upon request.",
                 "id": "lin90bf1a4462rugru8",
-                
+
             }
         ],
         "legalClause": "I hereby give consent for my personal data included in the application to be processed for the purposes of the recruitment process in accordance with Art. 6 paragraph 1 letter a of the Regulation of the European Parliament and of the Council (EU) 2016/679 of 27 April 2016 on the protection of natural persons with regard to the processing of personal data and on the free movement of such data, and repealing Directive 95/46/EC (General Data Protection Regulation).",

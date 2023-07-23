@@ -18,21 +18,18 @@ import cn from "classnames";
 import { SectionTitle } from "../../molecules/sectionTitle";
 
 
-const renderSection = (sectionWrapped: Section): React.ReactElement => {
-  const { section } = sectionWrapped;
-  let sectionForm: React.ReactElement;
+const renderSection = (section: Section): React.ReactElement => {
   if (section.type === "experience") {
-    sectionForm = <Experience stateProxy={section} />;
+    return <Experience stateProxy={section} />;
   } else
-    if (section.type == "simple list") {
-      sectionForm = <InterestsForm stateProxy={section.content} />
-    } else
-      if (section.type == "key value") {
-        sectionForm = <KeyValueForm stateProxy={section} />;
-      } else {
-        sectionForm = <TextForm stateProxy={section} />;
-      }
-  return <><SectionTitle sectionProxy={sectionWrapped} />{sectionForm}</>
+  if (section.type == "simple list") {
+    return <InterestsForm stateProxy={section.content} />
+  } else
+  if (section.type == "key value") {
+    return <KeyValueForm stateProxy={section} />;
+  } else {
+    return <TextForm stateProxy={section} />;
+  }
 }
 
 export const Editor: React.FC<{

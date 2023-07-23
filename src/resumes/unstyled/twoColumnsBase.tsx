@@ -51,29 +51,29 @@ export const TwoColumnsBase: React.FC<TwoColumnsBaseProps> = ({
     {children}
   </TitledSection>);
 
-  const MainSection: React.FC<{ data: Section }> = ({ data }) => {
-    if (data.section.type === "experience") {
-      return <ExperienceSection title={data.title} data={data.section.content} markdownStyle={style?.markdown} />;
+  const MainSection: React.FC<{ section: Section }> = ({ section }) => {
+    if (section.type === "experience") {
+      return <ExperienceSection title={section.title} data={section.content} markdownStyle={style?.markdown} />;
     }
-    if (data.section.type === "text") {
-      return <MainSectionWrapper title={data.title} className="textSection">
+    if (section.type === "text") {
+      return <MainSectionWrapper title={section.title} className="textSection">
         <View>
-          <Markdown style={style?.markdown}>{data.section.content}</Markdown>
+          <Markdown style={style?.markdown}>{section.content}</Markdown>
         </View>
       </MainSectionWrapper>
     }
     return null;
   }
 
-  const SidebarSection: React.FC<{ data: Section }> = ({ data }) => {
-    if (data.section.type === "key value") {
-      return <SidebarSectionWrapper title={data.title}>
-        <KeyValueSection data={data.section.content} />
+  const SidebarSection: React.FC<{ section: Section }> = ({ section }) => {
+    if (section.type === "key value") {
+      return <SidebarSectionWrapper title={section.title}>
+        <KeyValueSection data={section.content} />
       </SidebarSectionWrapper>
     }
-    if (data.section.type === "simple list") {
-      return <SidebarSectionWrapper title={data.title}>
-        <SimpleListSection data={data.section.content} />
+    if (section.type === "simple list") {
+      return <SidebarSectionWrapper title={section.title}>
+        <SimpleListSection data={section.content} />
       </SidebarSectionWrapper>
     }
     return null;
@@ -93,7 +93,7 @@ export const TwoColumnsBase: React.FC<TwoColumnsBaseProps> = ({
         left={<View>
           <Introduction data={data} image={image} />
           {contact}
-          {data.sections.map((s,i) => (<SidebarSection key={i} data={s} />))}
+          {data.sections.map((s,i) => (<SidebarSection key={i} section={s} />))}
         </View>}
         right={
           <View
@@ -104,7 +104,7 @@ export const TwoColumnsBase: React.FC<TwoColumnsBaseProps> = ({
               flexDirection: "column",
               minHeight: "100%",
             }}>
-            {data.sections.map((s,i) => (<MainSection key={i} data={s} />))}
+            {data.sections.map((s,i) => (<MainSection key={i} section={s} />))}
             <T className="legalClause" style={{ marginTop: "auto" }}>{data.legalClause}</T>
           </View>
         }

@@ -19,120 +19,105 @@ export const simpleExample: ApplicationPersistentState = {
         "sections": [
             {
                 "title": "Profile",
-                "section": {
-                    "type": "text",
-                    "kind": "text",
-                    "content": "Compassionate and experienced nurse with a proven track record of delivering high-quality patient care. Seeking a challenging position in a reputable healthcare facility where I can utilize my expertise, clinical skills, and strong commitment to patient well-being."
-                },
+                "type": "text",
+                "kind": "text",
+                "content": "Compassionate and experienced nurse with a proven track record of delivering high-quality patient care. Seeking a challenging position in a reputable healthcare facility where I can utilize my expertise, clinical skills, and strong commitment to patient well-being."
+                ,
                 "id": "linefruqhyaf60iexuv",
-                
+
             },
             {
                 "title": "Employment",
-                "section": {
-                    "type": "experience",
-                    "kind": "employment",
-                    "content": [
-                        {
-                            "title": "Senior Registered Nurse",
-                            "subtitle": "Hospital Name, City, State",
-                            "from": "August 2021",
-                            "to": "Present",
-                            "description": "",
-                            "url": "",
-                            "id": "line8kjyyw2o8kuff6"
-                        },
-                        {
-                            "title": "Charge Nurse",
-                            "subtitle": "Nursing Facility Name, City, State",
-                            "from": "October 2000",
-                            "to": "July 2021",
-                            "description": "",
-                            "url": "",
-                            "id": "line96f2bfblesf8jmv"
-                        }
-                    ],
-                    "id": "line8eingnz4egum04f"
-                },
+                "type": "experience",
+                "kind": "employment",
+                "content": [
+                    {
+                        "title": "Senior Registered Nurse",
+                        "subtitle": "Hospital Name, City, State",
+                        "from": "August 2021",
+                        "to": "Present",
+                        "description": "",
+                        "url": "",
+                        "id": "line8kjyyw2o8kuff6"
+                    },
+                    {
+                        "title": "Charge Nurse",
+                        "subtitle": "Nursing Facility Name, City, State",
+                        "from": "October 2000",
+                        "to": "July 2021",
+                        "description": "",
+                        "url": "",
+                        "id": "line96f2bfblesf8jmv"
+                    }
+                ],
                 "id": "line8einfr5szhsp7hv",
-                
+
             },
             {
                 "title": "Education",
-                "section": {
-                    "type": "experience",
-                    "kind": "education",
-                    "content": [
-                        {
-                            "title": "Bachelor of Science in Nursing (BSN)",
-                            "subtitle": "ABC University, City, State",
-                            "from": "October 1996",
-                            "to": "June 2000",
-                            "description": "",
-                            "url": "",
-                            "id": "linedlujms073gr663"
-                        }
-                    ],
-                    "id": "linebrz734e2873jyt3"
-                },
+                "type": "experience",
+                "kind": "education",
+                "content": [
+                    {
+                        "title": "Bachelor of Science in Nursing (BSN)",
+                        "subtitle": "ABC University, City, State",
+                        "from": "October 1996",
+                        "to": "June 2000",
+                        "description": "",
+                        "url": "",
+                        "id": "linedlujms073gr663"
+                    }
+                ],
                 "id": "linebrz7g7pkcbnxetj",
-                
+
             },
             {
                 "title": "References",
-                "section": {
-                    "type": "text",
-                    "kind": "text",
-                    "content": "Available upon request.\n\n"
-                },
+                "type": "text",
+                "kind": "text",
+                "content": "Available upon request.\n\n"
+                ,
                 "id": "lineosffyqln7qcaerq",
-                
+
             },
             {
                 "title": "Certifications",
-                "section": {
-                    "type": "experience",
-                    "kind": "experience",
-                    "content": [
-                        {
-                            "title": "Registered Nurse",
-                            "subtitle": "",
-                            "from": "",
-                            "to": "",
-                            "description": "",
-                            "url": "",
-                            "id": "linel9anlv12sb55f7l"
-                        },
-                        {
-                            "title": "Basic Life Support",
-                            "subtitle": "",
-                            "from": "",
-                            "to": "",
-                            "description": "",
-                            "url": "",
-                            "id": "linelp7ktphzfpo63zr"
-                        },
-                        {
-                            "title": "Advanced Cardiac Life Support ",
-                            "subtitle": "",
-                            "from": "",
-                            "to": "",
-                            "description": "",
-                            "url": "",
-                            "id": "linem35hro3qccp6d7"
-                        }
-                    ],
-                    "id": "linel7wvjlfcd0sgppl"
-                },
+                "type": "experience",
+                "kind": "experience",
+                "content": [
+                    {
+                        "title": "Registered Nurse",
+                        "subtitle": "",
+                        "from": "",
+                        "to": "",
+                        "description": "",
+                        "url": "",
+                        "id": "linel9anlv12sb55f7l"
+                    },
+                    {
+                        "title": "Basic Life Support",
+                        "subtitle": "",
+                        "from": "",
+                        "to": "",
+                        "description": "",
+                        "url": "",
+                        "id": "linelp7ktphzfpo63zr"
+                    },
+                    {
+                        "title": "Advanced Cardiac Life Support ",
+                        "subtitle": "",
+                        "from": "",
+                        "to": "",
+                        "description": "",
+                        "url": "",
+                        "id": "linem35hro3qccp6d7"
+                    }
+                ],
                 "id": "linel7wvvhugpxdimzk",
-                
+
             }
         ],
         "legalClause": "I hereby give consent for my personal data included in the application to be processed for the purposes of the recruitment process in accordance with Art. 6 paragraph 1 letter a of the Regulation of the European Parliament and of the Council (EU) 2016/679 of 27 April 2016 on the protection of natural persons with regard to the processing of personal data and on the free movement of such data, and repealing Directive 95/46/EC (General Data Protection Regulation).",
-        "filledPersonalInformation": {},
-        "filledAppearance": {},
-        "filledSections": {},
-        "filledLegalClause": {},
     },
     progress: { sectionsFilled: 0 },
 

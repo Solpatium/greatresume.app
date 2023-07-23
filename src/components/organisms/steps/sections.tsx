@@ -2,13 +2,11 @@ import React, { useState } from "react";
 import { Input } from "../../atoms/fields/input";
 import { Section } from "../../../models/v1";
 
-import { Modal } from "../../layout/modal";
-
 import { kindIcons, SectionPicker } from "../../molecules/sectionPicker";
 import useTranslation from "next-translate/useTranslation";
 import { useAppState } from "../../../state/store";
 import { useSnapshot } from "valtio";
-import { StepDescription } from "../../atoms/stepDescription";
+import { StepDescription } from "../../atoms/typography";
 import { FastEditableList } from "../../layout/flatEditableList";
 import { Button } from "../../atoms/button";
 import { highlight } from "pdfkit";
@@ -17,7 +15,7 @@ import { BigModal } from "../../layout/bigModal";
 
 const Entry: React.FC<{ state: Section }> = React.memo(({ state }) => {
   const { t } = useTranslation("app");
-  const { title, section } = useSnapshot(state);
+  const section = state;
   const { kind } = section;
   const Icon = kindIcons[kind];
   return (

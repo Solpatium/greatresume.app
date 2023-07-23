@@ -25,80 +25,72 @@ export const peachyExample: ApplicationPersistentState = {
         "sections": [
             {
                 "title": "Profile",
-                "section": {
-                    "type": "text",
-                    "kind": "text",
-                    "content": "Dedicated and experienced teacher with a passion for fostering a positive learning environment and facilitating student success. Seeking a position where I can apply my expertise, instructional skills, and educational leadership to contribute to the growth of students."
-                },
+                "type": "text",
+                "kind": "text",
+                "content": "Dedicated and experienced teacher with a passion for fostering a positive learning environment and facilitating student success. Seeking a position where I can apply my expertise, instructional skills, and educational leadership to contribute to the growth of students.",
                 "id": "linefruqhyaf60iexuv",
 
             },
             {
                 "title": "Employment",
-                "section": {
-                    "type": "experience",
-                    "kind": "employment",
-                    "content": [
-                        {
-                            "title": "Experienced Teacher",
-                            "subtitle": "XYZ Elementary School, City, State",
-                            "from": "August 2021",
-                            "to": "Present",
-                            "description": "",
-                            "url": "",
-                            "id": "line8kjyyw2o8kuff6"
-                        },
-                        {
-                            "title": "Experienced Teacher",
-                            "subtitle": "ABC Elementary School, City, State",
-                            "from": "October 2000",
-                            "to": "July 2021",
-                            "description": "",
-                            "url": "",
-                            "id": "line96f2bfblesf8jmv"
-                        },
-                        {
-                            "title": "Student Teacher",
-                            "subtitle": "XYZ Elementary School, City, State",
-                            "from": "September 1998",
-                            "to": "September 2000",
-                            "description": "",
-                            "url": "",
-                            "id": "lineae74xryyot943jb"
-                        }
-                    ],
-                    "id": "line8eingnz4egum04f"
-                },
+                "type": "experience",
+                "kind": "employment",
+                "content": [
+                    {
+                        "title": "Experienced Teacher",
+                        "subtitle": "XYZ Elementary School, City, State",
+                        "from": "August 2021",
+                        "to": "Present",
+                        "description": "",
+                        "url": "",
+                        "id": "line8kjyyw2o8kuff6"
+                    },
+                    {
+                        "title": "Experienced Teacher",
+                        "subtitle": "ABC Elementary School, City, State",
+                        "from": "October 2000",
+                        "to": "July 2021",
+                        "description": "",
+                        "url": "",
+                        "id": "line96f2bfblesf8jmv"
+                    },
+                    {
+                        "title": "Student Teacher",
+                        "subtitle": "XYZ Elementary School, City, State",
+                        "from": "September 1998",
+                        "to": "September 2000",
+                        "description": "",
+                        "url": "",
+                        "id": "lineae74xryyot943jb"
+                    }
+                ],
                 "id": "line8einfr5szhsp7hv",
 
             },
             {
                 "title": "Education",
-                "section": {
-                    "type": "experience",
-                    "kind": "education",
-                    "content": [
-                        {
-                            "title": "Master of Education in Elementary Education",
-                            "subtitle": "ABC University, City, State",
-                            "from": "October 1996",
-                            "to": "June 2000",
-                            "description": "",
-                            "url": "",
-                            "id": "linedlujms073gr663"
-                        },
-                        {
-                            "title": "Bachelor of Arts in English Literature",
-                            "subtitle": "XYZ University, City, State",
-                            "from": "October 1993",
-                            "to": "June 1996",
-                            "description": "",
-                            "url": "",
-                            "id": "linebwkej6o7reb9ai"
-                        }
-                    ],
-                    "id": "linebrz734e2873jyt3"
-                },
+                "type": "experience",
+                "kind": "education",
+                "content": [
+                    {
+                        "title": "Master of Education in Elementary Education",
+                        "subtitle": "ABC University, City, State",
+                        "from": "October 1996",
+                        "to": "June 2000",
+                        "description": "",
+                        "url": "",
+                        "id": "linedlujms073gr663"
+                    },
+                    {
+                        "title": "Bachelor of Arts in English Literature",
+                        "subtitle": "XYZ University, City, State",
+                        "from": "October 1993",
+                        "to": "June 1996",
+                        "description": "",
+                        "url": "",
+                        "id": "linebwkej6o7reb9ai"
+                    }
+                ],
                 "id": "linebrz7g7pkcbnxetj",
 
             }

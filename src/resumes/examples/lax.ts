@@ -25,123 +25,107 @@ export const laxExample: ApplicationPersistentState = {
         "sections": [
             {
                 "title": "Education",
-                "section": {
-                    "type": "experience",
-                    "kind": "education",
-                    "content": [
-                        {
-                            "title": "Bachelor of Fine Arts in Design",
-                            "subtitle": "Yale University, New Haven, Connecticut",
-                            "from": "June 2021",
-                            "to": "Present",
-                            "description": "- Relevant coursework: Graphic Design, Typography, User Experience Design, Illustration, Color Theory.\n- Proficient in design software such as Adobe Creative Suite (Photoshop, Illustrator, InDesign).\n- Collaborated in group projects and design critiques to enhance design skills and foster teamwork.",
-                            "url": "",
-                            "id": "lin8uxltpc3na8kr5nf"
-                        }
-                    ],
-                    "id": "lcvs2focabpsy8dlzd7"
-                },
-                "id": "lcvs2foccn3zw0pa75b",
-
+                "type": "experience",
+                "kind": "education",
+                "content": [
+                    {
+                        "title": "Bachelor of Fine Arts in Design",
+                        "subtitle": "Yale University, New Haven, Connecticut",
+                        "from": "June 2021",
+                        "to": "Present",
+                        "description": "- Relevant coursework: Graphic Design, Typography, User Experience Design, Illustration, Color Theory.\n- Proficient in design software such as Adobe Creative Suite (Photoshop, Illustrator, InDesign).\n- Collaborated in group projects and design critiques to enhance design skills and foster teamwork.",
+                        "url": "",
+                        "id": "lin8uxltpc3na8kr5nf"
+                    }
+                ],
+                "id": "lcvs2focabpsy8dlzd7"
             },
             {
                 "title": "Tools",
-                "section": {
-                    "type": "key value",
-                    "kind": "skills",
-                    "content": [
-                        {
-                            "name": "Photoshop",
-                            "value": "",
-                            "id": "lin2wbnfbcadlyw29jc"
-                        },
-                        {
-                            "name": "Illustrator",
-                            "value": "",
-                            "id": "lin2wlgdvjjh89nmrd7"
-                        },
-                        {
-                            "name": "InDesign",
-                            "value": "",
-                            "id": "lin2wlx80v8r0f3gpr"
-                        }
-                    ]
-                },
+                "type": "key value",
+                "kind": "skills",
+                "content": [
+                    {
+                        "name": "Photoshop",
+                        "value": "",
+                        "id": "lin2wbnfbcadlyw29jc"
+                    },
+                    {
+                        "name": "Illustrator",
+                        "value": "",
+                        "id": "lin2wlgdvjjh89nmrd7"
+                    },
+                    {
+                        "name": "InDesign",
+                        "value": "",
+                        "id": "lin2wlx80v8r0f3gpr"
+                    }
+                ],
                 "id": "lin2wa08blgsrn0h8l",
-
             },
             {
                 "title": "Languages",
-                "section": {
-                    "type": "key value",
-                    "kind": "languages",
-                    "content": [
-                        {
-                            "name": "English",
-                            "value": "Native",
-                            "id": "lin30zha7xxltpwdri3"
-                        },
-                        {
-                            "name": "French",
-                            "value": "C1",
-                            "id": "lin31el2qz9x4l1we18"
-                        },
-                        {
-                            "name": "Italian",
-                            "value": "B2",
-                            "id": "lin31ja0jt1gvppogrn"
-                        }
-                    ]
-                },
+                "type": "key value",
+                "kind": "languages",
+                "content": [
+                    {
+                        "name": "English",
+                        "value": "Native",
+                        "id": "lin30zha7xxltpwdri3"
+                    },
+                    {
+                        "name": "French",
+                        "value": "C1",
+                        "id": "lin31el2qz9x4l1we18"
+                    },
+                    {
+                        "name": "Italian",
+                        "value": "B2",
+                        "id": "lin31ja0jt1gvppogrn"
+                    }
+                ],
                 "id": "lin3078mevq5xtq20ik",
 
             },
             {
                 "title": "Experience",
-                "section": {
-                    "type": "experience",
-                    "kind": "experience",
-                    "content": [
-                        {
-                            "title": "Graphic Designer",
-                            "subtitle": "Art for All Nonprofit",
-                            "from": "May 2022",
-                            "to": "Present",
-                            "description": "- Created promotional materials including brochures, flyers, and social media graphics.\n- Collaborated with the marketing team to develop visually compelling designs aligned with the organization's mission.\n- Assisted in website updates and maintenance using content management systems (CMS).\n- Contributed to brainstorming sessions and provided creative input on various projects.",
-                            "url": "",
-                            "id": "lindfhc0wemic6aw7ds"
-                        }
-                    ],
-                    "id": "lindfcusg5sm4kjun38"
-                },
+                "type": "experience",
+                "kind": "experience",
+                "content": [
+                    {
+                        "title": "Graphic Designer",
+                        "subtitle": "Art for All Nonprofit",
+                        "from": "May 2022",
+                        "to": "Present",
+                        "description": "- Created promotional materials including brochures, flyers, and social media graphics.\n- Collaborated with the marketing team to develop visually compelling designs aligned with the organization's mission.\n- Assisted in website updates and maintenance using content management systems (CMS).\n- Contributed to brainstorming sessions and provided creative input on various projects.",
+                        "url": "",
+                        "id": "lindfhc0wemic6aw7ds"
+                    }
+                ],
                 "id": "lindfcusnxud3snhzxf",
 
             },
             {
                 "title": "Skills",
-                "section": {
-                    "type": "key value",
-                    "kind": "skills",
-                    "content": [
-                        {
-                            "name": "Aattention to detail",
-                            "value": "",
-                            "id": "lindmtn98ug6675ni2j"
-                        },
-                        {
-                            "name": "Strong communication skills",
-                            "value": "",
-                            "id": "lindnutr5sezttx4uvn"
-                        },
-                        {
-                            "name": "Organizational skills",
-                            "value": "",
-                            "id": "lindmwtzxwbcnx5swgh"
-                        }
-                    ]
-                },
+                "type": "key value",
+                "kind": "skills",
+                "content": [
+                    {
+                        "name": "Aattention to detail",
+                        "value": "",
+                        "id": "lindmtn98ug6675ni2j"
+                    },
+                    {
+                        "name": "Strong communication skills",
+                        "value": "",
+                        "id": "lindnutr5sezttx4uvn"
+                    },
+                    {
+                        "name": "Organizational skills",
+                        "value": "",
+                        "id": "lindmwtzxwbcnx5swgh"
+                    }],
                 "id": "lindkhuipodhs42ns3r",
-
             }
         ],
         "legalClause": "I hereby give consent for my personal data included in the application to be processed for the purposes of the recruitment process in accordance with Art. 6 paragraph 1 letter a of the Regulation of the European Parliament and of the Council (EU) 2016/679 of 27 April 2016 on the protection of natural persons with regard to the processing of personal data and on the free movement of such data, and repealing Directive 95/46/EC (General Data Protection Regulation).",

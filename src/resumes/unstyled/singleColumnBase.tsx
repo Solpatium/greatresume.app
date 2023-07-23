@@ -26,23 +26,23 @@ export interface SingleColumnTemplateProps {
 export const SingleColumnTemplate: React.FC<SingleColumnTemplateProps> = ({ data, style, translate }) => {
   const image = data.appearance.image;
 
-  const MainSection: React.FC<{ data: Section }> = ({ data }) => {
-    if (data.section.type === "experience") {
-      return <ExperienceSection markdownStyle={style?.markdown} title={data.title} data={data.section.content} />;
+  const MainSection: React.FC<{ section: Section }> = ({ section }) => {
+    if (section.type === "experience") {
+      return <ExperienceSection markdownStyle={style?.markdown} title={section.title} data={section.content} />;
     }
-    if (data.section.type === "text") {
-      return <MainSectionWrapper title={data.title} className="textSection">
-        <Markdown style={style?.markdown}>{data.section.content}</Markdown>
+    if (section.type === "text") {
+      return <MainSectionWrapper title={section.title} className="textSection">
+        <Markdown style={style?.markdown}>{section.content}</Markdown>
       </MainSectionWrapper>
     }
-    if (data.section.type === "key value") {
-      return <MainSectionWrapper title={data.title} className="keyValueSection">
-        <KeyValueSection data={data.section.content} />
+    if (section.type === "key value") {
+      return <MainSectionWrapper title={section.title} className="keyValueSection">
+        <KeyValueSection data={section.content} />
       </MainSectionWrapper>
     }
-    if (data.section.type === "simple list") {
-      return <MainSectionWrapper title={data.title} className="simpleListSection">
-        <SimpleListSection data={data.section.content} />
+    if (section.type === "simple list") {
+      return <MainSectionWrapper title={section.title} className="simpleListSection">
+        <SimpleListSection data={section.content} />
       </MainSectionWrapper>
     }
     return null;
@@ -61,7 +61,7 @@ export const SingleColumnTemplate: React.FC<SingleColumnTemplateProps> = ({ data
             />
           </V>
         </V>
-        {data.sections.map((s,i) => (<MainSection key={i} data={s} />))}
+        {data.sections.map((s,i) => (<MainSection key={i} section={s} />))}
         <T className="legalClause" style={{ marginTop: "auto" }}>{data.legalClause}</T>
       </View>
     </StyledPage>

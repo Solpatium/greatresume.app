@@ -35,111 +35,101 @@ export const energeticExample: ApplicationPersistentState = {
         "sections": [
             {
                 "title": "Experience",
-                "section": {
-                    "type": "experience",
-                    "kind": "experience",
-                    "content": [
-                        {
-                            "title": "Software Engineer Intern",
-                            "subtitle": "BestSoft4You",
-                            "from": "May 2022",
-                            "to": "Present",
-                            "description": "- Collaborated with a team of software engineers in developing a web-based application using Java and Spring framework.\n- Designed and implemented RESTful APIs for data retrieval and manipulation.\n- Conducted thorough testing and debugging to ensure the quality and functionality of the application.\n- Assisted in the development of front-end features using HTML, CSS, and JavaScript.\n- Participated in code reviews and provided constructive feedback for improvements.",
-                            "url": "",
-                            "id": "lindfhc0wemic6aw7ds"
-                        }
-                    ],
-                    "id": "lindfcusg5sm4kjun38"
-                },
+                "type": "experience",
+                "kind": "experience",
+                "content": [
+                    {
+                        "title": "Software Engineer Intern",
+                        "subtitle": "BestSoft4You",
+                        "from": "May 2022",
+                        "to": "Present",
+                        "description": "- Collaborated with a team of software engineers in developing a web-based application using Java and Spring framework.\n- Designed and implemented RESTful APIs for data retrieval and manipulation.\n- Conducted thorough testing and debugging to ensure the quality and functionality of the application.\n- Assisted in the development of front-end features using HTML, CSS, and JavaScript.\n- Participated in code reviews and provided constructive feedback for improvements.",
+                        "url": "",
+                        "id": "lindfhc0wemic6aw7ds"
+                    }
+                ],
                 "id": "lindfcusnxud3snhzxf",
-                
+
             },
             {
                 "title": "Projects",
-                "section": {
-                    "type": "experience",
-                    "kind": "projects",
-                    "content": [
-                        {
-                            "title": "Automated Inventory Management System",
-                            "subtitle": "",
-                            "from": "",
-                            "to": "",
-                            "description": "- Designed and developed a web-based inventory management system using Django framework.\n- Implemented real-time inventory tracking, automated reordering, and reporting functionalities.\n- Integrated barcode scanning for efficient item identification and management.\n- Reduced manual efforts and improved accuracy in inventory management for the company.",
-                            "url": "",
-                            "id": "lindvjyffgdtpgmvzn"
-                        },
-                        {
-                            "title": "Mobile Expense Tracker Application",
-                            "subtitle": "",
-                            "from": "",
-                            "to": "",
-                            "description": "- Created a mobile expense tracker application using React Native and Firebase.\n- Implemented user authentication, expense categorization, and data visualization features.\n- Utilized Firebase Realtime Database for seamless synchronization of expense data across devices.- \nReceived positive user feedback for its intuitive user interface and functionality.",
-                            "url": "",
-                            "id": "lindw9aah0o9bz6ygh"
-                        }
-                    ],
-                    "id": "lindvh3oqxwytp7nkmb"
-                },
+                "type": "experience",
+                "kind": "projects",
+                "content": [
+                    {
+                        "title": "Automated Inventory Management System",
+                        "subtitle": "",
+                        "from": "",
+                        "to": "",
+                        "description": "- Designed and developed a web-based inventory management system using Django framework.\n- Implemented real-time inventory tracking, automated reordering, and reporting functionalities.\n- Integrated barcode scanning for efficient item identification and management.\n- Reduced manual efforts and improved accuracy in inventory management for the company.",
+                        "url": "",
+                        "id": "lindvjyffgdtpgmvzn"
+                    },
+                    {
+                        "title": "Mobile Expense Tracker Application",
+                        "subtitle": "",
+                        "from": "",
+                        "to": "",
+                        "description": "- Created a mobile expense tracker application using React Native and Firebase.\n- Implemented user authentication, expense categorization, and data visualization features.\n- Utilized Firebase Realtime Database for seamless synchronization of expense data across devices.- \nReceived positive user feedback for its intuitive user interface and functionality.",
+                        "url": "",
+                        "id": "lindw9aah0o9bz6ygh"
+                    }
+                ],
                 "id": "lindvh3oswx1ymg7ugl",
-                
+
             },
             {
                 "title": "Programming languages",
-                "section": {
-                    "type": "key value",
-                    "kind": "skills",
-                    "content": [
-                        {
-                            "name": "Python",
-                            "value": "Proficient",
-                            "id": "lin2wbnfbcadlyw29jc"
-                        },
-                        {
-                            "name": "Javascript",
-                            "value": "Advanced",
-                            "id": "lin2wlgdvjjh89nmrd7"
-                        },
-                        {
-                            "name": "Java",
-                            "value": "Intermediate",
-                            "id": "lin2wlx80v8r0f3gpr"
-                        },
-                        {
-                            "name": "C++",
-                            "value": "Used before",
-                            "id": "line0zu8ovxc4mtkmc"
-                        }
-                    ]
-                },
+                "type": "key value",
+                "kind": "skills",
+                "content": [
+                    {
+                        "name": "Python",
+                        "value": "Proficient",
+                        "id": "lin2wbnfbcadlyw29jc"
+                    },
+                    {
+                        "name": "Javascript",
+                        "value": "Advanced",
+                        "id": "lin2wlgdvjjh89nmrd7"
+                    },
+                    {
+                        "name": "Java",
+                        "value": "Intermediate",
+                        "id": "lin2wlx80v8r0f3gpr"
+                    },
+                    {
+                        "name": "C++",
+                        "value": "Used before",
+                        "id": "line0zu8ovxc4mtkmc"
+                    }
+                ],
                 "id": "lin2wa08blgsrn0h8l",
-                
+
             },
             {
                 "title": "Languages",
-                "section": {
-                    "type": "key value",
-                    "kind": "languages",
-                    "content": [
-                        {
-                            "name": "English",
-                            "value": "Native",
-                            "id": "lin30zha7xxltpwdri3"
-                        },
-                        {
-                            "name": "French",
-                            "value": "C1",
-                            "id": "lin31el2qz9x4l1we18"
-                        },
-                        {
-                            "name": "Italian",
-                            "value": "B2",
-                            "id": "lin31ja0jt1gvppogrn"
-                        }
-                    ]
-                },
+                "type": "key value",
+                "kind": "languages",
+                "content": [
+                    {
+                        "name": "English",
+                        "value": "Native",
+                        "id": "lin30zha7xxltpwdri3"
+                    },
+                    {
+                        "name": "French",
+                        "value": "C1",
+                        "id": "lin31el2qz9x4l1we18"
+                    },
+                    {
+                        "name": "Italian",
+                        "value": "B2",
+                        "id": "lin31ja0jt1gvppogrn"
+                    }
+                ],
                 "id": "lin3078mevq5xtq20ik",
-                
+
             }
         ],
         "legalClause": "I hereby give consent for my personal data included in the application to be processed for the purposes of the recruitment process in accordance with Art. 6 paragraph 1 letter a of the Regulation of the European Parliament and of the Council (EU) 2016/679 of 27 April 2016 on the protection of natural persons with regard to the processing of personal data and on the free movement of such data, and repealing Directive 95/46/EC (General Data Protection Regulation).",

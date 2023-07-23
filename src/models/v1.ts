@@ -20,6 +20,7 @@ import {
 } from "./sections/simpleListSection";
 import { makeTextSection, textSectionStruct, TextSectionType } from "./sections/textSection";
 import { withId } from "../utils/lists";
+import { sectionBase } from "./sections/base";
 
 const paperSizeStruct = enums(["A4", "LETTER"]);
 export type PaperSize = Infer<typeof paperSizeStruct>;
@@ -34,12 +35,8 @@ const sectionStruct = union([
   textSectionStruct,
 ]);
 
-const sectionEntry = type({
-  title: string(),
-  id: string(),
-  section: sectionStruct,
-});
-export type Section = Infer<typeof sectionEntry>;
+export type Section = Infer<typeof sectionStruct>;
+export type SectionBase = Infer<typeof sectionBase>;
 
 const appearanceSettings = type({
   template: string(),
@@ -53,7 +50,7 @@ export const resumeStruct = type({
   version: string(),
   personalInformation: personalInformationStruct,
   appearance: appearanceSettings,
-  sections: array(sectionEntry),
+  sections: array(sectionStruct),
   legalClause: string(),
 });
 export type ResumeModel = Infer<typeof resumeStruct>;
@@ -79,12 +76,12 @@ const mapping = {
   text: makeTextSection,
 };
 
-export const createEmptySection = (title: string, kind: SectionKind): Section =>
-  withId({
-    title,
-    // @ts-ignore
-    section: mapping[kind](kind),
-  });
+export const createEmptySection = (title: string, kind: SectionKind): Section => {
+  // @ts-ignore
+  const section = mapping[kind](kind);
+  section.title = title;
+  return section;
+}
 
 export const makeEmptyResume = ({
   paperSize,

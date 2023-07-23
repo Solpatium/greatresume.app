@@ -25,151 +25,136 @@ export const professionalExample: ApplicationPersistentState = {
         "sections": [
             {
                 "title": "Profile",
-                "section": {
-                    "type": "text",
-                    "kind": "text",
-                    "content": "Experienced Sales Professional with a proven track record of exceeding sales goals. Strong communication and interpersonal skills, with the ability to build and maintain relationships with clients. Proven ability to identify new business opportunities, and effectively negotiate deals to close."
-                },
+                "type": "text",
+                "kind": "text",
+                "content": "Experienced Sales Professional with a proven track record of exceeding sales goals. Strong communication and interpersonal skills, with the ability to build and maintain relationships with clients. Proven ability to identify new business opportunities, and effectively negotiate deals to close.",
                 "id": "lcvw0zf0wgxdx3mzkih",
-                
+
             },
             {
                 "title": "Employment",
-                "section": {
-                    "type": "experience",
-                    "kind": "employment",
-                    "content": [
-                        {
-                            "title": "Senior Sales Representative",
-                            "subtitle": "XYZ Corporation",
-                            "from": "June 2016",
-                            "to": "Present",
-                            "description": "  - Consistently exceeded sales goals, achieving an average of 120% of target annually.\n  - Developed and maintained a large, diverse client base through effective relationship-building and networking.\n  - Utilized a consultative sales approach to understand client needs and provide solutions.\n  - Conducted regular market research and analysis to identify new business opportunities.\n  - Developed and delivered effective sales presentations and proposals.",
-                            "url": "",
-                            "id": "lin2prvfxdy6so9ugxq"
-                        },
-                        {
-                            "title": "Sales Representative",
-                            "subtitle": "ABC Company",
-                            "from": "January 2012",
-                            "to": "May 2016",
-                            "description": "- Consistently met or exceeded sales goals, achieving an average of 105% of target annually\n- Built and maintained relationships with clients through effective communication and follow-up.\n- Utilized a solutions-based sales approach to understand client needs and provide appropriate products/services.\n- Consistently met or exceeded customer service standards.",
-                            "url": "",
-                            "id": "lin2qheu0weu51lq3nqn"
-                        }
-                    ],
-                    "id": "lin2pg3nl0afc9epn2"
-                },
+                "type": "experience",
+                "kind": "employment",
+                "content": [
+                    {
+                        "title": "Senior Sales Representative",
+                        "subtitle": "XYZ Corporation",
+                        "from": "June 2016",
+                        "to": "Present",
+                        "description": "  - Consistently exceeded sales goals, achieving an average of 120% of target annually.\n  - Developed and maintained a large, diverse client base through effective relationship-building and networking.\n  - Utilized a consultative sales approach to understand client needs and provide solutions.\n  - Conducted regular market research and analysis to identify new business opportunities.\n  - Developed and delivered effective sales presentations and proposals.",
+                        "url": "",
+                        "id": "lin2prvfxdy6so9ugxq"
+                    },
+                    {
+                        "title": "Sales Representative",
+                        "subtitle": "ABC Company",
+                        "from": "January 2012",
+                        "to": "May 2016",
+                        "description": "- Consistently met or exceeded sales goals, achieving an average of 105% of target annually\n- Built and maintained relationships with clients through effective communication and follow-up.\n- Utilized a solutions-based sales approach to understand client needs and provide appropriate products/services.\n- Consistently met or exceeded customer service standards.",
+                        "url": "",
+                        "id": "lin2qheu0weu51lq3nqn"
+                    }
+                ],
                 "id": "lin2pg3n56mc5cg70yf",
-                
+
             },
             {
                 "title": "Certifications",
-                "section": {
-                    "type": "experience",
-                    "kind": "experience",
-                    "content": [
-                        {
-                            "title": "Professional Sales Certification",
-                            "subtitle": "",
-                            "from": "",
-                            "to": "",
-                            "description": "Valid through May 2025",
-                            "url": "",
-                            "id": "lin2xx3w6axnj849dw3"
-                        },
-                        {
-                            "title": "Advanced Product Knowledge Certification",
-                            "subtitle": "",
-                            "from": "",
-                            "to": "",
-                            "description": "Valid through May 2030",
-                            "url": "",
-                            "id": "lin2yb5a0vhghzwm25jh"
-                        }
-                    ],
-                    "id": "lin2xqbgfu9iqtpyrbb"
-                },
+                "type": "experience",
+                "kind": "experience",
+                "content": [
+                    {
+                        "title": "Professional Sales Certification",
+                        "subtitle": "",
+                        "from": "",
+                        "to": "",
+                        "description": "Valid through May 2025",
+                        "url": "",
+                        "id": "lin2xx3w6axnj849dw3"
+                    },
+                    {
+                        "title": "Advanced Product Knowledge Certification",
+                        "subtitle": "",
+                        "from": "",
+                        "to": "",
+                        "description": "Valid through May 2030",
+                        "url": "",
+                        "id": "lin2yb5a0vhghzwm25jh"
+                    }
+                ],
                 "id": "lin2xqbgadcygqkk6jn",
-                
+
             },
             {
                 "title": "Education",
-                "section": {
-                    "type": "experience",
-                    "kind": "education",
-                    "content": [
-                        {
-                            "title": "Bachelor of Science in Business Administration",
-                            "subtitle": "DEF University",
-                            "from": "May 2006",
-                            "to": "May 2010",
-                            "description": "",
-                            "url": "",
-                            "id": "lcvs2zzjfqh415bdjww"
-                        }
-                    ],
-                    "id": "lcvs2focabpsy8dlzd7"
-                },
+                "type": "experience",
+                "kind": "education",
+                "content": [
+                    {
+                        "title": "Bachelor of Science in Business Administration",
+                        "subtitle": "DEF University",
+                        "from": "May 2006",
+                        "to": "May 2010",
+                        "description": "",
+                        "url": "",
+                        "id": "lcvs2zzjfqh415bdjww"
+                    }
+                ],
                 "id": "lcvs2foccn3zw0pa75b",
-                
+
             },
             {
                 "title": "Languages",
-                "section": {
-                    "type": "key value",
-                    "kind": "languages",
-                    "content": [
-                        {
-                            "name": "English",
-                            "value": "Native",
-                            "id": "lin30zha7xxltpwdri3"
-                        },
-                        {
-                            "name": "French",
-                            "value": "C1",
-                            "id": "lin31el2qz9x4l1we18"
-                        },
-                        {
-                            "name": "Italian",
-                            "value": "B2",
-                            "id": "lin31ja0jt1gvppogrn"
-                        }
-                    ]
-                },
+                "type": "key value",
+                "kind": "languages",
+                "content": [
+                    {
+                        "name": "English",
+                        "value": "Native",
+                        "id": "lin30zha7xxltpwdri3"
+                    },
+                    {
+                        "name": "French",
+                        "value": "C1",
+                        "id": "lin31el2qz9x4l1we18"
+                    },
+                    {
+                        "name": "Italian",
+                        "value": "B2",
+                        "id": "lin31ja0jt1gvppogrn"
+                    }
+                ],
                 "id": "lin3078mevq5xtq20ik",
-                
+
             },
             {
                 "title": "Skills",
-                "section": {
-                    "type": "key value",
-                    "kind": "skills",
-                    "content": [
-                        {
-                            "name": "Leadership",
-                            "value": "",
-                            "id": "lin2wbnfbcadlyw29jc"
-                        },
-                        {
-                            "name": "Problem-solving",
-                            "value": "",
-                            "id": "lin2wlgdvjjh89nmrd7"
-                        },
-                        {
-                            "name": "Time management",
-                            "value": "",
-                            "id": "lin2wlx80v8r0f3gpr"
-                        },
-                        {
-                            "name": "Strong negotiation and closing skills",
-                            "value": "",
-                            "id": "lin2x01so45ph00fq9"
-                        }
-                    ]
-                },
+                "type": "key value",
+                "kind": "skills",
+                "content": [
+                    {
+                        "name": "Leadership",
+                        "value": "",
+                        "id": "lin2wbnfbcadlyw29jc"
+                    },
+                    {
+                        "name": "Problem-solving",
+                        "value": "",
+                        "id": "lin2wlgdvjjh89nmrd7"
+                    },
+                    {
+                        "name": "Time management",
+                        "value": "",
+                        "id": "lin2wlx80v8r0f3gpr"
+                    },
+                    {
+                        "name": "Strong negotiation and closing skills",
+                        "value": "",
+                        "id": "lin2x01so45ph00fq9"
+                    }
+                ],
                 "id": "lin2wa08blgsrn0h8l",
-                
+
             }
         ],
         "legalClause": "I hereby give consent for my personal data included in the application to be processed for the purposes of the recruitment process in accordance with Art. 6 paragraph 1 letter a of the Regulation of the European Parliament and of the Council (EU) 2016/679 of 27 April 2016 on the protection of natural persons with regard to the processing of personal data and on the free movement of such data, and repealing Directive 95/46/EC (General Data Protection Regulation).",

@@ -1,5 +1,6 @@
-import { typedData } from "starknet";
 import { array, string, type, literal, enums, Infer } from "superstruct";
+import { sectionBase } from "./base";
+import { withId } from "../../utils/lists";
 
 /*
   Can be used as list of interests.
@@ -19,12 +20,14 @@ const entry = type({
 export type SimpleListEntry = Infer<typeof entry>;
 
 export const simpleListSectionStruct = type({
+  ...sectionBase.schema,
   type: literal(simpleListTypeName),
   kind: kindStruct,
   content: array(entry),
 });
 
-export const makeSimpleList = (kind: SimpleListKind): Infer<typeof simpleListSectionStruct> => ({
+export const makeSimpleList = (kind: SimpleListKind): Infer<typeof simpleListSectionStruct> => withId({
+  title: "",
   type: simpleListTypeName,
   kind,
   content: [],
