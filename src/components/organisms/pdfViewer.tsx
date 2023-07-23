@@ -192,7 +192,7 @@ const ZoomControl: React.FC<{
         <Button
           disabled={currentIndex === 0}
           onClick={() => setZoom(steps[currentIndex - 1] ?? 100)}
-          className="p-2 hidden md:block w-full md:w-auto md:p-4"
+          className="p-2 block w-full md:w-auto md:p-4"
           ghost
         >
           <span className="sr-only">Zoom out</span>
@@ -212,7 +212,7 @@ const ZoomControl: React.FC<{
         </Button>
         {/* </div> */}
         <div aria-hidden className="hidden md:block sm:h-[30px] sm:w-[1px] bg-gray-500" />
-        <Button ghost onClick={reset}>{t`reset`}</Button>
+        <Button ghost className="hidden md:block" onClick={reset}>{t`reset`}</Button>
       </div>
       <DownloadButton />
     </div>
