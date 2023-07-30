@@ -1,7 +1,7 @@
 import React from "react";
 import { useAppState } from "../../../state/store";
 import { useSnapshot } from "valtio";
-import { StepDescription } from "../../atoms/stepDescription";
+import { StepDescription } from "../../atoms/typography";
 import useTranslation from "next-translate/useTranslation";
 import { TemplateList } from "./appearance";
 import { Button } from "../../atoms/button";

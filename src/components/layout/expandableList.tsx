@@ -1,14 +1,16 @@
 import React, { ReactElement, useCallback, useEffect, useRef, useState } from "react";
 import { Button } from "../atoms/button";
 import { Disclosure } from "@headlessui/react";
-import { ChevronDownIcon, TrashIcon } from "@heroicons/react/20/solid";
+import { ChevronDownIcon, PlusIcon, TrashIcon } from "@heroicons/react/20/solid";
 import cn from "classnames";
 import { HasId } from "../../utils/lists";
 import { SortableList } from "./sortableList";
-import { subscribe } from "valtio";
+import { subscribe, useSnapshot } from "valtio";
 import useTranslation from "next-translate/useTranslation";
 import { useIsMobile } from "../../utils/hooks";
 import { BigModal } from "./bigModal";
+import { ListItem } from "../atoms/listItem";
+import { PencilIcon } from "@heroicons/react/24/outline";
 
 export interface ExpandableListProps<Type> {
   stateProxy: Type[];
@@ -49,22 +51,24 @@ const ExpandableItem = <Type extends HasId>(props: ExpandableItemProps<Type>) =>
     </div>)
   // TODO: accessibility
   return (
-    <div className="sortable-list flex-1 items-center p-2">
-      <dt>
+    <div className="w-full flex flex-col items-center justify-between">
+      <dt className="w-full">
         <button type="button" onClick={close} className="text-left w-full flex justify-between items-center text-gray-900">
-          <span className="min-h-[38px] flex items-center font-medium">
+          <span className="min-h-[38px] flex items-center font-medium truncate w-full">
             {preview}
           </span>
           <span className="ml-6 h-7 flex items-center">
             <ChevronDownIcon
-              className={cn(props.open ? "-rotate-180" : "rotate-0", "h-6 w-6 transform")}
+              className={cn(props.open ? "-rotate-180" : "rotate-0", "h-6 w-6 transform hidden md:block")}
               aria-hidden="true"
             />
+            <PencilIcon className={"h-6 w-6 block md:hidden text-stone-500"}
+              aria-hidden="true" />
           </span>
         </button>
       </dt>
 
-      {props.open && <dd className="mt-2 mr-1">
+      {props.open && !isMobile && <dd className="mt-2 mr-1 w-full">
         {content}
       </dd>}
 
@@ -83,7 +87,8 @@ export const ExpandableList = <Type extends HasId>({
   onAddNew,
   label,
 }: ExpandableListProps<Type>): ReactElement => {
-  const [open, setOpen] = useState(new Set());
+  const { t } = useTranslation("app");
+  const [open, setOpen] = useState("");
   const onDelete = useCallback(
     (index: number) => {
       stateProxy.splice(index, 1);
@@ -95,7 +100,7 @@ export const ExpandableList = <Type extends HasId>({
     const handler = () => {
       stateProxy.forEach(entry => {
         if (!idsBefore.has(entry.id)) {
-          setOpen(new Set([entry.id]));
+          setOpen(entry.id);
         }
       });
       idsBefore = new Set(stateProxy.map(e => e.id));
@@ -103,15 +108,15 @@ export const ExpandableList = <Type extends HasId>({
     return subscribe(stateProxy, handler);
   }, [onAddNew, stateProxy]);
 
-  const onToggle = useCallback((id: string) => setOpen(open => {
-    const newOpen = new Set(open);
-    if (open.has(id)) {
-      newOpen.delete(id);
-    } else {
-      newOpen.add(id);
+  const onToggle = useCallback((id: string) => setOpen(currentOpen => {
+    // Remove currently open one
+    if (currentOpen == id) {
+      return "";
     }
-    return newOpen;
+    return id;
   }), [setOpen]);
+
+  useSnapshot(stateProxy);
 
   return (
     <SortableList
@@ -128,7 +133,7 @@ export const ExpandableList = <Type extends HasId>({
           index={i}
           id={s.id}
           onToggle={onToggle}
-          open={open.has(s.id)}
+          open={s.id == open}
         />
       )}
     />

@@ -3,7 +3,7 @@ import React from "react";
 import { useSnapshot } from "valtio";
 import { ResumeModel } from "../../../models/v1";
 import { RichTextEditor } from "../../atoms/fields/richText";
-import { StepDescription } from "../../atoms/stepDescription";
+import { StepDescription } from "../../atoms/typography";
 
 export const LegalClauseForm: React.FC<{ stateProxy: ResumeModel }> = React.memo(({ stateProxy }) => {
   const { t } = useTranslation("app")

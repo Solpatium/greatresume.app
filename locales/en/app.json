@@ -4,6 +4,7 @@
   "save": "Save",
   "cancel": "Cancel",
   "edit": "Edit",
+  "edit": "Rename",
   "url": "Url",
   "empty": "Empty",
   "description": "Description",
@@ -146,7 +147,7 @@
   "newSection": {
     "title": "Sections",
     "sectionTitle": "Section title",
-    "description": "Customize sections on your resume. You can rearrange, add new, rename or delete them. You will edit their contents in the next steps.",
+    "description": "Customize sections on your resume. You can rearrange, add new or delete them.",
     "addNew": "Add new section",
     "modalTitle": "Choose section to add",
     "deletionConfirmation": "Are you sure you want to delete this section?",

@@ -33,7 +33,7 @@ export const BigModal: React.FC<{ title: React.ReactNode; children: React.ReactN
           leaveTo="opacity-0 translate-y-40 sm:translate-y-0 sm:scale-95">
           <Dialog.Panel className="relative block align-bottom bg-white text-left overflow-hidden shadow-xl transform transition-all w-full h-full flex flex-col">
             <div className="flex flex-row space-between gap-2 align-center p-4">
-              <Dialog.Title as="h3" className="flex-grow text-lg leading-6 font-bold text-gray-900">
+              <Dialog.Title as="h3" className="flex-grow text-lg leading-6 font-bold text-gray-900 truncate">
                 {title}
               </Dialog.Title>
               <button
@@ -46,12 +46,13 @@ export const BigModal: React.FC<{ title: React.ReactNode; children: React.ReactN
                 <XMarkIcon className="h-6 w-6" aria-hidden="true" />
               </button>
             </div>
-            <div className="pb-[80px] overflow-auto px-4">
-              {children}
+            <div className="overflow-y-auto overflow-x-hidden px-4 flex flex-col">
+              <div className="pb-[80px]">
+                {children}
+              </div>
             </div>
-            <div className="absolute left-0 right-0 bottom-0 h-[80px] py-4 flex justify-center">
-              <Button secondary icon={ArrowLeftIcon} onClick={onClose}>Back</Button>
-            </div>
+
+            <Button className="absolute m-auto left-0 right-0 bottom-4 h-[50px] w-fit" secondary icon={ArrowLeftIcon} onClick={onClose}>Back</Button>
           </Dialog.Panel>
         </Transition.Child>
       </div>

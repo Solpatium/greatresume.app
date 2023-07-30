@@ -2,10 +2,12 @@ import React from "react";
 import { Input } from "../../atoms/fields/input";
 import { withId } from "../../../utils/lists";
 import { FastEditableList } from "../../layout/flatEditableList";
-import { SimpleListEntry } from "../../../models/sections/simpleListSection";
+import { SimpleListEntry, SimpleListSection } from "../../../models/sections/simpleListSection";
 import { useSnapshot } from "valtio";
 import useTranslation from "next-translate/useTranslation";
-import { StepDescription } from "../../atoms/stepDescription";
+import { StepDescription } from "../../atoms/typography";
+import { useToggle } from "react-use";
+import { SectionTitle } from "../../molecules/sectionTitle";
 
 const Entry: React.FC<{ stateProxy: SimpleListEntry }> = ({ stateProxy }) => {
   const { t } = useTranslation("app");
@@ -20,15 +22,16 @@ const Entry: React.FC<{ stateProxy: SimpleListEntry }> = ({ stateProxy }) => {
   );
 };
 
-export const InterestsForm: React.FC<{ stateProxy: SimpleListEntry[] }> = React.memo(({ stateProxy }) => {
+export const InterestsForm: React.FC<{ stateProxy: SimpleListSection }> = React.memo(({ stateProxy }) => {
   const { t } = useTranslation("app");
   return (
     <>
+      <SectionTitle sectionProxy={stateProxy} />
       <StepDescription>{t`steps.interests.description`}</StepDescription>
       <FastEditableList
-        stateProxy={stateProxy}
+        stateProxy={stateProxy.content}
         render={(e) => <Entry stateProxy={e} />}
-        onAddNew={() => stateProxy.push(withId({ content: "" }))}
+        onAddNew={() => stateProxy.content.push(withId({ content: "" }))}
       />
     </>
   );

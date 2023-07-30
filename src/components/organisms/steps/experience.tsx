@@ -1,18 +1,18 @@
+import useTranslation from "next-translate/useTranslation";
 import React from "react";
-import { Input } from "../../atoms/fields/input";
-import { ExpandableList } from "../../layout/expandableList";
-import { RichTextEditor } from "../../atoms/fields/richText";
+import { useSnapshot } from "valtio";
 import {
   Entry,
   ExperienceKind,
   ExperienceSection,
   makeEmptyEntry,
 } from "../../../models/sections/experienceSection";
-import { useSnapshot } from "valtio";
-import { StepDescription } from "../../atoms/stepDescription";
-import useTranslation from "next-translate/useTranslation";
-import { BigModal } from "../../layout/bigModal";
-import { SmallEditButton } from "../../atoms/button";
+import { Input } from "../../atoms/fields/input";
+import { RichTextEditor } from "../../atoms/fields/richText";
+import { StepDescription } from "../../atoms/typography";
+import { ExpandableList } from "../../layout/expandableList";
+import { SortableList } from "../../layout/sortableList";
+import { SectionTitle } from "../../molecules/sectionTitle";
 
 const Entry: React.FC<{ kind: ExperienceKind; stateProxy: Entry }> = ({ kind, stateProxy }) => {
   const state = useSnapshot(stateProxy);
@@ -88,30 +88,30 @@ const Preview: React.FC<{ stateProxy: Entry }> = ({ stateProxy }) => {
     parts.push(<span key="empty" className="italic text-base">{t`empty`}</span>)
   }
 
-  return <div>{parts}</div>;
+  return <div className="truncate flex items-center">{parts}</div>;
 };
 
-// const SectionEdit: React.FC<{
-//   stateProxy: ExperienceSection;
-// }> = ({stateProxy}) => {
-//   return (<Input
-//     className="md:col-span-1"
-//     label={t`startDate`}
-//     onChange={v => (stateProxy = v)}
-//     value={state["from"]}
-//   />)
-// }
+const ReorderSections: React.FC<{
+  stateProxy: ExperienceSection;
+}> = ({ stateProxy }) => {
+  return <SortableList
+    label="Reorder entries"
+    stateProxy={stateProxy.content}
+    render={e => <Preview stateProxy={e} />}
+    className="mt-4"
+  />;
+}
 
 export const Experience: React.FC<{
   stateProxy: ExperienceSection;
 }> = React.memo(({ stateProxy }) => {
   const { t } = useTranslation("app");
+
   return (
     <>
-      <StepDescription>{t(`steps.${stateProxy.kind}.description`)}</StepDescription>
-      <SmallEditButton>{t`edit`}</SmallEditButton>
+    <SectionTitle sectionProxy={stateProxy} />
+    <StepDescription>{t(`steps.${stateProxy.kind}.description`)}</StepDescription>
       <ExpandableList
-        // label="Entries"
         stateProxy={stateProxy.content}
         renderPreview={stateProxy => <Preview stateProxy={stateProxy} />}
         render={e => <Entry stateProxy={e} kind={stateProxy.kind} />}

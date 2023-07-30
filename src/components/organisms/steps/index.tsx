@@ -23,7 +23,7 @@ const renderSection = (section: Section): React.ReactElement => {
     return <Experience stateProxy={section} />;
   } else
   if (section.type == "simple list") {
-    return <InterestsForm stateProxy={section.content} />
+    return <InterestsForm stateProxy={section} />
   } else
   if (section.type == "key value") {
     return <KeyValueForm stateProxy={section} />;
@@ -39,7 +39,7 @@ export const Editor: React.FC<{
   const state = useAppState();
 
   const progress = useSnapshot(state.progress);
-  let sectionsLeft = progress.sectionsFilled;
+  let sectionsLeft = 100;///progress.sectionsFilled;
 
   // Subscribe to sections to render them properly below
   useSnapshot(state.resume.sections);
@@ -63,21 +63,21 @@ export const Editor: React.FC<{
     });
     sectionsLeft -= 1;
   }
-  if (sectionsLeft) {
-    steps.push({
-      element: <><SectionTitle title={t`newSection.title`} /><StepsForm /></>,
-      title: t`newSection.title`,
-      id: "sections",
-      onNext,
-    });
-    sectionsLeft -= 1;
-  }
   for (let i = 0; i < state.resume.sections.length && sectionsLeft; i++) {
     let section = state.resume.sections[i]!;
     steps.push({
       element: renderSection(section),
       title: section.title,
       id: "section-" + section.id,
+      onNext,
+    });
+    sectionsLeft -= 1;
+  }
+  if (sectionsLeft) {
+    steps.push({
+      element: <><SectionTitle title={t`newSection.title`} /><StepsForm /></>,
+      title: t`newSection.title`,
+      id: "sections",
       onNext,
     });
     sectionsLeft -= 1;

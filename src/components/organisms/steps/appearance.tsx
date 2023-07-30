@@ -6,7 +6,7 @@ import { FlatSelect, FlatSelectOption } from "../../atoms/flatSelect";
 import { PaperSize } from "../../../models/v1";
 import { useAppState } from "../../../state/store";
 import { useSnapshot } from "valtio";
-import { StepDescription } from "../../atoms/stepDescription";
+import { StepDescription } from "../../atoms/typography";
 import useTranslation from "next-translate/useTranslation";
 import { useTemplateDetails } from "../../../resumes/templateDetails";
 import { RadioGroup } from "@headlessui/react";

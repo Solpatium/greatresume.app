@@ -1,4 +1,5 @@
 import { MutableRefObject, useCallback, useEffect, useState } from "react";
+import { useMedia } from "react-use";
 
 export const useIsVisible = (ref: MutableRefObject<HTMLElement | null | undefined>, onChange: (visible: boolean) => void) => {
   useEffect(() => {
@@ -30,7 +31,7 @@ export const useResize = (action: () => void) => {
       }
       if (window.innerWidth != width) {
         handle = setTimeout(() => {
-          action(); 
+          action();
           width = window.innerWidth;
         }, 100);
       }
@@ -45,4 +46,8 @@ export const useRerender = (): (() => void) => {
   return useCallback(() => {
     setState({});
   }, []);
+}
+
+export const useIsMobile = () => {
+  return useMedia('(max-width: 480px)');
 }

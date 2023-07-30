@@ -1,8 +1,8 @@
-import React, { useCallback, useMemo, useState } from "react";
+import React, { ButtonHTMLAttributes, HTMLAttributes, useCallback, useMemo, useState } from "react";
 import cn from "classnames";
 
 const common =
-  "inline-flex justify-center items-center px-4 py-2 border text-sm font-medium rounded shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2";
+  "inline-flex justify-center items-center px-4 py-2 border text-sm font-medium rounded shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors";
 const colors = {
   danger: `${common} bg-pink-600 hover:bg-pink-700 focus:ring-pink-500 text-white `,
   primary: `${common} rounded-xl bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 text-white`,
@@ -36,7 +36,7 @@ export const Button: React.FC<{
   disabled?: boolean;
   children: React.ReactNode;
   className?: string;
-}> = ({ ghost, danger, onClick, secondary, type, children, icon, disabled, className }) => {
+} & React.ButtonHTMLAttributes<HTMLButtonElement>> = ({ ghost, danger, onClick, secondary, type, children, icon, disabled, className, ...rest }) => {
   const [handleClick, inProgress] = useProgress(onClick);
 
   const variant =
@@ -59,7 +59,8 @@ export const Button: React.FC<{
       disabled={disabled || inProgress}
       onClick={handleClick}
       type={type ?? "button"}
-      className={cn(variant, disabledColor, className)}>
+      className={cn(variant, disabledColor, className)}
+      {...rest}>
       {icon && React.createElement(icon, { className: "h-4 w-4 mr-2 -ml-0.5" })}
       {children}
     </button>

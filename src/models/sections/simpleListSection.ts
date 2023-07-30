@@ -26,7 +26,9 @@ export const simpleListSectionStruct = type({
   content: array(entry),
 });
 
-export const makeSimpleList = (kind: SimpleListKind): Infer<typeof simpleListSectionStruct> => withId({
+export type SimpleListSection = Infer<typeof simpleListSectionStruct>;
+
+export const makeSimpleList = (kind: SimpleListKind): SimpleListSection => withId({
   title: "",
   type: simpleListTypeName,
   kind,
