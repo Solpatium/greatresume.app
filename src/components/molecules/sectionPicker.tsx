@@ -55,9 +55,6 @@ export const SectionPicker: React.FC<{ onSelect: (value: Section) => void }> = (
       description: t`newSection.sections.experience.description`,
       icon: CalendarIcon,
     },
-  ];
-  
-  const otherOptions: FlatSelectOption<SectionKind>[] = [
     {
       value: "skills",
       label: t`newSection.sections.skills.label`,
@@ -86,30 +83,21 @@ export const SectionPicker: React.FC<{ onSelect: (value: Section) => void }> = (
 
   return (
     <div className="flex flex-col gap-3">
-      <Label name={t`newSection.groups.datedEntries`}>
+      {/* <Label name={t`newSection.groups.datedEntries`}> */}
         <FlatSelect
+          label={t`newSection.groups.datedEntries`}
           wrapperClassName="grid grid-cols-2 gap-2"
           options={mainOptions}
           value={sectionKind}
-          onChange={setSectionKind}
+          onChange={(sectionKind) => {
+            if (sectionKind) {
+              onSelect(createEmptySection(t(`defaults.titles.${sectionKind}`), sectionKind));
+
+            }
+          }}
         />
-      </Label>
-      <Label name={t`newSection.groups.others`}>
-        <FlatSelect
-          wrapperClassName="grid grid-cols-2 gap-2"
-          options={otherOptions}
-          value={sectionKind}
-          onChange={setSectionKind}
-        />
-      </Label>
-      <Button
-        disabled={!sectionKind}
-        onClick={() =>
-          sectionKind &&
-          onSelect(createEmptySection(t(`defaults.titles.${sectionKind}`), sectionKind))
-        }>
-        {t`newSection.addSection`}
-      </Button>
+      {/* </Label> */}
+
     </div>
   );
 };

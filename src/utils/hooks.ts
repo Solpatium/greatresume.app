@@ -51,3 +51,7 @@ export const useRerender = (): (() => void) => {
 export const useIsMobile = () => {
   return useMedia('(max-width: 480px)');
 }
+
+export const useIsLarge = () => {
+  return useMedia('(min-width: 1024px)');
+}

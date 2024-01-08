@@ -1,5 +1,5 @@
 import React from "react";
-import { useAppState } from "../../../state/store";
+import { useAppState, usePdfState } from "../../../state/store";
 import { useSnapshot } from "valtio";
 import { StepDescription } from "../../atoms/typography";
 import useTranslation from "next-translate/useTranslation";
@@ -10,10 +10,14 @@ export const Export: React.FC = React.memo(() => {
     const { t } = useTranslation("app");
     const settings = useAppState().resume.appearance;
     const { template } = useSnapshot(settings);
+    const pdfState = usePdfState().previewState;
     return (
         <>
             <StepDescription>{t`steps.export.description`}</StepDescription>
-            <TemplateList template={template} setTemplate={v => (settings.template = v)} />
+            <TemplateList template={template} setTemplate={v => {
+                settings.template = v;
+                pdfState.previewVisible = !pdfState.previewVisible;
+            }} />
         </>
     );
 });

@@ -94,12 +94,14 @@ export const PersonalInformation: React.FC = React.memo(() => {
           onChange={v => (stateProxy.email = v)}
           value={state["email"]}
         />
-        <FastEditableList
-          label={t`links`}
-          className="col-span-full" z
-          stateProxy={stateProxy.links}
-          render={entryToLinkEdit}
-          onAddNew={addNew} />
+        <div className="col-span-full">
+          <FastEditableList
+            label={t`links`}
+            className="col-span-full"
+            stateProxy={stateProxy.links}
+            render={entryToLinkEdit}
+            onAddNew={addNew} />
+        </div>
       </div>
     </>
   );

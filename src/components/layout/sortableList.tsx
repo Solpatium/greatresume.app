@@ -1,8 +1,8 @@
-import React, { Fragment, ReactElement, useCallback, useState } from "react";
+import React, { Fragment, ReactElement, useCallback, useEffect, useState } from "react";
 import { Label } from "../atoms/fields/label";
 import { Button } from "../atoms/button";
 import { ArrowDownCircleIcon, Bars2Icon as MenuIcon } from "@heroicons/react/20/solid";
-import { ArrowsUpDownIcon, PencilIcon, PlusIcon } from "@heroicons/react/24/outline";
+import { ArrowsUpDownIcon, CheckIcon, PencilIcon, PlusIcon, TrashIcon } from "@heroicons/react/24/outline";
 import { useSnapshot } from "valtio";
 import {
   sortableKeyboardCoordinates,
@@ -27,25 +27,37 @@ import cn from "classnames";
 import { Transition } from "@headlessui/react";
 import { useToggle } from "react-use";
 
-export interface SortableListProps<Type> {
+interface SortableListProps<Type> {
   stateProxy: Type[];
   render: (state: Type, index: number) => ReactElement;
-  className?: string;
+  divider?: ReactElement;
+  itemClassName?: string;
+  onDelete?: (index: number) => void;
+}
+
+interface UncontrolledSortableListProps<Type> extends SortableListProps<Type> {
   onAddNew?: () => void;
-  label?: string;
+  onSort?: () => void;
   buttonText?: string;
+}
+
+export interface ControlledSortableListProps<Type> extends SortableListProps<Type> {
+  sortingEnabled?: boolean;
 }
 
 interface SortableItemProps<Type> {
   sortable?: boolean;
   index: number;
   stateProxy: Type;
+  className?: string;
+  onDelete?: (index: number) => void;
   render: (state: Type, index: number) => ReactElement;
+  canReorder?: boolean;
 }
 
-const SortingToggle: React.FC<{ enabled: boolean, toggle: () => void }> = ({ enabled, toggle }) => {
-  const icon = enabled ? PencilIcon : ArrowsUpDownIcon;
-  const text = enabled ? "Edit" : "Reorder"
+export const SortingToggle: React.FC<{ enabled: boolean, toggle: () => void }> = ({ enabled, toggle }) => {
+  const icon = enabled ? CheckIcon : ArrowsUpDownIcon;
+  const text = enabled ? "Finish" : "Edit list"
   return (
     <Button role="switch" aria-checked={enabled} secondary onClick={toggle} icon={icon}>
       <span className="text-base font-bold">{text}</span>
@@ -69,6 +81,7 @@ const SortableItem = <Type extends HasId>(props: SortableItemProps<Type>) => {
     <ListItem
       ref={setNodeRef}
       style={style}
+      className={props.className}
       // TODO CHECK
       aria-live="polite">
       <Transition
@@ -82,14 +95,28 @@ const SortableItem = <Type extends HasId>(props: SortableItemProps<Type>) => {
         leaveTo="opacity-0"
       >
         <div
-          className="absolute inset-0 flex justify-end rounded-xl transition-opacity bg-red-800"
+          className="absolute inset-0 flex justify-end items-center rounded-xl transition-opacity z-10"
           style={{ background: "linear-gradient(90deg, rgba(255,255,255,0.3) 0%, rgba(255,255,255,1) 80%)" }}
         >
+          {props.onDelete &&
+              // <Button icon={TrashIcon} onClick={() => props.onDelete?.(props.index)} danger>
+              //   {`Delete`}
+              // </Button>
+            <button
+              onClick={() => props.onDelete?.(props.index)}
+              type="button"
+              aria-label={`delete`}//bg-pink-600 hover:bg-pink-700 focus:ring-pink-500
+              className="inline-flex items-center rounded-full border p-2  text-pink-600"
+            >
+              <TrashIcon className="h-5 w-5" aria-hidden="true" />
+            </button>
+          }
           <button
             type="button"
             {...attributes}
             {...listeners}
-            className="touch-none	cursor-grab p-4">
+            disabled={!props.canReorder}
+            className={cn("p-4 touch-none", props.canReorder ? "cursor-grab" : "opacity-50 pointer-events-none")}>
             <MenuIcon className="h-6 w-6 text-gray-800" />
           </button>
         </div>
@@ -99,15 +126,52 @@ const SortableItem = <Type extends HasId>(props: SortableItemProps<Type>) => {
   );
 };
 
-export const SortableList = <Type extends HasId>({
+export const UncontrolledSortableList = <Type extends HasId>({
+  onAddNew, buttonText, onSort,
+  ...props
+}: UncontrolledSortableListProps<Type>): ReactElement => {
+  const { t } = useTranslation("app");
+
+  const [sortable, toggle] = useToggle(false);
+  const elements = useSnapshot(props.stateProxy);
+    
+  useEffect(() => {
+    if (elements.length == 0) {
+      toggle(false);
+    }
+  }, [elements.length]);
+
+  useEffect(() => {
+      if (sortable) {
+        onSort?.();
+      }
+  }, [sortable]);
+
+  return (
+      <>
+      {elements.length > 0 && 
+      <div className="flex justify-end"><SortingToggle enabled={sortable} toggle={toggle} /></div>}
+      <ControlledSortableList sortingEnabled={sortable} {...props} />
+      {onAddNew && (
+        <div className="flex flex-row justify-between">
+          <Button icon={PlusIcon} onClick={onAddNew} disabled={sortable}>
+            <span className="text-base font-bold">{buttonText ?? t("addNewEntry")}</span>
+          </Button>
+        </div>
+      )}
+      </>
+  );
+};
+
+
+export const ControlledSortableList = <Type extends HasId>({
   stateProxy,
   render,
-  className,
-  onAddNew,
-  label,
-  buttonText,
-}: SortableListProps<Type>): ReactElement => {
-  const { t } = useTranslation("app");
+  sortingEnabled,
+  divider,
+  itemClassName: itemClassname,
+  onDelete,
+}: ControlledSortableListProps<Type>): ReactElement => {
   const onDragEnd = useCallback(
     ({ active, over }: DragEndEvent) => {
       if (!over || active.id === over.id) {
@@ -130,26 +194,17 @@ export const SortableList = <Type extends HasId>({
     }),
   );
 
-  const [sortable, toggle] = useToggle(false);
   return (
-    <div className={className}>
-      {label && <Label name={label} />}
-      <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={onDragEnd}>
-        {/*Ids have to be mapped, otherwise it doesn't work properly*/}
-        <SortableContext items={stateProxy.map(e => e.id)} strategy={verticalListSortingStrategy}>
-          {elements.map((v, i) => (
-            <SortableItem key={v.id} index={i} sortable={sortable} stateProxy={stateProxy[i] as Type} render={render} />
-          ))}
-        </SortableContext>
-      </DndContext>
-      {onAddNew && (
-        <div className="flex flex-row justify-between">
-          <Button icon={PlusIcon} onClick={onAddNew} disabled={sortable}>
-            <span className="text-base font-bold">{buttonText ?? t("addNewEntry")}</span>
-          </Button>
-          {elements.length > 1 && <SortingToggle enabled={sortable} toggle={toggle} />}
-        </div>
-      )}
-    </div>
+    <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={onDragEnd}>
+      {/*Ids have to be mapped, otherwise it doesn't work properly*/}
+      <SortableContext items={stateProxy.map(e => e.id)} strategy={verticalListSortingStrategy}>
+        {elements.map((v, i) => (
+          <>
+            {divider && i !== 0 ? divider : null}
+            <SortableItem key={v.id} index={i} sortable={sortingEnabled} stateProxy={stateProxy[i] as Type} className={itemClassname} render={render} onDelete={onDelete} canReorder={stateProxy.length > 1} />
+          </>
+        ))}
+      </SortableContext>
+    </DndContext>
   );
 };

@@ -33,8 +33,6 @@ export const KeyValueForm: React.FC<{ stateProxy: KeyValueSection }> = React.mem
   const { t } = useTranslation("app");
   return (
     <>
-      <SectionTitle sectionProxy={stateProxy} />
-      <StepDescription>{t(`steps.${stateProxy.kind}.description`)}</StepDescription>
       <FastEditableList
         stateProxy={stateProxy.content}
         render={(e) => <Entry stateProxy={e} />}

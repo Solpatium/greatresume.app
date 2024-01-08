@@ -1,11 +1,11 @@
-import React, { ReactElement, useCallback, useEffect, useRef, useState } from "react";
+import React, { ReactElement, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Button } from "../atoms/button";
 import { Disclosure } from "@headlessui/react";
 import { ChevronDownIcon, PlusIcon, TrashIcon } from "@heroicons/react/20/solid";
 import cn from "classnames";
 import { HasId } from "../../utils/lists";
-import { SortableList } from "./sortableList";
-import { subscribe, useSnapshot } from "valtio";
+import { UncontrolledSortableList } from "./sortableList";
+import { proxy, subscribe, useSnapshot } from "valtio";
 import useTranslation from "next-translate/useTranslation";
 import { useIsMobile } from "../../utils/hooks";
 import { BigModal } from "./bigModal";
@@ -16,13 +16,18 @@ export interface ExpandableListProps<Type> {
   stateProxy: Type[];
   renderPreview: (state: Type) => React.ReactNode;
   render: (state: Type) => ReactElement;
+  createName?: (state: Type) => string;
   className?: string;
   onAddNew?: () => void;
   label?: string;
+  buttonText?: string;
+  itemClassName?: string;
+  elementBeforeMobileTitle?: ReactElement;
 }
 
-interface ExpandableItemProps<Type> {
+export interface ExpandableItemProps<Type> {
   index: number;
+  name?: string;
   id: string;
   stateProxy: Type;
   renderPreview: (state: Type) => React.ReactNode;
@@ -31,29 +36,26 @@ interface ExpandableItemProps<Type> {
   defaultOpen?: boolean;
   open?: boolean;
   onToggle: (id: string) => void;
+  className?: string;
+  elementBeforeMobileTitle?: ReactElement
 }
 
-const ExpandableItem = <Type extends HasId>(props: ExpandableItemProps<Type>) => {
+export const ExpandableItem = <Type extends HasId>(props: ExpandableItemProps<Type>) => {
   const isMobile = useIsMobile();
   const { t } = useTranslation("app");
   const close = () => props.onToggle(props.id);
   const preview = props.renderPreview(props.stateProxy);
   const content = (
-    <div>
-      <fieldset className="grid md:grid-cols-2 gap-4">
+    <div className="flex flex-col justify-between min-h-full">
+      <fieldset className="grid md:grid-cols-1 gap-4">
         {props.render(props.stateProxy)}
       </fieldset>
-      <div className="flex justify-end mt-6 mb-2">
-        <Button icon={TrashIcon} onClick={() => props.onDelete(props.index)} danger>
-          {t`delete`}
-        </Button>
-      </div>
     </div>)
   // TODO: accessibility
   return (
     <div className="w-full flex flex-col items-center justify-between">
       <dt className="w-full">
-        <button type="button" onClick={close} className="text-left w-full flex justify-between items-center text-gray-900">
+        <button type="button" onClick={close} className={cn("text-left w-full flex justify-between items-center text-gray-900", props.className)}>
           <span className="min-h-[38px] flex items-center font-medium truncate w-full">
             {preview}
           </span>
@@ -72,25 +74,82 @@ const ExpandableItem = <Type extends HasId>(props: ExpandableItemProps<Type>) =>
         {content}
       </dd>}
 
-      <BigModal title={preview} show={isMobile && props.open} onClose={close}>
+      <BigModal title={<>{props.elementBeforeMobileTitle}{preview}</>} show={isMobile && props.open} onClose={close}>
         {content}
       </BigModal>
     </div>
   );
 };
 
+export const useOpenTracking = (): { 
+  add: (id: string) => void;
+  remove: (id: string) => void;
+  removeAll: () => void;
+  toggle: (id: string) => void;
+  stateProxy: Record<string, true>;
+} => {
+  const [state,] = useState(() => proxy({} as Record<string, true>));
+  const isMobile = useIsMobile();
+
+  const result = useMemo(() => {
+    const removeAll = () => Object.keys(state).forEach(key => {
+      delete state[key];
+    });
+    const add = (id: string) => {
+      if (isMobile) {
+        removeAll();
+      }
+      state[id] = true;
+    };
+    const remove = (id: string) => {
+      delete state[id];
+    };
+    return {
+      removeAll,
+      add,
+      remove,
+      toggle: (id: string) => {
+        if (state[id]) {
+          remove(id);
+        } else {
+          add(id);
+        }
+      },
+      stateProxy: state,
+    };
+  }, [isMobile]);
+
+  useEffect(() => {
+    if (isMobile) {
+      const [key] = Object.keys(state);
+      // Leave only one id open.
+      if (key) {
+        result.removeAll();
+        result.add(key);
+      }
+    }
+  }, [isMobile]);
+
+  return result;
+}
+
 export const ExpandableList = <Type extends HasId>({
   stateProxy,
   render,
   renderPreview,
+  createName,
   className,
   onAddNew,
   label,
+  buttonText,
+  itemClassName,
+  elementBeforeMobileTitle,
 }: ExpandableListProps<Type>): ReactElement => {
   const { t } = useTranslation("app");
-  const [open, setOpen] = useState("");
+  const state = useOpenTracking();
   const onDelete = useCallback(
     (index: number) => {
+      state.remove(stateProxy[index]?.id ?? "");
       stateProxy.splice(index, 1);
     },
     [stateProxy],
@@ -100,40 +159,38 @@ export const ExpandableList = <Type extends HasId>({
     const handler = () => {
       stateProxy.forEach(entry => {
         if (!idsBefore.has(entry.id)) {
-          setOpen(entry.id);
+          state.add(entry.id);
+          idsBefore.add(entry.id);
         }
       });
-      idsBefore = new Set(stateProxy.map(e => e.id));
     };
     return subscribe(stateProxy, handler);
   }, [onAddNew, stateProxy]);
 
-  const onToggle = useCallback((id: string) => setOpen(currentOpen => {
-    // Remove currently open one
-    if (currentOpen == id) {
-      return "";
-    }
-    return id;
-  }), [setOpen]);
-
   useSnapshot(stateProxy);
 
+  const openSections = useSnapshot(state.stateProxy);
   return (
-    <SortableList
+    <UncontrolledSortableList
       label={label}
       stateProxy={stateProxy}
       onAddNew={onAddNew}
       className={className}
+      buttonText={buttonText}
+      itemClassName={itemClassName}
+      onDelete={onDelete}
+      onSort={state.removeAll}
       render={(s, i) => (
         <ExpandableItem
           stateProxy={s}
-          onDelete={onDelete}
           render={render}
           renderPreview={renderPreview}
+          name={createName?.(s)}
           index={i}
           id={s.id}
-          onToggle={onToggle}
-          open={s.id == open}
+          onToggle={state.toggle}
+          open={openSections[s.id]}
+          elementBeforeMobileTitle={elementBeforeMobileTitle}
         />
       )}
     />

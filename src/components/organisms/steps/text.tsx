@@ -12,8 +12,6 @@ export const TextForm: React.FC<{ stateProxy: TextSection }> = React.memo(({ sta
 
     return (
         <>
-            <SectionTitle sectionProxy={stateProxy} />
-            <StepDescription>{t`steps.text.description`}</StepDescription>
             <RichTextEditor long value={content} onChange={v => stateProxy.content = v} />
         </>
     )

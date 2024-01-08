@@ -4,7 +4,7 @@ import classes from "classnames";
 import { Label, labelTextStyle } from "../../atoms/fields/label";
 import { FlatSelect, FlatSelectOption } from "../../atoms/flatSelect";
 import { PaperSize } from "../../../models/v1";
-import { useAppState } from "../../../state/store";
+import { useAppState, usePdfState } from "../../../state/store";
 import { useSnapshot } from "valtio";
 import { StepDescription } from "../../atoms/typography";
 import useTranslation from "next-translate/useTranslation";
@@ -59,6 +59,10 @@ export const Appearance: React.FC = React.memo(() => {
     { value: "A4", label: t("paper.a4"), description: t("paper.a4Description") },
     { value: "LETTER", label: t("paper.letter"), description: t("paper.letterDescription") },
   ] as FlatSelectOption<PaperSize>[], [t]);
+  const pdfState = usePdfState().previewState;
+  const togglePreview = () => {
+    pdfState.previewVisible = !pdfState.previewVisible;
+  };
   return (
     <>
       <StepDescription>{t`steps.appearance.description`}</StepDescription>
@@ -68,10 +72,10 @@ export const Appearance: React.FC = React.memo(() => {
           wrapperClassName="grid grid-cols-2 gap-2"
           options={options}
           value={paperSize}
-          onChange={v => (settings.paperSize = v)}
+          onChange={v => { settings.paperSize = v; togglePreview(); }}
         />
       </div>
-      <TemplateList template={template} setTemplate={v => (settings.template = v)} />
+      <TemplateList template={template} setTemplate={v => { settings.template = v; togglePreview(); }} />
     </>
   );
 });

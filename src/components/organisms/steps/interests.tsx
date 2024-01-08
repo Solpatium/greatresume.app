@@ -26,8 +26,6 @@ export const InterestsForm: React.FC<{ stateProxy: SimpleListSection }> = React.
   const { t } = useTranslation("app");
   return (
     <>
-      <SectionTitle sectionProxy={stateProxy} />
-      <StepDescription>{t`steps.interests.description`}</StepDescription>
       <FastEditableList
         stateProxy={stateProxy.content}
         render={(e) => <Entry stateProxy={e} />}

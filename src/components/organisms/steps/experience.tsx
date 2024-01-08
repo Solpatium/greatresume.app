@@ -11,8 +11,9 @@ import { Input } from "../../atoms/fields/input";
 import { RichTextEditor } from "../../atoms/fields/richText";
 import { StepDescription } from "../../atoms/typography";
 import { ExpandableList } from "../../layout/expandableList";
-import { SortableList } from "../../layout/sortableList";
+import { UncontrolledSortableList } from "../../layout/sortableList";
 import { SectionTitle } from "../../molecules/sectionTitle";
+import { SectionPreviewTmp } from "./sections";
 
 const Entry: React.FC<{ kind: ExperienceKind; stateProxy: Entry }> = ({ kind, stateProxy }) => {
   const state = useSnapshot(stateProxy);
@@ -88,19 +89,10 @@ const Preview: React.FC<{ stateProxy: Entry }> = ({ stateProxy }) => {
     parts.push(<span key="empty" className="italic text-base">{t`empty`}</span>)
   }
 
-  return <div className="truncate flex items-center">{parts}</div>;
+  return <div>
+    <div className="truncate flex items-center">{parts}</div>
+  </div>;
 };
-
-const ReorderSections: React.FC<{
-  stateProxy: ExperienceSection;
-}> = ({ stateProxy }) => {
-  return <SortableList
-    label="Reorder entries"
-    stateProxy={stateProxy.content}
-    render={e => <Preview stateProxy={e} />}
-    className="mt-4"
-  />;
-}
 
 export const Experience: React.FC<{
   stateProxy: ExperienceSection;
@@ -108,18 +100,15 @@ export const Experience: React.FC<{
   const { t } = useTranslation("app");
 
   return (
-    <>
-    <SectionTitle sectionProxy={stateProxy} />
-    <StepDescription>{t(`steps.${stateProxy.kind}.description`)}</StepDescription>
-      <ExpandableList
+          <ExpandableList
+          itemClassName="sm:p-5"
         stateProxy={stateProxy.content}
         renderPreview={stateProxy => <Preview stateProxy={stateProxy} />}
+        elementBeforeMobileTitle={<div className="mb-4"><SectionPreviewTmp state={stateProxy}/></div>}
         render={e => <Entry stateProxy={e} kind={stateProxy.kind} />}
         className="col-span-full"
         onAddNew={() => {
           stateProxy.content.push(makeEmptyEntry());
         }}
-      />
-    </>
-  );
+      />  );
 });

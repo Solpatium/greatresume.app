@@ -1,7 +1,7 @@
 import React, { ReactElement, useCallback, useEffect, useRef } from "react";
 import { TrashIcon } from "@heroicons/react/20/solid";
 import { HasId } from "../../utils/lists";
-import { SortableList } from "./sortableList";
+import { UncontrolledSortableList } from "./sortableList";
 import { subscribe } from "valtio";
 import useTranslation from "next-translate/useTranslation";
 
@@ -27,20 +27,11 @@ const FlatEditableItem = React.memo(<Type extends HasId>(props: FlatEditableItem
     return (
         <>
             {props.render(props.stateProxy)}
-            <div className="ml-auto px-2 flex items-center">
-                <button
-                    onClick={() => props.onDelete(props.index)}
-                    type="button"
-                    aria-label={t`delete`}
-                    className="inline-flex items-center rounded-full border p-2 bg-pink-600 hover:bg-pink-700 focus:ring-pink-500 text-white"
-                >
-                    <TrashIcon className="h-5 w-5" aria-hidden="true" />
-                </button>
-            </div>
         </>
     );
 });
 
+// TODO: Delete this
 export const FastEditableList = React.memo(<Type extends HasId>({
     stateProxy,
     render,
@@ -68,8 +59,9 @@ export const FastEditableList = React.memo(<Type extends HasId>({
         />
     ), [onDelete, render])
     return (
-        <SortableList
+        <UncontrolledSortableList
             label={label}
+            onDelete={onDelete}
             buttonText={buttonText}
             stateProxy={stateProxy}
             onAddNew={onAddNew}

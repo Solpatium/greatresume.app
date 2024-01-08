@@ -64,18 +64,6 @@ export const Stepper: React.FC<{
   const { t } = useTranslation("app");
   const containerRef = React.useRef<HTMLDivElement>(null);
   const [initialSize] = useState(steps.length);
-  const [previousLength] = useState({value: steps.length});
-  // This effect is called every time steps size is changed. 
-  useEffect(() => {
-    // We don't want to run it at the beginning.
-    if (initialSize == steps.length || containerRef.current == null) {
-      return;
-    }
-    if (previousLength.value < steps.length) {
-      scrollToStep(steps.length - 1);
-      previousLength.value = steps.length;
-    }
-  }, [initialSize, steps.length]);
 
   const elements = useMemo(() => {
     let results: React.ReactElement[] = [];
@@ -111,13 +99,7 @@ export const Stepper: React.FC<{
       }
 
       let button = null;
-      if (i == steps.length - 1 && step.onNext) {
-        button = <div className="flex justify-center mt-10 mb-20 z-1 relative">
-          <Button type="submit" className="text-base font-bold py-5 w-full md:max-w-[33%] bg-indigo-800" onClick={step.onNext}>
-            {t("nextStep")}
-          </Button>
-        </div>;
-      } else if (i == maxSteps - 1) {
+      if (i == steps.length - 1) {
         button = <div className="flex justify-center mt-10 mb-20 z-1 relative"><DownloadButton /></div>;
       } else {
         button = <button type="submit" className="hidden" />;
@@ -135,7 +117,6 @@ export const Stepper: React.FC<{
         }} >
           {/*Add animation only to new steps*/}
           <div className={i >= initialSize ? styles.slideIn : ""}>
-            {progressCard}
             <StepWrapper id={step.id} key={step.id}>
               {step.element}
             </StepWrapper>
