@@ -38,7 +38,7 @@ export const DownloadButton = () => {
     return null;
   }
 
-  return (<Button type="submit" className="text-base font-bold py-5 w-full md:max-w-[50%] bg-indigo-500" onClick={download}>
+  return (<Button type="submit" className="text-base font-extrabold py-5 w-full md:max-w-[50%] " onClick={download}>
     {t`downloadYourResume`}
   </Button>);
 }

@@ -58,7 +58,11 @@ export const SectionPreviewTmp = Entry;
 
 const TitleEdit: React.FC<{ section: Section }> = ({ section }) => {
   const snapshot = useSnapshot(section);
-  return <Input label="Title" value={snapshot.title} onChange={v => { section.title = v; }} />;
+  return <Input
+    className="lg:max-w-[50%] mb-4"
+    label="Title" 
+    value={snapshot.title}
+    onChange={v => { section.title = v; }} />;
 }
 
 const Edit: React.FC<{ section: Section }> = ({ section }) => {
@@ -66,7 +70,7 @@ const Edit: React.FC<{ section: Section }> = ({ section }) => {
 
   return <>
     <TitleEdit section={section} />
-    <StepDescription>{t(`steps.${section.kind}.description`)}</StepDescription>
+    {/* <StepDescription>{t(`steps.${section.kind}.description`)}</StepDescription> */}
     {renderSection(section)}
   </>
 }
@@ -140,11 +144,14 @@ export const StepsForm: React.FC = React.memo(() => {
       <button
         type="button"
         onClick={() => { setModalOpened(true) }} disabled={sorting}
-        className={cn("mt-6 flex justify-left w-full border-dashed	border-[1px] rounded-l gap-2 items-center border-dashed border-gray-400 focus:ring-indigo-500 text-gray-700 p-4", sorting ? "opacity-60" : "hover:bg-gray-50")}
+        className={
+          cn("mt-6 flex justify-left w-full border-dashed	border-[1px] rounded-lg gap-2 items-center border-dashed border-gray-400 focus:ring-indigo-500 text-gray-700 p-4", 
+          sorting ? "opacity-60" : "hover:bg-blue-50",
+          "bg-sky-50 rounded-lg lg:max-w-[50%]")}
       >
         <PlusIcon className="w-6 -mt-[2px]" />
         <span className="text-base font-bold">{t("newSection.addNew")}</span>
-      </button>
+      </button> 
     </>
   );
 });
