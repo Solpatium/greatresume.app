@@ -34,7 +34,7 @@ export const BigModal: React.FC<{ title: React.ReactNode; children: React.ReactN
           leaveTo="opacity-0 translate-y-40 sm:translate-y-0 sm:scale-95">
           <Dialog.Panel className={
             cn("relative block align-bottom bg-white text-left overflow-hidden shadow-xl transform transition-all flex flex-col",
-              "w-full h-full lg:max-w-4xl lg:h-auto lg:p-2"
+              "w-full h-full lg:max-w-4xl lg:h-auto lg:p-2 lg:rounded-xl"
             )}>
             <div className="flex flex-row space-between gap-2 align-center items-center p-4">
               <Dialog.Title as="h3" className="flex-grow text-lg leading-6 font-bold text-gray-900 truncate">
@@ -42,7 +42,7 @@ export const BigModal: React.FC<{ title: React.ReactNode; children: React.ReactN
               </Dialog.Title>
               <button
                 type="button"
-                className="rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 self-start mt-1"
+                className="rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 self-start mt-1 lg:m-0"
                 onClick={onClose}
               >
                 <span className="sr-only">Close</span>
