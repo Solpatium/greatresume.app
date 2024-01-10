@@ -28,7 +28,6 @@ export const kindIcons: Record<SectionKind, React.FC<React.ComponentProps<"svg">
 
 export const SectionPicker: React.FC<{ onSelect: (value: Section) => void }> = ({ onSelect }) => {
   const { t } = useTranslation("app");
-  const [sectionKind, setSectionKind] = useState<SectionKind>();
 
   const mainOptions: FlatSelectOption<SectionKind>[] = [
     {
@@ -83,21 +82,17 @@ export const SectionPicker: React.FC<{ onSelect: (value: Section) => void }> = (
 
   return (
     <div className="flex flex-col gap-3">
-      {/* <Label name={t`newSection.groups.datedEntries`}> */}
         <FlatSelect
-          label={t`newSection.groups.datedEntries`}
+          label={t`newSection.sections.label`}
           wrapperClassName="grid grid-cols-2 gap-2"
           options={mainOptions}
-          value={sectionKind}
+          value={undefined}
           onChange={(sectionKind) => {
             if (sectionKind) {
               onSelect(createEmptySection(t(`defaults.titles.${sectionKind}`), sectionKind));
-
             }
           }}
         />
-      {/* </Label> */}
-
     </div>
   );
 };

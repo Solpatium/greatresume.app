@@ -2,6 +2,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import { ArrowLeftIcon, XMarkIcon } from "@heroicons/react/20/solid";
 import React, { Fragment } from "react";
 import { Button } from "../atoms/button";
+import cn from "classnames";
 
 export const BigModal: React.FC<{ title: React.ReactNode; children: React.ReactNode; onClose: () => void; show?: boolean }> = ({
   title,
@@ -11,7 +12,7 @@ export const BigModal: React.FC<{ title: React.ReactNode; children: React.ReactN
 }) => (
   <Transition.Root show={show ?? false} as={Fragment} appear>
     <Dialog as="div" className="fixed z-10 inset-0 overflow-hidden" onClose={onClose}>
-      <div className="min-h-screen h-full h-[100lvh] min-h-[100lvh]">
+      <div className="min-h-screen h-full h-[100lvh] min-h-[100lvh] flex justify-center items-center">
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-100"
@@ -31,7 +32,10 @@ export const BigModal: React.FC<{ title: React.ReactNode; children: React.ReactN
           leave="ease-in duration-200"
           leaveFrom="opacity-100 translate-y-0 sm:scale-100"
           leaveTo="opacity-0 translate-y-40 sm:translate-y-0 sm:scale-95">
-          <Dialog.Panel className="relative block align-bottom bg-white text-left overflow-hidden shadow-xl transform transition-all w-full h-full flex flex-col">
+          <Dialog.Panel className={
+            cn("relative block align-bottom bg-white text-left overflow-hidden shadow-xl transform transition-all flex flex-col",
+              "w-full h-full lg:max-w-4xl lg:h-auto lg:p-2"
+            )}>
             <div className="flex flex-row space-between gap-2 align-center items-center p-4">
               <Dialog.Title as="h3" className="flex-grow text-lg leading-6 font-bold text-gray-900 truncate">
                 {title}

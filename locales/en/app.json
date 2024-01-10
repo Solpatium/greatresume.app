@@ -151,11 +151,8 @@
     "addNew": "Add new section",
     "modalTitle": "Choose section to add",
     "deletionConfirmation": "Are you sure you want to delete this section?",
-    "groups": {
-      "datedEntries": "Dated entries",
-      "others": "Others"
-    },
     "sections": {
+      "label": "Available sections",
       "employment": {
         "label": "Employment",
         "description": "Your employment history."
