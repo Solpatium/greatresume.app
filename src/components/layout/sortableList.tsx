@@ -59,7 +59,7 @@ export const SortingToggle: React.FC<{ enabled: boolean, toggle: () => void }> =
   const icon = enabled ? CheckIcon : ArrowsUpDownIcon;
   const text = enabled ? "Finish" : "Edit list"
   return (
-    <Button role="switch" aria-checked={enabled} secondary onClick={toggle} icon={icon}>
+    <Button role="switch" aria-checked={enabled} tertiary onClick={toggle} icon={icon}>
       <span className="text-base font-bold">{text}</span>
     </Button>
   )
@@ -154,7 +154,7 @@ export const UncontrolledSortableList = <Type extends HasId>({
       <ControlledSortableList sortingEnabled={sortable} {...props} />
       {onAddNew && (
         <div className="flex flex-row justify-between">
-          <Button icon={PlusIcon} onClick={onAddNew} disabled={sortable}>
+          <Button secondary icon={PlusIcon} onClick={onAddNew} disabled={sortable}>
             <span className="text-base font-bold">{buttonText ?? t("addNewEntry")}</span>
           </Button>
         </div>

@@ -141,17 +141,9 @@ export const StepsForm: React.FC = React.memo(() => {
         )}
         divider={<div className="w-full h-[1px] bg-gray-400	"/>}
       />
-      <button
-        type="button"
-        onClick={() => { setModalOpened(true) }} disabled={sorting}
-        className={
-          cn("mt-6 flex justify-left w-full border-dashed	border-[1px] rounded-lg gap-2 items-center border-dashed border-gray-400 focus:ring-indigo-500 text-gray-700 p-4", 
-          sorting ? "opacity-60" : "hover:bg-blue-50",
-          "bg-sky-50 rounded-lg lg:max-w-[50%]")}
-      >
-        <PlusIcon className="w-6 -mt-[2px]" />
+      <Button onClick={() => { setModalOpened(true) }} icon={PlusIcon} className="sm:p-4 sm:px-6" disabled={sorting}>
         <span className="text-base font-bold">{t("newSection.addNew")}</span>
-      </button> 
+      </Button>
     </>
   );
 });
