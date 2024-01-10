@@ -14,7 +14,7 @@ export const laxExample: ApplicationPersistentState = {
             "jobTitle": "Graphic designer",
             "email": "oliviakim@email.com",
             "phone": "555-555-5555",
-            "links": [
+            "entries": [
                 {
                     "name": "LinkedIn",
                     "value": "linkedin.com/in/oliviakim",

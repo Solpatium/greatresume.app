@@ -14,7 +14,7 @@ export const professionalExample: ApplicationPersistentState = {
             "jobTitle": "Salesman",
             "email": "johnsmith@email.com",
             "phone": "555-555-5555",
-            "links": [
+            "entries": [
                 {
                     "name": "LinkedIn",
                     "value": "linkedin.com/in/johnsmith",

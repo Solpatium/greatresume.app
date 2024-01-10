@@ -107,7 +107,7 @@ export const makeEmptyResume = ({
     jobTitle: "",
     email: "",
     phone: "",
-    links: [],
+    entries: [],
   },
   sections: [],
   legalClause: texts.legalClause,

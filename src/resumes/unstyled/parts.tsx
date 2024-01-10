@@ -58,9 +58,9 @@ export const ContactInside: React.FC<{
 }> = ({ data, style, phoneLabel, emailLabel }) => {
     const email = data.email.trim();
     const phone = data.phone.trim();
-    const { links } = data;
+    const { entries } = data;
 
-    if (!email && !phone && !links.length) {
+    if (!email && !phone && !entries.length) {
         return null;
     }
 
@@ -71,7 +71,7 @@ export const ContactInside: React.FC<{
     if (email) {
         wholeData.push({ name: emailLabel, value: email, url: `mailto:${email}` });
     }
-    wholeData.push(...links);
+    wholeData.push(...entries);
 
     return spreadEntries(wholeData, ({ data, className }) => (<V style={style?.wrapper} className={`${className} contactEntryWrapper`}>
         <T style={style?.name} className="contactEntryName">{data.name}</T>

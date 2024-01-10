@@ -14,7 +14,7 @@ export const peachyExample: ApplicationPersistentState = {
             "jobTitle": "Teacher",
             "email": "johnsilver@email.com",
             "phone": "555-555-5555",
-            "links": [
+            "entries": [
                 {
                     "name": "LinkedIn",
                     "value": "linkedin.com/in/johnsilver",

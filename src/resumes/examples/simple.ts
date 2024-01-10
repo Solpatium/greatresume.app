@@ -14,7 +14,7 @@ export const simpleExample: ApplicationPersistentState = {
             "jobTitle": "Nurse",
             "email": "isabellasteel@email.com",
             "phone": "555-555-5555",
-            "links": []
+            "entries": []
         },
         "sections": [
             {

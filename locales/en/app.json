@@ -5,7 +5,6 @@
   "cancel": "Cancel",
   "edit": "Edit",
   "edit": "Rename",
-  "url": "Url",
   "empty": "Empty",
   "description": "Description",
   "startDate": "Start date",
@@ -17,8 +16,6 @@
   "surname": "Surname",
   "jobTitle": "Job title",
   "photo": "Photo",
-  "links": "Links",
-  "linkName": "Link name",
   "contact": "Contact",
   "embededPdfFileDescription": "Structured data for editing resume at xyz.com.",
   "listOfTemplates": "Templates",
@@ -48,7 +45,10 @@
       "description": "Select paper size and a template that you want to use. We will also allow you to change it at the end, after filling all the crucial info."
     },
     "personalInfo": {
-      "title": "Personal info"
+      "title": "Personal info",
+      "addNewEntry": "Add contact entry",
+      "entryLabel": "Entry label",
+      "entryValue": "Content"
     },
     "employment": {
       "description": "Provide your employment history.",

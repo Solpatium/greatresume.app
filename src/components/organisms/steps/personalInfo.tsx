@@ -15,15 +15,15 @@ export const LinkEdit: React.FC<{ stateProxy: Entry }> = ({ stateProxy }) => {
   return (<div className="flex flex-col gap-3 md:flex-row md:gap-2 my-3 w-full">
     <Input
       className="w-full"
-      label={t`linkName`}
-      name="link-name[]"
+      label={t`steps.personalInfo.entryLabel`}
+      name="contact-entry-name[]"
       onChange={(value) => (stateProxy.name = value)}
       value={state.name}
     />
     <Input
       className="w-full"
-      label={t`url`}
-      name="link-value[]"
+      label={t`steps.personalInfo.entryValue`}
+      name="contact-entry-value[]"
       onChange={(value) => (stateProxy.value = value)}
       value={state.value}
     />
@@ -39,7 +39,7 @@ export const PersonalInformation: React.FC = React.memo(() => {
   const stateProxy = resumeProxy.personalInformation;
   const state = useSnapshot(stateProxy);
   const { image } = useSnapshot(resumeProxy.appearance);
-  const addNew = useCallback(() => stateProxy.links.push(withId({ name: "", value: "" })), [stateProxy.links]);
+  const addNew = useCallback(() => stateProxy.entries.push(withId({ name: "", value: "" })), [stateProxy.entries]);
 
   const setImage = useCallback((v?: string) => (resumeProxy.appearance.image = v), [resumeProxy.appearance]);
   return (
@@ -96,9 +96,10 @@ export const PersonalInformation: React.FC = React.memo(() => {
         />
         <div className="col-span-full">
           <FastEditableList
+            buttonText={t`steps.personalInfo.addNewEntry`}
             label={t`links`}
             className="col-span-full"
-            stateProxy={stateProxy.links}
+            stateProxy={stateProxy.entries}
             render={entryToLinkEdit}
             onAddNew={addNew} />
         </div>

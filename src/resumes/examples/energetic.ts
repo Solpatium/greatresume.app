@@ -14,7 +14,7 @@ export const energeticExample: ApplicationPersistentState = {
             "jobTitle": "Software engineer",
             "email": "jessicadavis@email.com",
             "phone": "555-555-5555",
-            "links": [
+            "entries": [
                 {
                     "name": "Website",
                     "value": "jessicadavis.dev",

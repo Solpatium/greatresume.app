@@ -7,6 +7,6 @@ export const personalInformationStruct = type({
   jobTitle: string(),
   phone: string(),
   email: string(),
-  links: array(entryStruct),
+  entries: array(entryStruct),
 });
 export type PersonalInformation = Infer<typeof personalInformationStruct>;
