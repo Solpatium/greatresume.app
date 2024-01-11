@@ -12,7 +12,7 @@ const Entry: React.FC<{ stateProxy: Entry }> = ({ stateProxy }) => {
   const { t } = useTranslation("app");
   const state = useSnapshot(stateProxy);
   return (
-    <div className="flex flex-col gap-3 md:flex-row md:gap-2 my-3 w-full">
+    <div className="flex flex-col gap-3 md:flex-row md:gap-2 my-1 w-full">
       <Input
         className="w-full"
         label={t`steps.skills.name`}

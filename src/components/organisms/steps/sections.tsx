@@ -46,7 +46,7 @@ const Entry: React.FC<{ state: Section }> = React.memo(({ state }) => {
   const section = useSnapshot(state);
   return (
     <>
-      <div className="flex lg:py-4 items-center mr-4 gap-4 overflow-hidden">
+      <div className="flex items-center mr-4 gap-4 overflow-hidden">
         <Icon className="w-8 h-8" />
         <div className="text-md font-semibold text-slate-700 truncate">{section.title}</div>
       </div>
@@ -122,13 +122,13 @@ export const StepsForm: React.FC = React.memo(() => {
       <ControlledSortableList
         stateProxy={sections}
         sortingEnabled={sorting}
-        itemClassName="border-0 p-0 my-0"
+        itemClassName="border-0 p-0 my-0 bg-gray-50 rounded-2xl mb-2 p-5"
         onDelete={onDelete}
         render={(s, i) => (
           <ExpandableItem
             stateProxy={s}
             onDelete={onDelete}
-            render={e => <div className="lg:px-3 lg:pb-6 lg:-mt-3"><Edit section={e} /></div>}
+            render={e => <div className="md:mt-6"><Edit section={e} /></div>}
             renderPreview={e => <Entry state={e} />}
             // TODO: Why do we need this?
             name={s.title}
@@ -136,10 +136,9 @@ export const StepsForm: React.FC = React.memo(() => {
             id={s.id}
             onToggle={openTracking.toggle}
             open={openSections[s.id]}
-            className="p-3"
+            // className="p-3"
           />
         )}
-        divider={<div className="w-full h-[1px] bg-gray-400	"/>}
       />
       <Button onClick={() => { setModalOpened(true) }} icon={PlusIcon} className="sm:p-4 sm:px-6" disabled={sorting}>
         <span className="text-base font-bold">{t("newSection.addNew")}</span>

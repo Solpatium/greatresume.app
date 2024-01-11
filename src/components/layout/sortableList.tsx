@@ -30,7 +30,6 @@ import { useToggle } from "react-use";
 interface SortableListProps<Type> {
   stateProxy: Type[];
   render: (state: Type, index: number) => ReactElement;
-  divider?: ReactElement;
   itemClassName?: string;
   onDelete?: (index: number) => void;
 }
@@ -200,7 +199,6 @@ export const ControlledSortableList = <Type extends HasId>({
       <SortableContext items={stateProxy.map(e => e.id)} strategy={verticalListSortingStrategy}>
         {elements.map((v, i) => (
           <>
-            {divider && i !== 0 ? divider : null}
             <SortableItem key={v.id} index={i} sortable={sortingEnabled} stateProxy={stateProxy[i] as Type} className={itemClassname} render={render} onDelete={onDelete} canReorder={stateProxy.length > 1} />
           </>
         ))}
