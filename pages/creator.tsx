@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Head from "next/head";
 import { Editor } from "../src/components/organisms/steps";
 import { useIsMounted } from "../src/utils/ssr";
@@ -11,21 +11,33 @@ import 'react-markdown-editor-lite/lib/index.css';
 import { useRouter } from "next/router";
 import { MobilePreviewButton } from "../src/components/organisms/mobilePreviewButton";
 import { useSnapshot } from "valtio";
-import { useIsLarge, useIsMobile } from "../src/utils/hooks";
+import { useHistoryPush, useIsLarge, useIsMobile } from "../src/utils/hooks";
+import { useUnmount } from "react-use";
 
 const BottomBar: React.FC = () => {
   // TODO: Accessiblity
   const state = usePdfState().previewState;
   const isPreviewing = useSnapshot(state).previewVisible;
+  // useHistoryPush("/preview");
+  // useEffect(() => {
+    //   window.addEventListener("popstate", console.log)
+    // }, []);
   const togglePreview = () => {
     state.previewVisible = !state.previewVisible;
   };
+  const history = useHistoryPush("preview", togglePreview);
   return <div className="w-[100dvw] h-[60px] flex fixed bottom-0 left-0 bg-indigo-900 text-white font-bold lg:hidden">
     <div 
       className="w-[30px] h-[2px] bg-white absolute bottom-[10px] m-auto left-0 right-0" 
       style={{transition: "transform 0.3s", transform: `translate(${isPreviewing ? "25dvw" : "-25dvw"}, 0)`}}/>
-    <button className="w-[50%]" style={{opacity: isPreviewing ? "70%" : ""}} disabled={!isPreviewing} onClick={togglePreview}>EDIT</button>
-    <button className="w-[50%]" style={{opacity: !isPreviewing ? "70%" : ""}} disabled={isPreviewing} onClick={togglePreview}>PREVIEW</button>
+    <button className="w-[50%]" style={{opacity: isPreviewing ? "70%" : ""}} disabled={!isPreviewing} onClick={() => {
+      history.maybePop();
+      togglePreview();
+    }}>EDIT</button>
+    <button className="w-[50%]" style={{opacity: !isPreviewing ? "70%" : ""}} disabled={isPreviewing} onClick={() => {
+      history.push();
+      togglePreview();
+    }}>PREVIEW</button>
   </div>
 }
 

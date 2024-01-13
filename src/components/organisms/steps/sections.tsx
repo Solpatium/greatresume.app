@@ -108,7 +108,7 @@ export const StepsForm: React.FC = React.memo(() => {
         }
       </div>
       {
-        <BigModal show={modalOpened} title={t`newSection.modalTitle`} onClose={() => setModalOpened(false)}>
+        <BigModal historyKey="sectionPicker" show={modalOpened} title={t`newSection.modalTitle`} onClose={() => setModalOpened(false)}>
           <SectionPicker
             onSelect={newSection => {
               sections.push(newSection);

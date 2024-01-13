@@ -74,7 +74,7 @@ export const ExpandableItem = <Type extends HasId>(props: ExpandableItemProps<Ty
         {content}
       </dd>}
 
-      <BigModal title={<>{props.elementBeforeMobileTitle}{preview}</>} show={isMobile && props.open} onClose={close}>
+      <BigModal historyKey={`expandable-item-${props.id}`} title={<>{props.elementBeforeMobileTitle}{preview}</>} show={isMobile && props.open} onClose={close}>
         {content}
       </BigModal>
     </div>

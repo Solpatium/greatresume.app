@@ -51,6 +51,7 @@ const EditModal: React.FC<Pick<PhotoProps, "setImage"> & { close: () => void }> 
   }, []);
 
   return (
+    // TODO: Switch to big modal
     <Modal title={t("addYourPhoto")} onClose={close}>
       {!file && <DropZone onDrop={onDrop} accept="image/*" multiple={false} />}
       {file && (
