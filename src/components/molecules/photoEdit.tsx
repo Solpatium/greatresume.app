@@ -4,24 +4,26 @@ import {
   FaceSmileIcon,
   MagnifyingGlassPlusIcon,
   MagnifyingGlassMinusIcon,
-} from "@heroicons/react/20/solid";
+} from "@heroicons/react/24/outline";
 import { blobToBase64 } from "../../utils/blob";
 import { Modal } from "../layout/modal";
 import { Button } from "../atoms/button";
 import { DropZone } from "../atoms/dropZone";
 import { useToggle } from "react-use";
 import useTranslation from "next-translate/useTranslation";
+import { BigModal } from "../layout/bigModal";
+import { TrashIcon } from "@heroicons/react/24/outline";
 
 interface PhotoProps {
   image?: string;
   setImage: (value: string | undefined) => void;
 }
 
-const EditModal: React.FC<Pick<PhotoProps, "setImage"> & { close: () => void }> = ({
+const EditModalContent: React.FC<Pick<PhotoProps, "setImage"> & { close: () => void }> = ({
   close,
   setImage,
 }) => {
-  const {t} = useTranslation("app");
+  const { t } = useTranslation("app");
   const [file, setFile] = useState<File>();
   const onImageSave = useCallback(() => {
     const editor = editorRef.current;
@@ -51,8 +53,7 @@ const EditModal: React.FC<Pick<PhotoProps, "setImage"> & { close: () => void }> 
   }, []);
 
   return (
-    // TODO: Switch to big modal
-    <Modal title={t("addYourPhoto")} onClose={close}>
+    <>
       {!file && <DropZone onDrop={onDrop} accept="image/*" multiple={false} />}
       {file && (
         <>
@@ -81,7 +82,7 @@ const EditModal: React.FC<Pick<PhotoProps, "setImage"> & { close: () => void }> 
             />
             <MagnifyingGlassPlusIcon className="h-5 w-5" />
           </div>
-          <div className="mt-5 sm:mt-6 grid grid-cols-2 sm:gap-3 sm:grid-flow-row-dense">
+          <div className="mt-5 sm:mt-6 grid grid-cols-2 gap-3 sm:grid-flow-row-dense">
             <Button secondary onClick={close}>
               {t("cancel")}
             </Button>
@@ -91,7 +92,7 @@ const EditModal: React.FC<Pick<PhotoProps, "setImage"> & { close: () => void }> 
           </div>
         </>
       )}
-    </Modal>
+    </>
   );
 };
 
@@ -100,7 +101,7 @@ export const PhotoEditor: React.FC<PhotoProps & { buttonId?: string }> = React.m
   image,
   setImage,
 }) => {
-  const {t} = useTranslation("app");
+  const { t } = useTranslation("app");
   const [isEditing, toggleEditing] = useToggle(false);
   const deleteImage = useCallback(() => {
     setImage(undefined);
@@ -115,25 +116,22 @@ export const PhotoEditor: React.FC<PhotoProps & { buttonId?: string }> = React.m
             src={image}
             className="rounded-xl mw-full w-full h-full border-2 border-solid border-gray-100"
           />
-          <button
-            id={buttonId}
-            type="button"
-            onClick={deleteImage}
-            className="font-semibold rounded-xl bg-gray-100 p-2 my-2 mx-auto absolute bottom-0 inset-x-0  flex items-center justify-center">
-            {t("deletePhoto")}
-          </button>
+          <Button icon={TrashIcon} tertiary id={buttonId} onClick={deleteImage} className="absolute bottom-0 inset-x-0  flex items-center justify-center">{t("delete")}</Button>
         </>
       ) : (
-        <button
+        <Button
+          secondary
           id={buttonId}
           onClick={toggleEditing}
           type="button"
-          className="font-semibold flex flex-col items-center justify-center w-full h-full rounded-xl bg-gray-100 ">
+          className="font-semibold flex flex-col items-center justify-center w-full h-full rounded-xl">
           {t("addPhoto")}
-          <FaceSmileIcon aria-hidden className="w-10 h-10 text-gray-700" />
-        </button>
+          <FaceSmileIcon aria-hidden className="w-10 h-10" />
+        </Button>
       )}
-      {isEditing && <EditModal setImage={setImage} close={toggleEditing} />}
+      <BigModal show={isEditing} historyKey="photo-edit" onClose={toggleEditing} title={t("addYourPhoto")}>
+        <EditModalContent setImage={setImage} close={toggleEditing} />
+      </BigModal>
     </div>
   );
 });

@@ -67,12 +67,15 @@ export const useHistoryPush = (key: string, onBack: () => void): { push: () => v
 
   const currentOnBack = useRef(onBack);
   currentOnBack.current = onBack;
+  const executeOnBack = useRef(false);
   useEffect(() => {
     const handler = () => {
       window.fakeHistory = window.fakeHistory ?? [];
       if (window.fakeHistory[window.fakeHistory.length - 1] === key) {
         window.fakeHistory.pop();
-        currentOnBack.current();
+        if (executeOnBack.current) {
+          currentOnBack.current();
+        }
       }
     };
     window.addEventListener("popstate", handler);
@@ -85,14 +88,18 @@ export const useHistoryPush = (key: string, onBack: () => void): { push: () => v
       history.pushState("", "");
       window.fakeHistory = window.fakeHistory ?? [];
       window.fakeHistory.push(key);
+      executeOnBack.current = true;
     },
     maybePop: () => {
       window.fakeHistory = window.fakeHistory ?? [];
       // Remove history entry to make sure onBack is not triggered.
-      console.log(window.fakeHistory);
       if (window.fakeHistory[window.fakeHistory.length - 1] === key) {
-        window.fakeHistory.pop();
+        // This will trigger event listener from above.
+        history.back();
+        // Don't trigger on back if was triggered programatically.
+        executeOnBack.current = false;
       }
+      console.log(window.fakeHistory);
     }
   };}, [key]);
 }
