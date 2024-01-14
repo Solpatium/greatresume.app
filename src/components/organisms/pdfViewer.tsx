@@ -162,12 +162,14 @@ const DownloadButton: React.FC = () => {
     return null;
   }
 
-  return <ActionButton
+  return <Button
     onClick={download}
     icon={ArrowDownTrayIcon}
+    largeIcon
+    className="text-base px-6"
   >
     {t`save`}
-  </ActionButton>
+  </Button>
 }
 
 const steps = [0.33, 0.5, 0.67, 0.75, 1, 1.1, 1.25, 1.5, 1.75, 2];
@@ -188,12 +190,12 @@ const ZoomControl: React.FC<{
     <div className={
       "flex items-end md:items-stretch flex-row absolute left-3 md:right-3 md:right-0 bottom-[70px] md:bottom-10 justify-center gap-3"}
     >
-      <div className="flex flex-col gap-1 p-1 md:flex-row md:gap-3 md:p-3 bg-indigo-100 rounded-2xl shadow-xl items-center">
+      <div className="flex flex-col gap-1 p-1 md:flex-row md:gap-3 md:p-3 bg-indigo-50 rounded-xl shadow-xl items-center">
         <Button
           disabled={currentIndex === 0}
           onClick={() => setZoom(steps[currentIndex - 1] ?? 100)}
           className="p-2 block w-full md:w-auto md:p-4"
-          ghost
+          secondary
         >
           <span className="sr-only">Zoom out</span>
           <MinusIcon aria-hidden width={24} />
@@ -205,14 +207,13 @@ const ZoomControl: React.FC<{
           disabled={currentIndex === steps.length - 1}
           onClick={() => setZoom(steps[currentIndex + 1] ?? 100)}
           className="p-2 w-full md:w-auto md:p-4 flex justify-center"
-          ghost
+          secondary
         >
           <span className="sr-only">Zoom in</span>
           <PlusIcon aria-hidden width={24} />
         </Button>
-        {/* </div> */}
         <div aria-hidden className="hidden md:block sm:h-[30px] sm:w-[1px] bg-gray-500" />
-        <Button ghost className="hidden md:block" onClick={reset}>{t`reset`}</Button>
+        <Button secondary className="hidden md:block h-full" onClick={reset}>{t`reset`}</Button>
       </div>
       <DownloadButton />
     </div>
@@ -270,3 +271,4 @@ export const PdfViewer: React.FC = () => {
     </div>
   );
 };
+

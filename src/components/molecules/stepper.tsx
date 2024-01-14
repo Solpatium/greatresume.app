@@ -4,6 +4,7 @@ import styles from "./stepper.module.scss";
 import { useSnapshot } from "valtio";
 import { usePdfState } from "../../state/store";
 import useTranslation from "next-translate/useTranslation";
+import { ArrowDownOnSquareIcon, ArrowDownTrayIcon } from "@heroicons/react/24/outline";
 
 const ProgressCard: React.FC<{ icon: string, title: string, subtitle: string }> = ({ icon, title, subtitle }) => {
   return (<div className="progress-card flex justify-center p-3 my-7">
@@ -38,7 +39,7 @@ export const DownloadButton = () => {
     return null;
   }
 
-  return (<Button type="submit" className="text-base font-extrabold py-5 w-full md:max-w-[50%] " onClick={download}>
+  return (<Button type="submit" icon={ArrowDownTrayIcon} largeIcon className="text-base font-extrabold sm:py-5 w-full md:max-w-[50%] " onClick={download}>
     {t`downloadYourResume`}
   </Button>);
 }
