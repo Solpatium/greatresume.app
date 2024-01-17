@@ -44,38 +44,43 @@ export const PersonalInformation: React.FC = React.memo(() => {
   const setImage = useCallback((v?: string) => (resumeProxy.appearance.image = v), [resumeProxy.appearance]);
   return (
     <>
-      <div className="grid md:grid-cols-6 gap-4">
+        <div className="flex gap-4 w-full mb-4">
+          <div className="grid md:grid-cols-2 gap-4 w-full">
         <Input
           label={t`name`}
           name="name"
           autocomplete="given-name"
-          className="md:col-span-2"
+          className="md:col-span-1"
           onChange={v => (stateProxy.name = v)}
           value={state["name"]}
-        />
+          />
         <Input
           label={t`surname`}
           name="surname"
           autocomplete="family-name"
-          className="md:col-span-2"
+          className="md:col-span-1"
           onChange={v => (stateProxy.surname = v)}
           value={state["surname"]}
-        />
+          />
         <Input
           label={t`jobTitle`}
           name="job-title"
-          className="md:col-span-4"
+          className="md:col-span-2"
           onChange={v => (stateProxy.jobTitle = v)}
           value={state["jobTitle"]}
-        />
-        <div className="row-start-1 md:row-end-3 md:col-span-2 md:col-start-5">
+          />
+          </div>
+        <div className="h-full">
           <Label target="edit-image" name={t`photo`} className="flex" />
           <PhotoEditor
             buttonId="edit-image"
             image={image}
             setImage={setImage}
-          />
+            />
+
         </div>
+        </div>
+        <div className="grid md:grid-cols-6 gap-4">
         <Input
           label={t`phone`}
           name="phone"

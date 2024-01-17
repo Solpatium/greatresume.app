@@ -107,7 +107,7 @@ export const PhotoEditor: React.FC<PhotoProps & { buttonId?: string }> = React.m
     setImage(undefined);
   }, [setImage]);
   return (
-    <div className="picture h-32 w-32 flex relative">
+    <div className="picture aspect-square w-32 flex relative">
       {image ? (
         <>
           <img
