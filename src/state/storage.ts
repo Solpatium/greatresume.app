@@ -48,7 +48,7 @@ export const useDataPurgePermission = () => {
 }
 
 export const useImportState = () => {
-  const localStorage = useStorage(appStateKey);
+  const storage = useStorage(appStateKey);
   const canPurge = useDataPurgePermission();
 
   return useCallback((state: ApplicationPersistentState): boolean => {
@@ -56,7 +56,7 @@ export const useImportState = () => {
       return false;
     }
 
-    localStorage.set(state);
+    storage.set(state);
     return true;
   }, [canPurge]);
 }

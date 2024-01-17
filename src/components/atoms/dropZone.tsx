@@ -11,7 +11,7 @@ export const DropZone: React.FC<DropzoneOptions & {text?: string}> = ({text, ...
     <div
       {...getRootProps()}
       className={cn(
-        "cursor-pointer flex items-center justify-center min-h-[300px] border-dashed border-2",
+        "p-2 cursor-pointer flex items-center justify-center text-center min-h-[300px] border-dashed border-2",
         border,
       )}>
       <input {...getInputProps()} />
