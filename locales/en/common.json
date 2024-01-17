@@ -25,5 +25,15 @@
             "title": "Simple",
             "description": "Simple column template with blue accents. Straightforward and oldschool."
         }
+    },
+    "languages": {
+        "title": "Change language",
+        "label": "Available languages",
+        "names": {
+            "pl": "Polish",
+            "en": "English",
+            "fr": "French",
+            "de": "German"
+        }
     }
 }

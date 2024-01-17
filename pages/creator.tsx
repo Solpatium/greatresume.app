@@ -66,7 +66,7 @@ const Creator: React.FC = () => {
         <div 
           className={"pb-0 w-[200dvw] h-screen h-[100dvh] lg:w-[100dvw] flex"} 
           style={{transform: !isLarge && isPreviewing ? "translate(-100dvw, 0)" : "", transition: "transform 0.3s"}}>
-          <div ref={editorRef} className={cn(commonClasses, "overflow-y-scroll overflow-x-hidden lg:p-4 lg:rtl lg:static")}>
+          <div ref={editorRef} className={cn(commonClasses, "overflow-y-scroll overflow-x-hidden pt-2 lg:p-4 lg:rtl lg:static")}>
             <Editor className={cn("ltr", "block pb-[120px] lg:p-0 lg:max-w-[1000px]")} />
           </div>
           <div

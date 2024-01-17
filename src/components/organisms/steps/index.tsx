@@ -11,6 +11,7 @@ import { LegalClauseForm } from "./legalClause";
 import { Export } from "./export";
 import cn from "classnames";
 import { SectionTitle } from "../../molecules/sectionTitle";
+import { LanguageSwitcher } from "../languageSwitcher";
 
 
 export const Editor: React.FC<{
@@ -57,6 +58,7 @@ export const Editor: React.FC<{
 
   return (
     <div className={cn(className, "relative flex flex-col gap-5 lg:gap-12")}>
+      <div className="flex justify-end"><LanguageSwitcher/></div>
       <Stepper maxSteps={5 + state.resume.sections.length} steps={steps} />
     </div>
   );

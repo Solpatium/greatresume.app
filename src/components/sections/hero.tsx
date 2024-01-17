@@ -2,6 +2,7 @@ import { HandThumbUpIcon } from '@heroicons/react/24/outline'
 import Trans from 'next-translate/Trans';
 import useTranslation from 'next-translate/useTranslation';
 import Link from 'next/link'
+import { LanguageSwitcher } from '../organisms/languageSwitcher';
 
 const navigation = [
     { translationKey: 'about', href: '#about' },
@@ -56,12 +57,13 @@ const Navbar = () => {
                             <HandThumbUpIcon className="h-8 text-[#4f46e5]" />
                         </a>
                     </div>
-                    <div className="flex min-w-0 flex-1 justify-end	 gap-x-3 sm:gap-x-6 md:gap-x-12">
+                    <div className="flex min-w-0 flex-1 justify-end items-center gap-x-3 sm:gap-x-6 md:gap-x-12">
                         {navigation.map((item) => (
-                            <a key={item.translationKey} href={item.href} className="font-semibold text-gray-900 hover:text-gray-900">
+                            <a key={item.translationKey} href={item.href} className="font-semibold hidden sm:block text-gray-900 hover:text-gray-900">
                                 {t("nav."+item.translationKey)}
                             </a>
                         ))}
+                        <LanguageSwitcher />
                     </div>
                 </nav>
             </div>

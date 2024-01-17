@@ -1,1 +1,39 @@
-{}
+{
+    "overwriteQuestion": "Are you sure you want to continue? Your currently edited resume will be overwritten.",
+    "templates": {
+        "professional": {
+            "title": "Professional",
+            "description": "Two column template in blue colors. Fresh and professional."
+        },
+        "serious": {
+            "title": "Serious",
+            "description": "Two column black and white template. Serious and old-school."
+        },
+        "lax": {
+            "title": "Lax",
+            "description": "Two column template with some green accents. Light and fresh."
+        },
+        "energetic": {
+            "title": "Energetic",
+            "description": "Single column template with some violet accents. Energetic and modern."
+        },
+        "peachy": {
+            "title": "Peachy",
+            "description": "Single column template using orange color. Safe and clean."
+        },
+        "simple": {
+            "title": "Simple",
+            "description": "Simple column template with blue accents. Straightforward and oldschool."
+        }
+    },
+    "languages": {
+        "title": "Zmień język",
+        "label": "Dostępne języki",
+        "names": {
+            "pl": "Polski",
+            "en": "Angielski",
+            "fr": "Francuski",
+            "de": "Niemiecki"
+        }
+    }
+}
