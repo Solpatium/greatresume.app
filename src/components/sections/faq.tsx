@@ -7,7 +7,7 @@ const faqKeys = [
 ];
 
 const components = {
-    start: <Link className="underline" href="/start" />,
+    start: <Link className="underline" href="/creator" />,
     em: <em className="font-bold" />,
     githubIssues: <a className="underline" href="#" />,
     sourceCode: <a className="underline" href="#" />,

@@ -42,7 +42,7 @@ export const useDataPurgePermission = () => {
   const localStorage = useStorage(appStateKey);
   const { t } = useTranslation("common");
   return useCallback(() => {
-    const hasResume = sessionStorage.get() || localStorage.get();
+    const hasResume = localStorage.get();
     return !hasResume || confirm(t`overwriteQuestion`);
   }, [sessionStorage.get, localStorage.get]);
 }

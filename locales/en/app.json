@@ -186,5 +186,12 @@
       }
     },
     "addSection": "Add selected section"
+  },
+  "dataImport": {
+    "title": "Import old resume",
+    "fileDropText": "Click here or drop your pdf. Make sure you import file exported from our application.",
+    "invalidFile": "Please provide a valid pdf file created on our website.",
+    "extractionError": "Can't find embeded data. Please make sure you import file exported from our application",
+    "validationError": "There seems to be something wrong with the data in this file."
   }
 }

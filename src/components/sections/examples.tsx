@@ -35,7 +35,7 @@ export const Examples = makeClientOnly(() => {
                                         if(!saved) {
                                             return;
                                         }
-                                        return push("/languages?skip-start").catch(console.error)
+                                        return push("/creator").catch(console.error)
                                     })
                             }
                         >

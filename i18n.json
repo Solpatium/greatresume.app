@@ -4,9 +4,6 @@
   "pages": {
     "*": ["common"],
     "/home": ["home"],
-    "/start": ["start"],
-    "/storage-settings": ["storage-settings"],
-    "/languages": ["languages"],
     "/creator": ["app"]
   }
 }

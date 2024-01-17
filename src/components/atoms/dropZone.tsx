@@ -3,10 +3,10 @@ import React from "react";
 import cn from "classnames";
 import useTranslation from "next-translate/useTranslation";
 
-export const DropZone: React.FC<DropzoneOptions> = options => {
+export const DropZone: React.FC<DropzoneOptions & {text?: string}> = ({text, ...options}) => {
   const {t} = useTranslation("app");
   const { getRootProps, getInputProps, isDragActive } = useDropzone(options);
-  const border = isDragActive ? "border-fuchsia-500" : "border-gray-300";
+  const border = isDragActive ? "border-fuchsia-500" : "border-gray-400";
   return (
     <div
       {...getRootProps()}
@@ -15,7 +15,7 @@ export const DropZone: React.FC<DropzoneOptions> = options => {
         border,
       )}>
       <input {...getInputProps()} />
-      <div className="text-gray-500">{t("dropzoneText")}</div>
+      <div className="text-gray-800 text-lg">{text || t("dropzoneText")}</div>
     </div>
   );
 };

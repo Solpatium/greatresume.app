@@ -16,7 +16,7 @@ export const LaunchButton = () => {
     const { t } = useTranslation("home");
     return (
         <Link
-            href="/languages"
+            href="/creator"
             className="inline-block rounded-lg bg-indigo-600 px-5 py-3 text-xl font-semibold leading-7 text-white shadow-sm ring-1 ring-indigo-600 hover:bg-indigo-700 hover:ring-indigo-700"
         >
             {t("actionLabel")}{' '}
