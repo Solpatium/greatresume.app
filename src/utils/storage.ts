@@ -1,6 +1,5 @@
-import { useLocalStorage, useThrottleFn } from "react-use";
+import { useThrottleFn } from "react-use";
 import { Dispatch, SetStateAction, useCallback, useEffect, useState } from "react";
-import { useRouter } from "next/router";
 import { makeEmptyResume, ResumeModel, resumeStruct } from "../models/v1";
 import { isServer } from "./ssr";
 import useTranslation from "next-translate/useTranslation";
@@ -8,37 +7,17 @@ import { is } from "superstruct";
 
 export type SessionType = "local" | "session";
 
-// TODO: remove external hooks
-export const useStorageSelected = (): [undefined | SessionType, (type: SessionType) => void] => {
-  const [storageSelected, setSelected] =
-    useLocalStorage<SessionType>("local-storage-selected");
-  return [
-    storageSelected && ["local", "session"].includes(storageSelected) ? storageSelected : undefined,
-    setSelected,
-  ];
-};
-
 export type SavedResume = ResumeModel & { lastUpdate: Date };
 
 export const useResumeStorage = (): {
   getResume: () => SavedResume | undefined;
   saveResume: (resume: ResumeModel) => void;
 } => {
-  const { replace } = useRouter();
-  const [type] = useStorageSelected();
-
-  useEffect(() => {
-    if (!type) {
-      replace("/storage-settings");
-    }
-  }, [replace, type]);
-
   const getResume = useCallback(() => {
     if (isServer) {
       return undefined;
     }
-    const storage = type === "local" ? localStorage : sessionStorage;
-    const saved = storage.getItem("resume");
+    const saved = localStorage.getItem("resume");
     if (!saved) {
       return undefined;
     }
@@ -49,18 +28,16 @@ export const useResumeStorage = (): {
       return undefined;
     }
     return { ...parsed, lastUpdate };
-  }, [type]);
+  }, []);
 
   const saveResume = useCallback(
     (resume: ResumeModel) => {
-      const storage = type === "local" ? localStorage : sessionStorage;
-
-      storage.setItem(
+      localStorage.setItem(
         "resume",
         JSON.stringify({ ...resume, lastUpdate: new Date().toISOString() }),
       );
     },
-    [type],
+    [],
   );
 
   return { getResume, saveResume };

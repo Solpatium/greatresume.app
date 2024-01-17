@@ -1,9 +1,6 @@
-import { SessionType, useStorageSelected } from "../utils/storage";
 import { useCallback, useEffect, useMemo } from "react";
-import { useRouter } from "next/router";
-import { useThrottleFn } from "react-use";
 import { subscribe } from "valtio";
-import { ApplicationPersistentState, applicationStateStruct, resumeStruct } from "../models/v1";
+import { ApplicationPersistentState, applicationStateStruct } from "../models/v1";
 import { assert, is } from "superstruct";
 import useTranslation from "next-translate/useTranslation";
 
@@ -18,33 +15,31 @@ export const useGetLastUpdate = (): string => {
   }, []);
 };
 
-const useStorage = (key: string, sessionType: SessionType): {
+const useStorage = (key: string): {
   get: () => Record<string, unknown> | undefined;
   set: (data: Record<string, unknown>) => void;
   remove: () => void;
 } => {
-  const storage = sessionType === 'local' ? localStorage : sessionStorage;
   return useMemo(() => ({
     get: () => {
-      const stored = storage.getItem(key);
+      const stored = localStorage.getItem(key);
       if (!stored) {
         return undefined;
       }
       return JSON.parse(stored);
     },
     set: (data) => {
-      storage.setItem(key, JSON.stringify(data));
+      localStorage.setItem(key, JSON.stringify(data));
       localStorage.setItem(lastUpdateKey, new Date().toISOString());
     },
-    remove: () => storage.removeItem(key),
-  }), [storage]);
+    remove: () => localStorage.removeItem(key),
+  }), []);
 };
 
 const appStateKey = "app state";
 
 export const useDataPurgePermission = () => {
-  const sessionStorage = useStorage(appStateKey, "session");
-  const localStorage = useStorage(appStateKey, "local");
+  const localStorage = useStorage(appStateKey);
   const { t } = useTranslation("common");
   return useCallback(() => {
     const hasResume = sessionStorage.get() || localStorage.get();
@@ -53,51 +48,17 @@ export const useDataPurgePermission = () => {
 }
 
 export const useImportState = () => {
-  const sessionStorage = useStorage(appStateKey, "session");
-  const localStorage = useStorage(appStateKey, "local");
+  const localStorage = useStorage(appStateKey);
   const canPurge = useDataPurgePermission();
-  const [storageType, setStorageType] = useStorageSelected();
 
   return useCallback((state: ApplicationPersistentState): boolean => {
     if(!canPurge()) {
       return false;
     }
 
-    // Default to session storage
-    if(!storageType) {
-      sessionStorage.set(state);
-      setStorageType("session");
-    }
-
-    const storage = storageType === "local" ? localStorage : sessionStorage;
-    storage.set(state);
+    localStorage.set(state);
     return true;
   }, [canPurge]);
-}
-
-export const useStorageMigration = () => {
-  // If user selects a different storage mechanism we need to migrate exiting state to a new storage
-  const sessionStorage = useStorage(appStateKey, "session");
-  const localStorage = useStorage(appStateKey, "local");
-
-  const [previousStorage] = useStorageSelected();
-
-  return useCallback((newStorageType: SessionType) => {
-    if (previousStorage === newStorageType) {
-      return;
-    }
-    const [source, target] = newStorageType === "local" ? [sessionStorage, localStorage] : [localStorage, sessionStorage];    
-    const data = source.get();
-
-
-    if (!data) {
-      return;
-    }
-
-    // Set data before deleting old
-    target.set(data);
-    source.remove();
-  }, []);
 }
 
 export const useAppStateStorage = (): {
@@ -105,16 +66,7 @@ export const useAppStateStorage = (): {
   set: (data: Record<any, any>) => void;
   remove: () => void;
 } => {
-  const [storageSelected] = useStorageSelected();
-  const {replace} = useRouter();
-  
-  useEffect(() => {
-    if (!storageSelected) {
-      replace("/storage-settings");
-    }
-  }, [storageSelected]);
-
-  const storage = useStorage(appStateKey, storageSelected ?? "session");
+  const storage = useStorage(appStateKey);
 
   const set = useCallback((data: Record<any, any>) => {
     assert(data, applicationStateStruct);
