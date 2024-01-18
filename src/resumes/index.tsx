@@ -6,7 +6,7 @@ import { arraysEqual } from "../utils/array";
 import useTranslation from "next-translate/useTranslation";
 import { ApplicationPersistentState, ResumeModel } from "../models/v1";
 import type { WorkerRequest, WorkerResponse } from "./worker";
-import {countResumeDownload} from "../utils/statistics";
+import {countResumeDownload} from "../utils/analytics";
 
 class CreationController {
   constructor(private persistentStateProxy: ApplicationPersistentState, private pdfStateProxy: PdfState, private translate: (value: string) => string) {
