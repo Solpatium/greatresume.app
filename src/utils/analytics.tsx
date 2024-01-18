@@ -11,12 +11,12 @@ export const GoogleAnalytics: React.FC = () => {
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
           
-          gtag('consent', 'default', {
-              'ad_storage': 'denied',
-              'ad_user_data': 'denied',
-              'ad_personalization': 'denied',
-              'analytics_storage': 'denied'
-            });
+            //   gtag('consent', 'default', {
+            //       'ad_storage': 'denied',
+            //       'ad_user_data': 'denied',
+            //       'ad_personalization': 'denied',
+            //       'analytics_storage': 'denied'
+            //     });
 
           gtag('js', new Date());
           gtag('config', '${id}');`,
@@ -42,7 +42,7 @@ export const countResumeDownload = (resume: ResumeModel, fileSize: number) => {
     if (resume.sections.length < 2) {
         return;
     }
-    console.log("TRACKING")
+    // console.log("TRACKING")
     const template = resume.appearance.template;
     const paperSize = resume.appearance.paperSize;
     const usedImage = !!resume.appearance.image;
