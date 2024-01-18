@@ -49,8 +49,12 @@ export const LanguageSwitcher: React.FC = () => {
                 value={locale}
                 onChange={(lang) => {
                     // We have to pop the history entry for the modal already to replace the history entry below it.
+                    const handler = () => {
+                        replace({ pathname, query }, asPath, { locale: lang, })
+                        window.removeEventListener("popstate", handler);
+                    };
+                    window.addEventListener("popstate", handler);
                     maybePop();
-                    replace({ pathname, query }, asPath, { locale: lang,  })
                 }}
             />
         </BigModal>
