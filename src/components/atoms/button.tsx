@@ -1,4 +1,4 @@
-import React, { ButtonHTMLAttributes, HTMLAttributes, useCallback, useMemo, useState } from "react";
+import React, { useState } from "react";
 import cn from "classnames";
 
 const common =
@@ -21,13 +21,12 @@ export const Button: React.FC<{
   disabled?: boolean;
   children: React.ReactNode;
   className?: string;
-} & React.ButtonHTMLAttributes<HTMLButtonElement>> = ({ ghost, danger, onClick, secondary, tertiary, type, children, icon, disabled, className, ...rest }) => {
+} & React.ButtonHTMLAttributes<HTMLButtonElement>> = ({ danger, onClick, secondary, tertiary, type, children, icon, disabled, className, ...rest }) => {
   const [inProgress, setInProgress] = useState(false);
 
   const variant =
     (danger && colors.danger) ||
     (secondary && colors.secondary) ||
-    (ghost && colors.ghost) ||
     (tertiary && colors.tertiary) || 
     colors.primary;
 
