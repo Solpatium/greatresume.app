@@ -34,7 +34,7 @@ declare global {
 }
 
 const track = (name: string, props: Record<string, any>) => {
-    window.gtag?.("event", name, { props });
+    window.gtag?.("event", name, props);
 }
 
 export const countResumeDownload = (resume: ResumeModel, fileSize: number) => {
