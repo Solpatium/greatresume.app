@@ -22,6 +22,7 @@
   "reset": "Reset",
   "resume": "Resume",
   "ok": "OK",
+  "or": "or",
   "toggleButtonInfo": "Use this button to toggle between editing and previewing your resume. You can also swipe between them!",
   "addNewEntry": "Add new list element",
   "nextStep": "Next step",
@@ -31,7 +32,8 @@
   "addYourPhoto": "Add your photo",
   "addPhoto": "Add photo",
   "yourPhoto": "Your photo",
-  "dropzoneText": "Click or drag your file here.",
+  "dropzoneText": "Drag your file here.",
+  "dropzoneButton": "Choose file",
   "paper": {
     "a4": "A4",
     "a4Description": "Popular in EU.",
@@ -189,7 +191,7 @@
   },
   "dataImport": {
     "title": "Import old resume",
-    "fileDropText": "Click here or drop your pdf. Make sure you import file exported from our application.",
+    "fileDropText": "Drop your pdf. Make sure you import file exported from our application.",
     "invalidFile": "Please provide a valid pdf file created on our website.",
     "extractionError": "Can't find embeded data. Please make sure you import file exported from our application",
     "validationError": "There seems to be something wrong with the data in this file.",
