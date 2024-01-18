@@ -68,11 +68,11 @@ const TitleEdit: React.FC<{ section: Section }> = ({ section }) => {
 const Edit: React.FC<{ section: Section }> = ({ section }) => {
   const { t } = useTranslation("app");
 
-  return <>
+  return <div className="md:p-5 md:pt-0 md:-mt-2">
     <TitleEdit section={section} />
     {/* <StepDescription>{t(`steps.${section.kind}.description`)}</StepDescription> */}
     {renderSection(section)}
-  </>
+  </div>
 }
 
 export const StepsForm: React.FC = React.memo(() => {
@@ -122,13 +122,14 @@ export const StepsForm: React.FC = React.memo(() => {
       <ControlledSortableList
         stateProxy={sections}
         sortingEnabled={sorting}
-        itemClassName="border-0 p-0 my-0 bg-gray-50 rounded-2xl mb-2 p-5"
+        itemClassName="border-0 p-0 my-0 bg-gray-50 rounded-2xl mb-2"
         onDelete={onDelete}
         render={(s, i) => (
           <ExpandableItem
             stateProxy={s}
             onDelete={onDelete}
-            render={e => <div className="md:mt-6"><Edit section={e} /></div>}
+            className="p-5"
+            render={e => <Edit section={e} />}
             renderPreview={e => <Entry state={e} />}
             // TODO: Why do we need this?
             name={s.title}
