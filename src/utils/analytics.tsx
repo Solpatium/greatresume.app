@@ -11,6 +11,7 @@ export const GoogleAnalytics: React.FC = () => {
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
           
+            // TODO
             //   gtag('consent', 'default', {
             //       'ad_storage': 'denied',
             //       'ad_user_data': 'denied',
@@ -29,23 +30,17 @@ export const GoogleAnalytics: React.FC = () => {
 import { ResumeModel } from "../models/v1";
 
 declare global {
-    interface Window { dataLayer?: any[] }
+    interface Window { gtag?: (...args: any) => void }
 }
 
 const track = (name: string, props: Record<string, any>) => {
-    window.dataLayer = window.dataLayer || [];
-    window.dataLayer.push(["event", name, { props }]);
+    window.gtag?.("event", name, { props });
 }
 
 export const countResumeDownload = (resume: ResumeModel, fileSize: number) => {
-    // Probably some empty resumes.
-    if (resume.sections.length < 2) {
-        return;
-    }
-    // console.log("TRACKING")
     const template = resume.appearance.template;
     const paperSize = resume.appearance.paperSize;
     const usedImage = !!resume.appearance.image;
     const sectionsCount = resume.sections.length;
-    track("pdfDownload", { template, paperSize, usedImage, sectionsCount, fileSize });
+    track("pdf_download", { template, paperSize, usedImage, sectionsCount, fileSize });
 }
