@@ -35,5 +35,10 @@
             "fr": "French",
             "de": "German"
         }
+    },
+    "cookies": {
+        "content": "We use Google Analytics to see how we can improve services. <0>We do not collect any data used for creating resumes, it doesn't leave your device.</0> By clicking \"Accept\", you agree to the use of cookies as described in our <1>Privacy policy</1>. It is ok to reject them.",
+        "accept": "Accept",
+        "reject": "Reject"
     }
 }

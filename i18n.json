@@ -4,6 +4,7 @@
   "pages": {
     "*": ["common"],
     "/home": ["home"],
-    "/creator": ["app"]
+    "/creator": ["app"],
+    "/privacy-policy": ["privacy-policy"]
   }
 }

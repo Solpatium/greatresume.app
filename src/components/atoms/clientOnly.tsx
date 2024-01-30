@@ -1,7 +1,7 @@
 import React from "react";
 import { useIsMounted } from "../../utils/ssr";
 
-export const ClientOnly: React.FC<{children: React.ReactElement}> = ({children}) => {
+export const ClientOnly: React.FC<{children: React.ReactElement | null}> = ({children}) => {
     const mounted = useIsMounted();
 
     if (!mounted) {
