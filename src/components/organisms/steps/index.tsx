@@ -58,7 +58,7 @@ export const Editor: React.FC<{
   }]
 
   return (
-    <div className={cn(className, "relative flex flex-col gap-5 lg:gap-12")}>
+    <div className={cn(className, "relative flex flex-col gap-5 lg:gap-8 lg:mt-3")}>
       <div className="flex gap-3 justify-end">
         <DataImport/>
         <LanguageSwitcher/>
