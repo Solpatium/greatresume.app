@@ -4,6 +4,7 @@ import { useImportState } from "../../state/storage"
 import { makeClientOnly } from "../atoms/clientOnly"
 import useTranslation from "next-translate/useTranslation"
 import { useTemplateDetails } from "../../resumes/templateDetails"
+import { Button } from "../atoms/button"
 
 export const Examples = makeClientOnly(() => {
     const { t } = useTranslation("home");
@@ -22,36 +23,34 @@ export const Examples = makeClientOnly(() => {
                     </p>
                 </div>
 
-                <div className="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8">
-                    {Object.values(templates).map((details, index) => (
-                        <button
-                            type="button"
-                            key={index}
-                            className="group"
-                            onClick={
-                                () => details.example()
-                                    .then(saveData)
-                                    .then((saved) => {
-                                        if(!saved) {
-                                            return;
-                                        }
-                                        return push("/creator").catch(console.error)
-                                    })
-                            }
-                        >
-                            <div className="w-full">
-                                <Image
-                                    src={details.image}
-                                    aria-hidden
-                                    alt=""
-                                    className="shadow-md group-hover:opacity-75"
-                                />
+                <div className="overflow-x-auto sm:overflow-visible sm:m-0">
+                    <div className="m-2 flex flex-nowrap grid-cols-2 gap-x-4 gap-y-4 sm:grid sm:gap-y-10 sm:gap-x-6 lg:grid-cols-3 xl:gap-x-8">
+                        {Object.values(templates).map((details, index) => (
+                            <div key={index} className="min-w-[300px] sm:min-w-0">
+                                <div className="w-full relative">
+                                    <Image
+                                        src={details.image}
+                                        aria-hidden
+                                        alt=""
+                                        className="shadow-md group-hover:opacity-75"
+                                    />
+                                    <Button
+                                        className="absolute right-2 bottom-2"
+                                        onClick={() => details.example()
+                                            .then(saveData)
+                                            .then((saved) => {
+                                                if (!saved) {
+                                                    return;
+                                                }
+                                                return push("/creator").catch(console.error)
+                                            })} tertiary>{t("examples.button")}</Button>
+                                </div>
+                                <div className="mt-2 sm:mt-4 flex items-center justify-between text-base font-medium text-gray-900">
+                                    <h3>{details.title}</h3>
+                                </div>
                             </div>
-                            <div className="mt-4 flex items-center justify-between text-base font-medium text-gray-900">
-                                <h3>{details.title}</h3>
-                            </div>
-                        </button>
-                    ))}
+                        ))}
+                    </div>
                 </div>
             </div>
         </div>

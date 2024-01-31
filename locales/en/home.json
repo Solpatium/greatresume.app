@@ -44,7 +44,8 @@
     },
     "examples": {
         "title": "Example resumes",
-        "subtitle": "Click on any resume to edit it in the application"
+        "subtitle": "You can import any of the resumes into the application.",
+        "button": "Edit in creator"
     },
     "action": {
         "title": "Ready to dive in? Create your resume for free."
