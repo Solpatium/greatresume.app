@@ -17,7 +17,6 @@ export const DropZone: React.FC<DropzoneOptions & {text?: string}> = ({text, ...
       )}>
       <input {...getInputProps()} />
       <div className="text-gray-800 text-lg">{text || t("dropzoneText")}</div>
-      <div className="text-gray-800 text-lg">{t("or")}</div>
         <Button>{t("dropzoneButton")}</Button>
     </div>
   );

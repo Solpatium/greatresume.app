@@ -22,10 +22,10 @@ export interface ExpandableListProps<Type> {
   label?: string;
   buttonText?: string;
   itemClassName?: string;
-  elementBeforeMobileTitle?: ReactElement;
+  mobileTitle?: ReactElement;
 }
 
-export interface ExpandableItemProps<Type> {
+interface ExpandableItemProps<Type> {
   index: number;
   name?: string;
   id: string;
@@ -37,7 +37,7 @@ export interface ExpandableItemProps<Type> {
   open?: boolean;
   onToggle: (id: string) => void;
   className?: string;
-  elementBeforeMobileTitle?: ReactElement
+  mobileTitle?: ReactElement
 }
 
 export const ExpandableItem = <Type extends HasId>(props: ExpandableItemProps<Type>) => {
@@ -74,7 +74,7 @@ export const ExpandableItem = <Type extends HasId>(props: ExpandableItemProps<Ty
         {content}
       </dd>}
 
-      <BigModal historyKey={`expandable-item-${props.id}`} title={<>{props.elementBeforeMobileTitle}{preview}</>} show={isMobile && props.open} onClose={close}>
+      <BigModal historyKey={`expandable-item-${props.id}`} title={<>{props.mobileTitle}{preview}</>} show={isMobile && props.open} onClose={close}>
         {content}
       </BigModal>
     </div>
@@ -143,7 +143,7 @@ export const ExpandableList = <Type extends HasId>({
   label,
   buttonText,
   itemClassName,
-  elementBeforeMobileTitle,
+  mobileTitle,
 }: ExpandableListProps<Type>): ReactElement => {
   const { t } = useTranslation("app");
   const state = useOpenTracking();
@@ -190,7 +190,7 @@ export const ExpandableList = <Type extends HasId>({
           id={s.id}
           onToggle={state.toggle}
           open={openSections[s.id]}
-          elementBeforeMobileTitle={elementBeforeMobileTitle}
+          mobileTitle={mobileTitle}
         />
       )}
     />

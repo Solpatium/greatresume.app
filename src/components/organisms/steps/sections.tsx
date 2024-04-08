@@ -12,7 +12,7 @@ import { Button } from "../../atoms/button";
 import { highlight } from "pdfkit";
 import { highlightElement } from "../../../utils/highlight";
 import { BigModal } from "../../layout/bigModal";
-import { ExpandableItem, ExpandableList, useOpenTracking } from "../../layout/expandableList";
+import { ExpandableItem, useOpenTracking } from "../../layout/expandableList";
 import { Experience } from "./experience";
 import { InterestsForm } from "./interests";
 import { KeyValueForm } from "./keyValue";
@@ -39,7 +39,7 @@ const renderSection = (section: Section): React.ReactElement => {
       }
 }
 
-const Entry: React.FC<{ state: Section }> = React.memo(({ state }) => {
+export const Entry: React.FC<{ state: Section }> = React.memo(({ state }) => {
   const { t } = useTranslation("app");
   const { kind } = state;
   const Icon = kindIcons[kind];
@@ -54,8 +54,6 @@ const Entry: React.FC<{ state: Section }> = React.memo(({ state }) => {
   );
 });
 
-export const SectionPreviewTmp = Entry;
-
 const TitleEdit: React.FC<{ section: Section }> = ({ section }) => {
   const snapshot = useSnapshot(section);
   return <Input
@@ -68,7 +66,7 @@ const TitleEdit: React.FC<{ section: Section }> = ({ section }) => {
 const Edit: React.FC<{ section: Section }> = ({ section }) => {
   const { t } = useTranslation("app");
 
-  return <div className="md:p-5 md:pt-0 md:-mt-2">
+  return <div className="md:p-5 md:pt-0 md:-mt-2 min-w-0">
     <TitleEdit section={section} />
     {/* <StepDescription>{t(`steps.${section.kind}.description`)}</StepDescription> */}
     {renderSection(section)}

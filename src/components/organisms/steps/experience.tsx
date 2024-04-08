@@ -13,7 +13,7 @@ import { StepDescription } from "../../atoms/typography";
 import { ExpandableList } from "../../layout/expandableList";
 import { UncontrolledSortableList } from "../../layout/sortableList";
 import { SectionTitle } from "../../molecules/sectionTitle";
-import { SectionPreviewTmp } from "./sections";
+import { Entry as SectionEntryTitle } from "./sections";
 
 const Entry: React.FC<{ kind: ExperienceKind; stateProxy: Entry }> = ({ kind, stateProxy }) => {
   const state = useSnapshot(stateProxy);
@@ -79,17 +79,17 @@ const Preview: React.FC<{ stateProxy: Entry }> = ({ stateProxy }) => {
 
   if (state.title || state.subtitle) {
     parts.push(
-      <span key="title" className="inline-block font-semibold text-base">
+      <span key="title" className="inline-block font-semibold text-base truncate">
         {joinNonEmpty(" : ", state.title, state.subtitle)}
       </span>,
     );
   }
 
   if (!parts.length) {
-    parts.push(<span key="empty" className="italic text-base">{t`empty`}</span>)
+    parts.push(<span key="empty" className="italic text-base truncate">{t`empty`}</span>)
   }
 
-  return <div>
+  return <div className="w-full">
     <div className="truncate flex items-center">{parts}</div>
   </div>;
 };
@@ -98,17 +98,16 @@ export const Experience: React.FC<{
   stateProxy: ExperienceSection;
 }> = React.memo(({ stateProxy }) => {
   const { t } = useTranslation("app");
-
   return (
-          <ExpandableList
-          itemClassName="sm:p-5"
-        stateProxy={stateProxy.content}
+    <ExpandableList
+      itemClassName="sm:p-5"
+      stateProxy={stateProxy.content}
         renderPreview={stateProxy => <Preview stateProxy={stateProxy} />}
-        elementBeforeMobileTitle={<div className="mb-4"><SectionPreviewTmp state={stateProxy}/></div>}
+        mobileTitle={<div className="mb-4"><SectionEntryTitle state={stateProxy}/></div>}
         render={e => <Entry stateProxy={e} kind={stateProxy.kind} />}
         className="col-span-full"
         onAddNew={() => {
           stateProxy.content.push(makeEmptyEntry());
         }}
-      />  );
+    />);
 });
