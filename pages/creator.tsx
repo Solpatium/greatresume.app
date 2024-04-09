@@ -13,19 +13,17 @@ import { MobilePreviewButton } from "../src/components/organisms/mobilePreviewBu
 import { useSnapshot } from "valtio";
 import { useHistoryPush, useIsLarge, useIsMobile } from "../src/utils/hooks";
 import { useUnmount } from "react-use";
+import { CreatorInfo } from "../src/components/organisms/creatorIntro";
 
 const BottomBar: React.FC = () => {
   // TODO: Accessiblity
   const state = usePdfState().previewState;
   const isPreviewing = useSnapshot(state).previewVisible;
-  // useHistoryPush("/preview");
-  // useEffect(() => {
-    //   window.addEventListener("popstate", console.log)
-    // }, []);
   const togglePreview = () => {
     state.previewVisible = !state.previewVisible;
   };
   const history = useHistoryPush("preview", togglePreview);
+  const {t} = useTranslation("app");
   return <div className="w-[100dvw] h-[60px] flex fixed bottom-0 left-0 bg-indigo-900 text-white font-bold lg:hidden">
     <div 
       className="w-[30px] h-[2px] bg-white absolute bottom-[10px] m-auto left-0 right-0" 
@@ -33,11 +31,11 @@ const BottomBar: React.FC = () => {
     <button className="w-[50%]" style={{opacity: isPreviewing ? "70%" : ""}} disabled={!isPreviewing} onClick={() => {
       history.maybePop();
       togglePreview();
-    }}>EDIT</button>
+    }}>{t`edit`}</button>
     <button className="w-[50%]" style={{opacity: !isPreviewing ? "70%" : ""}} disabled={isPreviewing} onClick={() => {
       history.push();
       togglePreview();
-    }}>PREVIEW</button>
+    }}>{t`preview`}</button>
   </div>
 }
 
@@ -62,6 +60,7 @@ const Creator: React.FC = () => {
           content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
         />
       </Head>
+      <CreatorInfo/>
       <div className="overflow-hidden w-[100dvw] h-screen h-[100dvh]">
         <div 
           className={"pb-0 w-[200dvw] h-screen h-[100dvh] lg:w-[100dvw] flex"} 

@@ -39,7 +39,7 @@ export const DownloadButton = () => {
     return null;
   }
 
-  return (<Button type="submit" icon={ArrowDownTrayIcon} largeIcon className="text-base font-extrabold sm:py-5 w-full md:max-w-[50%] " onClick={download}>
+  return (<Button type="submit" icon={ArrowDownTrayIcon} largeIcon className="text-base font-extrabold mx-2 sm:py-5 w-full md:max-w-[50%] min-h-[70px]" onClick={download}>
     {t`downloadYourResume`}
   </Button>);
 }
