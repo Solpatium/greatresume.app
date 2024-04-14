@@ -11,15 +11,44 @@ interface TProps extends TextProps {
   url?: string;
   style?: Style;
   className?: string;
+  // The default hyphenation doesn't care for hyphens included in the text itself.
+  // In case of surnames the result doesn't look good. This option breaks the text
+  // into seperate parts and adds a soft hyphen to prevent the default hyphenation
+  // from working. 
+  breakTextByHyphens?: boolean;
+}
+const SOFT_HYPHEN = '\u00ad';
+const wrapHyphens = (input: string): string | string[] => {
+  if (!input.includes("-")) {
+    return input;
+  }
+  const parts = input.split("-");
+  return parts.map( (s,i) => {
+    if (i === parts.length-1) {
+      return s+SOFT_HYPHEN;
+    }
+    return s + "-" + SOFT_HYPHEN;
+  })
 }
 
 // We don't want to render an empty text component
-export const T: React.FC<TProps> = ({ children, url, style, className, ...props }) => {
+export const T: React.FC<TProps> = ({ children, url, style, className, breakTextByHyphens, ...props }) => {
   const stylesheet = useContext(styleContext);
   
   let content = children;
   if (typeof children === "string") {
-    content = children.trim();
+    content = children.trim()
+    if (breakTextByHyphens) {
+      content = wrapHyphens(children.trim());
+    }
+  } else if (Array.isArray(children) && breakTextByHyphens){
+    // @ts-ignore
+    content = children.flatMap(e => {
+      if (typeof e === "string") {
+        return wrapHyphens(e);
+      }
+      return e;
+    })
   }
   if (!content) {
     return null;

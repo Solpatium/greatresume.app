@@ -18,7 +18,7 @@ export const Introduction: React.FC<{ data: ResumeModel, image?: string }> = ({ 
     <V className="personalInfo">
         <Img image={image} className="personalInfoImage" />
         <V className="personalInfoTextWrapper">
-            <T className="personalInfoName">
+            <T className="personalInfoName" breakTextByHyphens>
                 {data.personalInformation.name} {data.personalInformation.surname}
             </T>
             <T className="personalInfoJobTitle">{data.personalInformation.jobTitle}</T>
