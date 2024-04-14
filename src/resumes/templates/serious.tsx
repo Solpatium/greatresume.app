@@ -32,7 +32,9 @@ const styles: StylesDefinition = {
     paddingLeft: 24,
   },
 
+  // It is slighlty bigger than the left pane actually.
   ".personalInfo": {
+    width: "30vw",
     display: "flex",
     alignItems: "center",
     marginBottom: 24,

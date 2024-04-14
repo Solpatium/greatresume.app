@@ -46,7 +46,7 @@ const styles: StylesDefinition = {
     display: "flex",
     alignItems: "center",
     marginBottom: 24,
-    padding: 12,
+    paddingVertical: 12,
   },
   ".personalInfoImage": {
     maxHeight: 100,

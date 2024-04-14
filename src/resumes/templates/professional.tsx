@@ -10,13 +10,12 @@ const titleColor = "#056C8C";
 const linkColor = "#0a82a1";
 const lightColor = "#778197";
 
-const pagePadding = 24;
+const pagePadding = "4vw";
 const leftPaneWidth = "38vw";
 
 const background = <View fixed style={{
   position: "absolute",
   width: leftPaneWidth,
-  padding: pagePadding,
   height: "100vh",
   zIndex: -1,
   backgroundColor: leftBackgroundColor
@@ -37,18 +36,17 @@ const Template: ResumeTemplate = ({ data, translate }) => (
 
 const styles: StylesDefinition = {
   ".page": {
-    padding: pagePadding,
+    paddingVertical: pagePadding,
     color: textColor,
     fontSize: "14px",
     fontFamily: "Karla",
     backgroundColor: "#F2F9FB",
   },
   ".leftPane": {
-    paddingRight: pagePadding,
-    width: leftPaneWidth,
+    width: "42vw",
   },
   ".rightPane": {
-    paddingLeft: pagePadding,
+    paddingHorizontal: pagePadding,
     width: "70%",
   },
 
@@ -60,6 +58,7 @@ const styles: StylesDefinition = {
   ".personalInfoImage": {
     width: "100%",
     maxHeight: 180,
+    maxWidth: 180,
     marginBottom: 32,
     borderRadius: "100%",
   },
@@ -98,6 +97,7 @@ const styles: StylesDefinition = {
     width: "100%",
     fontSize: 12,
     fontWeight: 300,
+    paddingHorizontal: pagePadding,
   },
   ".sidebarSectionTitle": {
     fontFamily: "Merriweather",
