@@ -29,7 +29,7 @@ export const TemplateList: React.FC<{
               className="cursor-pointer relative rounded-xl"
             >
               <Image
-                className="bg-gray-100 rounded-xl border-solid border-2 border-b-0 border-gray-100 hover:border-blue-200"
+                className={classes("bg-gray-100 rounded-xl border-solid border-2 border-b-0 border-gray-100 hover:border-blue-200", name == template && "border-blue-500")}
                 src={image}
                 aria-hidden
                 alt="" />

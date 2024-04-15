@@ -41,7 +41,7 @@ export const Button: React.FC<{
         }
       }}
       type={type ?? "button"}
-      className={cn(variant, (disabled || inProgress) && "opacity-70 pointer-events-none", className)}
+      className={cn(variant, (disabled || inProgress) && "opacity-50 pointer-events-none", className)}
       {...rest}>
       {icon && !rest.largeIcon && React.createElement(icon, { className: "h-4 w-4 mr-2 -ml-0.5" })}
       {icon && rest.largeIcon && React.createElement(icon, { width: 20, style: { strokeWidth: 2 }, className: "mr-2 -ml-0.5"})}
