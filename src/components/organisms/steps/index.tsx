@@ -6,7 +6,7 @@ import { Appearance } from "./appearance";
 import { StepsForm } from "./sections";
 import useTranslation from "next-translate/useTranslation";
 import { useSnapshot } from "valtio";
-import { useAppState } from "../../../state/store";
+import { usePersistentState } from "../../../state/store";
 import { LegalClauseForm } from "./legalClause";
 import { Export } from "./export";
 import cn from "classnames";
@@ -19,7 +19,7 @@ export const Editor: React.FC<{
   className?: string;
 }> = ({ className }) => {
   const { t } = useTranslation("app");
-  const state = useAppState();
+  const state = usePersistentState();
 
   const progress = useSnapshot(state.progress);
   let sectionsLeft = 100;///progress.sectionsFilled;

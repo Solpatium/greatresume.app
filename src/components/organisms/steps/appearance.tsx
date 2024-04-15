@@ -4,7 +4,7 @@ import classes from "classnames";
 import { Label, labelTextStyle } from "../../atoms/fields/label";
 import { FlatSelect, FlatSelectOption } from "../../atoms/flatSelect";
 import { PaperSize } from "../../../models/v1";
-import { useAppState, usePdfState } from "../../../state/store";
+import { usePersistentState, useAppState } from "../../../state/store";
 import { useSnapshot } from "valtio";
 import { StepDescription } from "../../atoms/typography";
 import useTranslation from "next-translate/useTranslation";
@@ -53,13 +53,13 @@ export const TemplateList: React.FC<{
 
 export const Appearance: React.FC = React.memo(() => {
   const { t } = useTranslation("app");
-  const settings = useAppState().resume.appearance;
+  const settings = usePersistentState().resume.appearance;
   const { template, paperSize } = useSnapshot(settings);
   const options = useMemo(() => [
     { value: "A4", label: t("paper.a4"), description: t("paper.a4Description") },
     { value: "LETTER", label: t("paper.letter"), description: t("paper.letterDescription") },
   ] as FlatSelectOption<PaperSize>[], [t]);
-  const pdfState = usePdfState().previewState;
+  const pdfState = useAppState().previewState;
   const togglePreview = () => {
     pdfState.previewVisible = !pdfState.previewVisible;
   };

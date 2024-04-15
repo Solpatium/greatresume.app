@@ -55,13 +55,8 @@ export const resumeStruct = type({
 });
 export type ResumeModel = Infer<typeof resumeStruct>;
 
-const progressStruct = type({
-  sectionsFilled: number(),
-});
-
 export const applicationStateStruct = type({
   resume: resumeStruct,
-  progress: progressStruct,
 });
 export type ApplicationPersistentState = Infer<typeof applicationStateStruct>;
 

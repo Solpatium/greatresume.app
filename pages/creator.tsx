@@ -6,7 +6,7 @@ import { useCreatePdf } from "../src/resumes";
 import cn from "classnames";
 import useTranslation from "next-translate/useTranslation";
 import { PdfViewer } from "../src/components/organisms/pdfViewer";
-import { AppStateProvider, usePdfState } from "../src/state/store";
+import { AppStateProvider, useAppState } from "../src/state/store";
 import 'react-markdown-editor-lite/lib/index.css';
 import { useRouter } from "next/router";
 import { MobilePreviewButton } from "../src/components/organisms/mobilePreviewButton";
@@ -14,10 +14,11 @@ import { useSnapshot } from "valtio";
 import { useHistoryPush, useIsLarge, useIsMobile } from "../src/utils/hooks";
 import { useUnmount } from "react-use";
 import { CreatorInfo } from "../src/components/organisms/creatorIntro";
+import { Congratulations } from "../src/components/organisms/congratulations";
 
 const BottomBar: React.FC = () => {
   // TODO: Accessiblity
-  const state = usePdfState().previewState;
+  const state = useAppState().previewState;
   const isPreviewing = useSnapshot(state).previewVisible;
   const togglePreview = () => {
     state.previewVisible = !state.previewVisible;
@@ -42,11 +43,10 @@ const BottomBar: React.FC = () => {
 const Creator: React.FC = () => {
   useCreatePdf();
   const { t } = useTranslation("app");
-  const router = useRouter();
   const editorRef = useRef<HTMLDivElement>(null);
   const previewRef = useRef<HTMLDivElement>(null);
 
-  const isPreviewing = useSnapshot(usePdfState().previewState).previewVisible;
+  const isPreviewing = useSnapshot(useAppState().previewState).previewVisible;
   const isLarge = useIsLarge();
 
   // We don't want it to lose state
@@ -61,6 +61,7 @@ const Creator: React.FC = () => {
         />
       </Head>
       <CreatorInfo/>
+      <Congratulations/>
       <div className="overflow-hidden w-[100dvw] h-screen h-[100dvh]">
         <div 
           className={"pb-0 w-[200dvw] h-screen h-[100dvh] lg:w-[100dvw] flex"} 

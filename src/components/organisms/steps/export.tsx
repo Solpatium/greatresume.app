@@ -1,5 +1,5 @@
 import React from "react";
-import { useAppState, usePdfState } from "../../../state/store";
+import { usePersistentState, useAppState } from "../../../state/store";
 import { useSnapshot } from "valtio";
 import { StepDescription } from "../../atoms/typography";
 import useTranslation from "next-translate/useTranslation";
@@ -8,9 +8,9 @@ import { Button } from "../../atoms/button";
 
 export const Export: React.FC = React.memo(() => {
     const { t } = useTranslation("app");
-    const settings = useAppState().resume.appearance;
+    const settings = usePersistentState().resume.appearance;
     const { template } = useSnapshot(settings);
-    const pdfState = usePdfState().previewState;
+    const pdfState = useAppState().previewState;
     return (
         <>
             <StepDescription>{t`steps.export.description`}</StepDescription>

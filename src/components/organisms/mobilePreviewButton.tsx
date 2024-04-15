@@ -8,7 +8,7 @@ import useTranslation from "next-translate/useTranslation"
 import { useCallback, useEffect, useState } from "react";
 import styles from "./mobilePreviewButton.module.scss";
 import cn from "classnames";
-import { useAppState } from "../../state/store";
+import { usePersistentState } from "../../state/store";
 import { subscribe, useSnapshot } from "valtio";
 
 const storageKey = "mobilePreviewToggle";
@@ -84,6 +84,6 @@ export const MobilePreviewButton: React.FC<{ isPreviewing: boolean, togglePrevie
     togglePreview,
 }) => {
     // We want to show preview button only after the first section is filled.
-    const enablePreview = useSnapshot(useAppState().progress).sectionsFilled > 0;
+    const enablePreview = useSnapshot(usePersistentState().progress).sectionsFilled > 0;
     return enablePreview ? <MobilePreviewButtonImpl isPreviewing={isPreviewing} togglePreview={togglePreview} /> : null;
 }

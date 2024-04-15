@@ -4,7 +4,7 @@ import { Section } from "../../../models/v1";
 
 import { kindIcons, SectionPicker } from "../../molecules/sectionPicker";
 import useTranslation from "next-translate/useTranslation";
-import { useAppState } from "../../../state/store";
+import { usePersistentState } from "../../../state/store";
 import { useSnapshot } from "valtio";
 import { StepDescription } from "../../atoms/typography";
 import { FastEditableList } from "../../layout/flatEditableList";
@@ -75,7 +75,7 @@ const Edit: React.FC<{ section: Section }> = ({ section }) => {
 
 export const StepsForm: React.FC = React.memo(() => {
   const { t } = useTranslation("app");
-  const { sections } = useAppState().resume;
+  const { sections } = usePersistentState().resume;
 
   const openTracking = useOpenTracking();
 

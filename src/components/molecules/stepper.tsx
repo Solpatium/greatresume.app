@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from "react"
 import { Button } from "../atoms/button";
 import styles from "./stepper.module.scss";
 import { useSnapshot } from "valtio";
-import { usePdfState } from "../../state/store";
+import { useAppState } from "../../state/store";
 import useTranslation from "next-translate/useTranslation";
 import { ArrowDownOnSquareIcon, ArrowDownTrayIcon } from "@heroicons/react/24/outline";
 
@@ -34,13 +34,13 @@ export const StepWrapper: React.FC<{
 
 export const DownloadButton = () => {
   const {t} = useTranslation("app");
-  const download = useSnapshot(usePdfState().rendered).download;
+  const download = useSnapshot(useAppState().rendered).download;
   if (!download) {
     return null;
   }
 
-  return (<Button type="submit" icon={ArrowDownTrayIcon} largeIcon className="text-base font-extrabold mx-2 sm:py-5 w-full md:max-w-[50%] min-h-[70px]" onClick={download}>
-    {t`downloadYourResume`}
+  return (<Button type="submit" icon={ArrowDownTrayIcon} largeIcon className="mx-2 sm:py-5 w-full md:max-w-[50%] min-h-[70px]" onClick={download}>
+    <span className="text-base font-extrabold">{t`downloadYourResume`}</span>
   </Button>);
 }
 

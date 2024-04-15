@@ -8,7 +8,7 @@ import { PlusIcon, MinusIcon, ArrowDownTrayIcon } from "@heroicons/react/24/outl
 import useTranslation from "next-translate/useTranslation";
 import cn from "classnames";
 import { subscribe, useSnapshot } from "valtio";
-import { PdfState, usePdfState } from "../../state/store";
+import { AppState, useAppState } from "../../state/store";
 import spinner from "../../../public/images/spinner.svg"
 import Image from "next/image"
 
@@ -16,7 +16,7 @@ const workerUrl = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.14.305/pdf.wo
 
 class Controller {
   constructor(
-    private pdfStateProxy: PdfState,
+    private pdfStateProxy: AppState,
     private wrapper: HTMLDivElement,
     private container: HTMLDivElement,
     private onRescale: (scale: number) => void,
@@ -157,7 +157,7 @@ class Controller {
 
 const DownloadButton: React.FC = () => {
   const { t } = useTranslation("app");
-  const download = useSnapshot(usePdfState().rendered).download;
+  const download = useSnapshot(useAppState().rendered).download;
   if (!download) {
     return null;
   }
@@ -221,7 +221,7 @@ const ZoomControl: React.FC<{
 }
 
 const LoadingIndicator: React.FC = () => {
-  const loading = useSnapshot(usePdfState().renderingState);
+  const loading = useSnapshot(useAppState().renderingState);
   if (loading.pdfCreationInProgress || loading.renderingInProgress) {
     return (
         <Image className="absolute inset-x-0 inset-y-0 m-auto w-[60%] md:w-[50%] lg:w-[30%]" alt="Loading" src={spinner} />
@@ -235,7 +235,7 @@ export const PdfViewer: React.FC = () => {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const [zoom, setZoom] = useState(1);
 
-  const pdfStateProxy = usePdfState();
+  const pdfStateProxy = useAppState();
   const controller = useRef<Controller>(undefined as any);
   useLayoutEffect(() => {
     const wrapper = wrapperRef.current;

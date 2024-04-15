@@ -203,5 +203,11 @@
     "localStorage": "Creator automatically saves your progress in local storage of your browser. We don't send your personal data anywhere.",
     "incognito": "Use <0>incognito mode</0> in case you don't want your data to be available here after closing the browser.",
     "incognitoUrl": "https://www.lifewire.com/browsing-incognito-445990"
+  },
+  "congratulations": {
+    "title": "Congratulations!",
+    "content": "Your resume is ready. It showcases your skills and experience, but you are so much more than that. We know the job search can be tough, but <0>don't let setbacks discourage you</0>.",
+    "greetings":"We hope you'll get a job of your dreams,",
+    "signature":"Ola and Jakub, app creators"
   }
 }

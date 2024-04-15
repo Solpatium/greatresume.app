@@ -2,7 +2,7 @@ import React, { useCallback } from "react";
 import { Input } from "../../atoms/fields/input";
 import { PhotoEditor } from "../../molecules/photoEdit";
 import { Label } from "../../atoms/fields/label";
-import { useAppState } from "../../../state/store";
+import { usePersistentState } from "../../../state/store";
 import { useSnapshot } from "valtio";
 import { FastEditableList } from "../../layout/flatEditableList";
 import { Entry } from "../../../models/sections/keyValueSection";
@@ -35,7 +35,7 @@ const entryToLinkEdit = (data: Entry) => <LinkEdit stateProxy={data} />;
 
 export const PersonalInformation: React.FC = React.memo(() => {
   const { t } = useTranslation("app");
-  const resumeProxy = useAppState().resume;
+  const resumeProxy = usePersistentState().resume;
   const stateProxy = resumeProxy.personalInformation;
   const state = useSnapshot(stateProxy);
   const { image } = useSnapshot(resumeProxy.appearance);

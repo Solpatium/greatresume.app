@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { downloadFile } from "../utils/downloadFile";
-import { PdfState, useAppState, usePdfState } from "../state/store";
+import { AppState, usePersistentState, useAppState } from "../state/store";
 import { ref, subscribe } from "valtio";
 import { arraysEqual } from "../utils/array";
 import useTranslation from "next-translate/useTranslation";
@@ -9,7 +9,7 @@ import type { WorkerRequest, WorkerResponse } from "./worker";
 import {countResumeDownload} from "../utils/analytics";
 
 class CreationController {
-  constructor(private persistentStateProxy: ApplicationPersistentState, private pdfStateProxy: PdfState, private translate: (value: string) => string) {
+  constructor(private persistentStateProxy: ApplicationPersistentState, private pdfStateProxy: AppState, private translate: (value: string) => string) {
     this.resumeProxy = persistentStateProxy.resume;
   }
 
@@ -67,10 +67,13 @@ class CreationController {
         blob, this.persistentStateProxy, this.translate("embededPdfFileDescription")
       );
       countResumeDownload(this.resumeProxy, file.size);
-      return downloadFile(
+      downloadFile(
         file,
         `${name} ${surname} - ${this.translate("resume")}.pdf`
       );
+      if (this.resumeProxy.sections.reduce((acc, s) => s.content.length+acc, 0) > 0) {
+        this.pdfStateProxy.downloadInfo.downloaded = true;
+      }
     } catch (message) {
       return console.error(message);
     }
@@ -110,8 +113,8 @@ class CreationController {
 // Creates pdf in worker running in the background.
 export const useCreatePdf = () => {
   const { t } = useTranslation("app");
-  const pdfStateProxy = usePdfState();
-  const appStateProxy = useAppState();
+  const pdfStateProxy = useAppState();
+  const appStateProxy = usePersistentState();
 
   useEffect(() => {
     const controller = new CreationController(appStateProxy, pdfStateProxy, t);

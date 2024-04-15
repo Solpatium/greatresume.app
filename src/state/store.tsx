@@ -18,13 +18,16 @@ export interface PreviewState {
   previewVisible: boolean;
 }
 
-export interface PdfState {
+export interface AppState {
   renderingState: RenderingState;
   previewState: PreviewState,
   rendered: RenderedPdf;
+  downloadInfo: {
+    downloaded: boolean;
+  };
 }
 
-const StoreContext = createContext(null as unknown as { state: ApplicationPersistentState, pdfState: PdfState });
+const StoreContext = createContext(null as unknown as { state: ApplicationPersistentState, appState: AppState });
 
 export const AppStateProvider: React.FC<{
   children?: React.ReactNode;
@@ -49,7 +52,7 @@ export const AppStateProvider: React.FC<{
     return proxy({ resume, progress: {sectionsFilled: 0} });
   });
 
-  const [pdfState] = useState(() => proxy({
+  const [appState] = useState(() => proxy({
     renderingState: {
       pdfCreationInProgress: false,
       renderingInProgress: false,
@@ -61,19 +64,22 @@ export const AppStateProvider: React.FC<{
       file: null,
       download: null,
     },
-  } as PdfState));
+    downloadInfo: {
+      downloaded: false,
+    },
+  } as AppState));
 
   useThrottledAppPersistance(state);
 
   // Stable object reference
-  const value = useMemo(() => ({ state, pdfState }), [state, pdfState]);
+  const value = useMemo(() => ({ state, appState }), [state, appState]);
   return <StoreContext.Provider value={value}>{children}</StoreContext.Provider>;
 };
 
-export const useAppState = (): ApplicationPersistentState => {
+export const usePersistentState = (): ApplicationPersistentState => {
   return useContext(StoreContext).state;
 };
 
-export const usePdfState = (): PdfState => {
-  return useContext(StoreContext).pdfState;
+export const useAppState = (): AppState => {
+  return useContext(StoreContext).appState;
 };
