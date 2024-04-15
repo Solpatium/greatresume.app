@@ -23,6 +23,7 @@ const pageMargin = 40;
 const styles: StylesDefinition = {
     ".page": {
         color: textColor,
+        backgroundColor: "#FFFCF9",
         fontSize: 14,
         fontFamily: "Manrope",
         padding: pageMargin,
@@ -36,7 +37,6 @@ const styles: StylesDefinition = {
         backgroundColor: "#FFF4E4",
         marginHorizontal: -pageMargin,
         marginTop: -pageMargin,
-        marginBottom: pageMargin,
     },
 
     ".personalInfo": {
@@ -90,7 +90,7 @@ const styles: StylesDefinition = {
 
 
     ".mainSection": {
-        marginBottom: 30,
+        marginTop: 32,
     },
     ".mainSectionTitle": {
         fontSize: 18,
@@ -168,7 +168,7 @@ const styles: StylesDefinition = {
     },
 
     ".li": {
-        marginTop: 5,
+        marginTop: 0,
     }
 }
 
