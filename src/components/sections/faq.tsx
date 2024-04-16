@@ -3,16 +3,17 @@ import useTranslation from "next-translate/useTranslation";
 import Link from "next/link";
 
 const faqKeys = [
-    "dataProcessing", "reimport", "cookieConsent", "bugs", "monetization", "monetizationContinuation", "tracking", "trust",
+    "dataProcessing", "reimport", "multipleVersions", "bugs", "monetization", "monetizationContinuation", "help", "tracking", "trust",
 ];
 
+// TODO: Update urls.
 const components = {
     start: <Link className="underline" href="/creator" />,
     em: <em className="font-bold" />,
     githubIssues: <a className="underline" href="#" />,
     sourceCode: <a className="underline" href="#" />,
-    plausible: <a className="underline" target="_blank" href="https://plausible.io/" />,
     contact: <a className="underline" href="#" />,
+    privacyPolicy: <Link className="underline" href="/privacy-policy" />,
 }
 
 export const FAQ = () => {
@@ -29,11 +30,11 @@ const QuestionsList: React.FC<{ titleKey: string; descriptionKey: React.ReactEle
         <div className="bg-white">
             <div className="mx-auto max-w-7xl px-6 py-24 sm:pt-32 lg:py-40 lg:px-8">
                 <div className="lg:grid lg:grid-cols-12 lg:gap-8">
-                    <div className="lg:col-span-5">
-                        <h2 className="text-2xl font-bold leading-10 tracking-tight text-gray-900">
+                    <div className="lg:col-span-5 text-center lg:text-left">
+                        <h2 className="text-3xl lg:text-2xl font-bold leading-10 tracking-tight text-gray-900">
                             {t(props.titleKey)}
                         </h2>
-                        <p className="mt-4 text-base leading-7 text-gray-600">
+                        <p className="mt-4 text-xl lg:text-base leading-7 text-gray-600">
                         <Trans i18nKey={`home:${props.descriptionKey}`} components={components} />
                         </p>
                     </div>

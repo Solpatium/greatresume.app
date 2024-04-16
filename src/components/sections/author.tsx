@@ -1,5 +1,5 @@
 import Image from "next/image";
-import authorImage from "../../../public/images/placeholder/man-face.jpeg";
+import authorImage from "../../../public/images/creators.png";
 
 const TwitterIcon: React.FC<{ className: string }> = (props) => {
     return (
@@ -28,10 +28,10 @@ export const AuthorSection = () => {
                     </div>
                     <div className="px-4 py-10 sm:px-10 sm:py-16 md:py-20 lg:px-20 lg:py-32">
                         <p className="mt-8 font-display text-5xl font-extrabold tracking-tight text-slate-900 sm:text-6xl">
-                            <span className="block text-blue-600">Jakub Ptak -</span>
-                            Hey there, I've created this app.</p>
+                            <span className="block text-blue-600">Ola and Kuba</span>
+                            Hey there, we've created this app.</p>
                         <p className="mt-4 text-lg tracking-tight text-slate-700">
-                            Wololo
+                            We've put a lot of heart and time into this project. We hope you find it useful!
                         </p>
                         <p className="mt-8"><a className="inline-flex items-center text-base font-medium tracking-tight text-blue-600" href="/#">
                             <TwitterIcon className="h-10 w-10 fill-current" />

@@ -12,7 +12,7 @@
     "hero": {
         "title": "Create a <em>Great Resume</em> completely for <em>free</em>",
         "subtitle": "No strings attached",
-        "description": "Use one of 6 professional templates to create a resume and export it to a PDF file. All completly private and free, because people looking for a job shouldn't have to pay a penny to create a good CV."
+        "description": "Use one of 6 professional templates to create a resume and export it to a PDF file. All completly private and free, because people looking for a job shouldn't have to pay a penny to create a good resume."
     },
     "features": {
         "title": "No bullshit resume creator",
@@ -44,7 +44,7 @@
     },
     "examples": {
         "title": "Example resumes",
-        "subtitle": "You can import any of the resumes into the application.",
+        "subtitle": "You can import any of the resumes below into the application.",
         "button": "Edit in creator"
     },
     "action": {
@@ -57,13 +57,13 @@
             "question": "How do you process my data?",
             "answer": "Your data is only used to generate your resume and it does not leave your browser. Our application doesn't use any server to generate your resume. It uses javascript to generate it in your browser, securely and privately."
         },
-        "cookieConsent": {
-            "question": "Why is there no cookie consent bar?",
-            "answer": "Because it is not needed. Your data is only used to generate resumes. Generating them happens in your browser, we don't send your information anywhere."
-        },
         "reimport": {
             "question": "I've created a resume some time ago, how do I edit it?",
-            "answer": "Go <start>here</start> and select the 'import' option. Please note that <em>this option only works for pdfs generated throught our application</em>."
+            "answer": "Go <start>to creator</start> and select the 'import' option from the top. Please note that <em>this option only works for pdfs generated throught our application</em>."
+        },
+        "multipleVersions": {
+            "question": "How do I maintain multiple versions of the resume?",
+            "answer": "Every time you want to preserve a version you can just download it. When you want to make changes you can always import it back."
         },
         "bugs": {
             "question": "How do I report a bug?",
@@ -75,11 +75,15 @@
         },
         "monetizationContinuation": {
             "question": "What do you mean you don't make money out of this?",
-            "answer": "We just want to make resume creation accessible for everyone. It all started when my mother lost her job and I wanted to find some resume creators. I found a lot of them baiting you with the promise of 'free resume creator', but they allow you to export only to a text file (yes, a regular .txt file), forcing you to pay for the pdf. You learn this only after you fill ALL YOUR DATA. I think this process can be even more infuriating for people who are not tech savvy. Of course you can pay for resume creator, but for some people it is not an option."
+            "answer": "We just want to make resume creation accessible for everyone. It all started when my mother lost her job during covid and I wanted to find some resume creators. I found a lot of them baiting you with the promise of 'free resume creator', but they allow you to export only to a text file (yes, a regular .txt file), forcing you to pay for the pdf. You learn this only after you fill ALL YOUR DATA. I think this process can be even more infuriating for people who are not tech savvy. Of course you can pay for resume creator, but for some people it is not an option."
+        },
+        "help": {
+            "question": "How do I express my gratitude?",
+            "answer": "If you're satisfied with our tool, you can share it on social media or just tell your friends about it."
         },
         "tracking": {
             "question": "Do you track your users?",
-            "answer": "We only the basic tracking, using privacy-first <plausible>plausible.io</plausible>"
+            "answer": "We use Google Analytics for tracking usage. It gives us insight into how people use our application. No worries, we don't send any part of you resume to an external service. If you want to withdraw your consent you can do it directly from out <privacyPolicy>Privacy Policy</privacyPolicy>."
         },
         "trust": {
             "question": "How can I be sure you are not lying?",

@@ -4,6 +4,7 @@ import { Button } from '../src/components/atoms/button';
 import { ClientOnly } from '../src/components/atoms/clientOnly';
 import { LanguageSwitcher } from '../src/components/organisms/languageSwitcher';
 import Trans from 'next-translate/Trans';
+import { Header } from '../src/components/sections/header';
 
 const Heading: React.FC<{ children: string }> = ({ children }) => <h2 className="mt-16 text-2xl font-bold tracking-tight text-gray-900 mb-6">{children}</h2>
 
@@ -32,11 +33,8 @@ export default function PrivacyPolicy() {
     return (
         <div className="bg-white px-6 py-32 lg:px-8">
             <div className="mx-auto max-w-3xl text-base leading-7 text-gray-700">
-                <div className="flex justify-end mb-4">
-                    <LanguageSwitcher />
-                </div>
-                <p className="text-base font-semibold leading-7 text-indigo-600">Privacy</p>
-                <h1 className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">{t`title`}</h1>
+                <Header navigation={[]}/>
+                <h1 className="mt-20 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">{t`title`}</h1>
                 <p className="mt-6 text-xl leading-8">
                     {t`subtitle`}
                 </p>

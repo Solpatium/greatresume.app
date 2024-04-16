@@ -1,15 +1,7 @@
-import { HandThumbUpIcon } from '@heroicons/react/24/outline'
 import Trans from 'next-translate/Trans';
 import useTranslation from 'next-translate/useTranslation';
 import Link from 'next/link'
-import { LanguageSwitcher } from '../organisms/languageSwitcher';
-
-const navigation = [
-    { translationKey: 'about', href: '#about' },
-    { translationKey: 'examples', href: '#examples' },
-    { translationKey: 'faq', href: '#faq' },
-    { translationKey: 'authors', href: '#authors' },
-];
+import { Header } from './header';
 
 
 export const LaunchButton = () => {
@@ -45,32 +37,6 @@ const Title = () => {
     </>)
 }
 
-const Navbar = () => {
-    const {t} = useTranslation("home");
-    return (
-        <div className="px-6 pt-6 lg:px-8 max-w-7xl m-auto">
-            <div>
-                <nav className="flex h-9 items-center space-between" aria-label="Global">
-                    <div className="flex lg:min-w-0 lg:flex-1" aria-label="Global">
-                        <a href="/home" className="-m-1.5 p-1.5">
-                            <span className="sr-only">{t("home")}</span>
-                            <HandThumbUpIcon className="h-8 text-[#4f46e5]" />
-                        </a>
-                    </div>
-                    <div className="flex min-w-0 flex-1 justify-end items-center gap-x-3 sm:gap-x-6 md:gap-x-12">
-                        {navigation.map((item) => (
-                            <a key={item.translationKey} href={item.href} className="font-semibold hidden sm:block text-gray-900 hover:text-gray-900">
-                                {t("nav."+item.translationKey)}
-                            </a>
-                        ))}
-                        <LanguageSwitcher />
-                    </div>
-                </nav>
-            </div>
-        </div>
-    )
-}
-
 const BottomGradient = () => (<div className="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]">
     <svg
         className="relative -top-40 left-[calc(50%+3rem)] h-[21.1875rem] max-w-none -translate-x-1/2 sm:left-[calc(50%+36rem)] sm:h-[42.375rem]"
@@ -99,6 +65,12 @@ const BottomGradient = () => (<div className="absolute inset-x-0 top-[calc(100%-
     </svg>
 </div>)
 
+const navigation = [
+    { translationKey: 'about', href: '#about' },
+    { translationKey: 'examples', href: '#examples' },
+    { translationKey: 'faq', href: '#faq' },
+    { translationKey: 'authors', href: '#authors' },
+];
 
 export const HeroSection = () => {
     return (
@@ -130,7 +102,9 @@ export const HeroSection = () => {
                     </defs>
                 </svg>
             </div>
-            <Navbar />
+            <div className="px-6 pt-6 lg:px-8 max-w-7xl m-auto">
+                <Header navigation={navigation} />
+            </div>
             <main>
                 <div className="relative px-6 lg:px-8">
                     <div className="mx-auto max-w-3xl pt-20 pb-32 sm:pt-48 sm:pb-40">
