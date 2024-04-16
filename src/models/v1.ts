@@ -1,6 +1,7 @@
 import { array, boolean, enums, Infer, is, number, optional, string, type, union } from "superstruct";
 import { personalInformationStruct } from "./sections/personalInfo";
 import {
+  Entry as ExperienceEntry,
   ExperienceKind,
   experienceSectionStruct,
   ExperienceType,
@@ -37,6 +38,30 @@ const sectionStruct = union([
 
 export type Section = Infer<typeof sectionStruct>;
 export type SectionBase = Infer<typeof sectionBase>;
+
+const hasContent = (value: string): boolean => {
+  return value.trim().length > 0;
+}
+
+export const isExperienceEntryFilled = (entry: ExperienceEntry): boolean => {
+  return hasContent(entry.from) ||
+         hasContent(entry.to) ||
+         hasContent(entry.title) ||
+         hasContent(entry.subtitle) ||
+         hasContent(entry.description);
+}
+
+export const isSectionFilled = (section: Section): boolean => {
+  if (section.type === "experience") {
+    return section.content.some(isExperienceEntryFilled);
+  } else if (section.type === "key value") {
+    return section.content.some(e => hasContent(e.name) || hasContent(e.value) )
+  } else if (section.type === "simple list") {
+    return section.content.some(e => hasContent(e.content))
+  } else {
+    return hasContent(section.content);
+  }
+}
 
 const appearanceSettings = type({
   template: string(),

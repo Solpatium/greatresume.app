@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from "react";
 import { Input } from "../../atoms/fields/input";
-import { Section } from "../../../models/v1";
+import { isSectionFilled, Section } from "../../../models/v1";
 
 import { kindIcons, SectionPicker } from "../../molecules/sectionPicker";
 import useTranslation from "next-translate/useTranslation";
@@ -73,6 +73,15 @@ const Edit: React.FC<{ section: Section }> = ({ section }) => {
   </div>
 }
 
+const confirmDeletion = (section: Section, text: string): boolean => {
+  if (!isSectionFilled(section)) {
+    // No confirmation needed.
+    return true;
+  }
+
+  return confirm(text);
+}
+
 export const StepsForm: React.FC = React.memo(() => {
   const { t } = useTranslation("app");
   const { sections } = usePersistentState().resume;
@@ -83,13 +92,16 @@ export const StepsForm: React.FC = React.memo(() => {
   const [sorting, toggleSorting] = useToggle(false);
   const onDelete = useCallback(
     (index: number) => {
+      if (!sections[index] || !confirmDeletion(sections[index]!, t`newSection.deletionConfirmation`)) {
+        return;
+      } 
       openTracking.remove(sections[index]?.id ?? "");
       sections.splice(index, 1);
       if (sections.length === 0) {
         toggleSorting(false);
       }
     },
-    [sections],
+    [sections, t],
   );
   const snapshot = useSnapshot(sections);
 

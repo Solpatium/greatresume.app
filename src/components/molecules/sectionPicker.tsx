@@ -5,21 +5,20 @@ import { FlatSelect, FlatSelectOption } from "../atoms/flatSelect";
 import {
   BookOpenIcon,
   BriefcaseIcon,
-  CalendarIcon,
+  GlobeEuropeAfricaIcon,
   ClipboardDocumentListIcon,
   DocumentTextIcon,
   LanguageIcon,
   PaintBrushIcon,
   WrenchScrewdriverIcon,
 } from "@heroicons/react/24/outline";
-import { Button } from "../atoms/button";
 import useTranslation from "next-translate/useTranslation";
 
 export const kindIcons: Record<SectionKind, React.FC<React.ComponentProps<"svg">>> = {
   employment: BriefcaseIcon,
   education: BookOpenIcon,
   projects: WrenchScrewdriverIcon,
-  experience: CalendarIcon,
+  experience: GlobeEuropeAfricaIcon,
   skills: ClipboardDocumentListIcon,
   languages: LanguageIcon,
   interests: PaintBrushIcon,
@@ -52,7 +51,7 @@ export const SectionPicker: React.FC<{ onSelect: (value: Section) => void }> = (
       value: "experience",
       label: t`newSection.sections.experience.label`,
       description: t`newSection.sections.experience.description`,
-      icon: CalendarIcon,
+      icon: GlobeEuropeAfricaIcon,
     },
     {
       value: "skills",

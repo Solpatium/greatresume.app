@@ -70,6 +70,7 @@ const styles: StylesDefinition = {
     ".contactSection": {
         flexDirection: "row",
         justifyContent: "center",
+        flexWrap: "wrap",
     },
     ".contactSectionTitle": {
         display: "none",

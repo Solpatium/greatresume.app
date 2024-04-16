@@ -1,5 +1,5 @@
 import useTranslation from "next-translate/useTranslation";
-import React from "react";
+import React, { useCallback } from "react";
 import { useSnapshot } from "valtio";
 import {
   Entry,
@@ -14,6 +14,7 @@ import { ExpandableList } from "../../layout/expandableList";
 import { UncontrolledSortableList } from "../../layout/sortableList";
 import { SectionTitle } from "../../molecules/sectionTitle";
 import { Entry as SectionEntryTitle } from "./sections";
+import { isExperienceEntryFilled } from "../../../models/v1";
 
 const Entry: React.FC<{ kind: ExperienceKind; stateProxy: Entry }> = ({ kind, stateProxy }) => {
   const state = useSnapshot(stateProxy);
@@ -98,6 +99,9 @@ export const Experience: React.FC<{
   stateProxy: ExperienceSection;
 }> = React.memo(({ stateProxy }) => {
   const { t } = useTranslation("app");
+  const confirmDeletion = useCallback((entry: Entry) => {
+    return isExperienceEntryFilled(entry) === false || confirm(t`entryDeletionConfirmation`); 
+  }, [t]);
   return (
     <ExpandableList
       itemClassName="sm:p-5"
@@ -109,5 +113,6 @@ export const Experience: React.FC<{
         onAddNew={() => {
           stateProxy.content.push(makeEmptyEntry());
         }}
+        confirmDeletion={confirmDeletion}
     />);
 });

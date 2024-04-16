@@ -23,6 +23,7 @@ export interface ExpandableListProps<Type> {
   buttonText?: string;
   itemClassName?: string;
   mobileTitle?: ReactElement;
+  confirmDeletion?: (entry: Type) => boolean;
 }
 
 interface ExpandableItemProps<Type> {
@@ -144,15 +145,18 @@ export const ExpandableList = <Type extends HasId>({
   buttonText,
   itemClassName,
   mobileTitle,
+  confirmDeletion,
 }: ExpandableListProps<Type>): ReactElement => {
-  const { t } = useTranslation("app");
   const state = useOpenTracking();
   const onDelete = useCallback(
     (index: number) => {
+      if (!stateProxy[index] || confirmDeletion && !confirmDeletion(stateProxy[index]!)) {
+        return;
+      }
       state.remove(stateProxy[index]?.id ?? "");
       stateProxy.splice(index, 1);
     },
-    [stateProxy],
+    [stateProxy, confirmDeletion],
   );
   useEffect(() => {
     let idsBefore = new Set(stateProxy.map(e => e.id));

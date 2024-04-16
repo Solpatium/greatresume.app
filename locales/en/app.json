@@ -35,6 +35,7 @@
   "yourPhoto": "Your photo",
   "dropzoneText": "Drag your file here.",
   "dropzoneButton": "Choose file",
+  "entryDeletionConfirmation": "Are you sure you want to delete this entry?",
   "paper": {
     "a4": "A4",
     "a4Description": "Popular in EU.",

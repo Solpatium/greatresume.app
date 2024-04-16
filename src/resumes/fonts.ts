@@ -38,4 +38,8 @@ export const registerRequiredFonts = (requirements: FontRequirements): void => {
       })),
     });
   }
+  Font.registerEmojiSource({
+    format: 'png',
+    url: 'https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/72x72/',
+  });
 };
