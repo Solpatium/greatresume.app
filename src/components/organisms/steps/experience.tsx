@@ -46,12 +46,6 @@ const Entry: React.FC<{ kind: ExperienceKind; stateProxy: Entry }> = ({ kind, st
         onChange={v => (stateProxy.subtitle = v)}
         value={state["subtitle"]}
       />
-      <Input
-        className="col-span-full"
-        label={t`url`}
-        onChange={v => (stateProxy.url = v)}
-        value={state["url"]}
-      />
       <RichTextEditor
         className="col-span-full"
         label={t`description`}

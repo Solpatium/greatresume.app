@@ -44,7 +44,6 @@ export const energeticExample: ApplicationPersistentState = {
                         "from": "May 2022",
                         "to": "Present",
                         "description": "- Collaborated with a team of software engineers in developing a web-based application using Java and Spring framework.\n- Designed and implemented RESTful APIs for data retrieval and manipulation.\n- Conducted thorough testing and debugging to ensure the quality and functionality of the application.\n- Assisted in the development of front-end features using HTML, CSS, and JavaScript.\n- Participated in code reviews and provided constructive feedback for improvements.",
-                        "url": "",
                         "id": "lindfhc0wemic6aw7ds"
                     }
                 ],
@@ -62,7 +61,6 @@ export const energeticExample: ApplicationPersistentState = {
                         "from": "",
                         "to": "",
                         "description": "- Designed and developed a web-based inventory management system using Django framework.\n- Implemented real-time inventory tracking, automated reordering, and reporting functionalities.\n- Integrated barcode scanning for efficient item identification and management.\n- Reduced manual efforts and improved accuracy in inventory management for the company.",
-                        "url": "",
                         "id": "lindvjyffgdtpgmvzn"
                     },
                     {
@@ -71,7 +69,6 @@ export const energeticExample: ApplicationPersistentState = {
                         "from": "",
                         "to": "",
                         "description": "- Created a mobile expense tracker application using React Native and Firebase.\n- Implemented user authentication, expense categorization, and data visualization features.\n- Utilized Firebase Realtime Database for seamless synchronization of expense data across devices.- \nReceived positive user feedback for its intuitive user interface and functionality.",
-                        "url": "",
                         "id": "lindw9aah0o9bz6ygh"
                     }
                 ],

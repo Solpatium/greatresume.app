@@ -42,7 +42,6 @@ export const peachyExample: ApplicationPersistentState = {
                         "from": "August 2021",
                         "to": "Present",
                         "description": "",
-                        "url": "",
                         "id": "line8kjyyw2o8kuff6"
                     },
                     {
@@ -51,7 +50,6 @@ export const peachyExample: ApplicationPersistentState = {
                         "from": "October 2000",
                         "to": "July 2021",
                         "description": "",
-                        "url": "",
                         "id": "line96f2bfblesf8jmv"
                     },
                     {
@@ -60,7 +58,6 @@ export const peachyExample: ApplicationPersistentState = {
                         "from": "September 1998",
                         "to": "September 2000",
                         "description": "",
-                        "url": "",
                         "id": "lineae74xryyot943jb"
                     }
                 ],
@@ -78,7 +75,6 @@ export const peachyExample: ApplicationPersistentState = {
                         "from": "October 1996",
                         "to": "June 2000",
                         "description": "",
-                        "url": "",
                         "id": "linedlujms073gr663"
                     },
                     {
@@ -87,7 +83,6 @@ export const peachyExample: ApplicationPersistentState = {
                         "from": "October 1993",
                         "to": "June 1996",
                         "description": "",
-                        "url": "",
                         "id": "linebwkej6o7reb9ai"
                     }
                 ],

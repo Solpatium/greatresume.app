@@ -37,7 +37,6 @@ export const simpleExample: ApplicationPersistentState = {
                         "from": "August 2021",
                         "to": "Present",
                         "description": "",
-                        "url": "",
                         "id": "line8kjyyw2o8kuff6"
                     },
                     {
@@ -46,7 +45,6 @@ export const simpleExample: ApplicationPersistentState = {
                         "from": "October 2000",
                         "to": "July 2021",
                         "description": "",
-                        "url": "",
                         "id": "line96f2bfblesf8jmv"
                     }
                 ],
@@ -64,7 +62,6 @@ export const simpleExample: ApplicationPersistentState = {
                         "from": "October 1996",
                         "to": "June 2000",
                         "description": "",
-                        "url": "",
                         "id": "linedlujms073gr663"
                     }
                 ],
@@ -91,7 +88,6 @@ export const simpleExample: ApplicationPersistentState = {
                         "from": "",
                         "to": "",
                         "description": "",
-                        "url": "",
                         "id": "linel9anlv12sb55f7l"
                     },
                     {
@@ -100,7 +96,6 @@ export const simpleExample: ApplicationPersistentState = {
                         "from": "",
                         "to": "",
                         "description": "",
-                        "url": "",
                         "id": "linelp7ktphzfpo63zr"
                     },
                     {
@@ -109,7 +104,6 @@ export const simpleExample: ApplicationPersistentState = {
                         "from": "",
                         "to": "",
                         "description": "",
-                        "url": "",
                         "id": "linem35hro3qccp6d7"
                     }
                 ],

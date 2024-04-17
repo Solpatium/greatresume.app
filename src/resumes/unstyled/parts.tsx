@@ -34,7 +34,7 @@ export const ExperienceEntry: React.FC<{ data: ExperienceList[0], className: str
                 <V className="experienceEntryTitle"><T>{data.title}</T></V>
                 <Date name="experienceEntryDate" from={data.from} to={data.to} />
             </V>
-            <T className="experienceEntrySubtitle" url={data.url}>{data.subtitle}</T>
+            <T className="experienceEntrySubtitle">{data.subtitle}</T>
         </>
     }>
         {data.description.trim() ? <V className="experienceEntryDescription">

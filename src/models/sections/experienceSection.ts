@@ -19,7 +19,6 @@ const entryStruct = type({
   subtitle: string(),
   ...periodMixinStruct.schema,
   description: string(),
-  url: string(),
   id: string(),
 });
 export type Entry = Infer<typeof entryStruct>;

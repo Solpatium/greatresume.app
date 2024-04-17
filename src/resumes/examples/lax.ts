@@ -34,7 +34,6 @@ export const laxExample: ApplicationPersistentState = {
                         "from": "June 2021",
                         "to": "Present",
                         "description": "- Relevant coursework: Graphic Design, Typography, User Experience Design, Illustration, Color Theory.\n- Proficient in design software such as Adobe Creative Suite (Photoshop, Illustrator, InDesign).\n- Collaborated in group projects and design critiques to enhance design skills and foster teamwork.",
-                        "url": "",
                         "id": "lin8uxltpc3na8kr5nf"
                     }
                 ],
@@ -98,7 +97,6 @@ export const laxExample: ApplicationPersistentState = {
                         "from": "May 2022",
                         "to": "Present",
                         "description": "- Created promotional materials including brochures, flyers, and social media graphics.\n- Collaborated with the marketing team to develop visually compelling designs aligned with the organization's mission.\n- Assisted in website updates and maintenance using content management systems (CMS).\n- Contributed to brainstorming sessions and provided creative input on various projects.",
-                        "url": "",
                         "id": "lindfhc0wemic6aw7ds"
                     }
                 ],

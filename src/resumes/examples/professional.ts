@@ -42,7 +42,6 @@ export const professionalExample: ApplicationPersistentState = {
                         "from": "June 2016",
                         "to": "Present",
                         "description": "  - Consistently exceeded sales goals, achieving an average of 120% of target annually.\n  - Developed and maintained a large, diverse client base through effective relationship-building and networking.\n  - Utilized a consultative sales approach to understand client needs and provide solutions.\n  - Conducted regular market research and analysis to identify new business opportunities.\n  - Developed and delivered effective sales presentations and proposals.",
-                        "url": "",
                         "id": "lin2prvfxdy6so9ugxq"
                     },
                     {
@@ -51,7 +50,6 @@ export const professionalExample: ApplicationPersistentState = {
                         "from": "January 2012",
                         "to": "May 2016",
                         "description": "- Consistently met or exceeded sales goals, achieving an average of 105% of target annually\n- Built and maintained relationships with clients through effective communication and follow-up.\n- Utilized a solutions-based sales approach to understand client needs and provide appropriate products/services.\n- Consistently met or exceeded customer service standards.",
-                        "url": "",
                         "id": "lin2qheu0weu51lq3nqn"
                     }
                 ],
@@ -69,7 +67,6 @@ export const professionalExample: ApplicationPersistentState = {
                         "from": "",
                         "to": "",
                         "description": "Valid through May 2025",
-                        "url": "",
                         "id": "lin2xx3w6axnj849dw3"
                     },
                     {
@@ -78,7 +75,6 @@ export const professionalExample: ApplicationPersistentState = {
                         "from": "",
                         "to": "",
                         "description": "Valid through May 2030",
-                        "url": "",
                         "id": "lin2yb5a0vhghzwm25jh"
                     }
                 ],
@@ -96,7 +92,6 @@ export const professionalExample: ApplicationPersistentState = {
                         "from": "May 2006",
                         "to": "May 2010",
                         "description": "",
-                        "url": "",
                         "id": "lcvs2zzjfqh415bdjww"
                     }
                 ],

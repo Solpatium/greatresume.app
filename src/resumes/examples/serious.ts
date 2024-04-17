@@ -42,7 +42,6 @@ export const seriousExample: ApplicationPersistentState = {
                         "from": "June 2010",
                         "to": "Present",
                         "description": "- Represented clients in complex civil litigation cases, including contract disputes, intellectual property matters, and employment law issues.\n- Conducted legal research, prepared legal briefs, and developed effective litigation strategies.\n- Successfully negotiated settlements and resolved cases through mediation and arbitration.\n- Managed a team of associate attorneys and provided guidance on legal matters.\n- Maintained strong client relationships and ensured high levels of client satisfaction.",
-                        "url": "",
                         "id": "lin2prvfxdy6so9ugxq"
                     },
                     {
@@ -51,7 +50,6 @@ export const seriousExample: ApplicationPersistentState = {
                         "from": "July 2000",
                         "to": "May 2010",
                         "description": "- Led a team of attorneys in a wide range of legal practice areas, including corporate law, real estate transactions, and commercial litigation.\n- Provided legal counsel to clients on business formation, contract drafting, and compliance matters.\n- Drafted and negotiated complex agreements and contracts on behalf of clients.\n- Represented clients in court proceedings and argued cases before state and federal courts.\n- Developed new business opportunities and expanded the client base.",
-                        "url": "",
                         "id": "lin2qheu0weu51lq3nqn"
                     },
                     {
@@ -60,7 +58,6 @@ export const seriousExample: ApplicationPersistentState = {
                         "from": "August 1990",
                         "to": "June 2000",
                         "description": "- Assisted senior attorneys in all stages of litigation, including legal research, drafting pleadings, and preparing for trials.\n- Conducted client interviews, gathered evidence, and conducted depositions.\n- Analyzed complex legal issues and provided sound legal advice to clients.\n- Participated in settlement negotiations and alternative dispute resolution processes.\n- Drafted and reviewed various legal documents, including contracts, agreements, and legal opinions.",
-                        "url": "",
                         "id": "lin8oa22rdo8h6bg57o"
                     }
                 ],
@@ -78,7 +75,6 @@ export const seriousExample: ApplicationPersistentState = {
                         "from": "May 2006",
                         "to": "May 2010",
                         "description": "",
-                        "url": "",
                         "id": "lcvs2zzjfqh415bdjww"
                     },
                     {
@@ -87,7 +83,6 @@ export const seriousExample: ApplicationPersistentState = {
                         "from": "",
                         "to": "",
                         "description": "",
-                        "url": "",
                         "id": "lin8uxltpc3na8kr5nf"
                     }
                 ],
