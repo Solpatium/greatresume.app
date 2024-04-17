@@ -12,11 +12,11 @@ export const Header: React.FC<{ navigation: { translationKey: string, href: stri
         <div>
             <nav className="flex h-9 items-center space-between" aria-label="Global">
                 <div className="flex lg:min-w-0 lg:flex-1" aria-label="Global">
-                    <a href="/home" className="-m-1.5 p-1.5 flex flex-row justify-center items-center gap-2 origin-left	scale-[60%] md:scale-80 lg:scale-90 xl:scale-100">
+                    <a href="/home" className="-m-1.5 p-1.5 flex flex-row justify-center items-center gap-[8px] origin-left	scale-[75%] sm:scale-[70%] md:scale-[85%] lg:scale-100">
                         <span className="sr-only">{t("home")}</span>
                         <Img {...logo} alt="Logo" />
-                        <div className="text-[38px] font-bold tracking-wide">
-                            <span className="text-indigo-500">Great</span> <span className="text-indigo-800">Resume</span>
+                        <div className="text-[32px] font-bold flex flex-row gap-[4px] text-blue-600">
+                            <span>Great</span> <span>Resume</span>
                         </div>
                     </a>
                 </div>
