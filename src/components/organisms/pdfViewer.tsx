@@ -3,16 +3,15 @@ import React, { MutableRefObject, useEffect, useLayoutEffect, useRef, useState }
 import { useResize, useIsVisible } from "../../utils/hooks";
 import { useAsync } from "react-use";
 import { PDFDocumentProxy } from "pdfjs-dist";
-import { ActionButton, Button } from "../atoms/button";
+import { Button } from "../atoms/button";
 import { PlusIcon, MinusIcon, ArrowDownTrayIcon } from "@heroicons/react/24/outline";
 import useTranslation from "next-translate/useTranslation";
-import cn from "classnames";
 import { subscribe, useSnapshot } from "valtio";
 import { AppState, useAppState } from "../../state/store";
 import spinner from "../../../public/images/spinner.svg"
 import Image from "next/image"
 
-const workerUrl = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.14.305/pdf.worker.min.js";
+const workerUrl = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.1.392/pdf.worker.min.mjs";
 
 class Controller {
   constructor(
