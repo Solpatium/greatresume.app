@@ -1,6 +1,6 @@
 import "tailwindcss/tailwind.css";
 import "../src/static/global.sass";
-import { Open_Sans } from '@next/font/google'
+import { Open_Sans } from "next/font/google"
 import React from "react";
 import Head from "next/head";
 import { GoogleAnalytics } from "../src/utils/analytics";
