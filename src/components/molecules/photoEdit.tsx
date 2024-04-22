@@ -129,7 +129,7 @@ export const PhotoEditor: React.FC<PhotoProps & { buttonId?: string }> = React.m
           <FaceSmileIcon aria-hidden className="w-10 h-10" />
         </Button>
       )}
-      <BigModal show={isEditing} historyKey="photo-edit" onClose={toggleEditing} title={t("addYourPhoto")}>
+      <BigModal show={isEditing} historyKey="photo-edit" onClose={toggleEditing} title={t("addPhoto")}>
         <EditModalContent setImage={setImage} close={toggleEditing} />
       </BigModal>
     </div>

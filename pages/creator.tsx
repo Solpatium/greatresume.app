@@ -9,7 +9,6 @@ import { PdfViewer } from "../src/components/organisms/pdfViewer";
 import { AppStateProvider, useAppState } from "../src/state/store";
 import 'react-markdown-editor-lite/lib/index.css';
 import { useRouter } from "next/router";
-import { MobilePreviewButton } from "../src/components/organisms/mobilePreviewButton";
 import { useSnapshot } from "valtio";
 import { useHistoryPush, useIsLarge, useIsMobile } from "../src/utils/hooks";
 import { useUnmount } from "react-use";

@@ -55,8 +55,9 @@ interface SortableItemProps<Type> {
 }
 
 export const SortingToggle: React.FC<{ enabled: boolean, toggle: () => void }> = ({ enabled, toggle }) => {
+  const {t} = useTranslation("app");
   const icon = enabled ? CheckIcon : ArrowsUpDownIcon;
-  const text = enabled ? "Finish" : "Edit list"
+  const text = enabled ? t`listEditEnd` : t`listEditStart`;
   return (
     <Button role="switch" aria-checked={enabled} tertiary onClick={toggle} icon={icon}>
       <span className="text-base font-bold">{text}</span>

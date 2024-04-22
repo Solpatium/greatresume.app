@@ -1,1 +1,93 @@
-{}
+{
+    "title": "Darmowy kreator CV",
+    "description": "Stwórz świetne CV całkowicie za darmo.",
+    "actionLabel": "Zacznij edytować!",
+    "home": "Strona główna",
+    "nav": {
+        "about": "O aplikacji",
+        "examples": "Przykłady",
+        "faq": "FAQ",
+        "authors": "Autorzy"
+    },
+    "hero": {
+        "title": "Stwórz <em>Świetne CV</em> całkowicie <em>za darmo</em>",
+        "subtitle": "Żadnych haczyków",
+        "description": "Użyj jednego z naszych 6 profesjonalnych szablonów aby stworzyć CV i wyeksportować je do PDFa. Wszystko kompletnie prywatnie i za darmo, ponieważ ludzie poszukujący pracy nie powinni być zmuszeni do płacenia za dobre CV."
+    },
+    "features": {
+        "title": "Kreator bez haczyków",
+        "subtitle": "świetna funkcjonalność za darmo/",
+        "customization": {
+            "title": "Dopasuj CV do siebie",
+            "description": "Wybierz jeden z 6 szablonów który najlepiej odwzierciedla Twoje doświadczneie. Zmień wygląd przez zmiany sekcji i dodanie zdjęcia."
+        },
+        "noFees": {
+            "title": "Żadnych ukrytych kosztów",
+            "description": "Aplikacja jest w 100% darmowa i nie oferuje żadnych płatnych opcji. Po prostu wypełnij formularz i eksportuj pdfa."
+        },
+        "private": {
+            "title": "Całkowicie prywatne",
+            "description": "Twoje dane nie opuszczają przeglądarki. Nie serwujemy też żadnych śledzących reklam."
+        },
+        "languages": {
+            "title": "4 wspierane języki",
+            "description": "Obecnie wspieramy polski, angielski, niemiecki i francuki."
+        },
+        "devices": {
+            "title": "Działa na każdym urządzeniu",
+            "description": "Laptop, tablet, smartfon - wybierz dowolne z nich i stwórz swoje CV."
+        },
+        "reimport": {
+            "title": "Import CV",
+            "description": "Podczas eksportu zapisujemy strukturę CV w pliku pdf. Dzięki temu po wygenerowaniu swojego CV możesz je zaimportować za jakiś czas aby kontynuować edycję."
+        }
+    },
+    "examples": {
+        "title": "Przykładowe CV",
+        "subtitle": "Możesz zaimportować przykład poniżej w aplikacji.",
+        "button": "Edytuj"
+    },
+    "action": {
+        "title": "Stwórz swoje CV za darmo."
+    },
+    "faq": {
+        "title": "Często zadowane pytania",
+        "description": "Nie możesz znaleźć odpowiedzi na Twoje pytanie? <contact>Skontaktuj się z nami</contact>.",
+        "dataProcessing": {
+            "question": "How do you process my data?",
+            "answer": "Your data is only used to generate your resume and it does not leave your browser. Our application doesn't use any server to generate your resume. It uses javascript to generate it in your browser, securely and privately."
+        },
+        "reimport": {
+            "question": "I've created a resume some time ago, how do I edit it?",
+            "answer": "Go <start>to creator</start> and select the 'import' option from the top. Please note that <em>this option only works for pdfs generated throught our application</em>."
+        },
+        "multipleVersions": {
+            "question": "How do I maintain multiple versions of the resume?",
+            "answer": "Every time you want to preserve a version you can just download it. When you want to make changes you can always import it back."
+        },
+        "bugs": {
+            "question": "How do I report a bug?",
+            "answer": "Github issues are used to track bugs. Please note that all issues are public, <em>make sure you don't include any data you want to keep private</em>! You can create issue on github <githubIssues>here</githubIssues>."
+        },
+        "monetization": {
+            "question": "How do you make money from this?",
+            "answer": "We don't."
+        },
+        "monetizationContinuation": {
+            "question": "What do you mean you don't make money out of this?",
+            "answer": "We just want to make resume creation accessible for everyone. It all started when my mother lost her job during covid and I wanted to find some resume creators. I found a lot of them baiting you with the promise of 'free resume creator', but they allow you to export only to a text file (yes, a regular .txt file), forcing you to pay for the pdf. You learn this only after you fill ALL YOUR DATA. I think this process can be even more infuriating for people who are not tech savvy. Of course you can pay for resume creator, but for some people it is not an option."
+        },
+        "help": {
+            "question": "How do I express my gratitude?",
+            "answer": "If you're satisfied with our tool, you can share it on social media or just tell your friends about it."
+        },
+        "tracking": {
+            "question": "Do you track your users?",
+            "answer": "We use Google Analytics for tracking usage. It gives us insight into how people use our application. No worries, we don't send any part of you resume to an external service. If you want to withdraw your consent you can do it directly from out <privacyPolicy>Privacy Policy</privacyPolicy>."
+        },
+        "trust": {
+            "question": "How can I be sure you are not lying?",
+            "answer": "You can see the source code yourself <sourceCode>here</sourceCode>."
+        }
+    }
+}

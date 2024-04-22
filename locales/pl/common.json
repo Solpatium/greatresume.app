@@ -1,29 +1,29 @@
 {
-    "overwriteQuestion": "Are you sure you want to continue? Your currently edited resume will be overwritten.",
+    "overwriteQuestion": "Czy na pewno chcesz kontynuować? Twoje edytowane CV zostanie nadpisane.",
     "templates": {
         "professional": {
-            "title": "Professional",
-            "description": "Two column template in blue colors. Fresh and professional."
+            "title": "Profesjonalny",
+            "description": "Dwukolumnowy szablon w odcieniach niebieskiego. Świeże i profesjonalne."
         },
         "serious": {
-            "title": "Serious",
-            "description": "Two column black and white template. Serious and old-school."
+            "title": "Poważny",
+            "description": "Czarnobiały Dwukolumnowy szablon. Klasyczna powaga."
         },
         "lax": {
-            "title": "Lax",
-            "description": "Two column template with some green accents. Light and fresh."
+            "title": "Luźny",
+            "description": "Dwukolumnowy z zielonymi akcentami. Lekki i świeży."
         },
         "energetic": {
-            "title": "Energetic",
-            "description": "Single column template with some violet accents. Energetic and modern."
+            "title": "Energetyczny",
+            "description": "Jednokolumnowy szablon z fioletowymi akcentami. Energetyczny i nowoczesny."
         },
         "peachy": {
-            "title": "Peachy",
-            "description": "Single column template using orange color. Safe and clean."
+            "title": "Brzoskwiniowy",
+            "description": "Jednokolumnowy szablon w pomarańczowym kolorze. Bezpieczny i czysty."
         },
         "simple": {
-            "title": "Simple",
-            "description": "Simple column template with blue accents. Straightforward and oldschool."
+            "title": "Prosty",
+            "description": "Jednokolumnowy szablon z niebieskimi akcentami. Klasyczny i bezpośrendi."
         }
     },
     "languages": {
@@ -35,5 +35,10 @@
             "fr": "Francuski",
             "de": "Niemiecki"
         }
+    },
+    "cookies": {
+        "content": "Używamy Google Analytics aby widzieć jak możemy usprawnić naszą aplikację. <0>Nie zbieramy żadnych wypełnianych przez Ciebie danych. Nie opuszczają one Twojego urządzenia.</0> Czy zgadzasz się na ciasteczka z Google Analytics? Zajrzyj do <1>Polityki prywatności</1> po więcej informacji.",
+        "accept": "Akceptuję",
+        "reject": "Odrzucam"
     }
 }
