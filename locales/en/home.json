@@ -75,7 +75,7 @@
         },
         "monetizationContinuation": {
             "question": "What do you mean you don't make money out of this?",
-            "answer": "We just want to make resume creation accessible for everyone. It all started when my mother lost her job during covid and I wanted to find some resume creators. I found a lot of them baiting you with the promise of 'free resume creator', but they allow you to export only to a text file (yes, a regular .txt file), forcing you to pay for the pdf. You learn this only after you fill ALL YOUR DATA. I think this process can be even more infuriating for people who are not tech savvy. Of course you can pay for resume creator, but for some people it is not an option."
+            "answer": "We just want to make resume creation accessible for everyone. It all started when my mother lost her job during covid and I wanted to find some resume creators. I found a lot of them baiting you with the promise of \"free resume creator\", but they only allowed exporting to a plain text file (yes, a regular .txt file), forcing you to pay for the pdf. You learn this only after you fill ALL YOUR DATA. There's nothing wrong with wanting to be compensated for work, but misleading people in difficult situations is definitely not okay."
         },
         "help": {
             "question": "How do I express my gratitude?",
@@ -89,5 +89,12 @@
             "question": "How can I be sure you are not lying?",
             "answer": "You can see the source code yourself <sourceCode>here</sourceCode>."
         }
+    },
+    "authors": {
+        "names": "Ola and Kuba",
+        "subtitle": "Hey there, we've created this app.",
+        "text": "<p>Ola handled the design, Kuba wrote the code <small>(he's to blame if you find any bugs)</small>.</p><p>The job search can be a stressful and overwhelming experience. We believe our app can help by making at least one step of the process a little bit simpler.</p>",
+        "linkOla": "Ola's Dribble",
+        "linkKuba": "Kuba's website"
     }
 }

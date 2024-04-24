@@ -1,15 +1,12 @@
 import Image from "next/image";
 import authorImage from "../../../public/images/creators.png";
-
-const TwitterIcon: React.FC<{ className: string }> = (props) => {
-    return (
-        <svg aria-hidden="true" viewBox="0 0 40 40" {...props}>
-            <path d="M13.817 33.753c12.579 0 19.459-10.422 19.459-19.458 0-.297 0-.592-.02-.884a13.913 13.913 0 0 0 3.411-3.543 13.65 13.65 0 0 1-3.928 1.077 6.864 6.864 0 0 0 3.007-3.784 13.707 13.707 0 0 1-4.342 1.66 6.845 6.845 0 0 0-11.655 6.239A19.417 19.417 0 0 1 5.654 7.915a6.843 6.843 0 0 0 2.117 9.128 6.786 6.786 0 0 1-3.104-.853v.086a6.842 6.842 0 0 0 5.487 6.704 6.825 6.825 0 0 1-3.088.116 6.847 6.847 0 0 0 6.39 4.75A13.721 13.721 0 0 1 3.334 30.68a19.36 19.36 0 0 0 10.483 3.066" />
-        </svg>
-    )
-}
+import dribbleImage from "../../../public/images/dribbble_icon.svg";
+import { GlobeAltIcon, LinkIcon, PaintBrushIcon } from "@heroicons/react/24/outline";
+import useTranslation from "next-translate/useTranslation";
+import Trans from "next-translate/Trans";
 
 export const AuthorSection = () => {
+    const {t} = useTranslation("home");
     return (
         <section
             id="authors"
@@ -18,7 +15,7 @@ export const AuthorSection = () => {
         >
             <div className="relative mx-auto max-w-5xl pt-16 sm:px-6">
                 <div className="bg-slate-50 pt-px rounded-3xl">
-                    <div className="relative mx-auto -mt-16 h-44 w-44 overflow-hidden rounded-full bg-slate-200 md:float-right md:h-64 md:w-64 md:[shape-outside:circle(40%)] lg:mr-20 lg:h-72 lg:w-72">
+                    <div className="relative mx-auto -mt-16 h-32 w-32 overflow-hidden rounded-full bg-slate-200 md:float-right md:h-54 md:w-54 md:mr-20 lg:h-56 lg:w-56">
                         <Image
                             className="absolute inset-0 h-full w-full object-cover"
                             src={authorImage}
@@ -26,17 +23,25 @@ export const AuthorSection = () => {
                             sizes="(min-width: 1024px) 18rem, (min-width: 768px) 16rem, 11rem"
                         />
                     </div>
-                    <div className="px-4 py-10 sm:px-10 sm:py-16 md:py-20 lg:px-20 lg:py-32">
-                        <p className="mt-8 font-display text-5xl font-extrabold tracking-tight text-slate-900 sm:text-6xl">
-                            <span className="block text-blue-600">Ola and Kuba</span>
-                            Hey there, we've created this app.</p>
-                        <p className="mt-4 text-lg tracking-tight text-slate-700">
-                            We've put a lot of heart and time into this project. We hope you find it useful!
+                    <div className="px-4 py-5 md:py-10 sm:px-10 sm:py-16 md:py-20 lg:px-20 lg:py-32">
+                        <p className="mt-8 mb-8 font-display text-5xl font-extrabold tracking-tight text-slate-900 sm:text-6xl">
+                            <span className="block text-blue-600">{t`authors.names`}</span>
+                            {t`authors.subtitle`}
                         </p>
-                        <p className="mt-8"><a className="inline-flex items-center text-base font-medium tracking-tight text-blue-600" href="/#">
-                            <TwitterIcon className="h-10 w-10 fill-current" />
-                            <span className="ml-4">Follow on Twitter</span>
-                        </a></p>
+                        <Trans i18nKey={`home:authors.text`} components={{
+                            p: <p className="mt-2 text-xl tracking-tight text-slate-700" />,
+                            small: <span className="text-sm" />
+                        }} />
+                        <p className="mt-8 flex flex-row gap-6">
+                            <a className="inline-flex items-center text-lg font-bold tracking-tight text-blue-600" href="https://dribbble.com/aleksandranie">
+                                <Image className="h-5 w-5" {...dribbleImage} alt="Dribble logo" />
+                                <span className="ml-1">{t`authors.linkOla`}</span>
+                            </a>
+                            <a className="inline-flex items-center text-lg font-bold tracking-tight text-blue-600" href="https://kubaptak.com">
+                                <LinkIcon style={{ strokeWidth: "1.75px" }} className="h-5 w-5" />
+                                <span className="ml-1">{t`authors.linkKuba`}</span>
+                            </a>
+                        </p>
                     </div>
                 </div>
             </div>
