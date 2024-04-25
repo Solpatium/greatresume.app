@@ -40,5 +40,6 @@
         "content": "Używamy Google Analytics aby widzieć jak możemy usprawnić naszą aplikację. <0>Nie zbieramy żadnych wypełnianych przez Ciebie danych. Nie opuszczają one Twojego urządzenia.</0> Czy zgadzasz się na ciasteczka z Google Analytics? Zajrzyj do <1>Polityki prywatności</1> po więcej informacji.",
         "accept": "Akceptuję",
         "reject": "Odrzucam"
-    }
+    },
+    "footer": "© 2024 greatresume.app. Wszystkie prawa zastrzeżone."
 }

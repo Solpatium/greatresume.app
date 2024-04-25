@@ -5,12 +5,12 @@
     "cookies-accepted": "Zaakceptowano ciasteczka.",
     "cookies-reset-info": "Użyj guzika poniżej żeby zresetować swój wybór i wybrać ponownie.",
     "cookies-reset-button": "Zresetuj wybór",
-    "cookies-undefined": "You haven't accepted nor rejected the cookies. You can use the banner to pick your choice. You won't see change here unless you refresh this page.",
-    "info-header": "Information We Collect",
-    "info-content": "Our website uses Google Analytics, a service that helps us analyze how users interact with our site. Google Analytics uses cookies to collect information, such as how often users visit our site, what pages they visit, and what other sites they used prior to coming to our site. We use this information to improve our website and services. For more information on how Google Analytics collects and processes data, please visit <0>Google's Privacy & Terms.</0>",
-    "choice-header": "Your choices",
-    "changes-header": "Changes to this Privacy Policy",
-    "changes-content": "We reserve the right to update or modify this Privacy Policy at any time without prior notice. Please review this page periodically to stay informed of any changes.",
-    "contact-header": "Contact us",
-    "contact-content": "If you have any questions or concerns about our Privacy Policy, please contact us at contact@example.com."
+    "cookies-undefined": "Ciasteczka nie zostały odrzucone/zaakceptowane. Możesz użyć ciasteczkowego banera aby dokonać wyboru. Po dokonaniu wyboru musisz odświeżyć stronę aby zobaczyć tu zmiany.",
+    "info-header": "Informacje które zbieramy",
+    "info-content": "Używamy Google Analytics aby mieć wgląd w to w jaki sposób użytkownicy używają naszej aplikacji. Google Analytics używa plików cookie aby powiedzieć nam kiedy użytkownicy używają naszej aplikacji, jakie strony odwiedzają i w jaki sposób dotarli do naszej strony. Używamy tych informacji aby polepszyć naszą aplikację i usługę. Po więcej informacji w jaki sposób Google Analytics zbiera i procesuje dane odwiedź <0>politykę prywatności Google.</0>",
+    "choice-header": "Twój wybór",
+    "changes-header": "Zmiany do polityki prywatności",
+    "changes-content": "Zastrzegamy sobie prawo do aktualizacji i modyfikacji tej polityki prywatności w dowolnym momencie bez ostrzeżeń..",
+    "contact-header": "Skontaktuj się z nami",
+    "contact-content": "Wszelkie pytania dotyczące naszej polityki prywatności proszę kierować na adres contact@greatresume.app."
 }
