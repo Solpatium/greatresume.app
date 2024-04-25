@@ -12,5 +12,5 @@ export const downloadFile = (file: Blob, name: string): void => {
   setTimeout(() => {
     URL.revokeObjectURL(url);
     document.body.removeChild(tempLink);
-  }, 200);
+  }, 2000);
 };
