@@ -1,4 +1,4 @@
-import { ApplicationPersistentState } from "../../models/v1";
+import { ApplicationPersistentState } from "../../../models/v1";
 
 export const peachyExample: ApplicationPersistentState = {
     "resume": {

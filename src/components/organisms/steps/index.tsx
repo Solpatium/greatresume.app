@@ -21,36 +21,25 @@ export const Editor: React.FC<{
   const { t } = useTranslation("app");
   const state = usePersistentState();
 
-  const progress = useSnapshot(state.progress);
-  let sectionsLeft = 100;///progress.sectionsFilled;
-
   // Subscribe to sections to render them properly below
   useSnapshot(state.resume.sections);
-
-  const onNext = () => {
-    state.progress.sectionsFilled += 1;
-  }
 
   let steps: Step[] = [{
     element: <><SectionTitle title={t`steps.personalInfo.title`} /><PersonalInformation /></>,
     title: t`steps.personalInfo.title`,
     id: "personal-info",
-    onNext,
   }, {
     element: <><SectionTitle title={t`steps.appearance.title`} /><Appearance /></>,
     title: t`steps.appearance.title`,
     id: "appearance",
-    onNext,
   }, {
     element: <><StepsForm /></>,
     title: t`newSection.title`,
     id: "sections",
-    onNext,
   }, {
     element: <><SectionTitle title={t`steps.legalClause.title`} /><LegalClauseForm stateProxy={state.resume} /></>,
     title: t`steps.legalClause.title`,
     id: "legal-clause",
-    onNext,
   }, {
     element: <><SectionTitle title={t`steps.export.title`} /><Export /></>,
     title: t`steps.export.title`,
@@ -63,7 +52,7 @@ export const Editor: React.FC<{
         <DataImport/>
         <LanguageSwitcher/>
       </div>
-      <Stepper maxSteps={5 + state.resume.sections.length} steps={steps} />
+      <Stepper steps={steps} />
     </div>
   );
 };
