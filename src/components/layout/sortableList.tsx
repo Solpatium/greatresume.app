@@ -49,7 +49,6 @@ interface SortableItemProps<Type> {
   index: number;
   stateProxy: Type;
   className?: string;
-  onDelete?: (index: number) => void;
   render: (state: Type, index: number) => ReactElement;
   canReorder?: boolean;
 }
@@ -98,19 +97,6 @@ const SortableItem = <Type extends HasId>(props: SortableItemProps<Type>) => {
           className="absolute inset-0 flex justify-end items-center rounded-xl transition-opacity z-10"
           style={{ background: "linear-gradient(90deg, rgba(255,255,255,0.3) 0%, rgba(255,255,255,1) 80%)" }}
         >
-          {props.onDelete &&
-              // <Button icon={TrashIcon} onClick={() => props.onDelete?.(props.index)} danger>
-              //   {`Delete`}
-              // </Button>
-            <button
-              onClick={() => props.onDelete?.(props.index)}
-              type="button"
-              aria-label={`delete`}//bg-pink-600 hover:bg-pink-700 focus:ring-pink-500
-              className="inline-flex items-center rounded-full border p-2  text-pink-600"
-            >
-              <TrashIcon className="h-5 w-5" aria-hidden="true" />
-            </button>
-          }
           <button
             type="button"
             {...attributes}
@@ -168,7 +154,6 @@ export const ControlledSortableList = <Type extends HasId>({
   stateProxy,
   render,
   sortingEnabled,
-  divider,
   itemClassName: itemClassname,
   onDelete,
 }: ControlledSortableListProps<Type>): ReactElement => {
@@ -200,7 +185,7 @@ export const ControlledSortableList = <Type extends HasId>({
       <SortableContext items={stateProxy.map(e => e.id)} strategy={verticalListSortingStrategy}>
         {elements.map((v, i) => (
           <>
-            <SortableItem key={v.id} index={i} sortable={sortingEnabled} stateProxy={stateProxy[i] as Type} className={itemClassname} render={render} onDelete={onDelete} canReorder={stateProxy.length > 1} />
+            <SortableItem key={v.id} index={i} sortable={sortingEnabled} stateProxy={stateProxy[i] as Type} className={itemClassname} render={render} canReorder={stateProxy.length > 1} />
           </>
         ))}
       </SortableContext>

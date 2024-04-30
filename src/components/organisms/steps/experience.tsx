@@ -15,6 +15,7 @@ import { UncontrolledSortableList } from "../../layout/sortableList";
 import { SectionTitle } from "../../molecules/sectionTitle";
 import { Entry as SectionEntryTitle } from "./sections";
 import { isExperienceEntryFilled } from "../../../models/v1";
+import { Button } from "../../atoms/button";
 
 const Entry: React.FC<{ kind: ExperienceKind; stateProxy: Entry }> = ({ kind, stateProxy }) => {
   const state = useSnapshot(stateProxy);
@@ -22,18 +23,20 @@ const Entry: React.FC<{ kind: ExperienceKind; stateProxy: Entry }> = ({ kind, st
 
   return (
     <>
-      <Input
-        className="md:col-span-1"
-        label={t`startDate`}
-        onChange={v => (stateProxy.from = v)}
-        value={state["from"]}
-      />
-      <Input
-        className="md:col-span-1"
-        label={t`endDate`}
-        onChange={v => (stateProxy.to = v)}
-        value={state["to"]}
-      />
+      <div className="flex gap-4">
+        <Input
+          className="md:col-span-1 grow"
+          label={t`startDate`}
+          onChange={v => (stateProxy.from = v)}
+          value={state["from"]}
+        />
+        <Input
+          className="md:col-span-1 grow"
+          label={t`endDate`}
+          onChange={v => (stateProxy.to = v)}
+          value={state["to"]}
+        />
+      </div>
       <Input
         className="col-span-full"
         label={t(`steps.${kind}.entryTitle`)}

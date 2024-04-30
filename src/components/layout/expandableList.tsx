@@ -1,5 +1,5 @@
 import React, { ReactElement, useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { Button } from "../atoms/button";
+import { Button, DeleteButton } from "../atoms/button";
 import { Disclosure } from "@headlessui/react";
 import { ChevronDownIcon, PlusIcon, TrashIcon } from "@heroicons/react/20/solid";
 import cn from "classnames";
@@ -51,6 +51,9 @@ export const ExpandableItem = <Type extends HasId>(props: ExpandableItemProps<Ty
       <fieldset className="grid md:grid-cols-1 gap-4">
         {props.render(props.stateProxy)}
       </fieldset>
+      <div className="text-right block sm:hidden">
+        <Button onClick={() => props.onDelete(props.index)} danger>{t`delete`}</Button>
+      </div>
     </div>)
   // TODO: accessibility
   return (
@@ -60,12 +63,13 @@ export const ExpandableItem = <Type extends HasId>(props: ExpandableItemProps<Ty
           <span className="min-h-[38px] flex items-center font-medium truncate w-full">
             {preview}
           </span>
-          <span className="ml-6 h-7 flex items-center">
+          <span className="ml-4 h-7 flex items-center">
+            <DeleteButton className="hidden sm:block" onClick={() => props.onDelete(props.index)} />
             <ChevronDownIcon
-              className={cn(props.open ? "-rotate-180" : "rotate-0", "h-6 w-6 transform hidden md:block")}
+              className={cn(props.open ? "-rotate-180" : "rotate-0", "ml-2 h-6 w-6 transform hidden sm:block")}
               aria-hidden="true"
             />
-            <PencilIcon className={"h-6 w-6 block md:hidden text-stone-500"}
+            <PencilIcon className={"h-6 w-6 block sm:hidden text-stone-500"}
               aria-hidden="true" />
           </span>
         </button>
@@ -192,6 +196,7 @@ export const ExpandableList = <Type extends HasId>({
           name={createName?.(s)}
           index={i}
           id={s.id}
+          onDelete={onDelete}
           onToggle={state.toggle}
           open={openSections[s.id]}
           mobileTitle={mobileTitle}

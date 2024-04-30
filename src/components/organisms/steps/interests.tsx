@@ -14,7 +14,7 @@ const Entry: React.FC<{ stateProxy: SimpleListEntry }> = ({ stateProxy }) => {
   const state = useSnapshot(stateProxy);
   return (
     <Input
-      className="my-3 w-full max-w-[250px]"
+      className="my-3 w-full"
       label={t`steps.interests.interest`}
       onChange={(value) => (stateProxy.content = value)}
       value={state.content}

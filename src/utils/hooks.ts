@@ -49,7 +49,7 @@ export const useRerender = (): (() => void) => {
 }
 
 export const useIsMobile = () => {
-  return useMedia('(max-width: 480px)');
+  return useMedia('(max-width: 639px)');
 }
 
 export const useIsLarge = () => {

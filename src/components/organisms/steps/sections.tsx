@@ -8,7 +8,7 @@ import { usePersistentState } from "../../../state/store";
 import { useSnapshot } from "valtio";
 import { StepDescription } from "../../atoms/typography";
 import { FastEditableList } from "../../layout/flatEditableList";
-import { Button } from "../../atoms/button";
+import { Button, DeleteButton } from "../../atoms/button";
 import { highlight } from "pdfkit";
 import { highlightElement } from "../../../utils/highlight";
 import { BigModal } from "../../layout/bigModal";
@@ -17,7 +17,7 @@ import { Experience } from "./experience";
 import { InterestsForm } from "./interests";
 import { KeyValueForm } from "./keyValue";
 import { TextForm } from "./text";
-import { PlusCircleIcon, PlusIcon, RectangleGroupIcon, RectangleStackIcon } from "@heroicons/react/24/outline";
+import { PlusCircleIcon, PlusIcon, RectangleGroupIcon, RectangleStackIcon, TrashIcon } from "@heroicons/react/24/outline";
 import { SectionTitle } from "../../molecules/sectionTitle";
 import { ControlledSortableList, SortingToggle } from "../../layout/sortableList";
 import { useToggle } from "react-use";
@@ -47,7 +47,7 @@ export const Entry: React.FC<{ state: Section }> = React.memo(({ state }) => {
   return (
     <>
       <div className="flex items-center mr-4 gap-4 overflow-hidden">
-        <Icon className="w-8 h-8" />
+        <Icon className="w-8 h-8 shrink-0" />
         <div className="text-md font-semibold text-slate-700 truncate">{section.title}</div>
       </div>
     </>
@@ -68,7 +68,6 @@ const Edit: React.FC<{ section: Section }> = ({ section }) => {
 
   return <div className="md:p-5 md:pt-0 md:-mt-2 min-w-0">
     <TitleEdit section={section} />
-    {/* <StepDescription>{t(`steps.${section.kind}.description`)}</StepDescription> */}
     {renderSection(section)}
   </div>
 }
@@ -140,7 +139,7 @@ export const StepsForm: React.FC = React.memo(() => {
             onDelete={onDelete}
             className="p-5"
             render={e => <Edit section={e} />}
-            renderPreview={e => <Entry state={e} />}
+            renderPreview={e => <Entry state={e} index={i} deleteEntry={onDelete} />}
             // TODO: Why do we need this?
             name={s.title}
             index={i}

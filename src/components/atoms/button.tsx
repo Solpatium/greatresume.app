@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import cn from "classnames";
+import { TrashIcon } from "@heroicons/react/24/outline";
+import useTranslation from "next-translate/useTranslation";
 
 const common =
   "inline-flex justify-center items-center px-4 py-3 border text-sm font-bold rounded shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors";
@@ -49,3 +51,16 @@ export const Button: React.FC<{
     </button>
   );
 };
+
+
+export const DeleteButton: React.FC<{onClick: () => void, className?: string}> = ({onClick, className}) => {
+  const {t} = useTranslation("app");
+  return <button
+    onClick={onClick}
+    type="button"
+    aria-label={t`delete`}
+    className={cn("inline-flex items-center rounded-full p-2 text-pink-600", className)}
+  >
+    <TrashIcon className="h-5 w-5" aria-hidden="true" />
+  </button>
+}

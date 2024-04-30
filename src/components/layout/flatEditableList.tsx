@@ -4,6 +4,7 @@ import { HasId } from "../../utils/lists";
 import { UncontrolledSortableList } from "./sortableList";
 import { subscribe } from "valtio";
 import useTranslation from "next-translate/useTranslation";
+import { DeleteButton } from "../atoms/button";
 
 export interface FlatEditableListProps<Type> {
     stateProxy: Type[];
@@ -27,6 +28,7 @@ const FlatEditableItem = React.memo(<Type extends HasId>(props: FlatEditableItem
     return (
         <>
             {props.render(props.stateProxy)}
+            <DeleteButton className="md:mt-3" onClick={() => props.onDelete(props.index)}/>
         </>
     );
 });

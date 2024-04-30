@@ -30,8 +30,8 @@
   "dropzoneText": "Przeciągnij tu swój plik.",
   "dropzoneButton": "Wybierz plik",
   "entryDeletionConfirmation": "Czy na pewno chcesz usunąć ten wpis?",
-  "listEditStart": "Edytuj listę",
-  "listEditEnd": "Zakończ",
+  "listEditStart": "Zmień kolejność",
+  "listEditEnd": "Zapisz kolejność",
   "paper": {
     "a4": "A4",
     "a4Description": "Popularny w EU.",
