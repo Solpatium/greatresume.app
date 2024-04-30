@@ -101,7 +101,7 @@ export const Experience: React.FC<{
   }, [t]);
   return (
     <ExpandableList
-      itemClassName="sm:p-5"
+      itemClassName="sm:p-5 bg-white"
       stateProxy={stateProxy.content}
         renderPreview={stateProxy => <Preview stateProxy={stateProxy} />}
         mobileTitle={<div className="mb-4"><SectionEntryTitle state={stateProxy}/></div>}
