@@ -28,8 +28,8 @@ export const BigModal: React.FC<{
   }, [show]);
     return (
       <Transition.Root show={show ?? false} as={Fragment} appear>
-        <Dialog as="div" className="fixed z-10 inset-0 overflow-hidden" onClose={onClose}>
-          <div className="min-h-screen h-full h-[100lvh] min-h-[100lvh] flex justify-center items-center">
+        <Dialog as="div" className="fixed z-10 inset-0 overflow-hidden overscroll-y-none" onClose={onClose}>
+          <div className="h-full h-[100dvh] min-h-[100dvh] overscroll-y-none flex justify-center items-center">
             <Transition.Child
               as={Fragment}
               enter="ease-out duration-100"
@@ -65,7 +65,7 @@ export const BigModal: React.FC<{
                     <XMarkIcon className="h-6 w-6" aria-hidden="true" />
                   </button>
                 </div>
-                <div className="overflow-y-auto overflow-x-hidden w-full px-4 flex flex-col grow flex flex-col">
+                <div className="overflow-y-auto overscroll-y-none overflow-x-hidden w-full px-4 flex flex-col grow flex flex-col">
                   <div className="pb-[20px] grow">
                     {children}
                   </div>

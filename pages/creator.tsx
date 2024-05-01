@@ -24,7 +24,7 @@ const BottomBar: React.FC = () => {
   };
   const history = useHistoryPush("preview", togglePreview);
   const {t} = useTranslation("app");
-  return <div className="w-[100dvw] h-[60px] flex fixed bottom-0 left-0 bg-indigo-900 text-white font-bold lg:hidden">
+  return <div className="w-full h-[60px] flex bg-indigo-900 text-white font-bold shrink-0 lg:hidden">
     <div 
       className="w-[30px] h-[2px] bg-white absolute bottom-[10px] m-auto left-0 right-0" 
       style={{transition: "transform 0.3s", transform: `translate(${isPreviewing ? "25dvw" : "-25dvw"}, 0)`}}/>
@@ -49,7 +49,7 @@ const Creator: React.FC = () => {
   const isLarge = useIsLarge();
 
   // We don't want it to lose state
-  const commonClasses = "h-full min-w-[100dvw] w-[100dvw] h-[100dvh] lg:min-w-[50%] lg:w-[50%] snap-center";
+  const commonClasses = "min-w-[100dvw] w-[100dvw] lg:min-w-[50%] lg:w-[50%] snap-center";
   return (
     <>
       <Head>
@@ -61,9 +61,9 @@ const Creator: React.FC = () => {
       </Head>
       <CreatorInfo/>
       <Congratulations/>
-      <div className="overflow-hidden w-[100dvw] h-screen h-[100dvh]">
+      <div className="overflow-hidden w-[100dvw] h-[100dvh] flex flex-col">
         <div 
-          className={"pb-0 w-[200dvw] h-screen h-[100dvh] lg:w-[100dvw] flex"} 
+          className={"pb-0 w-[200dvw] lg:w-[100dvw] flex shrink-1 min-h-0"} 
           style={{transform: !isLarge && isPreviewing ? "translate(-100dvw, 0)" : "", transition: "transform 0.3s"}}>
           <div ref={editorRef} className={cn(commonClasses, "overflow-y-scroll overflow-x-hidden pt-2 lg:p-4 lg:rtl lg:static")}>
             <Editor className={cn("ltr", "block pb-[120px] lg:p-0 lg:max-w-[1000px]")} />
@@ -72,14 +72,14 @@ const Creator: React.FC = () => {
             ref={previewRef}
             className={cn(
               commonClasses,
-              "overflow-hidden relative lg:top-0",
+              "relative lg:top-0",
             )}
           >
             <PdfViewer />
           </div>
         </div>
+        <BottomBar/>
       </div>
-      <BottomBar/>
     </>
   );
 };
