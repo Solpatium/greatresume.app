@@ -13,6 +13,7 @@ import cn from "classnames";
 import { SectionTitle } from "../../molecules/sectionTitle";
 import { LanguageSwitcher } from "../languageSwitcher";
 import { DataImport } from "../dataImport";
+import { Logo } from "../../sections/header";
 
 
 export const Editor: React.FC<{
@@ -48,9 +49,12 @@ export const Editor: React.FC<{
 
   return (
     <div className={cn(className, "relative flex flex-col gap-5 lg:gap-8 lg:mt-3")}>
-      <div className="flex gap-3 justify-end">
-        <DataImport/>
-        <LanguageSwitcher/>
+      <div className="p-5 flex flex-col justify-center items-center gap-3 xl:gap-0 xl:flex-row md:justify-between">
+        <Logo className="origin-center scale-[80%] xl:origin-left xl:scale-[85%]"/>
+        <div className="flex gap-3 justify-end items-center flex-wrap">
+          <DataImport />
+          <LanguageSwitcher />
+        </div>
       </div>
       <Stepper steps={steps} />
     </div>
