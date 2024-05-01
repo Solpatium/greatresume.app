@@ -15,7 +15,7 @@ export const RichTextEditor: React.FC<{
     long?: boolean;
 }> = ({ className, label, onChange, value, long }) => {
     const editor = <MdEditor
-        plugins={["font-bold", "font-italic", "link", "list-unordered", "logger"]}
+        plugins={["font-bold", "font-italic", "list-unordered", "logger"]}
         view={{ menu: true, md: true, html: false }}
         canView={{ menu: true, md: true, html: false, both: false, fullScreen: false, hideMenu: false }} 
         className={cn(long && "long-editor", className)} 
@@ -30,7 +30,7 @@ export const RichTextEditor: React.FC<{
     }
 
     return (
-        <Label className={`mb-1 ${className}`} name={label}>
+        <Label className={`mb-1 ${className} `} name={label}>
             {editor}
         </Label>
     );
