@@ -1,12 +1,17 @@
 import { DropzoneOptions, useDropzone } from "react-dropzone";
-import React from "react";
+import React, { useCallback, useState } from "react";
 import cn from "classnames";
 import useTranslation from "next-translate/useTranslation";
 import { Button } from "./button";
 
-export const DropZone: React.FC<DropzoneOptions & {text?: string}> = ({text, ...options}) => {
+export const DropZone: React.FC<DropzoneOptions & {text?: string, onDrop: (files: File[]) => void | Promise<unknown>}> = ({text, ...options}) => {
   const {t} = useTranslation("app");
-  const { getRootProps, getInputProps, isDragActive } = useDropzone(options);
+  const [loading, setLoading] = useState(false);
+  const onDrop = useCallback((files: File[]) => {
+    setLoading(true);
+    Promise.resolve(options.onDrop(files)).finally(() => setLoading(false));
+  }, [options.onDrop]);
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({...options, onDrop});
   const border = isDragActive ? "border-fuchsia-500" : "border-gray-400";
   return (
     <div
@@ -17,7 +22,7 @@ export const DropZone: React.FC<DropzoneOptions & {text?: string}> = ({text, ...
       )}>
       <input {...getInputProps()} />
       <div className="text-gray-800 text-lg">{text || t("dropzoneText")}</div>
-        <Button>{t("dropzoneButton")}</Button>
+        <Button disabled={loading}>{t("dropzoneButton")}</Button>
     </div>
   );
 };

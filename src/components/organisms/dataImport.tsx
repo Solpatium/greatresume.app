@@ -5,15 +5,19 @@ import { BigModal } from "../layout/bigModal";
 import useTranslation from "next-translate/useTranslation";
 import { useCallback } from "react";
 import React from "react";
-import { StructError } from "superstruct";
+import { StructError, assert } from "superstruct";
 import { useAppStateStorage, useDataPurgePermission } from "../../state/storage";
 import { DropZone } from "../atoms/dropZone";
-import { useHistoryPush } from "../../utils/hooks";
+import { usePersistentState } from "../../state/store";
+import { proxy } from "valtio";
+import { applicationStateStruct } from "../../models/v1";
 
-const ImportResume: React.FC<{ onImport: () => void }> = ({ onImport }) => {
+const ImportResume: React.FC = () => {
     const { t } = useTranslation("app");
     const canPurge = useDataPurgePermission();
     const storage = useAppStateStorage();
+    const state = usePersistentState();
+    const [imported, toggle] = useToggle(false);
 
     const onDrop = useCallback(([file]: File[]) => {
         if (!file) {
@@ -25,12 +29,13 @@ const ImportResume: React.FC<{ onImport: () => void }> = ({ onImport }) => {
             return;
         }
 
-        import("../../utils/dataEmbeding").then(async (module) => {
+        return import("../../utils/dataEmbeding").then(async (module) => {
             try {
                 const buffer = await file.arrayBuffer();
                 const data = await module.getEmbededData(buffer)
-                storage.set(data);
-                onImport();
+                assert(data, applicationStateStruct);
+                state.resume = proxy(data.resume);
+                toggle();
             } catch (e) {
                 if (e instanceof module.DataExtractionError) {
                     alert(t`dataImport.extractionError`);
@@ -41,7 +46,11 @@ const ImportResume: React.FC<{ onImport: () => void }> = ({ onImport }) => {
                 }
             }
         }).catch(console.error);
-    }, [onImport, storage]);
+    }, [storage]);
+
+    if (imported) {
+        return <p>✅ {t`dataImport.success`}</p>
+    }
 
     return (
         <DropZone onDrop={onDrop} accept=".pdf" multiple={false} text={t`dataImport.fileDropText`} />
@@ -53,17 +62,7 @@ const importKey = "import-data";
 export const DataImport: React.FC = () => {
     const [open, toggle] = useToggle(false);
     const { t } = useTranslation("app");
-    const { maybePop } = useHistoryPush(importKey, () => {});
 
-    const onImport = useCallback(() => {
-        // We have to pop the history entry for the modal already to replace the history entry below it.
-        window.addEventListener("popstate", () => {
-            window.location.reload();
-        });
-        maybePop();
-        // TODO: There is something wrong with the state.
-        // alert(t`dataImport.success`);
-    }, [toggle]);
     return <>
         <Button
             tertiary
@@ -72,7 +71,7 @@ export const DataImport: React.FC = () => {
             onClick={toggle}
         >{t`dataImport.title`}</Button>
         <BigModal historyKey={importKey} show={open} title={t`dataImport.title`} onClose={toggle}>
-            <ImportResume onImport={onImport} />
+            <ImportResume />
         </BigModal>
     </>
 }
