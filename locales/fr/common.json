@@ -1,0 +1,46 @@
+{
+    "home": "Home",
+    "overwriteQuestion": "Are you sure you want to continue? Your currently edited resume will be overwritten.",
+    "templates": {
+        "professional": {
+            "title": "Professional",
+            "description": "Two column template in blue colors. Fresh and professional."
+        },
+        "serious": {
+            "title": "Serious",
+            "description": "Two column black and white template. Serious and old-school."
+        },
+        "lax": {
+            "title": "Lax",
+            "description": "Two column template with some green accents. Light and fresh."
+        },
+        "energetic": {
+            "title": "Energetic",
+            "description": "Single column template with some violet accents. Energetic and modern."
+        },
+        "peachy": {
+            "title": "Peachy",
+            "description": "Single column template using orange color. Safe and clean."
+        },
+        "simple": {
+            "title": "Simple",
+            "description": "Simple column template with blue accents. Straightforward and oldschool."
+        }
+    },
+    "languages": {
+        "title": "Change language",
+        "label": "Available languages",
+        "names": {
+            "pl": "Polish",
+            "en": "English",
+            "fr": "French",
+            "de": "German"
+        }
+    },
+    "cookies": {
+        "content": "We use Google Analytics to see how we can improve services. <0>We do not collect any data used for creating resumes, it doesn't leave your device.</0> By clicking \"Accept\", you agree to the use of cookies as described in our <1>Privacy policy</1>. It is ok to reject them.",
+        "accept": "Accept",
+        "reject": "Reject"
+    },
+    "footer": "© 2024 greatresume.app. All rights reserved."
+}

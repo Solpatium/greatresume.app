@@ -21,46 +21,47 @@ type TemplateDetails = Record<TemplateId, {
 export const useTemplateDetails = (): TemplateDetails => {
     const {t} = useTranslation("common");
     const {locale} = useRouter();
+    const usedLocale = locale == "fr" ? "en" : locale;
     return useMemo(() => ({
         professional: {
             title: t("templates.professional.title"),
             description: t("templates.professional.description"),
             image: imageEnProfession,
-            example: () => import(`./examples/${locale}/professional`).then(r => r.professionalExample),
+            example: () => import(`./examples/${usedLocale}/professional`).then(r => r.professionalExample),
         },
         serious: {
             title: t("templates.serious.title"),
             description: t("templates.serious.description"),
             image: imageEnSerious,
-            example: () => import(`./examples/${locale}/serious`).then(r => r.seriousExample),
+            example: () => import(`./examples/${usedLocale}/serious`).then(r => r.seriousExample),
         },
         lax: {
             title: t("templates.lax.title"),
             description: t("templates.lax.description"),
             image: imageEnLax,
-            example: () => import(`./examples/${locale}/lax`).then(r => r.laxExample),
+            example: () => import(`./examples/${usedLocale}/lax`).then(r => r.laxExample),
 
         },
         energetic: {
             title: t("templates.energetic.title"),
             description: t("templates.energetic.description"),
             image: imageEnEnergetic,
-            example: () => import(`./examples/${locale}/energetic`).then(r => r.energeticExample),
+            example: () => import(`./examples/${usedLocale}/energetic`).then(r => r.energeticExample),
 
         },
         peachy: {
             title: t("templates.peachy.title"),
             description: t("templates.peachy.description"),
             image: imageEnPeachy,
-            example: () => import(`./examples/${locale}/peachy`).then(r => r.peachyExample),
+            example: () => import(`./examples/${usedLocale}/peachy`).then(r => r.peachyExample),
 
         },
         simple: {
             title: t("templates.simple.title"),
             description: t("templates.simple.description"),
             image: imageEnSimple,
-            example: () => import(`./examples/${locale}/simple`).then(r => r.simpleExample),
+            example: () => import(`./examples/${usedLocale}/simple`).then(r => r.simpleExample),
 
         }
-    }), [locale]);
+    }), [usedLocale]);
 }
