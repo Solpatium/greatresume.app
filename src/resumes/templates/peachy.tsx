@@ -23,7 +23,7 @@ const pageMargin = 40;
 const styles: StylesDefinition = {
     ".page": {
         color: textColor,
-        backgroundColor: "#FFFCF9",
+        backgroundColor: "#FFFEFD",
         fontSize: 14,
         fontFamily: "Manrope",
         padding: pageMargin,

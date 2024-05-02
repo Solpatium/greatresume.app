@@ -31,7 +31,6 @@ interface SortableListProps<Type> {
   stateProxy: Type[];
   render: (state: Type, index: number) => ReactElement;
   itemClassName?: string;
-  onDelete?: (index: number) => void;
 }
 
 interface UncontrolledSortableListProps<Type> extends SortableListProps<Type> {
@@ -155,7 +154,6 @@ export const ControlledSortableList = <Type extends HasId>({
   render,
   sortingEnabled,
   itemClassName: itemClassname,
-  onDelete,
 }: ControlledSortableListProps<Type>): ReactElement => {
   const onDragEnd = useCallback(
     ({ active, over }: DragEndEvent) => {

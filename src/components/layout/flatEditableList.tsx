@@ -62,7 +62,7 @@ export const FastEditableList = React.memo(<Type extends HasId>({
     ), [onDelete, render])
     return (
         <UncontrolledSortableList
-            itemClassName="bg-white"
+            itemClassName="bg-white items-center"
             label={label}
             onDelete={onDelete}
             buttonText={buttonText}
