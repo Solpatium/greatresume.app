@@ -3,7 +3,7 @@
   "defaultLocale": "en",
   "pages": {
     "*": ["common"],
-    "/home": ["home"],
+    "/": ["home"],
     "/creator": ["app"],
     "/privacy-policy": ["privacy-policy"]
   }
