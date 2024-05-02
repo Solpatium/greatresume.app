@@ -7,7 +7,7 @@ import cn from "classnames"
 export const Logo: React.FC<{className?: string}> = ({className}) => {
     const { t } = useTranslation("common");
 
-    return <a href="/home" className={cn("flex flex-row justify-center items-center gap-[8px] shrink-0", className)}>
+    return <a href="/" className={cn("flex flex-row justify-center items-center gap-[8px] shrink-0", className)}>
         <span className="sr-only">{t("home")}</span>
         <Img {...logo} alt="Logo" />
         <div className="text-[32px] font-bold flex flex-row gap-[4px] text-blue-600">
