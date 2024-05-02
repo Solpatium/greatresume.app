@@ -10,8 +10,6 @@ import { useState } from "react";
 
 const langs = [
     "en",
-    "fr",
-    "de",
     "pl",
 ];
 
