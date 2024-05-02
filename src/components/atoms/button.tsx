@@ -4,12 +4,12 @@ import { TrashIcon } from "@heroicons/react/24/outline";
 import useTranslation from "next-translate/useTranslation";
 
 const common =
-  "inline-flex justify-center items-center px-4 py-3 border text-sm font-bold rounded shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors";
+  "inline-flex justify-center items-center px-4 py-3 border text-sm font-bold rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors";
 const colors = {
   danger: `${common} bg-pink-600 hover:bg-pink-700 focus:ring-pink-500 text-white `,
-  primary: `${common} rounded-lg bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 text-white`,
-  secondary: `${common} rounded-lg bg-indigo-50 text-indigo-600 shadow-sm hover:bg-indigo-100`,
-  tertiary: `${common} rounded-lg bg-white hover:bg-gray-50 border-gray-300 focus:ring-indigo-500 text-gray-600`,
+  primary: `${common} bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 text-white`,
+  secondary: `${common} bg-indigo-50 text-indigo-600 shadow-sm hover:bg-indigo-100`,
+  tertiary: `${common} bg-white hover:bg-gray-50 border-gray-300 focus:ring-indigo-500 text-gray-600`,
 };
 
 export const Button: React.FC<{

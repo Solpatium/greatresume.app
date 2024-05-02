@@ -51,7 +51,7 @@ export const ExpandableItem = <Type extends HasId>(props: ExpandableItemProps<Ty
       <fieldset className="grid md:grid-cols-1 gap-4">
         {props.render(props.stateProxy)}
       </fieldset>
-      <div className="text-right block sm:hidden">
+      <div className="text-right block sm:hidden mt-2">
         <Button onClick={() => props.onDelete(props.index)} danger>{t`delete`}</Button>
       </div>
     </div>)
