@@ -23,9 +23,10 @@ const pageMargin = 40;
 const styles: StylesDefinition = {
     ".page": {
         color: textColor,
-        fontSize: 14,
+        fontSize: 12,
         fontFamily: "Nunito",
         padding: pageMargin,
+        lineHeight: 1.4
     },
 
     ".headerWrapper": {
@@ -36,7 +37,6 @@ const styles: StylesDefinition = {
     },
 
     ".personalInfo": {
-        fontFamily: "NotoSerif",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
@@ -55,13 +55,14 @@ const styles: StylesDefinition = {
         alignItems: "center",
     },  
     ".personalInfoName": {
+        fontFamily: "NotoSerif",
         fontSize: 27,
         fontWeight: 600,
         color: titleColor,
         marginBottom: 4,
     },
     ".personalInfoJobTitle": {
-        fontSize: 12,
+        fontSize: 16,
         fontWeight: 500,
         color: subtitleColor,
     },
@@ -118,7 +119,6 @@ const styles: StylesDefinition = {
         marginBottom: 8,
     },
     ".keyValueSection": {
-        fontSize: 13,
         fontWeight: 500,
     },
 
@@ -131,7 +131,7 @@ const styles: StylesDefinition = {
 
     ".textSection": {
         fontWeight: 500,
-        lineHeight: 1.4,
+        lineHeight: 1.5,
         fontSize: 12,
     },
 
@@ -139,13 +139,14 @@ const styles: StylesDefinition = {
         marginBottom: 16,
     },
     ".experienceEntryTitle": {
-        fontSize: 12,
+        fontSize: 14,
         fontWeight: 600,
         width: "100%",
     },
     ".experienceEntrySubtitle": {
         fontSize: 12,
-        color: "#000000",
+        fontStyle: "italic",
+        color: "#2B364D",
     },
     ".experienceEntrySubtitle.link": {
         textDecoration: "none",
@@ -181,14 +182,23 @@ const styles: StylesDefinition = {
 
     ".li": {
         marginTop: 5,
-    }
+    },
+    ".strong": {
+        fontWeight: 900,
+    },
+    ".textLink": {
+        textDecoration: "underline",
+    },
+    ".em": {
+        fontStyle: "italic",
+    },
 }
 
 export const simpleTemplate: TemplateDetails = {
     component: Template,
     fonts: {
         NotoSerif: ["Regular", "Bold", "Italic", "BoldItalic"],
-        Nunito: ["Regular", "Bold", "Light", "Medium"],
+        Nunito: ["Regular", "Bold", "Light", "Medium", "Italic"],
     },
     styles,
 };

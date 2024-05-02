@@ -38,7 +38,7 @@ const styles: StylesDefinition = {
   ".page": {
     paddingVertical: pagePadding,
     color: textColor,
-    fontSize: "14px",
+    fontSize: "12",
     fontFamily: "Karla",
     backgroundColor: "#F2F9FB",
   },

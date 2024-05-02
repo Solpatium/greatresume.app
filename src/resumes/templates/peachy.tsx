@@ -169,7 +169,17 @@ const styles: StylesDefinition = {
 
     ".li": {
         marginTop: 0,
-    }
+    },
+
+    ".strong": {
+        fontWeight: 900,
+    },
+    ".textLink": {
+        textDecoration: "underline",
+    },
+    ".em": {
+        fontWeight: 300,
+    },
 }
 
 export const peachyTemplate: TemplateDetails = {

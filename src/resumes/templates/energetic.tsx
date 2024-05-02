@@ -22,7 +22,7 @@ const Template: ResumeTemplate = ({ data, translate }) => (
 const styles: StylesDefinition = {
     ".page": {
         color: textColor,
-        fontSize: 14,
+        fontSize: 12,
         fontFamily: "Quicksand",
         padding: 40,
     },
@@ -169,7 +169,16 @@ const styles: StylesDefinition = {
 
     ".li": {
         marginTop: 5,
-    }
+    },
+    ".strong": {
+        fontWeight: 900,
+    },
+    ".textLink": {
+        textDecoration: "underline",
+    },
+    ".em": {
+        fontWeight: 300,
+    },
 }
 
 export const energeticTemplate: TemplateDetails = {
