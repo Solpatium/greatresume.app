@@ -10,9 +10,9 @@ const faqKeys = [
 const components = {
     start: <Link className="underline" href="/creator" />,
     em: <em className="font-bold" />,
-    githubIssues: <a className="underline" href="#" />,
-    sourceCode: <a className="underline" href="#" />,
-    contact: <a className="underline" href="#" />,
+    githubIssues: <a className="underline" target="_blank" href="https://github.com/Solpatium/greatresume.app/issues" />,
+    sourceCode: <a className="underline" target="_blank" href="https://github.com/Solpatium/greatresume.app" />,
+    contact: <a className="underline" href="email:contact@greatresume.app" />,
     privacyPolicy: <Link className="underline" href="/privacy-policy" />,
 }
 
