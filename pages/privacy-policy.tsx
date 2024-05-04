@@ -5,6 +5,7 @@ import { ClientOnly } from '../src/components/atoms/clientOnly';
 import Trans from 'next-translate/Trans';
 import { Header } from '../src/components/sections/header';
 import { Footer } from '../src/components/sections/footer';
+import Head from 'next/head';
 
 const Heading: React.FC<{ children: string }> = ({ children }) => <h2 className="mt-16 text-2xl font-bold tracking-tight text-gray-900 mb-6">{children}</h2>
 
@@ -31,7 +32,9 @@ const CurrentConsentOptions: React.FC = () => {
 export default function PrivacyPolicy() {
     const { t } = useTranslation("privacy-policy");
     return (<>
-        <title>{t`title`}</title>
+        <Head>
+            <title>{t`title`}</title>
+        </Head>
         <div className="bg-white px-6 py-32 lg:px-8">
             <div className="mx-auto max-w-3xl text-base leading-7 text-gray-700">
                 <Header navigation={[]} />

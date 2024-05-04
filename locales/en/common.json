@@ -1,5 +1,6 @@
 {
     "home": "Home",
+    "description": "Create a Great Resume completely for free!",
     "overwriteQuestion": "Are you sure you want to continue? Your currently edited resume will be overwritten.",
     "templates": {
         "professional": {
