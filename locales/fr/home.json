@@ -1,100 +1,100 @@
 {
-    "title": "Free resume creator",
-    "description": "Create a Great Resume completely for free!",
-    "actionLabel": "Let's go!",
-    "home": "Home page",
+    "title": "Créateur de CV gratuit",
+    "description": "Créez un Excellent CV entièrement gratuitement!",
+    "actionLabel": "C'est parti!",
+    "home": "Accueil",
     "nav": {
-        "about": "About",
-        "examples": "Examples",
+        "about": "À propos",
+        "examples": "Exemples",
         "faq": "FAQ",
-        "authors": "Authors"
+        "authors": "Auteurs"
     },
     "hero": {
-        "title": "Create a <em>Great Resume</em> completely for <em>free</em>",
-        "subtitle": "No strings attached",
-        "description": "Use one of 6 professional templates to create a resume and export it to a PDF file. All completly private and free, because people looking for a job shouldn't have to pay a penny to create a good resume."
+        "title": "Créez un <em>Excellent CV</em> entièrement <em>gratuitement</em>",
+        "subtitle": "Sans conditions",
+        "description": "Utilisez l'un des 6 modèles professionnels pour créer un CV et exportez-le au format PDF. Tout est totalement privé et gratuit, car les personnes à la recherche d'un emploi ne devraient pas avoir à payer un centime pour créer un bon CV."
     },
     "features": {
-        "title": "No bullshit resume creator",
-        "subtitle": "Great features for free",
+        "title": "Créateur de CV sans blabla",
+        "subtitle": "Des fonctionnalités exceptionnelles gratuitement",
         "customization": {
-            "title": "Make the resume yours",
-            "description": "Select one of 6 templates that reflects your experience the best. Adjust its appearance by rearranging sections, adding a picture or changing paper size."
+            "title": "Personnalisez votre CV",
+            "description": "Choisissez l'un des 6 modèles qui reflète le mieux votre expérience. Ajustez son apparence en réorganisant les sections, en ajoutant une photo ou en changeant le format de papier."
         },
         "noFees": {
-            "title": "No hidden fees",
-            "description": "Application is 100% free and doesn't offer any paid features. Just fill the form and export pdf file containing your resume."
+            "title": "Pas de frais cachés",
+            "description": "L'application est 100% gratuite et ne propose aucune fonction payante. Il vous suffit de remplir le formulaire et d'exporter un fichier PDF contenant votre CV."
         },
         "private": {
-            "title": "Completly private",
-            "description": "Your data doesn't leave your browser. We also don't server any ads."
+            "title": "Complètement privé",
+            "description": "Vos données ne quittent pas votre navigateur. Nous ne diffusons également aucune publicité."
         },
         "languages": {
-            "title": "3 supported languages",
-            "description": "Currently we support English, French and Polish."
+            "title": "3 langues prises en charge",
+            "description": "Actuellement, nous prenons en charge l'anglais, le français et le polonais."
         },
         "devices": {
-            "title": "Works great on any device",
-            "description": "Laptop, tablet, smartphone - just choose any of them and perfect your resume."
+            "title": "Fonctionne parfaitement sur tous les appareils",
+            "description": "Ordinateur portable, tablette, smartphone - il vous suffit d'en choisir un et de perfectionner votre CV."
         },
         "reimport": {
-            "title": "Reimport your pdf",
-            "description": "During export we save resume's structure in pdf itself. This way you can later import your resume in the future to update it."
+            "title": "Réimportez votre PDF",
+            "description": "Lors de l'exportation, nous sauvegardons la structure du CV dans le PDF lui-même. De cette manière, vous pouvez ensuite réimporter votre CV à l'avenir pour le mettre à jour."
         }
     },
     "examples": {
-        "title": "Example resumes",
-        "subtitle": "You can import any of the resumes below into the application.",
-        "button": "Edit in creator"
+        "title": "Exemples de CV",
+        "subtitle": "Vous pouvez importer l'un des CV ci-dessous dans l'application.",
+        "button": "Modifier dans le créateur"
     },
     "action": {
-        "title": "Ready to dive in? Create your resume for free."
+        "title": "Prêt à plonger? Créez votre CV gratuitement."
     },
     "faq": {
-        "title": "Frequently asked questions",
-        "description": "Can't find the answer you're looking for? <contact>Contact us</contact>.",
+        "title": "Questions Fréquemment Posées",
+        "description": "Vous ne trouvez pas la réponse que vous cherchez? <contact>Contactez-nous</contact>.",
         "dataProcessing": {
-            "question": "How do you process my data?",
-            "answer": "Your data is only used to generate your resume and it does not leave your browser. Our application doesn't use any server to generate your resume. It uses javascript to generate it in your browser, securely and privately."
+            "question": "Comment mes données sont-elles traitées?",
+            "answer": "Vos données sont uniquement utilisées pour générer votre CV et elles ne quittent pas votre navigateur. Notre application n'utilise aucun serveur pour générer votre CV. Elle utilise JavaScript pour le générer dans votre navigateur, de manière sécurisée et privée."
         },
         "reimport": {
-            "question": "I've created a resume some time ago, how do I edit it?",
-            "answer": "Go <start>to creator</start> and select the 'import' option from the top. Please note that <em>this option only works for pdfs generated throught our application</em>."
+            "question": "J'ai créé un CV il y a quelque temps, comment puis-je le modifier?",
+            "answer": "Allez <start>au créateur</start> et sélectionnez l'option 'importer' en haut. Veuillez noter que <em>cette option ne fonctionne que pour les PDF générés à travers notre application</em>."
         },
         "multipleVersions": {
-            "question": "How do I maintain multiple versions of the resume?",
-            "answer": "Every time you want to preserve a version you can just download it. When you want to make changes you can always import it back."
+            "question": "Comment puis-je maintenir plusieurs versions du CV?",
+            "answer": "Chaque fois que vous souhaitez conserver une version, vous pouvez simplement la télécharger. Lorsque vous souhaitez apporter des modifications, vous pouvez toujours l'importer à nouveau."
         },
         "bugs": {
-            "question": "How do I report a bug?",
-            "answer": "Github issues are used to track bugs. Please note that all issues are public, <em>make sure you don't include any data you want to keep private</em>! You can create issue on github <githubIssues>here</githubIssues>."
+            "question": "Comment signaler un bug?",
+            "answer": "Github issues sont utilisés pour suivre les bugs. Veuillez noter que tous les problèmes sont publics, <em>assurez-vous de ne pas inclure de données que vous souhaitez garder privées</em> !  Vous pouvez créer issue sur Github <githubIssues>ici</githubIssues>."
         },
         "monetization": {
-            "question": "How do you make money from this?",
-            "answer": "We don't."
+            "question": "Comment gagnez-vous de l'argent avec cela?",
+            "answer": "Nous ne gagnons pas d'argent avec cela."
         },
         "monetizationContinuation": {
-            "question": "What do you mean you don't make money out of this?",
-            "answer": "We just want to make resume creation accessible for everyone. It all started when my mother lost her job during covid and I wanted to find some resume creators. I found a lot of them baiting you with the promise of \"free resume creator\", but they only allowed exporting to a plain text file (yes, a regular .txt file), forcing you to pay for the pdf. You learn this only after you fill ALL YOUR DATA. There's nothing wrong with wanting to be compensated for work, but misleading people in difficult situations is definitely not okay."
+            "question": "Que voulez-vous dire par vous ne gagnez pas d'argent avec cela?",
+            "answer": "Nous voulons simplement rendre la création de CV accessible à tous. Tout a commencé lorsque ma mère a perdu son emploi pendant la pandémie de Covid et que je voulais trouver des créateurs de CV. J'en ai trouvé beaucoup qui vous appâtaient avec la promesse de \"créateur de CV gratuit\", mais ils ne permettaient d'exporter qu'un fichier texte brut (oui, un simple fichier .txt), vous obligeant à payer pour le PDF. Vous l'apprenez seulement après avoir rempli TOUTES VOS DONNÉES. Il n'y a rien de mal à vouloir être rémunéré pour son travail, mais tromper les gens dans des situations difficiles n'est certainement pas acceptable."
         },
         "help": {
-            "question": "How do I express my gratitude?",
-            "answer": "If you're satisfied with our tool, you can share it on social media or just tell your friends about it."
+            "question": "Comment puis-je exprimer ma gratitude?",
+            "answer": "Si vous êtes satisfait de notre outil, vous pouvez le partager sur les réseaux sociaux ou simplement en parler à vos amis."
         },
         "tracking": {
-            "question": "Do you track your users?",
-            "answer": "We use Google Analytics for tracking usage. It gives us insight into how people use our application. No worries, we don't send any part of you resume to an external service. If you want to withdraw your consent you can do it directly from out <privacyPolicy>Privacy Policy</privacyPolicy>."
+            "question": "Suivez-vous vos utilisateurs?",
+            "answer": "Nous utilisons Google Analytics pour suivre l'utilisation. Cela nous donne un aperçu de la manière dont les gens utilisent notre application. Pas d'inquiétude, nous n'envoyons aucune partie de votre CV à un service externe. Si vous souhaitez retirer votre consentement, vous pouvez le faire directement depuis notre <privacyPolicy>Politique de confidentialité</privacyPolicy>."
         },
         "trust": {
-            "question": "How can I be sure you are not lying?",
-            "answer": "You can see the source code yourself <sourceCode>here</sourceCode>."
+            "question": "Comment puis-je être sûr que vous ne mentez pas?",
+            "answer": "Vous pouvez voir le code source vous-même <sourceCode>ici</sourceCode>."
         }
     },
     "authors": {
-        "names": "Ola and Kuba",
-        "subtitle": "Hey there, we've created this app.",
-        "text": "<p>Ola handled the design, Kuba wrote the code <small>(he's to blame if you find any bugs)</small>.</p><p>The job search can be a stressful and overwhelming experience. We believe our app can help by making at least one step of the process a little bit simpler.</p>",
-        "linkOla": "Ola's Dribble",
-        "linkKuba": "Kuba's website"
+        "names": "Ola et Kuba",
+        "subtitle": "Salut, nous sommes les auteurs de cette application",
+        "text": "<p>Ola s'est occupée de design, Kuba a écrit le code <small>(c'est de sa faute si vous trouvez des bugs)</small>.</p><p>La recherche d'emploi peut être une expérience stressante et écrasante. Nous croyons que notre application peut aider en rendant au moins une étape du processus un peu plus simple.</p>",
+        "linkOla": "Dribble d'Ola",
+        "linkKuba": "Site web de Kuba"
     }
 }

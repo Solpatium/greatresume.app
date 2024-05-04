@@ -1,210 +1,210 @@
 {
-  "page-title": "Resume creator",
-  "save": "Save",
-  "cancel": "Cancel",
-  "edit": "Edit",
-  "preview": "Preview",
-  "empty": "Empty",
+  "page-title": "Créateur de CV",
+  "save": "Enregistrer",
+  "cancel": "Annuler",
+  "edit": "Modifier",
+  "preview": "Aperçu",
+  "empty": "Vide",
   "description": "Description",
-  "startDate": "Start date",
-  "endDate": "End date",
-  "delete": "Delete",
-  "email": "Email",
-  "phone": "Phone",
-  "name": "Name",
-  "surname": "Surname",
-  "jobTitle": "Job title",
+  "startDate": "Date de début",
+  "endDate": "Date de fin",
+  "delete": "Supprimer",
+  "email": "E-mail",
+  "phone": "Téléphone",
+  "name": "Prénom",
+  "surname": "Nom de famille",
+  "jobTitle": "Intitulé du poste",
   "photo": "Photo",
   "contact": "Contact",
-  "embededPdfFileDescription": "Structured data for editing resume at greatresume.app.",
-  "listOfTemplates": "Templates",
-  "reset": "Reset",
-  "resume": "Resume",
+  "embededPdfFileDescription": "Données structurées pour l'édition du CV sur greatresume.app.",
+  "listOfTemplates": "Modèles",
+  "reset": "Réinitialiser",
+  "resume": "CV",
   "ok": "OK",
-  "addNewEntry": "Add new list element",
-  "downloadYourResume": "Download your resume",
-  "pageSize": "Page size",
-  "selected": "Selected",
-  "addPhoto": "Add photo",
-  "yourPhoto": "Your photo",
-  "dropzoneText": "Drag your file here.",
-  "dropzoneButton": "Choose file",
-  "entryDeletionConfirmation": "Are you sure you want to delete this entry?",
-  "listEditStart": "Reorder",
-  "listEditEnd": "Save order",
+  "addNewEntry": "Ajouter un nouvel élément à la liste",
+  "downloadYourResume": "Télécharger votre CV",
+  "pageSize": "Format de page",
+  "selected": "Sélectionné",
+  "addPhoto": "Ajouter une photo",
+  "yourPhoto": "Votre photo",
+  "dropzoneText": "Glissez votre fichier ici.",
+  "dropzoneButton": "Choisir un fichie",
+  "entryDeletionConfirmation": "Êtes-vous sûr de vouloir supprimer cette entrée?",
+  "listEditStart": "Réorganiser",
+  "listEditEnd": "Enregistrer l'ordre",
   "paper": {
     "a4": "A4",
-    "a4Description": "Popular in EU.",
-    "letter": "Letter",
-    "letterDescription": "Popular in US."
+    "a4Description": "Populaire dans l'UE.",
+    "letter": "Lettre",
+    "letterDescription": "Populaire aux États-Unis."
   },
   "steps": {
     "appearance": {
-      "title": "Appearance",
-      "description": "Select paper size and a template that you want to use. We will also allow you to change it at the end, after filling all the crucial info."
+      "title": "Apparence",
+      "description": "Sélectionnez la taille de papier et un modèle que vous souhaitez utiliser. Nous vous permettrons également de le modifier à la fin, après avoir rempli toutes les informations cruciales."
     },
     "personalInfo": {
-      "title": "Personal info",
-      "addNewEntry": "Add contact entry",
-      "entryLabel": "Entry label",
-      "entryValue": "Content"
+      "title": "Informations personnelles",
+      "addNewEntry": "Ajouter une entrée de contact",
+      "entryLabel": "Étiquette de l'entrée",
+      "entryValue": "Contenu"
     },
     "employment": {
-      "description": "Provide your employment history.",
-      "entryTitle": "Job title",
-      "entrySubtitle": "Company"
+      "description": "Fournissez votre historique professionnel.",
+      "entryTitle": "Intitulé du poste",
+      "entrySubtitle": "Entreprise"
     },
     "education": {
-      "description": "Provide your education history.",
-      "entryTitle": "Degree",
-      "entrySubtitle": "School"
+      "description": "Fournissez votre historique éducatif.",
+      "entryTitle": "Diplôme",
+      "entrySubtitle": "École"
     },
     "projects": {
-      "description": "Provide some interesting projects you've been involved in.",
-      "entryTitle": "Position",
-      "entrySubtitle": "Project name"
+      "description": "Fournissez quelques projets intéressants auxquels vous avez participé.",
+      "entryTitle": "Poste",
+      "entrySubtitle": "Nom du projet"
     },
     "experience": {
-      "description": "Add entries of your experience.",
-      "entryTitle": "Title",
-      "entrySubtitle": "Subtitle"
+      "description": "Ajoutez des entrées de votre expérience.",
+      "entryTitle": "Titre",
+      "entrySubtitle": "Sous-titre"
     },
     "skills": {
-      "description": "Add your skills",
-      "name": "Skill",
-      "value": "Level or confirmation"
+      "description": "Ajoutez vos compétences",
+      "name": "Compétence",
+      "value": "Niveau ou confirmation"
     },
     "languages": {
-      "description": "Add your languages",
-      "name": "Language",
-      "value": "Level or confirmation"
+      "description": "Ajoutez vos langues",
+      "name": "Langue",
+      "value": "Niveau ou confirmation"
     },
     "interests": {
-      "description": "Add entries of your interests.",
-      "interest": "Interest"
+      "description": "Ajoutez des entrées concernant vos centres d'intérêt.",
+      "interest": "Intérêt"
     },
     "text": {
-      "description": "Provide your text below."
+      "description": "Fournissez votre texte ci-dessous."
     },
     "legalClause": {
-      "title": "Legal clause",
-      "description": "In some europen countries you must explicility allow company to process your data during the recruitment process. Skip this if you don't need that."
+      "title": "Clause juridique",
+      "description": "Dans certains pays européens, vous devez autoriser explicitement l'entreprise à traiter vos données pendant le processus de recrutement. Ignorez cela si vous n'en avez pas besoin. "
     },
     "export": {
-      "title": "Export",
-      "description": "All done! Now export your resume or choose a different look to see which one works best."
+      "title": "Exporter",
+      "description": "C'est tout ! Maintenant exportez votre CV ou choisissez un aspect différent pour voir lequel fonctionne le mieux. "
     }
   },
   "progress": {
     "start": {
-      "title": "Let's create your resume!",
-      "subtitle": "Complete the forms below to export your resume."
+      "title": "Créons votre CV!",
+      "subtitle": "Remplissez les formulaires ci-dessous pour exporter votre CV."
     },
     "before-template": {
-      "title": "Choose the design!",
-      "subtitle": "We're sure you'll find a perfect one just for you."
+      "title": "Choisissez le design!",
+      "subtitle": "Nous sommes sûrs que vous trouverez celui qui vous convient parfaitement."
     },
     "after-template": {
-      "title": "Great choice!",
-      "subtitle": "Now personalize the list of sections."
+      "title": "Excellent choix!",
+      "subtitle": "Maintenant, personnalisez la liste des sections."
     },
     "after-sections": {
-      "title": "Sections configured.",
-      "subtitle": "Now edit their contents."
+      "title": "Sections configurées.",
+      "subtitle": "Maintenant, éditez leur contenu."
     },
     "25%": {
-      "title": "Only {{stepsLeft}} steps left.",
-      "subtitle": "You're doing great!"
+      "title": "Il ne reste que  {{stepsLeft}} étapes.",
+      "subtitle": "Vous vous en sortez très bien!"
     },
     "50%": {
-      "title": "You are halfway through!",
-      "subtitle": "The other half is the small one."
+      "title": "Vous êtes à mi-chemin!",
+      "subtitle": "L'autre moitié est la plus petite."
     },
     "75%": {
-      "title": "You're almost done!",
-      "subtitle": "We're missing just a few details."
+      "title": "Vous y êtes presque!",
+      "subtitle": "Il ne manque que quelques détails."
     },
     "100%": {
-      "title": "You're all set!",
-      "subtitle": "Customize and export your resume below."
+      "title": "C'est tout bon!",
+      "subtitle": "Personnalisez et exportez votre CV ci-dessous."
     }
   },
   "defaults": {
     "paperSize": "A4",
     "titles": {
-      "employment": "Employment",
-      "education": "Education",
-      "projects": "Projects",
-      "experience": "Experience",
-      "skills": "Skills",
-      "languages": "Languages",
-      "interests": "Interests",
-      "text": "Text"
+      "employment": "Emploi",
+      "education": "Éducation",
+      "projects": "Projets",
+      "experience": "Expérience",
+      "skills": "Compétences",
+      "languages": "Langues",
+      "interests": "Centres d'intérêt",
+      "text": "Texte"
     },
     "legal-clause": ""
   },
   "newSection": {
     "title": "Sections",
-    "sectionTitle": "Section title",
-    "description": "Customize sections on your resume. You can rearrange, add new or delete them.",
-    "addNew": "Add new resume section",
-    "modalTitle": "Choose section to add",
-    "deletionConfirmation": "Are you sure you want to delete this section?",
+    "sectionTitle": "Titre de la section",
+    "description": "Personnalisez les sections de votre CV. Vous pouvez les réorganiser, en ajouter de nouvelles ou en supprimer.",
+    "addNew": "Ajoutez une nouvelle section au CV",
+    "modalTitle": "Choisissez la section à ajouter",
+    "deletionConfirmation": "Êtes-vous sûr de vouloir supprimer cette section?",
     "sections": {
-      "label": "Available sections",
+      "label": "Sections disponibles",
       "employment": {
-        "label": "Employment",
-        "description": "Your employment history."
+        "label": "Emploi",
+        "description": "Votre historique professionnel."
       },
       "education": {
-        "label": "Education",
-        "description": "Your education history."
+        "label": "Éducation",
+        "description": "Votre historique éducatif."
       },
       "projects": {
-        "label": "Projects",
-        "description": "Projects you've been involved in."
+        "label": "Projets",
+        "description": "Projets auxquels vous avez participé."
       },
       "experience": {
-        "label": "Experience",
-        "description": "Other experience."
+        "label": "Expérience",
+        "description": "Autre expérience."
       },
       "skills": {
-        "label": "Skills",
-        "description": "Your skills."
+        "label": "Compétences",
+        "description": "Vos compétences."
       },
       "languages": {
-        "label": "Languages",
-        "description": "Languages you know."
+        "label": "Langues",
+        "description": "Langues que vous connaissez."
       },
       "interests": {
-        "label": "Interests",
-        "description": "Things you like."
+        "label": "Centres d'intérêt",
+        "description": "Ce que vous aimez."
       },
       "text": {
-        "label": "Text",
-        "description": "Plain text with a title."
+        "label": "Texte",
+        "description": "Texte brut avec un titre."
       }
     },
-    "addSection": "Add selected section"
+    "addSection": "Ajouter la section sélectionnée"
   },
   "dataImport": {
-    "title": "Import old resume",
-    "fileDropText": "Drop your pdf. Make sure you import file exported from our application.",
-    "invalidFile": "Please provide a valid pdf file created on our website.",
-    "extractionError": "Can't find embeded data. Please make sure you import file exported from our application",
-    "validationError": "There seems to be something wrong with the data in this file.",
-    "success": "Resume imported!"
+    "title": "Importer un ancien CV",
+    "fileDropText": "Déposez votre PDF. Assurez-vous d'importer un fichier exporté depuis notre application.",
+    "invalidFile": "Veuillez fournir un fichier PDF valide créé sur notre site Web.",
+    "extractionError": "Impossible de trouver les données intégrées. Assurez-vous d'importer un fichier exporté depuis notre application.",
+    "validationError": "Il semble y avoir un problème avec les données de ce fichier.",
+    "success": "CV importé!"
   },
   "intro": {
-    "title": "Before we begin",
-    "localStorage": "Creator automatically saves your progress in local storage of your browser. We don't send your personal data anywhere.",
-    "incognito": "Use <0>incognito mode</0> in case you don't want your data to be available here after closing the browser.",
+    "title": "Avant de commencer",
+    "localStorage": "Le créateur enregistre automatiquement votre progression dans le stockage local de votre navigateur. Nous n'envoyons pas vos données personnelles ailleurs.",
+    "incognito": "Utilisez le <0>mode incognito</0> si vous ne voulez pas que vos données soient disponibles ici après la fermeture du navigateur.",
     "incognitoUrl": "https://www.lifewire.com/browsing-incognito-445990"
   },
   "congratulations": {
-    "title": "Congratulations!",
-    "content": "Your resume is ready. It showcases your skills and experience, but you are so much more than that. We know the job search can be tough, but <0>don't let setbacks discourage you</0>.",
-    "greetings":"We hope you'll get a job of your dreams,",
-    "signature":"Ola and Kuba, app creators"
+    "title": "Félicitations!",
+    "content": "Votre CV est prêt. Il met en valeur vos compétences et votre expérience, mais vous êtes bien plus que cela. Nous savons que la recherche d'emploi peut être difficile, mais <0>ne laissez pas les échecs vous décourager</0>.",
+    "greetings":"Nous espérons que vous obtiendrez le travail de vos rêves,,",
+    "signature":"Ola et Kuba, créateurs de l'application"
   }
 }
