@@ -30,7 +30,7 @@ export default function MyApp({ Component, pageProps }) {
         <meta property="og:locale:alternate" content="pl" />
         <meta property="og:locale:alternate" content="en" />
         <meta property="og:type" content="website" />
-        <meta property="og:image" content={`/images/og/${locale}.png`} />
+        <meta property="og:image" content={`https://greatresume.app/images/og/${locale}.png`} />
       </Head>
       <GoogleAnalytics />
       <div className={`${open.variable}`}>
