@@ -6,7 +6,7 @@ import { useSnapshot } from 'valtio';
 import animation from "../../../public/images/checkmark-animation.json";
 import Lottie from "lottie-react";
 import { Transition } from '@headlessui/react';
-import authorImage from "../../../public/images/creators.png";
+import authorImage from "../../../public/images/creators.webp";
 import Image from "next/image"
 import Trans from 'next-translate/Trans';
 

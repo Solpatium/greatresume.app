@@ -1,5 +1,5 @@
 import Image from "next/image";
-import authorImage from "../../../public/images/creators.png";
+import authorImage from "../../../public/images/creators.webp";
 import dribbleImage from "../../../public/images/dribbble_icon.svg";
 import { GlobeAltIcon, LinkIcon, PaintBrushIcon } from "@heroicons/react/24/outline";
 import useTranslation from "next-translate/useTranslation";
