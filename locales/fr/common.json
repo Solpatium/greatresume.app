@@ -1,6 +1,7 @@
 {
     "home": "Accueil",
     "overwriteQuestion": "Êtes-vous sûr de vouloir continuer ? Votre CV actuellement en cours d'édition sera écrasé.",
+    "description": "Créez un Excellent CV entièrement gratuitement!",
     "templates": {
         "professional": {
             "title": "Professionnel",
