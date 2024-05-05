@@ -177,7 +177,9 @@ const styles: StylesDefinition = {
         textDecoration: "underline",
     },
     ".em": {
-        fontWeight: 300,
+        fontFamily: "Nunito",
+        fontStyle: "italic",
+        fontSize: 13,
     },
 }
 

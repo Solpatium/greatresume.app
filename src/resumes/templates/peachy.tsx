@@ -178,14 +178,17 @@ const styles: StylesDefinition = {
         textDecoration: "underline",
     },
     ".em": {
-        fontWeight: 300,
+        fontFamily: "Nunito",
+        fontStyle: "italic",
+        fontSize: 13,
     },
 }
 
 export const peachyTemplate: TemplateDetails = {
     component: Template,
     fonts: {
-        Manrope: ["Regular", "Bold", "ExtraBold", "ExtraLight", "Light", "Medium", "SemiBold"]
+        Manrope: ["Regular", "Bold", "ExtraBold", "ExtraLight", "Light", "Medium", "SemiBold"],
+        Nunito: ["Italic"],
     },
     styles,
 };
