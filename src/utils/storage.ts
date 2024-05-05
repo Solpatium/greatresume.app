@@ -50,8 +50,6 @@ export const useResumeData = (): [ResumeModel, Dispatch<SetStateAction<ResumeMod
   const [data, setData] = useState<ResumeModel>(() => {
     const existingResume = getResume();
 
-    console.log(existingResume);
-
     if (existingResume) {
       return existingResume;
     }

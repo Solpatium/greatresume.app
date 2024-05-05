@@ -99,7 +99,6 @@ export const useHistoryPush = (key: string, onBack: () => void): { push: () => v
         // Don't trigger on back if was triggered programatically.
         executeOnBack.current = false;
       }
-      console.log(window.fakeHistory);
     }
   };}, [key]);
 }
