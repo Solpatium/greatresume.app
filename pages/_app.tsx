@@ -13,7 +13,7 @@ const open = Open_Sans({ subsets: ['latin'], weight: ["400", "600", "700"], vari
 
 
 export default function MyApp({ Component, pageProps }) {
-  const {locale} = useRouter();
+  const {locale, pathname} = useRouter();
   const {t} = useTranslation("common");
   return (
     <>
@@ -22,6 +22,7 @@ export default function MyApp({ Component, pageProps }) {
         <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png"/>
         <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png"/>
         <link rel="manifest" href="/favicons/site.webmanifest"/>
+        <link rel="canonical" href={`https://greatresume.app/${locale}${pathname}`} />
         <meta name="theme-color" content="#fff6f0" />
         <meta name="description" content={t("description")} />
         <meta property="og:locale" content={locale} />
