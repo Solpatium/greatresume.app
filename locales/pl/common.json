@@ -9,7 +9,7 @@
         },
         "serious": {
             "title": "Poważny",
-            "description": "Czarnobiały Dwukolumnowy szablon. Klasyczna powaga."
+            "description": "Czarno-biały Dwukolumnowy szablon. Klasyczna powaga."
         },
         "lax": {
             "title": "Luźny",
@@ -25,7 +25,7 @@
         },
         "simple": {
             "title": "Prosty",
-            "description": "Jednokolumnowy szablon z niebieskimi akcentami. Klasyczny i bezpośrendi."
+            "description": "Jednokolumnowy szablon z niebieskimi akcentami. Klasyczny i bezpośredni."
         }
     },
     "languages": {

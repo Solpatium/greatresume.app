@@ -163,7 +163,7 @@
   },
   "intro": {
     "title": "Zanim zaczniemy",
-    "localStorage": "Kretor automatycznie zapisuje Twoje dane w przeglądarce. Nigdzie nie wysyłamy Twoich danych.",
+    "localStorage": "Kreator automatycznie zapisuje Twoje dane w przeglądarce. Nigdzie nie wysyłamy Twoich danych.",
     "incognito": "Użyj <0>trybu incognito</0> jeśli nie chcesz aby po zamknięciu okna przeglądarki Twoje dane były dalej dostępne w naszej aplikacji.",
     "incognitoUrl": "https://www.netia.pl/pl/blog/jak-wlaczyc-tryb-incognito"
   },

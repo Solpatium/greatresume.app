@@ -19,7 +19,7 @@
         "subtitle": "Świetna funkcjonalność za darmo",
         "customization": {
             "title": "Dopasuj CV do siebie",
-            "description": "Wybierz jeden z 6 szablonów który najlepiej odwzierciedla Twoje doświadczneie. Zmień wygląd przez zmiany sekcji i dodanie zdjęcia."
+            "description": "Wybierz jeden z 6 szablonów który najlepiej odzwierciedla Twoje doświadczenie. Zmień wygląd przez zmiany sekcji i dodanie zdjęcia."
         },
         "noFees": {
             "title": "Żadnych ukrytych kosztów",
@@ -51,7 +51,7 @@
         "title": "Stwórz swoje CV za darmo."
     },
     "faq": {
-        "title": "Często zadowane pytania",
+        "title": "Często zadawane pytania",
         "description": "Nie możesz znaleźć odpowiedzi na Twoje pytanie? <contact>Skontaktuj się z nami</contact>.",
         "dataProcessing": {
             "question": "Jak procesujecie moje dane?",
@@ -79,7 +79,7 @@
         },
         "help": {
             "question": "Jak mogę wyrazić wdzięczność?",
-            "answer": "Jeśli podoba Ci się nasza aplikacja, możesz ją udostępnić na swoich socialach lub po prostu opowiedzieć o niej swoim znajomym."
+            "answer": "Jeśli podoba Ci się nasza aplikacja, możesz ją udostępnić na swoich mediach społecznościowych lub po prostu opowiedzieć o niej swoim znajomym."
         },
         "tracking": {
             "question": "Jak śledzicie co robią użytkownicy?",
@@ -93,7 +93,7 @@
     "authors": {
         "names": "Ola i Kuba",
         "subtitle": "To my, autorzy aplikacji.",
-        "text": "<p>Ola zajęła się designem, Kuba napisał kod <small>(możesz go winić jeśli znajdziesz jakieś błędy)</small>.</p><p>Szukanie nowej pracy może być stresującym i przytłaczającym przeżyciem. Wierzymy, że nasza apliakcja może pomóc przez uproszczenie chociaż jednego kroku tego procesu.</p>",
+        "text": "<p>Ola zajęła się designem, Kuba napisał kod <small>(możesz go winić jeśli znajdziesz jakieś błędy)</small>.</p><p>Szukanie nowej pracy może być stresującym i przytłaczającym przeżyciem. Wierzymy, że nasza aplikacja może pomóc przez uproszczenie chociaż jednego kroku tego procesu.</p>",
         "linkOla": "Dribble Oli",
         "linkKuba": "Strona Kuby"
     }

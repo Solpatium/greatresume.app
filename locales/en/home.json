@@ -1,5 +1,5 @@
 {
-    "title": "Free resume creator",
+    "title": "Free resume builder",
     "description": "Create a Great Resume completely for free!",
     "actionLabel": "Let's go!",
     "home": "Home page",
@@ -15,7 +15,7 @@
         "description": "Use one of 6 professional templates to create a resume and export it to a PDF file. All completly private and free, because people looking for a job shouldn't have to pay a penny to create a good resume."
     },
     "features": {
-        "title": "No bullshit resume creator",
+        "title": "No bullshit resume builder",
         "subtitle": "Great features for free",
         "customization": {
             "title": "Make the resume yours",
@@ -26,7 +26,7 @@
             "description": "Application is 100% free and doesn't offer any paid features. Just fill the form and export pdf file containing your resume."
         },
         "private": {
-            "title": "Completly private",
+            "title": "Completely private",
             "description": "Your data doesn't leave your browser. We also don't server any ads."
         },
         "languages": {
@@ -45,7 +45,7 @@
     "examples": {
         "title": "Example resumes",
         "subtitle": "You can import any of the resumes below into the application.",
-        "button": "Edit in creator"
+        "button": "Edit in builder"
     },
     "action": {
         "title": "Ready to dive in? Create your resume for free."
@@ -59,7 +59,7 @@
         },
         "reimport": {
             "question": "I've created a resume some time ago, how do I edit it?",
-            "answer": "Go <start>to creator</start> and select the 'import' option from the top. Please note that <em>this option only works for pdfs generated throught our application</em>."
+            "answer": "Go <start>to builder</start> and select the 'import' option from the top. Please note that <em>this option only works for pdfs generated throught our application</em>."
         },
         "multipleVersions": {
             "question": "How do I maintain multiple versions of the resume?",
@@ -75,7 +75,7 @@
         },
         "monetizationContinuation": {
             "question": "What do you mean you don't make money out of this?",
-            "answer": "We just want to make resume creation accessible for everyone. It all started when my mother lost her job during covid and I wanted to find some resume creators. I found a lot of them baiting you with the promise of \"free resume creator\", but they only allowed exporting to a plain text file (yes, a regular .txt file), forcing you to pay for the pdf. You learn this only after you fill ALL YOUR DATA. There's nothing wrong with wanting to be compensated for work, but misleading people in difficult situations is definitely not okay."
+            "answer": "We just want to make resume creation accessible for everyone. It all started when my mother lost her job during covid and I wanted to find some resume builders. I found a lot of them baiting you with the promise of \"free resume builder\", but they only allowed exporting to a plain text file (yes, a regular .txt file), forcing you to pay for the pdf. You learn this only after you fill ALL YOUR DATA. There's nothing wrong with wanting to be compensated for work, but misleading people in difficult situations is definitely not okay."
         },
         "help": {
             "question": "How do I express my gratitude?",

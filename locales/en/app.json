@@ -1,5 +1,5 @@
 {
-  "page-title": "Resume creator",
+  "page-title": "Resume builder",
   "save": "Save",
   "cancel": "Cancel",
   "edit": "Edit",
@@ -88,7 +88,7 @@
     },
     "legalClause": {
       "title": "Legal clause",
-      "description": "In some europen countries you must explicility allow company to process your data during the recruitment process. Skip this if you don't need that."
+      "description": "In some European countries you must explicitly allow company to process your data during the recruitment process. Skip this if you don't need that."
     },
     "export": {
       "title": "Export",
@@ -191,13 +191,13 @@
     "title": "Import old resume",
     "fileDropText": "Drop your pdf. Make sure you import file exported from our application.",
     "invalidFile": "Please provide a valid pdf file created on our website.",
-    "extractionError": "Can't find embeded data. Please make sure you import file exported from our application",
+    "extractionError": "Can't find embedded data. Please make sure you import file exported from our application",
     "validationError": "There seems to be something wrong with the data in this file.",
     "success": "Resume imported!"
   },
   "intro": {
     "title": "Before we begin",
-    "localStorage": "Creator automatically saves your progress in local storage of your browser. We don't send your personal data anywhere.",
+    "localStorage": "Builder automatically saves your progress in local storage of your browser. We don't send your personal data anywhere.",
     "incognito": "Use <0>incognito mode</0> in case you don't want your data to be available here after closing the browser.",
     "incognitoUrl": "https://www.lifewire.com/browsing-incognito-445990"
   },
