@@ -6,13 +6,12 @@ const faqKeys = [
     "dataProcessing", "reimport", "multipleVersions", "bugs", "monetization", "monetizationContinuation", "help", "tracking", "trust",
 ];
 
-// TODO: Update urls.
 const components = {
     start: <Link className="underline" href="/creator" />,
     em: <em className="font-bold" />,
     githubIssues: <a className="underline" target="_blank" href="https://github.com/Solpatium/greatresume.app/issues" />,
     sourceCode: <a className="underline" target="_blank" href="https://github.com/Solpatium/greatresume.app" />,
-    contact: <a className="underline" href="email:contact@greatresume.app" />,
+    contact: <a className="underline" href="mailto:contact@greatresume.app" />,
     privacyPolicy: <Link prefetch={false} className="underline" href="/privacy-policy" />,
 }
 

@@ -1,7 +1,7 @@
 import Image from "next/image";
 import authorImage from "../../../public/images/creators.webp";
 import dribbleImage from "../../../public/images/dribbble_icon.svg";
-import { GlobeAltIcon, LinkIcon, PaintBrushIcon } from "@heroicons/react/24/outline";
+import { EnvelopeIcon, LinkIcon } from "@heroicons/react/24/outline";
 import useTranslation from "next-translate/useTranslation";
 import Trans from "next-translate/Trans";
 
@@ -32,7 +32,7 @@ export const AuthorSection = () => {
                             p: <p className="mt-2 text-xl tracking-tight text-slate-700" />,
                             small: <span className="text-sm" />
                         }} />
-                        <p className="mt-8 flex flex-row gap-6">
+                        <p className="mt-8 flex flex-row flex-wrap gap-6">
                             <a className="inline-flex items-center text-lg font-bold tracking-tight text-blue-600" href="https://dribbble.com/aleksandranie">
                                 <Image className="h-5 w-5" {...dribbleImage} alt="Dribble logo" />
                                 <span className="ml-1">{t`authors.linkOla`}</span>
@@ -40,6 +40,10 @@ export const AuthorSection = () => {
                             <a className="inline-flex items-center text-lg font-bold tracking-tight text-blue-600" href="https://kubaptak.com">
                                 <LinkIcon style={{ strokeWidth: "1.75px" }} className="h-5 w-5" />
                                 <span className="ml-1">{t`authors.linkKuba`}</span>
+                            </a>
+                            <a className="inline-flex items-center text-lg font-bold tracking-tight text-blue-600" href="mailto:contact@greatresume.app">
+                                <EnvelopeIcon style={{ strokeWidth: "1.75px" }} className="h-5 w-5" />
+                                <span className="ml-1">contact@greatresume.app</span>
                             </a>
                         </p>
                     </div>

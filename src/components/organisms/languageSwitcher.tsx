@@ -6,7 +6,7 @@ import useTranslation from "next-translate/useTranslation";
 import { useRouter } from "next/router";
 import { FlatSelect } from "../atoms/flatSelect";
 import { useHistoryPush } from "../../utils/hooks";
-import { useState } from "react";
+import { useMemo } from "react";
 
 const langs = [
     "en",
@@ -22,15 +22,14 @@ export const LanguageSwitcher: React.FC = () => {
     const { replace, pathname, asPath, query, locale } = useRouter();
     const { maybePop } = useHistoryPush(historyKey, () => {});
     
-    // We keep it in state because we don't want the order of languages to change.
-    const [languages] = useState(() => {
+    const languages = useMemo(() => {
         const list = langs.map((lang) => ({
             value: lang,
             label: t(`languages.names.${lang}`),
         })); 
         list.sort((a, b) => a.label.localeCompare(b.label));
         return list;
-    });
+    }, [t]);
 
     return <>
         <Button
