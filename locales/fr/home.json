@@ -1,0 +1,100 @@
+{
+    "title": "Créateur de CV gratuit",
+    "description": "Créez un Excellent CV entièrement gratuitement!",
+    "actionLabel": "C'est parti!",
+    "home": "Accueil",
+    "nav": {
+        "about": "À propos",
+        "examples": "Exemples",
+        "faq": "FAQ",
+        "authors": "Auteurs"
+    },
+    "hero": {
+        "title": "Créez un <em>Excellent CV</em> entièrement <em>gratuitement</em>",
+        "subtitle": "Sans conditions",
+        "description": "Utilisez l'un des 6 modèles professionnels pour créer un CV et exportez-le au format PDF. Tout est totalement privé et gratuit, car les personnes à la recherche d'un emploi ne devraient pas avoir à payer un centime pour créer un bon CV."
+    },
+    "features": {
+        "title": "Créateur de CV sans blabla",
+        "subtitle": "Des fonctionnalités exceptionnelles gratuitement",
+        "customization": {
+            "title": "Personnalisez votre CV",
+            "description": "Choisissez l'un des 6 modèles qui reflète le mieux votre expérience. Ajustez son apparence en réorganisant les sections, en ajoutant une photo ou en changeant le format de papier."
+        },
+        "noFees": {
+            "title": "Pas de frais cachés",
+            "description": "L'application est 100% gratuite et ne propose aucune fonction payante. Il vous suffit de remplir le formulaire et d'exporter un fichier PDF contenant votre CV."
+        },
+        "private": {
+            "title": "Complètement privé",
+            "description": "Vos données ne quittent pas votre navigateur. Nous ne diffusons également aucune publicité."
+        },
+        "languages": {
+            "title": "3 langues prises en charge",
+            "description": "Actuellement, nous prenons en charge l'anglais, le français et le polonais."
+        },
+        "devices": {
+            "title": "Fonctionne parfaitement sur tous les appareils",
+            "description": "Ordinateur portable, tablette, smartphone - il vous suffit d'en choisir un et de perfectionner votre CV."
+        },
+        "reimport": {
+            "title": "Réimportez votre PDF",
+            "description": "Lors de l'exportation, nous sauvegardons la structure du CV dans le PDF lui-même. De cette manière, vous pouvez ensuite réimporter votre CV à l'avenir pour le mettre à jour."
+        }
+    },
+    "examples": {
+        "title": "Exemples de CV",
+        "subtitle": "Vous pouvez importer l'un des CV ci-dessous dans l'application.",
+        "button": "Modifier dans le créateur"
+    },
+    "action": {
+        "title": "Prêt à plonger? Créez votre CV gratuitement."
+    },
+    "faq": {
+        "title": "Questions Fréquemment Posées",
+        "description": "Vous ne trouvez pas la réponse que vous cherchez? <contact>Contactez-nous</contact>.",
+        "dataProcessing": {
+            "question": "Comment mes données sont-elles traitées?",
+            "answer": "Vos données sont uniquement utilisées pour générer votre CV et elles ne quittent pas votre navigateur. Notre application n'utilise aucun serveur pour générer votre CV. Elle utilise JavaScript pour le générer dans votre navigateur, de manière sécurisée et privée."
+        },
+        "reimport": {
+            "question": "J'ai créé un CV il y a quelque temps, comment puis-je le modifier?",
+            "answer": "Allez <start>au créateur</start> et sélectionnez l'option 'importer' en haut. Veuillez noter que <em>cette option ne fonctionne que pour les PDF générés à travers notre application</em>."
+        },
+        "multipleVersions": {
+            "question": "Comment puis-je maintenir plusieurs versions du CV?",
+            "answer": "Chaque fois que vous souhaitez conserver une version, vous pouvez simplement la télécharger. Lorsque vous souhaitez apporter des modifications, vous pouvez toujours l'importer à nouveau."
+        },
+        "bugs": {
+            "question": "Comment signaler un bug?",
+            "answer": "Github issues sont utilisés pour suivre les bugs. Veuillez noter que tous les problèmes sont publics, <em>assurez-vous de ne pas inclure de données que vous souhaitez garder privées</em> !  Vous pouvez créer issue sur Github <githubIssues>ici</githubIssues>."
+        },
+        "monetization": {
+            "question": "Comment gagnez-vous de l'argent avec cela?",
+            "answer": "Nous ne gagnons pas d'argent avec cela."
+        },
+        "monetizationContinuation": {
+            "question": "Que voulez-vous dire par vous ne gagnez pas d'argent avec cela?",
+            "answer": "Nous voulons simplement rendre la création de CV accessible à tous. Tout a commencé lorsque ma mère a perdu son emploi pendant la pandémie de Covid et que je voulais trouver des créateurs de CV. J'en ai trouvé beaucoup qui vous appâtaient avec la promesse de \"créateur de CV gratuit\", mais ils ne permettaient d'exporter qu'un fichier texte brut (oui, un simple fichier .txt), vous obligeant à payer pour le PDF. Vous l'apprenez seulement après avoir rempli TOUTES VOS DONNÉES. Il n'y a rien de mal à vouloir être rémunéré pour son travail, mais tromper les gens dans des situations difficiles n'est certainement pas acceptable."
+        },
+        "help": {
+            "question": "Comment puis-je exprimer ma gratitude?",
+            "answer": "Si vous êtes satisfait de notre outil, vous pouvez le partager sur les réseaux sociaux ou simplement en parler à vos amis."
+        },
+        "tracking": {
+            "question": "Suivez-vous vos utilisateurs?",
+            "answer": "Nous utilisons Google Analytics pour suivre l'utilisation. Cela nous donne un aperçu de la manière dont les gens utilisent notre application. Pas d'inquiétude, nous n'envoyons aucune partie de votre CV à un service externe. Si vous souhaitez retirer votre consentement, vous pouvez le faire directement depuis notre <privacyPolicy>Politique de confidentialité</privacyPolicy>."
+        },
+        "trust": {
+            "question": "Comment puis-je être sûr que vous ne mentez pas?",
+            "answer": "Vous pouvez voir le code source vous-même <sourceCode>ici</sourceCode>."
+        }
+    },
+    "authors": {
+        "names": "Ola et Kuba",
+        "subtitle": "Salut, nous sommes les auteurs de cette application",
+        "text": "<p>Ola s'est occupée de design, Kuba a écrit le code <small>(c'est de sa faute si vous trouvez des bugs)</small>.</p><p>La recherche d'emploi peut être une expérience stressante et écrasante. Nous croyons que notre application peut aider en rendant au moins une étape du processus un peu plus simple.</p>",
+        "linkOla": "Dribble d'Ola",
+        "linkKuba": "Site web de Kuba"
+    }
+}

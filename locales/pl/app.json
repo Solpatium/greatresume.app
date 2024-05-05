@@ -1,0 +1,176 @@
+{
+  "page-title": "Kreator CV",
+  "save": "Zapisz",
+  "cancel": "Anuluj",
+  "edit": "Edytuj",
+  "preview": "Podgląd",
+  "empty": "Puste",
+  "description": "Opis",
+  "startDate": "Rozpoczęcie",
+  "endDate": "Zakończenie",
+  "delete": "Usuń",
+  "email": "Email",
+  "phone": "Telefon",
+  "name": "Imię",
+  "surname": "Nazwisko",
+  "jobTitle": "Tytuł",
+  "photo": "Zdjęcie",
+  "contact": "Kontakt",
+  "embededPdfFileDescription": "Structured data for editing resume at greatresume.app.",
+  "listOfTemplates": "Szablony",
+  "reset": "Reset",
+  "resume": "CV",
+  "ok": "OK",
+  "addNewEntry": "Dodaj nowy wpis",
+  "downloadYourResume": "Pobierz CV",
+  "pageSize": "Format papieru",
+  "selected": "Wybrany",
+  "addPhoto": "Dodaj zdjęcie",
+  "yourPhoto": "Twoje zdjęcie",
+  "dropzoneText": "Przeciągnij tu swój plik.",
+  "dropzoneButton": "Wybierz plik",
+  "entryDeletionConfirmation": "Czy na pewno chcesz usunąć ten wpis?",
+  "listEditStart": "Zmień kolejność",
+  "listEditEnd": "Zapisz kolejność",
+  "paper": {
+    "a4": "A4",
+    "a4Description": "Popularny w EU.",
+    "letter": "Letter",
+    "letterDescription": "Popularny w USA."
+  },
+  "steps": {
+    "appearance": {
+      "title": "Wygląd",
+      "description": "Wybierz format papieru i szablon który chcesz użyć. Możesz je zmienić też na końcu, po wypełnieniu całego formularza."
+    },
+    "personalInfo": {
+      "title": "Twoje dane",
+      "addNewEntry": "Dodaj nową metodę kontaktu",
+      "entryLabel": "Nazwa metody kontaktu",
+      "entryValue": "Metoda kontaktu"
+    },
+    "employment": {
+      "description": "Historia Twojego zatrudnienia.",
+      "entryTitle": "Pozycja",
+      "entrySubtitle": "Firma"
+    },
+    "education": {
+      "description": "Historia Twojej edukacji.",
+      "entryTitle": "Poziom",
+      "entrySubtitle": "Szkoła"
+    },
+    "projects": {
+      "description": "Projekty którymi chcesz się pochwalić.",
+      "entryTitle": "Odpowiedzialność",
+      "entrySubtitle": "Nazwa projektu"
+    },
+    "experience": {
+      "description": "Inne doświadczenie.",
+      "entryTitle": "Tytuł",
+      "entrySubtitle": "Subtytuł"
+    },
+    "skills": {
+      "description": "Umiejętności",
+      "name": "Umiejętność",
+      "value": "Poziom"
+    },
+    "languages": {
+      "description": "Języki",
+      "name": "Język",
+      "value": "Poziom"
+    },
+    "interests": {
+      "description": "Twoje zainteresowania.",
+      "interest": "Zainteresowanie"
+    },
+    "text": {
+      "description": "Dowolny tekst."
+    },
+    "legalClause": {
+      "title": "Klauzula prawna",
+      "description": "W niektórych europejskich krajach, takich jak Polska, musisz wyrazić zgodę na procesowanie Twoich danych podczas rekrutacji."
+    },
+    "export": {
+      "title": "Export",
+      "description": "All done! Now export your resume or choose a different look to see which one works best."
+    }
+  },
+  "defaults": {
+    "paperSize": "A4",
+    "titles": {
+      "employment": "Zatrudnienie",
+      "education": "Edukacja",
+      "projects": "Projekty",
+      "experience": "Doświadczenie",
+      "skills": "Umiejętności",
+      "languages": "Języki",
+      "interests": "Zainteresowania",
+      "text": "Tekst"
+    },
+    "legal-clause": "Wyrażam zgodę na przetwarzanie moich danych osobowych dla potrzeb niezbędnych do realizacji procesu rekrutacji (zgodnie z ustawą z dnia 10 maja 2018 roku o ochronie danych osobowych (Dz. Ustaw z 2018, poz. 1000) oraz zgodnie z Rozporządzeniem Parlamentu Europejskiego i Rady (UE) 2016/679 z dnia 27 kwietnia 2016 r. w sprawie ochrony osób fizycznych w związku z przetwarzaniem danych osobowych i w sprawie swobodnego przepływu takich danych oraz uchylenia dyrektywy 95/46/WE (RODO)."
+  },
+  "newSection": {
+    "title": "Sekcje",
+    "sectionTitle": "Tytuł sekcji",
+    "description": "Spersonalizuj sekcje na swoim CV. Możesz zmieniać kolejność, dodawać i usuwać sekcje.",
+    "addNew": "Dodaj nową sekcję",
+    "modalTitle": "Wybierz sekcję do dodania",
+    "deletionConfirmation": "Na pewno chcesz usunąć tę sekcję?",
+    "sections": {
+      "label": "Dostępne sekcje",
+      "employment": {
+        "label": "Zatrudnienie",
+        "description": "Historia Twojego zatrudnienia."
+      },
+      "education": {
+        "label": "Edukacja",
+        "description": "Historia Twojej edukacji."
+      },
+      "projects": {
+        "label": "Projekty",
+        "description": "Projekty którymi chcesz się pochwalić."
+      },
+      "experience": {
+        "label": "Doświadczenie",
+        "description": "Inne doświadczenie."
+      },
+      "skills": {
+        "label": "Umiejętności",
+        "description": "Twoje umiejętności."
+      },
+      "languages": {
+        "label": "Języki",
+        "description": "Znane języki."
+      },
+      "interests": {
+        "label": "Zainteresowania",
+        "description": "Twoje zainteresowania."
+      },
+      "text": {
+        "label": "Tekst",
+        "description": "Tekst o dowolnej treści."
+      }
+    },
+    "addSection": "Dodaj sekcję"
+  },
+  "dataImport": {
+    "title": "Importuj CV",
+    "fileDropText": "Upuść Tu swoje CV. Upewnij się, ze powstało w naszej aplikacji.",
+    "invalidFile": "Niepoprawny plik.",
+    "extractionError": "Podany plik nie został wygenerowany w naszej aplikacji, brakuje danych pozwalających na jego odtworzenie.",
+    "validationError": "Zapisane dane nie zostały poprawnie zwalidowane.",
+    "success": "Import zakończony!"
+  },
+  "intro": {
+    "title": "Zanim zaczniemy",
+    "localStorage": "Kretor automatycznie zapisuje Twoje dane w przeglądarce. Nigdzie nie wysyłamy Twoich danych.",
+    "incognito": "Użyj <0>trybu incognito</0> jeśli nie chcesz aby po zamknięciu okna przeglądarki Twoje dane były dalej dostępne w naszej aplikacji.",
+    "incognitoUrl": "https://www.netia.pl/pl/blog/jak-wlaczyc-tryb-incognito"
+  },
+  "congratulations": {
+    "title": "Gratulujemy!",
+    "content": "Twoje CV jest gotowe. Prezentuje Twoje umiejętności i doświadczenie, ale Twoja historia jest czymś znacznie więcej. Wiemy, że szukanie pracy bywa ciężkie, ale <0>nie pozwól by niepowodzenia Cię zniechęciły</0>.",
+    "greetings":"Trzymamy za Ciebie kciuki,",
+    "signature":"Ola i Kuba, twórcy aplikacji"
+  }
+}

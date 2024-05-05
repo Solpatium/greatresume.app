@@ -1,0 +1,1 @@
+export const HTMLText: React.FC<{children: string}> = ({children}) => children ? (<div dangerouslySetInnerHTML={{__html: children }}/>) : null;

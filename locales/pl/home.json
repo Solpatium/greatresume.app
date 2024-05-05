@@ -1,0 +1,100 @@
+{
+    "title": "Darmowy kreator CV",
+    "description": "Stwórz świetne CV całkowicie za darmo.",
+    "actionLabel": "Zacznij edytować!",
+    "home": "Strona główna",
+    "nav": {
+        "about": "O aplikacji",
+        "examples": "Przykłady",
+        "faq": "FAQ",
+        "authors": "Autorzy"
+    },
+    "hero": {
+        "title": "Stwórz <em>Świetne CV</em> całkowicie <em>za darmo</em>",
+        "subtitle": "Żadnych haczyków",
+        "description": "Użyj jednego z naszych 6 profesjonalnych szablonów aby stworzyć CV i wyeksportować je do PDFa. Wszystko kompletnie prywatnie i za darmo, ponieważ ludzie poszukujący pracy nie powinni być zmuszeni do płacenia za dobre CV."
+    },
+    "features": {
+        "title": "Kreator bez haczyków",
+        "subtitle": "Świetna funkcjonalność za darmo",
+        "customization": {
+            "title": "Dopasuj CV do siebie",
+            "description": "Wybierz jeden z 6 szablonów który najlepiej odwzierciedla Twoje doświadczneie. Zmień wygląd przez zmiany sekcji i dodanie zdjęcia."
+        },
+        "noFees": {
+            "title": "Żadnych ukrytych kosztów",
+            "description": "Aplikacja jest w 100% darmowa i nie oferuje żadnych płatnych opcji. Po prostu wypełnij formularz i eksportuj pdfa."
+        },
+        "private": {
+            "title": "Całkowicie prywatne",
+            "description": "Twoje dane nie opuszczają przeglądarki. Nie serwujemy też żadnych śledzących reklam."
+        },
+        "languages": {
+            "title": "3 wspierane języki",
+            "description": "Obecnie wspieramy polski, angielski i francuski."
+        },
+        "devices": {
+            "title": "Działa na każdym urządzeniu",
+            "description": "Laptop, tablet, smartfon - wybierz dowolne z nich i stwórz swoje CV."
+        },
+        "reimport": {
+            "title": "Import CV",
+            "description": "Podczas eksportu zapisujemy strukturę CV w pliku pdf. Dzięki temu po wygenerowaniu swojego CV możesz je zaimportować za jakiś czas aby kontynuować edycję."
+        }
+    },
+    "examples": {
+        "title": "Przykładowe CV",
+        "subtitle": "Możesz zaimportować przykład poniżej w aplikacji.",
+        "button": "Edytuj"
+    },
+    "action": {
+        "title": "Stwórz swoje CV za darmo."
+    },
+    "faq": {
+        "title": "Często zadowane pytania",
+        "description": "Nie możesz znaleźć odpowiedzi na Twoje pytanie? <contact>Skontaktuj się z nami</contact>.",
+        "dataProcessing": {
+            "question": "Jak procesujecie moje dane?",
+            "answer": "Dane z formularza używane są wyłącznie do wygenerowania CV. Samo generowanie odbywa się całkowicie w Twojej przeglądarce, dane z formularza nie opuszczają Twojego komputera."
+        },
+        "reimport": {
+            "question": "Mam stare CV wygenerowane z tej aplikacji, jak mogę je edytować?",
+            "answer": "Otwórz <start>kreator</start> i wybierz kliknij \"Importuj\" u góry. Pamiętaj, że <em>import zadziała jedynie z CV wygenerowanym przez naszą aplikację</em>."
+        },
+        "multipleVersions": {
+            "question": "Jak mogę edytować wiele wersji CV?",
+            "answer": "Za każdym razem kiedy chcesz zachować wersję możesz ją po prostu pobrać. Aby do niej potem wrócić zaimportuj ją z powrotem do aplikacji."
+        },
+        "bugs": {
+            "question": "Jak mogę zgłosić błąd?",
+            "answer": "Używamy Githuba do takich zgłoszeń. Pamiętaj, że wszystkie zgłoszenia są prywatne, <em>upewnij się, że Twoje zgłoszenie nie zawiera żadnych danych których nie chcesz upubliczniać</em>! Możesz zgłosić problem <githubIssues>tutaj</githubIssues>."
+        },
+        "monetization": {
+            "question": "Jak na tym zarabiacie?",
+            "answer": "Nie zarabiamy."
+        },
+        "monetizationContinuation": {
+            "question": "Jak to nie zarabiacie?",
+            "answer": "Chcemy tylko ułatwić tworzenie CV. Pomysł na taką aplikację powstał kiedy moja mama straciła pracę podczas covidu. Szukałem jakiegoś kreatora, ale wiele z nich było darmowe tylko w teorii. W praktyce na samym końcu, po wypełnieniu całego CV, pojawiała się informacja, że trzeba zapłacić za wygenerowanie pdfa. Za darmo można było jedynie wyeksportować plik tekstowy (zwykły plik .txt). Nie ma nic złego w oczekiwaniu na zapłatę za swoje usługi, ale wprowadzanie ludzi w trudnym momencie życia w błąd nie jest ok."
+        },
+        "help": {
+            "question": "Jak mogę wyrazić wdzięczność?",
+            "answer": "Jeśli podoba Ci się nasza aplikacja, możesz ją udostępnić na swoich socialach lub po prostu opowiedzieć o niej swoim znajomym."
+        },
+        "tracking": {
+            "question": "Jak śledzicie co robią użytkownicy?",
+            "answer": "Używamy use Google Analytics aby mieć wgląd w to jak używana jest aplikacja. Nie wysyłamy tam żadnych danych które wpisujesz w formularzu generatora. Jeśli chcesz cofnąć swoją zgodę marketingową możesz to zrobić bezpośrednio ze strony <privacyPolicy>polityki prywatności</privacyPolicy>."
+        },
+        "trust": {
+            "question": "Skąd mogę mieć pewność, że to wszystko prawda?",
+            "answer": "Kod źródłowy jest dostępny <sourceCode>tutaj</sourceCode>."
+        }
+    },
+    "authors": {
+        "names": "Ola i Kuba",
+        "subtitle": "To my, autorzy aplikacji.",
+        "text": "<p>Ola zajęła się designem, Kuba napisał kod <small>(możesz go winić jeśli znajdziesz jakieś błędy)</small>.</p><p>Szukanie nowej pracy może być stresującym i przytłaczającym przeżyciem. Wierzymy, że nasza apliakcja może pomóc przez uproszczenie chociaż jednego kroku tego procesu.</p>",
+        "linkOla": "Dribble Oli",
+        "linkKuba": "Strona Kuby"
+    }
+}

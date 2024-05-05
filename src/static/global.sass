@@ -1,0 +1,57 @@
+@use "utils"
+@use "resume-preview"
+
+body
+    box-sizing: border-box
+    margin: 0
+    font-family: 'Open Sans', sans-serif
+    background: #fff6f0 !important
+    -webkit-tap-highlight-color: rgb(233 233 233 / 0.5)
+
+
+h1, h2, h3, h4, h5, h6
+    font-family: 'Josefin Sans', sans-serif
+
+*
+    box-sizing: inherit
+    text-rendering: optimizeLegibility
+    -webkit-font-smoothing: antialiased
+    -moz-osx-font-smoothing: grayscale
+
+body .rc-md-editor
+    border-radius: 0.375rem
+
+    .rc-md-navigation
+        border-top-left-radius: 0.375rem
+        border-top-right-radius: 0.375rem
+
+    .section-container
+        border-bottom-left-radius: 0.375rem
+        border-bottom-right-radius: 0.375rem
+
+    .editor-container
+        .sec-md .input
+            outline: 2px solid transparent
+            overflow-y: auto
+            min-height: 200px
+            font-size: 0.875rem
+            line-height: 1.25rem
+            resize: vertical
+
+        >.section
+            border: 0
+
+    .rc-md-navigation 
+        .navigation-nav.left
+            width: 100%
+            .button-type-undo
+                margin-left: auto
+
+        .navigation-nav .button-wrap
+            width: 100%
+
+    &.long-editor .editor-container .input
+        min-height: 300px
+
+.pdf-container canvas
+    margin-bottom: 20px

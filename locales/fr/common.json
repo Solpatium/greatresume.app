@@ -1,0 +1,47 @@
+{
+    "home": "Accueil",
+    "overwriteQuestion": "Êtes-vous sûr de vouloir continuer ? Votre CV actuellement en cours d'édition sera écrasé.",
+    "description": "Créez un Excellent CV entièrement gratuitement!",
+    "templates": {
+        "professional": {
+            "title": "Professionnel",
+            "description": "Modèle à deux colonnes avec des couleurs bleues. Frais et professionnel."
+        },
+        "serious": {
+            "title": "Sérieux",
+            "description": "Modèle en noir et blanc à deux colonnes. Sérieux et rétro."
+        },
+        "lax": {
+            "title": "Détendu",
+            "description": "Modèle à deux colonnes avec quelques accents verts. Léger et frais."
+        },
+        "energetic": {
+            "title": "Énergique",
+            "description": "Modèle à une colonne avec quelques accents violets. Dynamique et moderne."
+        },
+        "peachy": {
+            "title": "Pêche",
+            "description": "Modèle à une colonne utilisant la couleur orange. Sûr et propre."
+        },
+        "simple": {
+            "title": "Simple",
+            "description": "Modèle à une colonne avec des accents bleus. Direct et classique."
+        }
+    },
+    "languages": {
+        "title": "Changer de langue",
+        "label": "Langues disponibles",
+        "names": {
+            "pl": "Polonais",
+            "en": "Anglais",
+            "fr": "Français",
+            "de": "Allemand"
+        }
+    },
+    "cookies": {
+        "content": "Nous utilisons Google Analytics pour voir comment nous pouvons améliorer nos services. <0>Nous ne collectons les données utilisées pour créer des CV, elles ne quittent pas votre appareil.</0> En cliquant sur \"Accepter\",  vous acceptez l'utilisation de cookies telle que décrite dans notre <1>Politique de confidentialité</1>. Il est possible de les rejeter.",
+        "accept": "Accepter",
+        "reject": "Rejeter"
+    },
+    "footer": "© 2024 greatresume.app. Tous droits réservés."
+}

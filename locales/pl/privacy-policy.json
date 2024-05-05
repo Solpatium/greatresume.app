@@ -1,0 +1,16 @@
+{
+    "title": "Polityki prywatności",
+    "subtitle": "Polityka prywatności tłumaczy jak zbieramy i zabezpieczamy Twoje dane. Używając naszej aplikacji zgadzas się na warunki opisane w tej polityce.",
+    "cookies-rejected": "Odrzucono ciasteczka.",
+    "cookies-accepted": "Zaakceptowano ciasteczka.",
+    "cookies-reset-info": "Użyj guzika poniżej żeby zresetować swój wybór i wybrać ponownie.",
+    "cookies-reset-button": "Zresetuj wybór",
+    "cookies-undefined": "Ciasteczka nie zostały odrzucone/zaakceptowane. Możesz użyć ciasteczkowego banera aby dokonać wyboru. Po dokonaniu wyboru musisz odświeżyć stronę aby zobaczyć tu zmiany.",
+    "info-header": "Informacje które zbieramy",
+    "info-content": "Używamy Google Analytics aby mieć wgląd w to w jaki sposób użytkownicy używają naszej aplikacji. Google Analytics używa plików cookie aby powiedzieć nam kiedy użytkownicy używają naszej aplikacji, jakie strony odwiedzają i w jaki sposób dotarli do naszej strony. Używamy tych informacji aby polepszyć naszą aplikację i usługę. Po więcej informacji w jaki sposób Google Analytics zbiera i procesuje dane odwiedź <0>politykę prywatności Google.</0>",
+    "choice-header": "Twój wybór",
+    "changes-header": "Zmiany do polityki prywatności",
+    "changes-content": "Zastrzegamy sobie prawo do aktualizacji i modyfikacji tej polityki prywatności w dowolnym momencie bez ostrzeżeń.",
+    "contact-header": "Skontaktuj się z nami",
+    "contact-content": "Wszelkie pytania dotyczące naszej polityki prywatności proszę kierować na adres contact@greatresume.app."
+}

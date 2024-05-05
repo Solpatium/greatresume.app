@@ -1,0 +1,8 @@
+				$elem.css({
+					transform: 'scale(' + value + ')',
+					marginLeft: (size.width * value - size.width) / 2,
+					marginRight: (size.width * value - size.width) / 2,
+					marginTop: (size.height * value - size.height) / 2,
+					marginBottom: (size.height * value - size.height) / 2
+				});
+

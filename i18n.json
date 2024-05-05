@@ -1,0 +1,10 @@
+{
+  "locales": ["en", "pl", "fr"],
+  "defaultLocale": "en",
+  "pages": {
+    "*": ["common"],
+    "/": ["home"],
+    "/creator": ["app"],
+    "/privacy-policy": ["privacy-policy"]
+  }
+}

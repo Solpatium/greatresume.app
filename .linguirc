@@ -1,0 +1,10 @@
+{
+   "locales": ["en", "cs", "fr"],
+   "sourceLocale": "en",
+   "catalogs": [{
+      "path": "src/locales/{locale}/messages",
+      "include": ["src", "pages"]
+   }],
+   "format": "po",
+   "compileNamespace": "ts"
+}
