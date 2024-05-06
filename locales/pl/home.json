@@ -67,7 +67,7 @@
         },
         "bugs": {
             "question": "Jak mogę zgłosić błąd?",
-            "answer": "Używamy Githuba do takich zgłoszeń. Pamiętaj, że wszystkie zgłoszenia są prywatne, <em>upewnij się, że Twoje zgłoszenie nie zawiera żadnych danych których nie chcesz upubliczniać</em>! Możesz zgłosić problem <githubIssues>tutaj</githubIssues>."
+            "answer": "Używamy Githuba do takich zgłoszeń. Pamiętaj, że wszystkie zgłoszenia są publiczne, <em>upewnij się, że Twoje zgłoszenie nie zawiera żadnych danych których nie chcesz upubliczniać</em>! Możesz zgłosić problem <githubIssues>tutaj</githubIssues>."
         },
         "monetization": {
             "question": "Jak na tym zarabiacie?",
