@@ -167,7 +167,7 @@ const DownloadButton: React.FC = () => {
     largeIcon
     className="text-base px-6"
   >
-    {t`save`}
+    {t`download`}
   </Button>
 }
 
