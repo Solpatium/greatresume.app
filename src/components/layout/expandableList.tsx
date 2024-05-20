@@ -162,7 +162,11 @@ export const ExpandableList = <Type extends HasId>({
     },
     [stateProxy, confirmDeletion],
   );
+  const isMobile = useIsMobile();
   useEffect(() => {
+    if (isMobile) {
+      return;
+    }
     let idsBefore = new Set(stateProxy.map(e => e.id));
     const handler = () => {
       stateProxy.forEach(entry => {
@@ -173,7 +177,7 @@ export const ExpandableList = <Type extends HasId>({
       });
     };
     return subscribe(stateProxy, handler);
-  }, [onAddNew, stateProxy]);
+  }, [onAddNew, stateProxy, isMobile]);
 
   useSnapshot(stateProxy);
 
