@@ -43,10 +43,6 @@ export const Editor: React.FC<{
     element: <><SectionTitle title={t`steps.legalClause.title`} /><LegalClauseForm stateProxy={state.resume} /></>,
     title: t`steps.legalClause.title`,
     id: "legal-clause",
-  }, {
-    element: <><SectionTitle title={t`steps.export.title`} /><Export /></>,
-    title: t`steps.export.title`,
-    id: "export",
   }]
 
   return (

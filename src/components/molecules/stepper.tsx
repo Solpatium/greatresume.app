@@ -1,22 +1,10 @@
-import React, { useEffect, useMemo, useState } from "react"
+import React, { useMemo } from "react"
 import { Button } from "../atoms/button";
-import styles from "./stepper.module.scss";
 import { useSnapshot } from "valtio";
 import { useAppState } from "../../state/store";
 import useTranslation from "next-translate/useTranslation";
-import { ArrowDownOnSquareIcon, ArrowDownTrayIcon } from "@heroicons/react/24/outline";
+import { ArrowDownTrayIcon } from "@heroicons/react/24/outline";
 
-const ProgressCard: React.FC<{ icon: string, title: string, subtitle: string }> = ({ icon, title, subtitle }) => {
-  return (<div className="progress-card flex justify-center p-3 my-7">
-    <div className="bg-white rounded-3xl p-4 md:p-5 flex gap-5 items-center">
-      <span className="min-w-[4rem] w-16 h-16 md:w-20 md:h-20 text-3xl md:text-4xl flex justify-center items-center bg-slate-50 rounded-full grow" aria-hidden>{icon}</span>
-      <div className="flex flex-col justify-center gap-1">
-        <span className="text-lg md:text-xl font-semibold">{title}</span>
-        <span className="text-md md:text-lg">{subtitle}</span>
-      </div>
-    </div>
-  </div>)
-};
 
 export const StepWrapper: React.FC<{
   className?: string;
